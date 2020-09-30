@@ -13,7 +13,7 @@ int imp__fget_line(char *str, int size, FILE *file)
 
     if (fgets(str, size, file) != str)
         return -1; // bad file
-    
+
     // remove trailing \n & \r
     while (str[strlen(str) - 1] == '\n' || str[strlen(str) - 1] == '\r')
         str[strlen(str) - 1] = '\0';
@@ -31,7 +31,7 @@ unsigned int imp__count_flats_amount(FILE *file)
     for (char chr; (chr = fgetc(file)) != '\0' && chr != EOF;)
         if (chr == '\n')
             amount++;
-    
+
     rewind(file);
     return amount;
 }
@@ -45,9 +45,12 @@ int imp__read_flat_table_from_file(FILE *file, flat_table_t *table)
     {
         if (imp__fget_line(line, FLAT_STRING_SIZE, file))
             status = -3; // bad file
-        
+
         else if (sread_flat(line, table->flats_array + i))
             status = -4; // bad string
+
+        else
+            table->flats_array[i].id = i;
     }
 
     return status;
@@ -57,8 +60,7 @@ flat_table_t create_flat_table()
 {
     flat_table_t table = {
         .flats_array = NULL,
-        .size = 0u
-    };
+        .size = 0u};
 
     return table;
 }
@@ -89,11 +91,11 @@ int fread_flat_table(FILE *file, flat_table_t *table)
         return -1; // no data was readed
 
     // allocate memory
-    table->flats_array = (flat_t*)malloc(flats_amount * sizeof(flat_t));
+    table->flats_array = (flat_t *)malloc(flats_amount * sizeof(flat_t));
     if (table->flats_array == NULL)
         return -2; // bad allocation
     table->size = flats_amount;
-    
+
     // read file line by line
     if (imp__read_flat_table_from_file(file, table))
     {
@@ -140,23 +142,23 @@ int imp__flat_comp(flat_t *flat_1, flat_t *flat_2, sort_key_t key)
 {
     switch (key)
     {
-        case ADDRESS:
-            return -strcmp(flat_1->address, flat_2->address);
-        
-        case AREA:
-            if (flat_1->area < flat_2->area)
-                return 1;
-            else if (flat_1->area > flat_2->area)
-                return -1;
-            else
-                return 0;
-        
-        case ROOMS_AMOUNT:
-            return flat_2->rooms_amount - flat_1->rooms_amount;
+    case ADDRESS:
+        return -strcmp(flat_1->address, flat_2->address);
 
-        default:
-            assert(0); // invalid key
+    case AREA:
+        if (flat_1->area < flat_2->area)
+            return 1;
+        else if (flat_1->area > flat_2->area)
+            return -1;
+        else
             return 0;
+
+    case ROOMS_AMOUNT:
+        return flat_2->rooms_amount - flat_1->rooms_amount;
+
+    default:
+        assert(0); // invalid key
+        return 0;
     }
 }
 

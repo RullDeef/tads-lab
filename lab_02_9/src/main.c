@@ -116,7 +116,6 @@ int run_menu_loop()
                 imp__pause();
                 break;
         }
-
     }
 
     free_app_state(&state);

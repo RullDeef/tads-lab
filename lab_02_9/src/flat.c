@@ -214,7 +214,8 @@ void printf_flat(flat_t *flat)
 {
     assert_flat(flat);
 
-    printf("| %30s |", flat->address);
+    printf("| %02d |", flat->id);
+    printf(" %30s |", flat->address);
     printf(" %7.2f |", flat->area);
     printf(" %13d |", flat->rooms_amount);
     printf(" %9.2f |", flat->price_per_m2);

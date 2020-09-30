@@ -7,8 +7,9 @@
 #define FIELDS_DELIMETER ';'
 #define PRIMARY_TYPE_STR "PRIMARY"
 #define SECONDARY_TYPE_STR "SECONDARY"
-#define TRUE_STR "true"
-#define FALSE_STR "false"
+#define TRUE_STR "yes"
+#define FALSE_STR "no"
+#define MAX_ADDRESS_SIZE (30 + 1)
 
 #ifndef NDEBUG
 #define assert_flat(flat)                \
@@ -31,7 +32,8 @@ typedef unsigned char bit_t;
 
 typedef struct
 {
-    char *address;
+    unsigned int id;
+    char address[MAX_ADDRESS_SIZE];
     float area;
     unsigned char rooms_amount;
     float price_per_m2;
@@ -58,6 +60,5 @@ flat_t clone_flat(flat_t *original);
 */
 int sread_flat(const char *str, flat_t *flat);
 void printf_flat(flat_t *flat);
-void free_flat(flat_t *flat);
 
 #endif // __FLAT_H_

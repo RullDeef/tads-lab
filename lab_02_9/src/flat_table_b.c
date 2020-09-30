@@ -229,9 +229,6 @@ void free_flat_table(flat_table_t *table)
 
     if (table->flats_array != NULL)
     {
-        for (unsigned int i = 0; i < table->size; i++)
-            free_flat(table->flats_array + i);
-
         free(table->flats_array);
         table->flats_array = NULL;
         table->size = 0;

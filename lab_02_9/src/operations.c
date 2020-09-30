@@ -26,19 +26,19 @@ static int imp__read_integer(unsigned char *num)
     char temp[256];
     if (fgets(temp, 256, stdin) != temp)
         return -1;
-    
+
     char *end;
     unsigned long val = strtoul(temp, &end, 10);
 
     if (val == 0 && errno == EINVAL)
         return -2;
-    
+
     while (*end == ' ' || *end == '\t' || *end == '\r' || *end == '\n')
         end++;
-    
+
     if (*end != '\0')
         return -3;
-    
+
     if (val > 255UL)
         return -4;
 
@@ -110,10 +110,9 @@ static int imp__request_flat_data(flat_t *flat)
     assert(flat != NULL);
 
     int status_code = 0;
-    char temp_address[256];
 
     printf("Введите адрес квартиры (желательно не более 200 символов):\n");
-    status_code = imp__read_line(temp_address, 256);
+    status_code = imp__read_line(flat->address, MAX_ADDRESS_SIZE);
     if (status_code == 0)
     {
         printf("Введите площадь квартиры (целое или вещественное положительное число): ");
@@ -182,23 +181,15 @@ static int imp__request_flat_data(flat_t *flat)
         status_code = imp__read_integer(&flat->prev_lodgers_amount);
     }
 
-    if (status_code == 0)
-    {
-        // save address value
-        flat->address = calloc(strlen(temp_address) + 1, sizeof(char));
-        memcpy(flat->address, temp_address, strlen(temp_address));
-    }
-
     return status_code;
 }
 
 app_state_t create_app_state()
 {
-    return (app_state_t) {
+    return (app_state_t){
         .input_filename = "",
         .output_filename = "",
-        .table = create_flat_table()
-    };
+        .table = create_flat_table()};
 }
 
 int request_input_filename(app_state_t *state)
@@ -225,7 +216,7 @@ int read_table_from_file(app_state_t *state)
     FILE *file = fopen(state->input_filename, "rt");
     if (file == NULL)
         return -1;
-    
+
     int status_code = fread_flat_table(file, &state->table);
 
     fclose(file);
@@ -247,19 +238,22 @@ int write_table_to_file(app_state_t *state)
     return status_code;
 }
 
+static void imp__print_table_title()
+{
+    printf("| Адрес квартиры                 | Площадь | Кол-во комнат | Стоимость  | Тип       | Отделка | Животные | Построено   | Кол-во собст-ов | Кол-во жильцов |\n");
+    for (int i = 0; i < 155; i++)
+        printf("-");
+    printf("\n");
+}
+
 int output_flat_table(app_state_t *state)
 {
     assert(state != NULL);
     assert_flat_table(&state->table);
 
-    int i = 0;
-    for (; i < 3 && i < state->table.size; i++)
-        printf_flat(state->table.flats_array + i);
-    
-    if (state->table.size > 6)
-        printf("<...>\n");
+    imp__print_table_title();
 
-    for (i = 6 < state->table.size ? state->table.size - 3 : 3; i < state->table.size; i++)
+    for (int i = 0; i < state->table.size; i++)
         printf_flat(state->table.flats_array + i);
 
     return 0;
@@ -278,10 +272,7 @@ int append_flat_to_table(app_state_t *state)
         status_code = append_flat_table(&state->table, &flat);
 
     if (status_code != 0)
-    {
         printf("Что-то вы ввели не по инструкции :с\n");
-        free_flat(&flat);
-    }
 
     return status_code;
 }
@@ -291,34 +282,34 @@ int imp__request_sort_key(sort_key_t *key)
     unsigned char temp;
 
     printf("Введите номер поля, по которому необходимо отсортировать таблицу:\n\n"
-        "  1. Адрес\n"
-        "  2. Общая площадь комнат\n"
-        "\n[Ваш выбор:] >>> ");
-    
+           "  1. Адрес\n"
+           "  2. Общая площадь комнат\n"
+           "\n[Ваш выбор:] >>> ");
+
     int status_code = imp__read_integer(&temp);
     if (status_code == 0 && (temp < 1 || temp > 2))
         status_code = -1;
-    
+
     if (status_code == 0)
         *key = temp - 1;
-    
+
     return status_code;
 }
 
 int imp__request_sort_direction(bool *ascending)
 {
     printf("Выберите вариант сортировки:\n\n"
-        "  0. Сортировка по убыванию\n"
-        "  1. Сортировка по возрастанию\n"
-        "\n[Ваш выбор:] >>> ");
-    
+           "  0. Сортировка по убыванию\n"
+           "  1. Сортировка по возрастанию\n"
+           "\n[Ваш выбор:] >>> ");
+
     int opt = imp__input_option();
     if (opt >= 0)
     {
         *ascending = opt == 1;
         opt = 0;
     }
-    
+
     return opt;
 }
 
@@ -368,36 +359,36 @@ int imp__request_search_params(bit_t *field_type, bit_t *field_value)
     int status_code = 0;
 
     printf("Выберите набор параметров сортировки:\n\n"
-        "  1. Первичное, с отделкой\n"
-        "  2. Первичное, без отделки\n"
-        "  3. Вторичное, были животные\n"
-        "  4. Вторичное не было животных\n"
-        "\n[Ваш выбор:] >>> ");
+           "  1. Первичное, с отделкой\n"
+           "  2. Первичное, без отделки\n"
+           "  3. Вторичное, были животные\n"
+           "  4. Вторичное не было животных\n"
+           "\n[Ваш выбор:] >>> ");
 
     status_code = imp__read_integer(&opt);
     if (status_code == 0)
     {
         switch (opt)
         {
-            case 1:
-                *field_type = PRIMARY;
-                *field_value = true;
-                break;
-            case 2:
-                *field_type = PRIMARY;
-                *field_value = false;
-                break;
-            case 3:
-                *field_type = SECONDARY;
-                *field_value = true;
-                break;
-            case 4:
-                *field_type = SECONDARY;
-                *field_value = false;
-                break;
-            default:
-                status_code = -1;
-                break;
+        case 1:
+            *field_type = PRIMARY;
+            *field_value = true;
+            break;
+        case 2:
+            *field_type = PRIMARY;
+            *field_value = false;
+            break;
+        case 3:
+            *field_type = SECONDARY;
+            *field_value = true;
+            break;
+        case 4:
+            *field_type = SECONDARY;
+            *field_value = false;
+            break;
+        default:
+            status_code = -1;
+            break;
         }
     }
 
@@ -432,6 +423,7 @@ int search_flat(app_state_t *state)
     else
     {
         printf("По заданным параметрам была найдена следующая квартира:\n\n");
+        imp__print_table_title();
         printf_flat(founded_flat);
     }
 

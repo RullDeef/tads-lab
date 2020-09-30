@@ -7,7 +7,7 @@
 
 // parser functions. Stops at ";" char or at the end of string
 
-int imp__parse_string(const char **str, char **out)
+int imp__parse_string(const char **str, char *out)
 {
     assert(str != NULL);
     assert(*str != NULL);
@@ -21,22 +21,15 @@ int imp__parse_string(const char **str, char **out)
     for (const char *iter = *str; *iter != '\0' && *iter != FIELDS_DELIMETER; iter++)
         out_str_len++;
     
-    if (out_str_len == 0)
+    if (out_str_len == 0 || out_str_len >= MAX_ADDRESS_SIZE)
         return -1; // bad str len
     
-    *out = (char *)malloc((out_str_len + 1) * sizeof(char));
-    if (*out == NULL)
-        return -2; // bad allocation
-    
-    memcpy(*out, *str, out_str_len * sizeof(char));
-    (*out)[out_str_len] = '\0';
+    memcpy(out, *str, out_str_len * sizeof(char));
+    out[out_str_len] = '\0';
 
     // trim trailing white spaces
-    while ((*out)[strlen(*out) - 1] == ' ' || (*out)[strlen(*out) - 1] == '\t')
-        (*out)[strlen(*out) - 1] = '\0';
-
-    // realloc for compact memory usage
-    *out = realloc(*out, (strlen(*out) + 1) * sizeof(char));
+    while (out[strlen(out) - 1] == ' ' || out[strlen(out) - 1] == '\t')
+        out[strlen(out) - 1] = '\0';
 
     // push forward str pointer
     *str += out_str_len + 1; // + 1 for delimiter
@@ -90,8 +83,8 @@ int imp__parse_flat_type(const char **str, flat_t *flat)
     assert(*str != NULL);
     assert(flat != NULL);
 
-    char *type_str;
-    int status = imp__parse_string(str, &type_str);
+    char type_str[MAX_ADDRESS_SIZE];
+    int status = imp__parse_string(str, type_str);
     if (status == 0)
     {
         if (strcmp(type_str, PRIMARY_TYPE_STR) == 0)
@@ -100,7 +93,6 @@ int imp__parse_flat_type(const char **str, flat_t *flat)
             flat->type = SECONDARY;
         else
             status = -3; // invalid type string
-        free(type_str);
     }
 
     return status;
@@ -112,8 +104,8 @@ int imp__parse_bit_t(const char** str, bit_t *bit)
     assert(*str != NULL);
     assert(bit != NULL);
 
-    char *bit_str;
-    int status = imp__parse_string(str, &bit_str);
+    char bit_str[MAX_ADDRESS_SIZE];
+    int status = imp__parse_string(str, bit_str);
     if (status == 0)
     {
         if (strcmp(bit_str, TRUE_STR) == 0)
@@ -122,7 +114,6 @@ int imp__parse_bit_t(const char** str, bit_t *bit)
             *bit = 0u;
         else
             status = -3; // bad has trim string
-        free(bit_str);
     }
 
     return status;
@@ -173,7 +164,8 @@ int imp__parse_flat_type_data(const char **str, flat_t *flat)
 flat_t create_flat()
 {
     flat_t flat = {
-        .address = NULL,
+        .id = 0,
+        .address = "",
         .area = 0.0f,
         .rooms_amount = 0u,
         .price_per_m2 = 0.0f,
@@ -194,9 +186,7 @@ flat_t clone_flat(flat_t *original)
     assert_flat(original);
 
     flat_t copy = *original;
-
-    copy.address = malloc((strlen(original->address) + 1) * sizeof(char));
-    memcpy(copy.address, original->address, strlen(original->address) + 1);
+    memcpy(copy.address, original->address, MAX_ADDRESS_SIZE);
 
     return copy;
 }
@@ -206,7 +196,7 @@ int sread_flat(const char *str, flat_t *flat)
     assert(str != NULL);
     assert(flat != NULL);
 
-    int status = imp__parse_string(&str, &flat->address)
+    int status = imp__parse_string(&str, flat->address)
         || imp__parse_float(&str, &flat->area)
         || imp__parse_uchar(&str, &flat->rooms_amount)
         || imp__parse_float(&str, &flat->price_per_m2)
@@ -215,10 +205,7 @@ int sread_flat(const char *str, flat_t *flat)
 
     // check for end of input
     if (status == 0 && strlen(str) != 0)
-    {
-        free_flat(flat);
         status = -10; // end of string not reached
-    }
 
     return status;
 }
@@ -248,16 +235,4 @@ void printf_flat(flat_t *flat)
     }
 
     printf("\n");
-}
-
-void free_flat(flat_t *flat)
-{
-    if (flat == NULL)
-        return;
-
-    if (flat->address != NULL)
-    {
-        free(flat->address);
-        flat->address = NULL;
-    }
 }

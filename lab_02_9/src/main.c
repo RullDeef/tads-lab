@@ -107,10 +107,6 @@ int run_menu_loop()
 
             case 3:
                 system("clear");
-                printf(" Адрес квартиры                  | Площадь | Кол-во комнат | Стоимость | Тип       | Отделка | Животные | Построено   | Кол-во собст-ов | Кол-во жильцов |\n");
-                for (int i = 0; i < 154; i++)
-                    printf("-");
-                printf("\n");
                 output_flat_table(&state);
                 imp__pause();
                 break;

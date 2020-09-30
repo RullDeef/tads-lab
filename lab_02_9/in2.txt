@@ -1,0 +1,84 @@
+Pushkino, 23a ; 15 ; 1 ; 1100000 ; PRIMARY ; no
+Pushkino, 24a ; 13 ; 2 ; 1300000 ; PRIMARY ; yes
+Pushkino, 25a ; 18 ; 3 ; 2200000 ; PRIMARY ; no
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Pushkino, 27a ; 14 ; 1 ; 2500000 ; PRIMARY ; no
+Pushkino, 27b ; 15 ; 3 ; 1000000 ; PRIMARY ; yes
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Pushkino, 27c ; 11 ; 2 ; 1600000 ; PRIMARY ; no
+Pushkino, 27d ; 15 ; 4 ; 1000000 ; PRIMARY ; no
+Pushkino, 27e ; 20 ; 1 ; 2200000 ; PRIMARY ; no
+Pushkino, 27e ; 23 ; 3 ; 1000000 ; PRIMARY ; yes
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Pushkino, 27e ; 15 ; 2 ; 2500000 ; PRIMARY ; yes
+Pushkino, 27e ; 15 ; 2 ; 2500000 ; PRIMARY ; yes
+Pushkino, 27e ; 15 ; 2 ; 2500000 ; PRIMARY ; yes
+Pushkino, 27e ; 15 ; 2 ; 2500000 ; PRIMARY ; yes
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Pushkino, 27e ; 15 ; 2 ; 2500000 ; PRIMARY ; yes
+Pushkino, 27e ; 15 ; 2 ; 2500000 ; PRIMARY ; yes
+Pushkino, 27e ; 15 ; 2 ; 2500000 ; PRIMARY ; yes
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Pushkino, 27e ; 19 ; 1 ; 1200000 ; PRIMARY ; no
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Pushkino, 26a ; 15 ; 1 ; 1400000 ; PRIMARY ; no
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Pushkino, 27e ; 15 ; 2 ; 2500000 ; PRIMARY ; yes
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Pushkino, 27e ; 15 ; 2 ; 2500000 ; PRIMARY ; yes
+Pushkino, 27e ; 15 ; 2 ; 2500000 ; PRIMARY ; yes
+Pushkino, 27e ; 15 ; 2 ; 2500000 ; PRIMARY ; yes
+Pushkino, 27e ; 15 ; 2 ; 2500000 ; PRIMARY ; yes
+Baumanskaya 2/71; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Pushkino, 27e; 15 ; 2 ; 2500000 ; PRIMARY ; yes
+Baumanskaya 2/71; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Pushkino, 27e ; 15 ; 2 ; 2500000 ; PRIMARY ; yes
+Baumanskaya 2/71; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Pushkino, 27e ; 15 ; 2 ; 2500000 ; PRIMARY ; yes
+Pushkino, 27e ; 15 ; 2 ; 2500000 ; PRIMARY ; yes
+Pushkino, 27e ; 15 ; 2 ; 2500000 ; PRIMARY ; yes
+Baumanskaya 2.71; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Pushkino, 27e ; 15 ; 2 ; 2500000 ; PRIMARY ; yes
+Pushkino, 27e ; 15 ; 2 ; 2500000 ; PRIMARY ; yes
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Pushkino, 27e ; 22 ; 4 ; 1000000 ; PRIMARY ; no
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Pushkino, 27e ; 15 ; 2 ; 2700000 ; PRIMARY ; no
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Pushkino, 27e ; 15 ; 2 ; 2500000 ; PRIMARY ; yes
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Pushkino, 27e ; 26 ; 3 ; 1900000 ; PRIMARY ; yes
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Pushkino, 27e ; 15 ; 2 ; 2500000 ; PRIMARY ; yes
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Pushkino, 27e ; 15 ; 2 ; 2500000 ; PRIMARY ; yes
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Pushkino, 27e ; 15 ; 2 ; 2500000 ; PRIMARY ; yes
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Pushkino, 27e ; 15 ; 2 ; 2500000 ; PRIMARY ; yes
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Pushkino, 27e ; 15 ; 2 ; 2500000 ; PRIMARY ; yes
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Pushkino, 27e ; 15 ; 2 ; 2500000 ; PRIMARY ; yes
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9
+Baumanskaya 2/71 ; 50 ; 7 ; 4000000 ; SECONDARY ; no ; 10000 ; 24 ; 9

@@ -1,6 +1,6 @@
 temp_test_data.txt
 2
-1
+2
 1
 0
 

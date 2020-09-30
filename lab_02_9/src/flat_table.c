@@ -204,7 +204,6 @@ static void imp__insertion(void *a, size_t count, size_t size, __comp_fn_t comp,
     #undef A
 }
 
-// Функция сортировки двухпутевым слиянием
 static void imp__merge(void *a, size_t count, size_t size, __comp_fn_t comp, __assign_fn_t assign, sort_key_t key, bool ascending)
 {
     #define A(ar,id) (void *)((char *)ar + id * size)

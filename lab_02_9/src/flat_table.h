@@ -6,7 +6,6 @@
 #include <assert.h>
 #include "flat.h"
 
-
 #ifndef NDEBUG
 #define assert_flat_table(table)              \
     {                                         \

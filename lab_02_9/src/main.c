@@ -11,28 +11,6 @@ typedef enum
     RELOAD_TABLE
 } menu_option_t;
 
-/*
-    Working pipeline:
-
-    1. Request flat table file name
-    2. Read flat table
-    3. [Operate with table] (menu loop)
-    4. Request output file name (if "", use original file)
-    5. Save data to output file
-*/
-
-/*
-static bool imp__confirm(const char *msg)
-{
-    printf("%s\nВы уверены? [y/N] ", msg);
-    char temp[256];
-    fgets(temp, 256, stdin);
-    while (strlen(temp) > 0 && (temp[strlen(temp) - 1] == '\r' || temp[strlen(temp) - 1] == '\n'))
-        temp[strlen(temp) - 1] = '\0';
-    return strlen(temp) == 1 && (temp[0] == 'y' || temp[0] == 'Y');
-}
-*/
-
 static void imp__pause()
 {
     char temp[2];
@@ -62,7 +40,6 @@ int get_menu_opt()
     }
     return -1;
 }
-
 
 int run_menu_loop()
 {
@@ -135,42 +112,6 @@ int run_menu_loop()
     free_app_state(&state);
     return status;
 }
-
-
-int test(void)
-{
-    // TEST
-    const char *input_filename = "in.txt";
-
-    FILE *input_file = fopen(input_filename, "rt");
-    if (input_file == NULL)
-    {
-        printf("cant open file \"%s\"\n", input_filename);
-        return -1;
-    }
-
-    // try to read flat table
-    flat_table_t table = create_flat_table();
-
-    int status = fread_flat_table(input_file, &table);
-    if (status != 0)
-    {
-        printf("bad read table status = %d\n", status);
-    }
-    else
-    {
-        printf("unsorted table:\n");
-        fwrite_flat_table(stdout, &table);
-        printf("sorted table:\n");
-        //sort_flat_table(&table, ROOMS_AMOUNT, true);
-        fwrite_flat_table(stdout, &table);
-    }
-
-    free_flat_table(&table);
-    fclose(input_file);
-    return 0;
-}
-
 
 int main(void)
 {

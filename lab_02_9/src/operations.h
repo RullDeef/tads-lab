@@ -2,7 +2,7 @@
 #define __OPERATIONS_H_
 
 #include "flat.h"
-#include "flat_table_common.h"
+#include "flat_table.h"
 
 #define MAX_FILE_NAME_LENGTH 128
 
@@ -26,6 +26,8 @@ int append_flat_to_table(app_state_t *state);
 
 int sort_table(app_state_t *state);
 int search_flat(app_state_t *state);
+
+int delete_flat(app_state_t *state);
 
 void free_app_state(app_state_t *state);
 

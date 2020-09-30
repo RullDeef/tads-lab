@@ -4,7 +4,6 @@
 #include "flat.h"
 #include <stdbool.h>
 
-
 // parser functions. Stops at ";" char or at the end of string
 
 int imp__parse_string(const char **str, char *out)
@@ -20,10 +19,10 @@ int imp__parse_string(const char **str, char *out)
     int out_str_len = 0;
     for (const char *iter = *str; *iter != '\0' && *iter != FIELDS_DELIMETER; iter++)
         out_str_len++;
-    
+
     if (out_str_len == 0 || out_str_len >= MAX_ADDRESS_SIZE)
         return -1; // bad str len
-    
+
     memcpy(out, *str, out_str_len * sizeof(char));
     out[out_str_len] = '\0';
 
@@ -36,7 +35,7 @@ int imp__parse_string(const char **str, char *out)
     return 0;
 }
 
-int imp__parse_float(const char **str, float* number)
+int imp__parse_float(const char **str, float *number)
 {
     assert(str != NULL);
     assert(*str != NULL);
@@ -45,7 +44,7 @@ int imp__parse_float(const char **str, float* number)
     int num_len = 0;
     for (const char *iter = *str; *iter != '\0' && *iter != FIELDS_DELIMETER; iter++)
         num_len++;
-    
+
     *number = strtof(*str, NULL);
     if (*number <= 0.0f)
         return -1; // bad number
@@ -64,7 +63,7 @@ int imp__parse_uchar(const char **str, unsigned char *number)
     int num_len = 0;
     for (const char *iter = *str; *iter != '\0' && *iter != FIELDS_DELIMETER; iter++)
         num_len++;
-    
+
     unsigned long long_number = strtoul(*str, NULL, 10);
     if (long_number == 0ul)
         return -1; // bad number
@@ -98,7 +97,7 @@ int imp__parse_flat_type(const char **str, flat_t *flat)
     return status;
 }
 
-int imp__parse_bit_t(const char** str, bit_t *bit)
+int imp__parse_bit_t(const char **str, bit_t *bit)
 {
     assert(str != NULL);
     assert(*str != NULL);
@@ -132,7 +131,7 @@ int imp__parse_time_t(const char **str, time_t *time)
     *time = strtoul(*str, NULL, 10);
     if (*time == 0ul)
         return -1; // bad number
-    
+
     // push forward str pointer
     *str += time_len + 1; // + 1 for delimiter
     return 0;
@@ -152,10 +151,7 @@ int imp__parse_flat_type_data(const char **str, flat_t *flat)
     }
     else // secondary
     {
-        status = imp__parse_bit_t(str, &flat->type_data.was_pets)
-            || imp__parse_time_t(str, &flat->build_time)
-            || imp__parse_uchar(str, &flat->prev_owners_amount)
-            || imp__parse_uchar(str, &flat->prev_lodgers_amount);
+        status = imp__parse_bit_t(str, &flat->type_data.was_pets) || imp__parse_time_t(str, &flat->build_time) || imp__parse_uchar(str, &flat->prev_owners_amount) || imp__parse_uchar(str, &flat->prev_lodgers_amount);
     }
 
     return status;
@@ -171,12 +167,10 @@ flat_t create_flat()
         .price_per_m2 = 0.0f,
         .type = PRIMARY,
         .type_data = {
-            .has_trim = false
-        },
+            .has_trim = false},
         .build_time = 0l,
         .prev_owners_amount = 0,
-        .prev_lodgers_amount = 0
-    };
+        .prev_lodgers_amount = 0};
 
     return flat;
 }
@@ -196,12 +190,7 @@ int sread_flat(const char *str, flat_t *flat)
     assert(str != NULL);
     assert(flat != NULL);
 
-    int status = imp__parse_string(&str, flat->address)
-        || imp__parse_float(&str, &flat->area)
-        || imp__parse_uchar(&str, &flat->rooms_amount)
-        || imp__parse_float(&str, &flat->price_per_m2)
-        || imp__parse_flat_type(&str, flat)
-        || imp__parse_flat_type_data(&str, flat);
+    int status = imp__parse_string(&str, flat->address) || imp__parse_float(&str, &flat->area) || imp__parse_uchar(&str, &flat->rooms_amount) || imp__parse_float(&str, &flat->price_per_m2) || imp__parse_flat_type(&str, flat) || imp__parse_flat_type_data(&str, flat);
 
     // check for end of input
     if (status == 0 && strlen(str) != 0)
@@ -236,4 +225,28 @@ void printf_flat(flat_t *flat)
     }
 
     printf("\n");
+}
+
+void swap_flat(void *flat_1, void *flat_2)
+{
+    flat_t temp = *(flat_t*)flat_1;
+    *(flat_t *)flat_1 = *(flat_t *)flat_2;
+    *(flat_t *)flat_2 = temp;
+}
+
+void swap_flat_ptr(void *flat_1, void *flat_2)
+{
+    flat_t *temp = *(flat_t **)flat_1;
+    *(flat_t **)flat_1 = *(flat_t **)flat_2;
+    *(flat_t **)flat_2 = temp;
+}
+
+void assign_flat(void *flat_1, void *flat_2)
+{
+    *((flat_t *)flat_1) = *((flat_t *)flat_2);
+}
+
+void assign_flat_ptr(void *flat_1, void *flat_2)
+{
+    *((flat_t **)flat_1) = *((flat_t **)flat_2);
 }

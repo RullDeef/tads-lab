@@ -4,7 +4,7 @@
 #include <errno.h>
 #include <stdbool.h>
 #include <assert.h>
-#include "flat_table_common.h"
+#include "flat_table.h"
 #include "operations.h"
 
 static int imp__read_line(char *str, unsigned int max_length)
@@ -30,7 +30,7 @@ static int imp__read_integer(unsigned char *num)
     char *end;
     unsigned long val = strtoul(temp, &end, 10);
 
-    if (val == 0 && errno == EINVAL)
+    if (val == 0 && (errno == EINVAL || end == temp))
         return -2;
 
     while (*end == ' ' || *end == '\t' || *end == '\r' || *end == '\n')
@@ -215,9 +215,14 @@ int read_table_from_file(app_state_t *state)
 
     FILE *file = fopen(state->input_filename, "rt");
     if (file == NULL)
+    {
+        printf("Нет такого файла.\n");
         return -1;
+    }
 
     int status_code = fread_flat_table(file, &state->table);
+    if (status_code != 0)
+        printf("Ошибки при чтении файла.\n");
 
     fclose(file);
     return status_code;
@@ -277,17 +282,55 @@ int append_flat_to_table(app_state_t *state)
     return status_code;
 }
 
-int imp__request_sort_key(sort_key_t *key)
+static int imp__request_sort_type(sort_fn_t *func)
+{
+    unsigned char temp;
+
+    printf("Выберите тип сортировки:\n\n"
+           "  1. Вставками (без доп. массива)\n"
+           "  2. Вставками (с доп. массивом)\n"
+           "  3. Слиянием (без доп. массива)\n"
+           "  4. Слиянием (с доп. массивом)\n"
+           "\n[Ваш выбор:] >>> ");
+
+    int status_code = imp__read_integer(&temp);
+    if (status_code == 0)
+    {
+        switch (temp)
+        {
+        case 1:
+            *func = sort_flat_table_a_slow;
+            break;
+        case 2:
+            *func = sort_flat_table_b_slow;
+            break;
+        case 3:
+            *func = sort_flat_table_a_fast;
+            break;
+        case 4:
+            *func = sort_flat_table_b_fast;
+            break;
+        default:
+            status_code = -1;
+            break;
+        }
+    }
+
+    return status_code;
+}
+
+static int imp__request_sort_key(sort_key_t *key)
 {
     unsigned char temp;
 
     printf("Введите номер поля, по которому необходимо отсортировать таблицу:\n\n"
            "  1. Адрес\n"
            "  2. Общая площадь комнат\n"
+           "  3. Количество комнат\n"
            "\n[Ваш выбор:] >>> ");
 
     int status_code = imp__read_integer(&temp);
-    if (status_code == 0 && (temp < 1 || temp > 2))
+    if (status_code == 0 && (temp < 1 || temp > 3))
         status_code = -1;
 
     if (status_code == 0)
@@ -296,7 +339,7 @@ int imp__request_sort_key(sort_key_t *key)
     return status_code;
 }
 
-int imp__request_sort_direction(bool *ascending)
+static int imp__request_sort_direction(bool *ascending)
 {
     printf("Выберите вариант сортировки:\n\n"
            "  0. Сортировка по убыванию\n"
@@ -318,79 +361,58 @@ int sort_table(app_state_t *state)
     assert(state != NULL);
     assert_flat_table(&state->table);
 
+    sort_fn_t sort_func;
+
     sort_key_t key = ADDRESS;
     bool ascending = true;
     int status_code = 0;
 
-    status_code = imp__request_sort_key(&key);
-    if (status_code != 0)
+    status_code = imp__request_sort_type(&sort_func);
+    if (status_code == 0)
     {
-        printf("Вы ввели неверное имя ключа для сортировки.\n");
-        return status_code;
+        status_code = imp__request_sort_key(&key);
+        if (status_code == 0)
+        {
+            status_code = imp__request_sort_direction(&ascending);
+            if (status_code == 0)
+            {
+                printf("sorting...\n");
+                sort_func(&state->table, key, ascending);
+            }
+            else
+                printf("Вы ввели неверное значение для направления сортировки.\n");
+        }
+        else
+            printf("Вы ввели неверное имя ключа для сортировки.\n");
     }
-
-    status_code = imp__request_sort_direction(&ascending);
-    if (status_code != 0)
-    {
-        printf("Вы ввели неверное значение для направления сортировки.\n");
-        return status_code;
-    }
-
-#ifndef _PERF_TEST
-    sort_flat_table(&state->table, key, ascending);
-#else
-    for (int i = 0; i < 1000000; i++)
-    {
-        flat_table_t clone = clone_flat_table(&state->table);
-        sort_flat_table(&clone, key, ascending);
-        free_flat_table(&clone);
-    }
-#endif
+    else
+        printf("Вы не выбрали тип сортировки.\n");
 
     return status_code;
 }
 
-int imp__request_search_params(bit_t *field_type, bit_t *field_value)
+int imp__request_search_params(float *price_1, float *price_2)
 {
-    assert(field_type != NULL);
-    assert(field_value != NULL);
+    assert(price_1 != NULL);
+    assert(price_2 != NULL);
 
-    unsigned char opt;
     int status_code = 0;
 
-    printf("Выберите набор параметров сортировки:\n\n"
-           "  1. Первичное, с отделкой\n"
-           "  2. Первичное, без отделки\n"
-           "  3. Вторичное, были животные\n"
-           "  4. Вторичное не было животных\n"
-           "\n[Ваш выбор:] >>> ");
+    printf("Введите минимальную стоимость квадратного метра: ");
 
-    status_code = imp__read_integer(&opt);
+    status_code = imp__read_float(price_1);
     if (status_code == 0)
     {
-        switch (opt)
-        {
-        case 1:
-            *field_type = PRIMARY;
-            *field_value = true;
-            break;
-        case 2:
-            *field_type = PRIMARY;
-            *field_value = false;
-            break;
-        case 3:
-            *field_type = SECONDARY;
-            *field_value = true;
-            break;
-        case 4:
-            *field_type = SECONDARY;
-            *field_value = false;
-            break;
-        default:
-            status_code = -1;
-            break;
-        }
+        printf("Введите максимальную стоимость квадратного метра: ");
+        status_code = imp__read_float(price_2);
+
+        if (status_code != 0)
+            printf("Неправильный ввод. Ожидается вещественное число.\n");
+        else if (*price_1 > *price_2)
+            printf("Максимальная стоимость не должна быть меньше минимальной.\n");
     }
+    else
+        printf("Неправильный ввод. Ожидается вещественное число.\n");
 
     return status_code;
 }
@@ -402,30 +424,48 @@ int search_flat(app_state_t *state)
 
     int status_code = 0;
 
-    bit_t field_type;
-    bit_t field_value;
+    float price_1, price_2;
 
-    status_code = imp__request_search_params(&field_type, &field_value);
+    status_code = imp__request_search_params(&price_1, &price_2);
     if (status_code != 0)
-    {
-        printf("Вы ввели неверные параметры поиска.\n");
         return status_code;
-    }
 
-    flat_t *founded_flat = NULL;
+    int founded = search_flat_table(&state->table, price_1, price_2, printf_flat);
 
-    search_flat_table(&state->table, field_type, field_value, &founded_flat);
-
-    if (founded_flat == NULL)
-    {
+    if (founded == 0)
         printf("По заданным параметром не было найдено ни одной квартиры.\n");
+
+    return status_code;
+}
+
+int delete_flat(app_state_t *state)
+{
+    assert(state != NULL);
+    assert_flat_table(&state->table);
+
+    unsigned char id;
+
+    printf("Введите ID удаляемой записи: ");
+    int status_code = imp__read_integer(&id);
+
+    if (status_code == 0)
+    {
+        if (id < 0 || id >= state->table.size)
+        {
+            printf("Неверный ID записи.\n");
+            status_code = -1;
+        }
+        else
+        {
+            flat_t flat = delete_flat_table(&state->table, id);
+
+            printf("Удалена следующая запись:\n");
+            imp__print_table_title();
+            printf_flat(&flat);
+        }
     }
     else
-    {
-        printf("По заданным параметрам была найдена следующая квартира:\n\n");
-        imp__print_table_title();
-        printf_flat(founded_flat);
-    }
+        printf("Неверный ввод.\n");
 
     return status_code;
 }

@@ -1,9 +1,10 @@
 #!/bin/bash
 
-printf "Сортировка без использования дополнительных массивов и таблиц:\n\n"
-time -p $(./app_a.exe < ./efficiency_test/input_commands.txt > out_a.txt)
+cd efficiency_test
 
-echo
+rm -rf a_slow.txt a_fast.txt b_slow.txt b_fast.txt
 
-printf "Сортировка с использованием дополнительной таблицы ключей:\n\n"
-time -p $(./app_b.exe < ./efficiency_test/input_commands.txt > out_b.txt)
+# printf "Сортировка без использования дополнительных массивов и таблиц:\n\n"
+../app.exe < ./input_a_slow.txt 1>/dev/null 2>> a_slow.txt
+# printf "Сортировка с использованием дополнительной таблицы ключей:\n\n"
+# ../app.exe < ./input_a_fast.txt 1>/dev/null 2> a_fast.txt

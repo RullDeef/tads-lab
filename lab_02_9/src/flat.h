@@ -61,4 +61,11 @@ flat_t clone_flat(flat_t *original);
 int sread_flat(const char *str, flat_t *flat);
 void printf_flat(flat_t *flat);
 
+void swap_flat(void *flat_1, void *flat_2);
+void swap_flat_ptr(void *flat_1, void *flat_2);
+
+void assign_flat(void *flat_1, void *flat_2);
+void assign_flat_ptr(void *flat_1, void *flat_2);
+
+
 #endif // __FLAT_H_

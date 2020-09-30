@@ -2,9 +2,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "flat.h"
-#include "flat_table_common.h"
-
 #include "operations.h"
 
 typedef enum
@@ -24,6 +21,7 @@ typedef enum
     5. Save data to output file
 */
 
+/*
 static bool imp__confirm(const char *msg)
 {
     printf("%s\nВы уверены? [y/N] ", msg);
@@ -33,6 +31,7 @@ static bool imp__confirm(const char *msg)
         temp[strlen(temp) - 1] = '\0';
     return strlen(temp) == 1 && (temp[0] == 'y' || temp[0] == 'Y');
 }
+*/
 
 static void imp__pause()
 {
@@ -44,11 +43,12 @@ int get_menu_opt()
 {
     system("clear");
     printf("  [__Меню:__]\n\n"
-        " 1. Добавить запись в таблицу.\n"
-        " 2. Отсортировать таблицу.\n"
-        " 3. Вывести часть таблицы на экран.\n"
-        " 4. Произвести поиск квартиры.\n"
-        " 0. Выход.\n\n"
+        " 1. Добавить запись в таблицу\n"
+        " 2. Отсортировать таблицу\n"
+        " 3. Вывести часть таблицы на экран\n"
+        " 4. Произвести поиск квартиры\n"
+        " 5. Удалить запись\n"
+        " 0. Выход\n\n"
         "[Ваш выбор]>>> ");
     char opt[256];
     fgets(opt, 256, stdin);
@@ -57,7 +57,7 @@ int get_menu_opt()
     system("clear");
     if (strlen(opt) == 1)
     {
-        if (opt[0] >= '0' && opt[0] <= '4')
+        if (opt[0] >= '0' && opt[0] <= '5')
             return opt[0] - '0';
     }
     return -1;
@@ -72,7 +72,13 @@ int run_menu_loop()
 
     status = request_input_filename(&state);
     if (status == 0)
+    {
         status = read_table_from_file(&state);
+        if (status != 0)
+            printf("Не удалось считать данные из файла.\n");
+    }
+    else
+        printf("Некорректное имя файла.\n");
 
     while (!need_exit && status == 0)
     {
@@ -87,11 +93,8 @@ int run_menu_loop()
                 break;
             
             case 0:
-                if (imp__confirm("Последние изменения не будут сохранены"))
-                {
-                    printf("Выход из программы...");
-                    need_exit = true;
-                }
+                printf("Выход из программы...");
+                need_exit = true;
                 break;
             
             case 1:
@@ -102,8 +105,14 @@ int run_menu_loop()
                 printf("Выполяется сортировка таблицы...\n");
                 status = sort_table(&state);
                 if (status == 0)
+                {
                     printf("Сортировка выполнена!\n\n");
+                    output_flat_table(&state);
+                }
+                else
+                    printf("При сортировке возникли ошибки.\n\n");
                 imp__pause();
+                break;
 
             case 3:
                 system("clear");
@@ -113,6 +122,11 @@ int run_menu_loop()
             
             case 4:
                 status = search_flat(&state);
+                imp__pause();
+                break;
+            
+            case 5:
+                status = delete_flat(&state);
                 imp__pause();
                 break;
         }
@@ -148,7 +162,7 @@ int test(void)
         printf("unsorted table:\n");
         fwrite_flat_table(stdout, &table);
         printf("sorted table:\n");
-        sort_flat_table(&table, ROOMS_AMOUNT, true);
+        //sort_flat_table(&table, ROOMS_AMOUNT, true);
         fwrite_flat_table(stdout, &table);
     }
 

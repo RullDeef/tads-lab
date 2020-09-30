@@ -1,0 +1,5 @@
+some mega cool address ; 10.0 ; 3 ; 4.00 ; PRIMARY ; true
+   another address; 12.4;4; 5.50;SECONDARY;    true ; 1000000; 14; 2
+random address; 16; 3; 18; SECONDARY; true; 138923;8;9;
+Pyshkino, 84; 18; 4; 20; SECONDARY; false; 1923123819; 21; 12
+Ostrogradskogo 91 house 15.; 12; 3; 6.66; PRIMARY ; true;

@@ -10,10 +10,13 @@ clean :
 
 include tests/makefile
 
-app.exe : obj/main.o obj/sparse_matrix.o
+app.exe : obj/main.o obj/conio.o obj/sparse_matrix.o
 	$(CC) $(LFLAGS) -o $@ $^
 
 obj/main.o : src/main.c
+	$(CC) $(CFLAGS) -o $@ -c $^
+
+obj/conio.o : src/conio.c
 	$(CC) $(CFLAGS) -o $@ -c $^
 
 obj/sparse_matrix.o : src/sparse_matrix.c

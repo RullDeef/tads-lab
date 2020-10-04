@@ -1,91 +1,12 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
 #include "../include/sparse_matrix.h"
+#include "../include/conio.h"
 
-void print_info(sparse_matrix_t *mat)
-{
-    printf("[MATRIX INFO]\n");
-    printf("data: ");
-    for (int i = 0; i < mat->nonzero_size; i++)
-        printf("%d, ", mat->nonzero_array[i]);
-    printf("\n");
-
-    printf("rows: ");
-    for (int i = 0; i < mat->nonzero_size; i++)
-        printf("%ld, ", mat->rows[i]);
-    printf("\n");
-
-    printf("cols: ");
-    for (int i = 0; i < mat->cols_size; i++)
-        printf("%ld, ", mat->cols[i]);
-    printf("\n");
-    printf("[END INFO]\n\n");
-}
-
-/*
-void test(void)
-{
-    sparse_matrix_t mat = sp_create(5, 7);
-    mat_elem_t value;
-
-    sp_set(&mat, 2, 4, 6);
-    value = sp_get(&mat, 2, 2);
-
-    printf("inserted value 6\n");
-    sp_print_info(&mat);
-    sp_print(&mat);
-    printf("\n\n");
-
-    sp_set(&mat, 3, 1, 5);
-    value = sp_get(&mat, 3, 1);
-
-    printf("inserted value 5\n");
-    sp_print_info(&mat);
-    sp_print(&mat);
-    printf("\n\n");
-
-    sp_set(&mat, 0, 2, 3);
-    value = sp_get(&mat, 0, 2);
-
-    printf("inserted value 3\n");
-    sp_print_info(&mat);
-    sp_print(&mat);
-    printf("\n\n");
-
-    sp_set(&mat, 0, 5, 7);
-    value = sp_get(&mat, 0, 5);
-
-    printf("inserted value 7\n");
-    sp_print_info(&mat);
-    sp_print(&mat);
-    printf("\n\n");
-
-    sp_set(&mat, 1, 4, 1);
-    value = sp_get(&mat, 1, 4);
-
-    printf("inserted value 1\n");
-    sp_print_info(&mat);
-    sp_print(&mat);
-    printf("\n\n");
-
-    sp_set(&mat, 2, 0, 2);
-    value = sp_get(&mat, 2, 0);
-
-    printf("inserted value 2\n");
-    sp_print_info(&mat);
-    sp_print(&mat);
-    printf("\n\n");
-
-    sp_set(&mat, 3, 5, 4);
-    value = sp_get(&mat, 3, 5);
-
-    printf("inserted value 4\n");
-    sp_print_info(&mat);
-    sp_print(&mat);
-    printf("\n\n");
-
-    sp_free(&mat);
-}
-*/
+void print_menu(void);
+void mult_mat_vect(void);
+int menu_loop(void);
 
 int main(void)
 {
@@ -105,4 +26,85 @@ int main(void)
     print_info(&mat);
 
     return 0;
+}
+
+void print_menu(void)
+{
+    con_print_menu_header();
+
+    con_print_opt(1, "Умножить матрицу на вектор");
+    con_print_opt(2, "Умножить матрицу на другую матрицу");
+    con_print_opt(0, "Выйти");
+
+    con_print_menu_footer();
+}
+
+int menu_loop(void)
+{
+    bool need_exit = false;
+
+    while (!need_exit)
+    {
+        con_clear();
+        print_menu();
+
+        int opt = con_get_numeric_opt(0, 2);
+        switch (opt)
+        {
+        default:
+        case -1:
+            printf("Вы ввели неверную опцию, пожалуйста, повторите попытку.\n");
+            con_wait();
+            break;
+        case 0:
+            if (con_ask("Вы уверены?", false))
+                need_exit = true;
+            printf("Закрываем программу...\n");
+            need_exit = true;
+            break;
+        case 1:
+            mult_mat_vect();
+            break;
+        }
+    }
+}
+
+void mult_mat_vect(void)
+{
+    sparse_matrix_t matrix;
+    mat_elem_t *vector = NULL;
+    mat_elem_t *result = NULL;
+
+    if (con_input_matrix(&matrix) != EXIT_SUCCESS)
+    {
+        printf("Произошла ошибка при вводе данных. Повторите попытку.\n");
+        return;
+    }
+
+    if (con_input_vector(&vector, matrix.cols_size) != EXIT_SUCCESS)
+    {
+        printf("Произошла ошибка при вводе данных. Повторите попытку.\n");
+        sp_free(&matrix);
+        return;
+    }
+
+    result = malloc(matrix.rows_size * sizeof(mat_elem_t));
+    if (result == NULL)
+    {
+        printf("Произошла ошибка при выделении памяти. Выход.\n");
+        sp_free(&matrix);
+        free(vector);
+        return;
+    }
+
+    if (sp_mult_by_vector(&matrix, vector, result) != EXIT_SUCCESS)
+    {
+        printf("Не получилось умножить. Что-то не так.\n");
+        sp_free(&matrix);
+        free(vector);
+        free(result);
+        return;
+    }
+
+    // print vector here and return
 }

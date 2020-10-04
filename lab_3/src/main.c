@@ -21,6 +21,72 @@ void print_info(sparse_matrix_t *mat)
     printf("[END INFO]\n\n");
 }
 
+/*
+void test(void)
+{
+    sparse_matrix_t mat = sp_create(5, 7);
+    mat_elem_t value;
+
+    sp_set(&mat, 2, 4, 6);
+    value = sp_get(&mat, 2, 2);
+
+    printf("inserted value 6\n");
+    sp_print_info(&mat);
+    sp_print(&mat);
+    printf("\n\n");
+
+    sp_set(&mat, 3, 1, 5);
+    value = sp_get(&mat, 3, 1);
+
+    printf("inserted value 5\n");
+    sp_print_info(&mat);
+    sp_print(&mat);
+    printf("\n\n");
+
+    sp_set(&mat, 0, 2, 3);
+    value = sp_get(&mat, 0, 2);
+
+    printf("inserted value 3\n");
+    sp_print_info(&mat);
+    sp_print(&mat);
+    printf("\n\n");
+
+    sp_set(&mat, 0, 5, 7);
+    value = sp_get(&mat, 0, 5);
+
+    printf("inserted value 7\n");
+    sp_print_info(&mat);
+    sp_print(&mat);
+    printf("\n\n");
+
+    sp_set(&mat, 1, 4, 1);
+    value = sp_get(&mat, 1, 4);
+
+    printf("inserted value 1\n");
+    sp_print_info(&mat);
+    sp_print(&mat);
+    printf("\n\n");
+
+    sp_set(&mat, 2, 0, 2);
+    value = sp_get(&mat, 2, 0);
+
+    printf("inserted value 2\n");
+    sp_print_info(&mat);
+    sp_print(&mat);
+    printf("\n\n");
+
+    sp_set(&mat, 3, 5, 4);
+    value = sp_get(&mat, 3, 5);
+
+    printf("inserted value 4\n");
+    sp_print_info(&mat);
+    sp_print(&mat);
+    printf("\n\n");
+
+    sp_free(&mat);
+}
+*/
+
 int main(void)
 {
     sparse_matrix_t mat = sp_create(5, 5);

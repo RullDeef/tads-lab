@@ -3,14 +3,15 @@ LFLAGS :=
 
 .PHONY : build clean
 
-build : app.exe
+build : bin/app.exe
+	bin/app.exe
 
 clean :
 	rm -rf bin/* obj/* **/bin/* **/obj/*
 
 include tests/makefile
 
-app.exe : obj/main.o obj/conio.o obj/sparse_matrix.o
+bin/app.exe : obj/main.o obj/conio.o obj/sparse_matrix.o
 	$(CC) $(LFLAGS) -o $@ $^
 
 obj/main.o : src/main.c

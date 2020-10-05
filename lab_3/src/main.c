@@ -10,10 +10,12 @@ int menu_loop(void);
 
 int main(void)
 {
+    return menu_loop();
+
     sparse_matrix_t mat = sp_create(5, 5);
     sp_print(&mat);
 
-    print_info(&mat);
+    sp_print_info(&mat);
 
     printf("\nelement at row=3 col=0 : %d\n", sp_get(&mat, 3, 0));
     printf("set it to 8!\n\n");
@@ -23,7 +25,7 @@ int main(void)
     sp_set(&mat, 3, 0, 30);
     sp_print(&mat);
 
-    print_info(&mat);
+    sp_print_info(&mat);
 
     return 0;
 }
@@ -67,6 +69,8 @@ int menu_loop(void)
             break;
         }
     }
+
+    return 0;
 }
 
 void mult_mat_vect(void)
@@ -81,7 +85,16 @@ void mult_mat_vect(void)
         return;
     }
 
-    if (con_input_vector(&vector, matrix.cols_size) != EXIT_SUCCESS)
+    // allocate memory for vector
+    vector = malloc(matrix.cols_size * sizeof(mat_elem_t));
+    if (vector == NULL)
+    {
+        printf("Ошибка при выделении памяти!\n");
+        sp_free(&matrix);
+        return;
+    }
+
+    if (con_input_vector(vector, matrix.cols_size) != EXIT_SUCCESS)
     {
         printf("Произошла ошибка при вводе данных. Повторите попытку.\n");
         sp_free(&matrix);
@@ -107,4 +120,11 @@ void mult_mat_vect(void)
     }
 
     // print vector here and return
+    printf("Результат умножения матрицы на вектор:\n");
+    con_print_vector(result, matrix.rows_size);
+    con_wait();
+
+    sp_free(&matrix);
+    free(vector);
+    free(result);
 }

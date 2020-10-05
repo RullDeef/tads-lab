@@ -8,6 +8,7 @@
 #include <assert.h>
 #include <limits.h>
 #include <time.h>
+#include <errno.h>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -95,7 +96,7 @@ int main(void)
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
-    win = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Demo", NULL, NULL);
+    win = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Lab 3", NULL, NULL);
     glfwMakeContextCurrent(win);
     glfwGetWindowSize(win, &width, &height);
 
@@ -110,23 +111,30 @@ int main(void)
     ctx = nk_glfw3_init(&glfw, win, NK_GLFW3_INSTALL_CALLBACKS);
     /* Load Fonts: if none of these are loaded a default font will be used  */
     /* Load Cursor: if you uncomment cursor loading please hide the cursor */
-    {struct nk_font_atlas* atlas;
-    nk_glfw3_font_stash_begin(&glfw, &atlas);
-    /*struct nk_font *droid = nk_font_atlas_add_from_file(atlas, "../../../extra_font/DroidSans.ttf", 14, 0);*/
-    /*struct nk_font *roboto = nk_font_atlas_add_from_file(atlas, "../../../extra_font/Roboto-Regular.ttf", 14, 0);*/
-    /*struct nk_font *future = nk_font_atlas_add_from_file(atlas, "../../../extra_font/kenvector_future_thin.ttf", 13, 0);*/
-    /*struct nk_font *clean = nk_font_atlas_add_from_file(atlas, "../../../extra_font/ProggyClean.ttf", 12, 0);*/
-    /*struct nk_font *tiny = nk_font_atlas_add_from_file(atlas, "../../../extra_font/ProggyTiny.ttf", 10, 0);*/
-    /*struct nk_font *cousine = nk_font_atlas_add_from_file(atlas, "../../../extra_font/Cousine-Regular.ttf", 13, 0);*/
-    nk_glfw3_font_stash_end(&glfw);
-    /*nk_style_load_all_cursors(ctx, atlas->cursors);*/
-    /*nk_style_set_font(ctx, &droid->handle);*/}
+    {
+        struct nk_font_atlas* atlas;
+        nk_glfw3_font_stash_begin(&glfw, &atlas);
+
+        // add cyrillic range
+        // struct nk_font_config config = nk_font_config(18);
+        // config.range = nk_font_cyrillic_glyph_ranges();
+
+        /*struct nk_font* roboto = nk_font_atlas_add_from_file(atlas, "Roboto-Regular.ttf", 18, &config);*/
+        /*struct nk_font *droid = nk_font_atlas_add_from_file(atlas, "../../../extra_font/DroidSans.ttf", 14, 0);*/
+        /*struct nk_font *future = nk_font_atlas_add_from_file(atlas, "../../../extra_font/kenvector_future_thin.ttf", 13, 0);*/
+        /*struct nk_font *clean = nk_font_atlas_add_from_file(atlas, "../../../extra_font/ProggyClean.ttf", 12, 0);*/
+        /*struct nk_font *tiny = nk_font_atlas_add_from_file(atlas, "../../../extra_font/ProggyTiny.ttf", 10, 0);*/
+        /*struct nk_font *cousine = nk_font_atlas_add_from_file(atlas, "../../../extra_font/Cousine-Regular.ttf", 13, 0);*/
+        nk_glfw3_font_stash_end(&glfw);
+        // nk_style_load_all_cursors(ctx, atlas->cursors);
+        //nk_style_set_font(ctx, &roboto->handle);
+    }
 
 #ifdef INCLUDE_STYLE
     /*set_style(ctx, THEME_WHITE);*/
     /*set_style(ctx, THEME_RED);*/
     /*set_style(ctx, THEME_BLUE);*/
-    /*set_style(ctx, THEME_DARK);*/
+    // set_style(ctx, THEME_DARK);
 #endif
 
     bg.r = 0.10f, bg.g = 0.18f, bg.b = 0.24f, bg.a = 1.0f;
@@ -137,6 +145,87 @@ int main(void)
         nk_glfw3_new_frame(&glfw);
 
         /* GUI */
+        static int main_opt = 0;
+        
+        if (nk_begin(ctx, "Lab_3", nk_rect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT), 0))
+        {
+            nk_layout_row_dynamic(ctx, 30, 1);
+            // if (nk_option_label(ctx, "Проверка корректности заполнения матрицы", main_opt == 0)) main_opt = 0;
+            if (nk_option_label(ctx, "Examine matrix to be readed correctly", main_opt == 0)) main_opt = 0;
+            if (nk_option_label(ctx, "Multiply matrix by vector", main_opt == 1)) main_opt = 1;
+            if (nk_option_label(ctx, "Multiply matrix by matrix", main_opt == 2)) main_opt = 2;
+
+            if (main_opt == 0)
+            {
+                static char row_str[11] = "0";
+                static int row_str_len = 1;
+
+                static char col_str[11] = "0";
+                static int col_str_len = 1;
+
+                const float sizes[] = { 60, 60, 60, 60, 120 };
+                nk_layout_row(ctx, NK_STATIC, 25, 5, sizes);
+
+                nk_label(ctx, "rows:", NK_TEXT_LEFT);
+                nk_edit_string(ctx, NK_EDIT_SIMPLE, row_str, &row_str_len, 10, NK_FILTER_INT);
+
+                nk_label(ctx, "cols:", NK_TEXT_LEFT);
+                nk_edit_string(ctx, NK_EDIT_SIMPLE, col_str, &col_str_len, 10, NK_FILTER_INT);
+
+                static long rows = 0;
+                static long cols = 0;
+                
+                static int invalid_dims = 0;
+
+                if (nk_button_label(ctx, "generate"))
+                {
+                    char* end_str;
+
+                    row_str[row_str_len] = '\0';
+                    col_str[col_str_len] = '\0';
+
+                    rows = strtol(row_str, &end_str, 10);
+
+                    if (rows == 0 && (errno == EINVAL || end_str == row_str))
+                        invalid_dims = 1;
+                    
+                    else
+                    {
+                        cols = strtol(col_str, &end_str, 10);
+
+                        if (cols == 0 && (errno == EINVAL || end_str == col_str))
+                            invalid_dims = 1;
+
+                        else if (rows <= 0 || cols <= 0)
+                            invalid_dims = 1;
+
+                        else
+                        {
+                            printf("Generated matrix with dimensions: %ld x %ld\n", rows, cols);
+                        }
+                    }
+                }
+
+                if (invalid_dims)
+                {
+                    static struct nk_rect s = { 20, 100, 220, 90 };
+                    if (nk_popup_begin(ctx, NK_POPUP_STATIC, "Error", 0, s))
+                    {
+                        nk_layout_row_dynamic(ctx, 25, 1);
+                        nk_label(ctx, "Invalid dimensions", NK_TEXT_CENTERED);
+                        if (nk_button_label(ctx, "OK")) {
+                            invalid_dims = 0;
+                            nk_popup_close(ctx);
+                        }
+                        nk_popup_end(ctx);
+                    }
+                    else invalid_dims = 0;
+                }
+            }
+        }
+        nk_end(ctx);
+
+        /*
         if (nk_begin(ctx, "Demo", nk_rect(50, 50, 230, 250),
             NK_WINDOW_BORDER | NK_WINDOW_MOVABLE | NK_WINDOW_SCALABLE |
             NK_WINDOW_MINIMIZABLE | NK_WINDOW_TITLE))
@@ -170,17 +259,20 @@ int main(void)
             }
         }
         nk_end(ctx);
+        */
 
         /* -------------- EXAMPLES ---------------- */
+        overview(ctx);
+        /*
 #ifdef INCLUDE_CALCULATOR
         calculator(ctx);
 #endif
 #ifdef INCLUDE_OVERVIEW
-        overview(ctx);
 #endif
 #ifdef INCLUDE_NODE_EDITOR
         node_editor(ctx);
 #endif
+        */
         /* ----------------------------------------- */
 
         /* Draw */

@@ -1,14 +1,17 @@
-/* nuklear - 1.32.0 - public domain */
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdarg.h>
+#include <stdbool.h>
 #include <string.h>
 #include <math.h>
 #include <assert.h>
 #include <limits.h>
 #include <time.h>
 #include <errno.h>
+
+// code for matrices handling
+#include "sparse_matrix.h"
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -32,44 +35,11 @@
 #define MAX_VERTEX_BUFFER 512 * 1024
 #define MAX_ELEMENT_BUFFER 128 * 1024
 
-/* ===============================================================
- *
- *                          EXAMPLE
- *
- * ===============================================================*/
- /* This are some code examples to provide a small overview of what can be
-  * done with this library. To try out an example uncomment the defines */
-#define INCLUDE_ALL
-  /*#define INCLUDE_STYLE */
-  /*#define INCLUDE_CALCULATOR */
-#define INCLUDE_OVERVIEW
-/*#define INCLUDE_NODE_EDITOR */
-
-#ifdef INCLUDE_ALL
-#define INCLUDE_STYLE
-#define INCLUDE_CALCULATOR
-#define INCLUDE_OVERVIEW
-#define INCLUDE_NODE_EDITOR
-#endif
-
-#ifdef INCLUDE_STYLE
 #include "Nuklear/style.c"
-#endif
-#ifdef INCLUDE_CALCULATOR
 #include "Nuklear/calculator.c"
-#endif
-#ifdef INCLUDE_OVERVIEW
 #include "Nuklear/overview.c"
-#endif
-#ifdef INCLUDE_NODE_EDITOR
 #include "Nuklear/node_editor.c"
-#endif
 
-/* ===============================================================
- *
- *                          DEMO
- *
- * ===============================================================*/
 static void error_callback(int e, const char* d)
 {
     printf("Error %d: %s\n", e, d);
@@ -84,6 +54,11 @@ int main(void)
     struct nk_context* ctx;
     struct nk_colorf bg;
 
+    { // test sparse matrix realisation
+        sparse_matrix_t mat = sp_create(40, 20);
+        sp_free(&mat);
+    }
+
     /* GLFW */
     glfwSetErrorCallback(error_callback);
     if (!glfwInit()) {
@@ -93,9 +68,6 @@ int main(void)
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-#ifdef __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-#endif
     win = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Lab 3", NULL, NULL);
     glfwMakeContextCurrent(win);
     glfwGetWindowSize(win, &width, &height);
@@ -172,13 +144,19 @@ int main(void)
                 nk_label(ctx, "cols:", NK_TEXT_LEFT);
                 nk_edit_string(ctx, NK_EDIT_SIMPLE, col_str, &col_str_len, 10, NK_FILTER_INT);
 
-                static long rows = 0;
-                static long cols = 0;
-                
+                static long rows = 0, cols = 0;
                 static int invalid_dims = 0;
 
+                static sparse_matrix_t sparse_matrix;
+                static bool matrix_generated = false;
+
+                // generate matrix wit hnew dimensions
                 if (nk_button_label(ctx, "generate"))
                 {
+                    // обнулили предыдущий вариант матрицы
+                    sp_free(&sparse_matrix);
+                    sparse_matrix = sp_null_matrix();
+
                     char* end_str;
 
                     row_str[row_str_len] = '\0';
@@ -201,11 +179,15 @@ int main(void)
 
                         else
                         {
+                            // создали новую матрицу
+                            sparse_matrix = sp_create(rows, cols);
+
                             printf("Generated matrix with dimensions: %ld x %ld\n", rows, cols);
                         }
                     }
                 }
 
+                // show error msg popup
                 if (invalid_dims)
                 {
                     static struct nk_rect s = { 20, 100, 220, 90 };
@@ -220,6 +202,12 @@ int main(void)
                         nk_popup_end(ctx);
                     }
                     else invalid_dims = 0;
+                }
+
+                if (matrix_generated)
+                {
+                    // print input boxes for all dimmensions
+                    // whaaaaa???....
                 }
             }
         }

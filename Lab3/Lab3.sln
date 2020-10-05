@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lab3GUI", "Lab3GUI\Lab3GUI.vcxproj", "{259DCA7E-110A-4660-AB07-AB11D3738B9C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SparseMatrixLib", "SparseMatrixLib\SparseMatrixLib.vcxproj", "{D4872110-1639-4CFA-9998-85F227F93060}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{259DCA7E-110A-4660-AB07-AB11D3738B9C}.Release|x64.Build.0 = Release|x64
 		{259DCA7E-110A-4660-AB07-AB11D3738B9C}.Release|x86.ActiveCfg = Release|Win32
 		{259DCA7E-110A-4660-AB07-AB11D3738B9C}.Release|x86.Build.0 = Release|Win32
+		{D4872110-1639-4CFA-9998-85F227F93060}.Debug|x64.ActiveCfg = Debug|x64
+		{D4872110-1639-4CFA-9998-85F227F93060}.Debug|x64.Build.0 = Debug|x64
+		{D4872110-1639-4CFA-9998-85F227F93060}.Debug|x86.ActiveCfg = Debug|Win32
+		{D4872110-1639-4CFA-9998-85F227F93060}.Debug|x86.Build.0 = Debug|Win32
+		{D4872110-1639-4CFA-9998-85F227F93060}.Release|x64.ActiveCfg = Release|x64
+		{D4872110-1639-4CFA-9998-85F227F93060}.Release|x64.Build.0 = Release|x64
+		{D4872110-1639-4CFA-9998-85F227F93060}.Release|x86.ActiveCfg = Release|Win32
+		{D4872110-1639-4CFA-9998-85F227F93060}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

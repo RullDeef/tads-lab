@@ -44,6 +44,109 @@ struct my_nkc_app {
     } opt_data;
 };
 
+bool app_check_dims(int rows, int cols)
+{
+    bool rows_valid = 0 < rows && rows <= 200;
+    bool cols_valid = 0 < cols && cols <= 200;
+
+    return rows_valid && cols_valid;
+}
+
+void gui_check_matrix(struct my_nkc_app* myapp)
+{
+    struct nk_context* ctx = nkc_get_ctx(myapp->nkcHandle);
+    static bool error_popup_active = false;
+
+    nk_layout_row_dynamic(ctx, 0, 1);
+    nk_label(ctx, "Test matrix input here. It supposed to work without any problems.", NK_TEXT_ALIGN_LEFT);
+
+    nk_layout_row_dynamic(ctx, 0, 4);
+    myapp->opt_data.check_matrix.input_rows = nk_propertyi(ctx, "rows", 1, myapp->opt_data.check_matrix.input_rows, 200, 1, 1);
+    myapp->opt_data.check_matrix.input_cols = nk_propertyi(ctx, "cols", 1, myapp->opt_data.check_matrix.input_cols, 200, 1, 1);
+
+    int rows = myapp->opt_data.check_matrix.input_rows;
+    int cols = myapp->opt_data.check_matrix.input_cols;
+
+    if (nk_button_label(ctx, "generate"))
+    {
+        if (app_check_dims(rows, cols))
+        {
+            sp_free(&myapp->opt_data.check_matrix.matrix);
+            myapp->opt_data.check_matrix.matrix = sp_create(rows, cols);
+            myapp->opt_data.check_matrix.generated = true;
+        }
+        else
+        {
+            error_popup_active = true;
+            myapp->opt_data.check_matrix.generated = false;
+        }
+    }
+
+    if (error_popup_active)
+    {
+        if (nk_popup_begin(ctx, NK_POPUP_STATIC, "Error", 0, nk_rect(WINDOW_WIDTH / 4, WINDOW_HEIGHT / 4, WINDOW_WIDTH / 4, WINDOW_HEIGHT / 4)))
+        {
+            nk_layout_row_dynamic(ctx, 25, 1);
+            nk_label(ctx, "Invalid dimentions", NK_TEXT_LEFT);
+            if (nk_button_label(ctx, "OK")) {
+                error_popup_active = false;
+                nk_popup_close(ctx);
+            }
+            nk_popup_end(ctx);
+        }
+        else
+            error_popup_active = false;
+    }
+
+    // output matrix
+    if (myapp->opt_data.check_matrix.generated)
+    {
+        int mat_rows = myapp->opt_data.check_matrix.matrix.rows_size;
+        int mat_cols = myapp->opt_data.check_matrix.matrix.cols_size;
+
+        nk_layout_row_static(ctx, 0, 56, mat_cols + 1);
+        nk_label(ctx, "row\\col", NK_TEXT_CENTERED);
+
+        for (int col = 0; col < mat_cols; col++)
+        {
+            char col_str[10];
+            sprintf(col_str, "%d", col);
+            nk_label(ctx, col_str, NK_TEXT_CENTERED);
+        }
+
+        for (int row = 0; row < mat_rows; row++)
+        {
+            char row_str[10];
+            sprintf(row_str, "%d", row);
+            nk_label(ctx, row_str, NK_TEXT_CENTERED);
+
+            for (int col = 0; col < mat_cols; col++)
+            {
+                sparse_matrix_t* mat = &myapp->opt_data.check_matrix.matrix;
+
+                int value = sp_get(mat, row, col);
+                int new_value = nk_propertyi(ctx, "", INT_MIN, value, INT_MAX, 1, 1);
+
+                if (new_value != value)
+                {
+                    sp_set(mat, row, col, new_value);
+                    sp_print_info(mat);
+                }
+            }
+        }
+    }
+}
+
+void gui_multiply_mat_vec(struct my_nkc_app* myapp)
+{
+    struct nk_context* ctx = nkc_get_ctx(myapp->nkcHandle);
+}
+
+void gui_multiply_mat_mat(struct my_nkc_app* myapp)
+{
+    struct nk_context* ctx = nkc_get_ctx(myapp->nkcHandle);
+}
+
 void mainLoop(void* loopArg) {
     struct my_nkc_app* myapp = (struct my_nkc_app*)loopArg;
     struct nk_context* ctx = nkc_get_ctx(myapp->nkcHandle);
@@ -56,35 +159,70 @@ void mainLoop(void* loopArg) {
     /* Nuklear GUI code */
     if (nk_begin(ctx, "Lab3Window", nk_rect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT), 0)) {
         
-        nk_layout_row_begin(ctx, NK_STATIC, 25, 5);
+        nk_layout_row_begin(ctx, NK_STATIC, 0, 1);
         nk_layout_row_push(ctx, 45);
         if (nk_menu_begin_label(ctx, "MENU", NK_TEXT_LEFT, nk_vec2(120, 200)))
         {
-            static size_t prog = 40;
-            static int slider = 10;
-            static int check = nk_true;
-            nk_layout_row_dynamic(ctx, 25, 1);
-            if (nk_menu_item_label(ctx, "Hide", NK_TEXT_LEFT));
-            if (nk_menu_item_label(ctx, "About", NK_TEXT_LEFT));
-            nk_progress(ctx, &prog, 100, NK_MODIFIABLE);
-            nk_slider_int(ctx, 0, &slider, 16, 1);
-            nk_checkbox_label(ctx, "check", &check);
+            nk_layout_row_dynamic(ctx, 0, 1);
+            if (nk_menu_item_label(ctx, "Check matrix", NK_TEXT_LEFT))
+            {
+                if (myapp->opt == MULTIPLY_MATRIX_VECTOR)
+                {
+                    sp_free(&myapp->opt_data.mult_mat_vec.matrix);
+                    free(myapp->opt_data.mult_mat_vec.vector);
+                }
+                else if (myapp->opt == MULTIPLY_MATRIX_MATRIX)
+                {
+                    sp_free(&myapp->opt_data.mult_mat_mat.matrix_1);
+                    sp_free(&myapp->opt_data.mult_mat_mat.matrix_2);
+                    sp_free(&myapp->opt_data.mult_mat_mat.result);
+                }
+
+                myapp->opt = CHECK_MATRIX;
+                myapp->opt_data.check_matrix.generated = false;
+                myapp->opt_data.check_matrix.input_rows = 1;
+                myapp->opt_data.check_matrix.input_cols = 1;
+                myapp->opt_data.check_matrix.matrix = sp_null_matrix();
+            }
+            if (nk_menu_item_label(ctx, "Mat X vect", NK_TEXT_LEFT))
+                myapp->opt = MULTIPLY_MATRIX_VECTOR;
+            if (nk_menu_item_label(ctx, "Mat X mat", NK_TEXT_LEFT))
+                myapp->opt = MULTIPLY_MATRIX_MATRIX;
+
+            // nk_progress(ctx, &prog, 100, NK_MODIFIABLE);
+            // nk_slider_int(ctx, 0, &slider, 16, 1);
+            // nk_checkbox_label(ctx, "check", &check);
+
             nk_menu_end(ctx);
         }
-        
-        /* fixed widget pixel width */
+
+        switch (myapp->opt)
+        {
+        default:
+        case CHECK_MATRIX:
+            gui_check_matrix(myapp);
+            break;
+        case MULTIPLY_MATRIX_VECTOR:
+            gui_multiply_mat_vec(myapp);
+            break;
+        case MULTIPLY_MATRIX_MATRIX:
+            gui_multiply_mat_mat(myapp);
+            break;
+        }
+        /*
+        // fixed widget pixel width
         nk_layout_row_static(ctx, 30, 80, 1);
         if (nk_button_label(ctx, "button")) {
-            /* event handling */
+            // event handling
             printf("Button pressed\n");
         }
 
-        /* fixed widget window ratio width */
+        // fixed widget window ratio width
         nk_layout_row_dynamic(ctx, 0, 2);
         if (nk_option_label(ctx, "easy", myapp->opt == 0)) myapp->opt = 0;
         if (nk_option_label(ctx, "very hard", myapp->opt == 1)) myapp->opt = 1;
 
-        /* custom widget pixel width */
+        // custom widget pixel width
         nk_layout_row_begin(ctx, NK_STATIC, 30, 2);
         {
             nk_layout_row_push(ctx, 50);
@@ -93,6 +231,7 @@ void mainLoop(void* loopArg) {
             // nk_slider_float(ctx, 0, &(myapp->value), 1.0f, 0.1f);
         }
         nk_layout_row_end(ctx);
+        */
     }
     nk_end(ctx);
     /* End Nuklear GUI */
@@ -104,9 +243,13 @@ int main() {
     struct my_nkc_app myapp;
     struct nkc nkcx; /* Allocate memory for Nuklear+ handle */
     myapp.nkcHandle = &nkcx;
+
     /* init some user data */
-    // myapp.value = 0.4;
-    myapp.opt = 0;
+    myapp.opt = CHECK_MATRIX;
+    myapp.opt_data.check_matrix.generated = false;
+    myapp.opt_data.check_matrix.input_rows = 1;
+    myapp.opt_data.check_matrix.input_cols = 1;
+    myapp.opt_data.check_matrix.matrix = sp_null_matrix();
 
     if (nkc_init(myapp.nkcHandle, "Nuklear+ Example", WINDOW_WIDTH, WINDOW_HEIGHT, NKC_WIN_NORMAL))
     {

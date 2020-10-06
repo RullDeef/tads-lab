@@ -86,7 +86,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;UNICODE;_UNICODE;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)NuklearCrossLib\src;$(ProjectDir)include;$(ProjectDir)vendor\glew-2.1.0\include;$(ProjectDir)vendor\glfw-3.3.2\include;$(ProjectDir)vendor\Nuklear\include;$(SolutionDir)SparseMatrixLib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>

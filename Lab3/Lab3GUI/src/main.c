@@ -1,55 +1,138 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <stdarg.h>
 #include <stdbool.h>
-#include <string.h>
-#include <math.h>
-#include <assert.h>
-#include <limits.h>
-#include <time.h>
-#include <errno.h>
-
-// code for matrices handling
 #include "sparse_matrix.h"
+#include "nuklear_cross.h"
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+#define WINDOW_WIDTH 800
+#define WINDOW_HEIGHT 600
 
-#define NK_INCLUDE_FIXED_TYPES
-#define NK_INCLUDE_STANDARD_IO
-#define NK_INCLUDE_STANDARD_VARARGS
-#define NK_INCLUDE_DEFAULT_ALLOCATOR
-#define NK_INCLUDE_VERTEX_BUFFER_OUTPUT
-#define NK_INCLUDE_FONT_BAKING
-#define NK_INCLUDE_DEFAULT_FONT
-#define NK_IMPLEMENTATION
-#define NK_GLFW_GL3_IMPLEMENTATION
-#define NK_KEYSTATE_BASED_INPUT
-#include <Nuklear/nuklear.h>
-#include <Nuklear/nuklear_glfw_gl3.h>
+enum menu_opts {
+    CHECK_MATRIX,
+    MULTIPLY_MATRIX_VECTOR,
+    MULTIPLY_MATRIX_MATRIX
+};
 
-#define WINDOW_WIDTH 1200
-#define WINDOW_HEIGHT 800
+struct my_nkc_app {
+    struct nkc* nkcHandle;
 
-#define MAX_VERTEX_BUFFER 512 * 1024
-#define MAX_ELEMENT_BUFFER 128 * 1024
+    /* some user data */
+    enum menu_opts opt;
 
-#include "Nuklear/style.c"
-#include "Nuklear/calculator.c"
-#include "Nuklear/overview.c"
-#include "Nuklear/node_editor.c"
+    union {
+        struct {
+            bool generated;
+            mat_size_t input_rows;
+            mat_size_t input_cols;
+            sparse_matrix_t matrix;
+        } check_matrix;
+        struct {
+            bool generated;
+            mat_size_t input_rows;
+            mat_size_t input_cols;
+            sparse_matrix_t matrix;
+            mat_elem_t* vector;
+        } mult_mat_vec;
+        struct {
+            bool generated;
+            mat_size_t input_rows;
+            mat_size_t input_cols;
+            mat_size_t input_cols_res;
+            sparse_matrix_t matrix_1;
+            sparse_matrix_t matrix_2;
+            sparse_matrix_t result;
+        } mult_mat_mat;
+    } opt_data;
+};
 
+void mainLoop(void* loopArg) {
+    struct my_nkc_app* myapp = (struct my_nkc_app*)loopArg;
+    struct nk_context* ctx = nkc_get_ctx(myapp->nkcHandle);
 
+    union nkc_event e = nkc_poll_events(myapp->nkcHandle);
+    if ((e.type == NKC_EWINDOW) && (e.window.param == NKC_EQUIT)) {
+        nkc_stop_main_loop(myapp->nkcHandle);
+    }
 
-static void error_callback(int e, const char* d)
-{
-    printf("Error %d: %s\n", e, d);
+    /* Nuklear GUI code */
+    if (nk_begin(ctx, "Lab3Window", nk_rect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT), 0)) {
+        
+        nk_layout_row_begin(ctx, NK_STATIC, 25, 5);
+        nk_layout_row_push(ctx, 45);
+        if (nk_menu_begin_label(ctx, "MENU", NK_TEXT_LEFT, nk_vec2(120, 200)))
+        {
+            static size_t prog = 40;
+            static int slider = 10;
+            static int check = nk_true;
+            nk_layout_row_dynamic(ctx, 25, 1);
+            if (nk_menu_item_label(ctx, "Hide", NK_TEXT_LEFT));
+            if (nk_menu_item_label(ctx, "About", NK_TEXT_LEFT));
+            nk_progress(ctx, &prog, 100, NK_MODIFIABLE);
+            nk_slider_int(ctx, 0, &slider, 16, 1);
+            nk_checkbox_label(ctx, "check", &check);
+            nk_menu_end(ctx);
+        }
+        
+        /* fixed widget pixel width */
+        nk_layout_row_static(ctx, 30, 80, 1);
+        if (nk_button_label(ctx, "button")) {
+            /* event handling */
+            printf("Button pressed\n");
+        }
+
+        /* fixed widget window ratio width */
+        nk_layout_row_dynamic(ctx, 0, 2);
+        if (nk_option_label(ctx, "easy", myapp->opt == 0)) myapp->opt = 0;
+        if (nk_option_label(ctx, "very hard", myapp->opt == 1)) myapp->opt = 1;
+
+        /* custom widget pixel width */
+        nk_layout_row_begin(ctx, NK_STATIC, 30, 2);
+        {
+            nk_layout_row_push(ctx, 50);
+            nk_label(ctx, "Volume:", NK_TEXT_LEFT);
+            nk_layout_row_push(ctx, 110);
+            // nk_slider_float(ctx, 0, &(myapp->value), 1.0f, 0.1f);
+        }
+        nk_layout_row_end(ctx);
+    }
+    nk_end(ctx);
+    /* End Nuklear GUI */
+
+    nkc_render(myapp->nkcHandle, nk_rgb(40, 40, 40));
 }
 
+int main() {
+    struct my_nkc_app myapp;
+    struct nkc nkcx; /* Allocate memory for Nuklear+ handle */
+    myapp.nkcHandle = &nkcx;
+    /* init some user data */
+    // myapp.value = 0.4;
+    myapp.opt = 0;
+
+    if (nkc_init(myapp.nkcHandle, "Nuklear+ Example", WINDOW_WIDTH, WINDOW_HEIGHT, NKC_WIN_NORMAL))
+    {
+        printf("Successfull init. Starting 'infinite' main loop...\n");
+        {
+            // setup custom font
+            //struct nk_user_font *font = nkc_load_font_file(myapp.nkcHandle, "Roboto-Regular.ttf", 14, nk_font_cyrillic_glyph_ranges());
+            //nkc_style_set_font(myapp.nkcHandle, font);
+        }
+
+        // set style
+        nkc_set_style(myapp.nkcHandle, THEME_WHITE);
+        nkc_set_main_loop(myapp.nkcHandle, mainLoop, (void*)&myapp);
+    }
+    else
+    {
+        printf("Can't init NKC\n");
+    }
+
+    nkc_shutdown(myapp.nkcHandle);
+    return 0;
+}
+
+/*
 int main(void)
 {
-    /* Platform */
     struct nk_glfw glfw = { 0 };
     static GLFWwindow* win;
     int width = 0, height = 0;
@@ -61,7 +144,6 @@ int main(void)
         sp_free(&mat);
     }
 
-    /* GLFW */
     glfwSetErrorCallback(error_callback);
     if (!glfwInit()) {
         fprintf(stdout, "[GFLW] failed to init!\n");
@@ -74,7 +156,6 @@ int main(void)
     glfwMakeContextCurrent(win);
     glfwGetWindowSize(win, &width, &height);
 
-    /* OpenGL */
     glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
     glewExperimental = 1;
     if (glewInit() != GLEW_OK) {
@@ -83,8 +164,6 @@ int main(void)
     }
 
     ctx = nk_glfw3_init(&glfw, win, NK_GLFW3_INSTALL_CALLBACKS);
-    /* Load Fonts: if none of these are loaded a default font will be used  */
-    /* Load Cursor: if you uncomment cursor loading please hide the cursor */
     {
         struct nk_font_atlas* atlas;
         nk_glfw3_font_stash_begin(&glfw, &atlas);
@@ -92,33 +171,18 @@ int main(void)
         // add cyrillic range
         // struct nk_font_config config = nk_font_config(18);
         // config.range = nk_font_cyrillic_glyph_ranges();
-
-        /*struct nk_font* roboto = nk_font_atlas_add_from_file(atlas, "Roboto-Regular.ttf", 18, &config);*/
-        /*struct nk_font *droid = nk_font_atlas_add_from_file(atlas, "../../../extra_font/DroidSans.ttf", 14, 0);*/
-        /*struct nk_font *future = nk_font_atlas_add_from_file(atlas, "../../../extra_font/kenvector_future_thin.ttf", 13, 0);*/
-        /*struct nk_font *clean = nk_font_atlas_add_from_file(atlas, "../../../extra_font/ProggyClean.ttf", 12, 0);*/
-        /*struct nk_font *tiny = nk_font_atlas_add_from_file(atlas, "../../../extra_font/ProggyTiny.ttf", 10, 0);*/
-        /*struct nk_font *cousine = nk_font_atlas_add_from_file(atlas, "../../../extra_font/Cousine-Regular.ttf", 13, 0);*/
         nk_glfw3_font_stash_end(&glfw);
         // nk_style_load_all_cursors(ctx, atlas->cursors);
         //nk_style_set_font(ctx, &roboto->handle);
     }
 
-#ifdef INCLUDE_STYLE
-    /*set_style(ctx, THEME_WHITE);*/
-    /*set_style(ctx, THEME_RED);*/
-    /*set_style(ctx, THEME_BLUE);*/
-    // set_style(ctx, THEME_DARK);
-#endif
 
     bg.r = 0.10f, bg.g = 0.18f, bg.b = 0.24f, bg.a = 1.0f;
     while (!glfwWindowShouldClose(win))
     {
-        /* Input */
         glfwPollEvents();
         nk_glfw3_new_frame(&glfw);
 
-        /* GUI */
         static int main_opt = 0;
         
         if (nk_begin(ctx, "Lab_3", nk_rect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT), 0))
@@ -285,32 +349,14 @@ int main(void)
             }
         }
         nk_end(ctx);
-        */
 
-        /* -------------- EXAMPLES ---------------- */
         overview(ctx);
-        /*
-#ifdef INCLUDE_CALCULATOR
-        calculator(ctx);
-#endif
-#ifdef INCLUDE_OVERVIEW
-#endif
-#ifdef INCLUDE_NODE_EDITOR
-        node_editor(ctx);
-#endif
-        */
-        /* ----------------------------------------- */
+        
 
-        /* Draw */
         glfwGetWindowSize(win, &width, &height);
         glViewport(0, 0, width, height);
         glClear(GL_COLOR_BUFFER_BIT);
         glClearColor(bg.r, bg.g, bg.b, bg.a);
-        /* IMPORTANT: `nk_glfw_render` modifies some global OpenGL state
-         * with blending, scissor, face culling, depth test and viewport and
-         * defaults everything back into a default state.
-         * Make sure to either a.) save and restore or b.) reset your own state after
-         * rendering the UI. */
         nk_glfw3_render(&glfw, NK_ANTI_ALIASING_ON, MAX_VERTEX_BUFFER, MAX_ELEMENT_BUFFER);
         glfwSwapBuffers(win);
     }
@@ -319,3 +365,4 @@ int main(void)
     return 0;
 }
 
+*/

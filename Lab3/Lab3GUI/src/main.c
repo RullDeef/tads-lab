@@ -40,6 +40,8 @@
 #include "Nuklear/overview.c"
 #include "Nuklear/node_editor.c"
 
+
+
 static void error_callback(int e, const char* d)
 {
     printf("Error %d: %s\n", e, d);
@@ -181,8 +183,9 @@ int main(void)
                         {
                             // создали новую матрицу
                             sparse_matrix = sp_create(rows, cols);
-
+                            matrix_generated = true;
                             printf("Generated matrix with dimensions: %ld x %ld\n", rows, cols);
+                            sp_print_info(&sparse_matrix);
                         }
                     }
                 }
@@ -190,6 +193,7 @@ int main(void)
                 // show error msg popup
                 if (invalid_dims)
                 {
+                    matrix_generated = false;
                     static struct nk_rect s = { 20, 100, 220, 90 };
                     if (nk_popup_begin(ctx, NK_POPUP_STATIC, "Error", 0, s))
                     {
@@ -207,7 +211,41 @@ int main(void)
                 if (matrix_generated)
                 {
                     // print input boxes for all dimmensions
-                    // whaaaaa???....
+                    nk_layout_row_static(ctx, 40, 400, 1);
+                    nk_label(ctx, "Generated sparse matrix:", NK_TEXT_LEFT);
+                    
+                    nk_layout_row_static(ctx, 0, 56, cols + 1);
+                    nk_label(ctx, "row\\col", NK_TEXT_CENTERED);
+                    for (mat_index_t col = 0; col < cols; col++)
+                    {
+                        char col_num[10];
+                        sprintf(col_num, "%ld", col);
+                        nk_label(ctx, col_num, NK_TEXT_CENTERED);
+                    }
+
+                    for (mat_index_t row = 0; row < rows; row++)
+                    {
+                        char row_num[10];
+                        sprintf(row_num, "%ld", row);
+                        nk_label(ctx, row_num, NK_TEXT_CENTERED);
+
+                        for (mat_index_t col = 0; col < cols; col++)
+                        {
+                            int value = (int)sp_get(&sparse_matrix, row, col);
+                            int new_value = nk_propertyi(ctx, "", INT_MIN, value, INT_MAX, 1, 1);
+                            if (new_value != value)
+                            {
+                                sp_set(&sparse_matrix, row, col, (mat_elem_t)new_value);
+                                printf("Matrix value updated!\n");
+                                sp_print_info(&sparse_matrix);
+                            }
+                        }
+                    }
+
+                    nk_layout_row_static(ctx, 40, 400, 1);
+                    nk_label(ctx, "Try to edit some of the values. Nothing bad must happened.", NK_TEXT_LEFT);
+
+
                 }
             }
         }

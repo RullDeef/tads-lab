@@ -89,7 +89,7 @@
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)vendor\glew-2.1.0\include;$(ProjectDir)vendor\glfw-3.3.2\include;$(ProjectDir)vendor\Nuklear\include;$(SolutionDir)SparseMatrixLib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)vendor\glew-2.1.0\include;$(ProjectDir)vendor\glfw-3.3.2\include;$(ProjectDir)vendor\Nuklear\include;$(SolutionDir)SparseMatrixLib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsC</CompileAs>
     </ClCompile>
     <Link>
@@ -109,7 +109,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)vendor\glew-2.1.0\include;$(ProjectDir)vendor\glfw-3.3.2\include;$(ProjectDir)vendor\Nuklear\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)vendor\glew-2.1.0\include;$(ProjectDir)vendor\glfw-3.3.2\include;$(ProjectDir)vendor\Nuklear\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -128,7 +128,7 @@
       <PreprocessorDefinitions>GL_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)vendor\glew-2.1.0\include;$(ProjectDir)vendor\glfw-3.3.2\include;$(ProjectDir)vendor\Nuklear\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)vendor\glew-2.1.0\include;$(ProjectDir)vendor\glfw-3.3.2\include;$(ProjectDir)vendor\Nuklear\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -147,7 +147,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)vendor\glew-2.1.0\include;$(ProjectDir)vendor\glfw-3.3.2\include;$(ProjectDir)vendor\Nuklear\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)vendor\glew-2.1.0\include;$(ProjectDir)vendor\glfw-3.3.2\include;$(ProjectDir)vendor\Nuklear\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -161,11 +161,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\main.c" />
+    <ClCompile Include="src\menu.c" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SparseMatrixLib\SparseMatrixLib.vcxproj">
       <Project>{d4872110-1639-4cfa-9998-85f227f93060}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\menu.h" />
+    <ClInclude Include="include\Nuklear_imp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

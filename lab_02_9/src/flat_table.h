@@ -20,8 +20,8 @@
 
 typedef struct
 {
+    size_t size;
     flat_t *flats_array;
-    unsigned int size;
     flat_t **flat_ptrs;
 } flat_table_t;
 
@@ -43,6 +43,8 @@ int fwrite_flat_table(FILE *file, flat_table_t *flat_table);
 
 int append_flat_table(flat_table_t *flat_table, flat_t *flat);
 int search_flat_table(flat_table_t *table, float price_1, float price_2, search_callback_t callback);
+
+bool flat_satisfies(flat_t *flat, float price_1, float price_2);
 
 void sort_flat_table_a_fast(flat_table_t *flat_table, sort_key_t key, bool ascending);
 void sort_flat_table_a_slow(flat_table_t *flat_table, sort_key_t key, bool ascending);

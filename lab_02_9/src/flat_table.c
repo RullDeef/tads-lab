@@ -56,11 +56,15 @@ int imp__read_flat_table_from_file(FILE *file, flat_table_t *table)
         if (imp__fget_line(line, FLAT_STRING_SIZE, file))
         {
             status = -3; // bad file
+            printf("bad file!\n");
             break;
         }
-        else if (sread_flat(line, table->flats_array + i))
+        else if ((status = sread_flat(line, table->flats_array + i)) != 0)
         {
+            printf("status was = %d. ", status);
+
             status = -4; // bad string
+            printf("bad string! '%s'\n", line);
             break;
         }
 
@@ -119,6 +123,7 @@ int fread_flat_table(FILE *file, flat_table_t *table)
     if (table->flat_ptrs == NULL) // bad allocation
     {
         free(table->flats_array);
+        printf("bad alloc :c\n");
         return -3;
     }
     table->size = flats_amount;
@@ -335,7 +340,7 @@ void sort_flat_table_b_slow(flat_table_t *flat_table, sort_key_t key, bool ascen
         flat_table->flat_ptrs[i] = flat_table->flats_array + i;
 }
 
-static bool imp__flat_satisfies(flat_t *flat, float price_1, float price_2)
+bool flat_satisfies(flat_t *flat, float price_1, float price_2)
 {
     assert_flat(flat);
     float price = flat->price_per_m2;
@@ -350,7 +355,7 @@ int search_flat_table(flat_table_t *table, float price_1, float price_2, search_
 
     for (int i = 0; i < table->size; i++)
     {
-        if (imp__flat_satisfies(table->flat_ptrs[i], price_1, price_2))
+        if (flat_satisfies(table->flat_ptrs[i], price_1, price_2))
         {
             callback(table->flat_ptrs[i]);
             founded++;

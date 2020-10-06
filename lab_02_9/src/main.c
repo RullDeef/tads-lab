@@ -76,6 +76,12 @@ int run_menu_loop()
             
             case 1:
                 status = append_flat_to_table(&state);
+                if (status == 0)
+                    printf("Успешно добавлена новая запись в таблицу.\n");
+                else
+                    printf("При обработки ввода произошла ошибка.\n");
+                status = 0;
+                imp__pause();
                 break;
 
             case 2:
@@ -88,6 +94,7 @@ int run_menu_loop()
                 }
                 else
                     printf("При сортировке возникли ошибки.\n\n");
+                status = 0;
                 imp__pause();
                 break;
 
@@ -98,12 +105,12 @@ int run_menu_loop()
                 break;
             
             case 4:
-                status = search_flat(&state);
+                search_flat(&state);
                 imp__pause();
                 break;
             
             case 5:
-                status = delete_flat(&state);
+                delete_flat(&state);
                 imp__pause();
                 break;
         }

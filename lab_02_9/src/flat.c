@@ -1,12 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <memory.h>
-#include "flat.h"
 #include <stdbool.h>
+#include <errno.h>
+#include <time.h>
+#include "flat.h"
 
 // parser functions. Stops at ";" char or at the end of string
 
-int imp__parse_string(const char **str, char *out)
+static int imp__parse_string(const char **str, char *out)
 {
     assert(str != NULL);
     assert(*str != NULL);
@@ -35,7 +37,7 @@ int imp__parse_string(const char **str, char *out)
     return 0;
 }
 
-int imp__parse_float(const char **str, float *number)
+static int imp__parse_float(const char **str, float *number)
 {
     assert(str != NULL);
     assert(*str != NULL);
@@ -54,7 +56,7 @@ int imp__parse_float(const char **str, float *number)
     return 0;
 }
 
-int imp__parse_uchar(const char **str, unsigned char *number)
+static int imp__parse_uchar(const char **str, unsigned char *number)
 {
     assert(str != NULL);
     assert(*str != NULL);
@@ -76,7 +78,7 @@ int imp__parse_uchar(const char **str, unsigned char *number)
     return 0;
 }
 
-int imp__parse_flat_type(const char **str, flat_t *flat)
+static int imp__parse_flat_type(const char **str, flat_t *flat)
 {
     assert(str != NULL);
     assert(*str != NULL);
@@ -97,7 +99,7 @@ int imp__parse_flat_type(const char **str, flat_t *flat)
     return status;
 }
 
-int imp__parse_bit_t(const char **str, bit_t *bit)
+static int imp__parse_bit_t(const char **str, bit_t *bit)
 {
     assert(str != NULL);
     assert(*str != NULL);
@@ -118,7 +120,30 @@ int imp__parse_bit_t(const char **str, bit_t *bit)
     return status;
 }
 
-int imp__parse_time_t(const char **str, time_t *time)
+static int imp__parse_number(const char **str, int *num)
+{
+    char *end_ptr;
+
+    // printf("before: str -> '%s'\n", *str);
+    // printf("before: end -> '%s'\n", end_ptr);
+
+    *num = strtol(*str, &end_ptr, 10);
+
+    // printf("\nnum = %d\n", *num);
+    // printf("then: str -> '%s'\n", *str);
+    // printf("then: end -> '%s'\n", end_ptr);
+
+    if (*num == 0 && (errno == EINVAL || *str == end_ptr))
+        return -1;
+    
+    *str += (end_ptr - *str);
+    // printf("after: '%s'\n", *str);
+    return 0;
+}
+
+// expects time in format:
+// dd.mm.yyyy
+static int imp__parse_time_t(const char **str, time_t *time)
 {
     assert(str != NULL);
     assert(*str != NULL);
@@ -128,9 +153,44 @@ int imp__parse_time_t(const char **str, time_t *time)
     for (const char *iter = *str; *iter != '\0' && *iter != FIELDS_DELIMETER; iter++)
         time_len++;
 
-    *time = strtoul(*str, NULL, 10);
-    if (*time == 0ul)
-        return -1; // bad number
+    int days = 0;
+    int months = 0;
+    int years = 0;
+
+    const char *tmp_str = *str;
+    if (imp__parse_number(&tmp_str, &days))
+    {
+        printf("bad number! day\n");
+        return -1;
+    }
+
+    tmp_str++;
+    if (imp__parse_number(&tmp_str, &months))
+    {
+        printf("bad number! mon\n");
+        return -1;
+    }
+
+    tmp_str++;
+    if (imp__parse_number(&tmp_str, &years))
+    {
+        printf("bad number! year\n");
+        return -1;
+    }
+
+    if (days < 1 || 31 < days || months < 1 || 12 < months || years < 1880 || 2020 < years)
+    {
+        return -2;
+    }
+
+    struct tm tmstruct;
+    memset((void*)&tmstruct, 0, sizeof(struct tm));
+
+    tmstruct.tm_year = years;
+    tmstruct.tm_mon = months - 1;
+    tmstruct.tm_mday = days;
+
+    *time = mktime(&tmstruct);
 
     // push forward str pointer
     *str += time_len + 1; // + 1 for delimiter
@@ -190,12 +250,55 @@ int sread_flat(const char *str, flat_t *flat)
     assert(str != NULL);
     assert(flat != NULL);
 
-    int status = imp__parse_string(&str, flat->address) || imp__parse_float(&str, &flat->area) || imp__parse_uchar(&str, &flat->rooms_amount) || imp__parse_float(&str, &flat->price_per_m2) || imp__parse_flat_type(&str, flat) || imp__parse_flat_type_data(&str, flat);
+    int status = 0;
 
+    status = imp__parse_string(&str, flat->address);
+    if (status != 0)
+    {
+        printf("error in address '%s'\n", str);
+        return status;
+    }
+
+    status = imp__parse_float(&str, &flat->area);
+    if (status != 0)
+    {
+        printf("error in area: '%s'\n", str);
+        return status;
+    }
+    
+    status = imp__parse_uchar(&str, &flat->rooms_amount);
+    if (status != 0)
+    {
+        printf("error in rooms amount: '%s'\n", str);
+        return status;
+    }
+    
+    status = imp__parse_float(&str, &flat->price_per_m2);
+    if (status != 0)
+    {
+        printf("error in price: '%s'\n", str);
+        return status;
+    }
+    
+    status = imp__parse_flat_type(&str, flat);
+    if (status != 0)
+    {
+        printf("error in type: '%s'\n", str);
+        return status;
+    }
+    
+    status = imp__parse_flat_type_data(&str, flat);
     // check for end of input
     if (status == 0 && strlen(str) != 0)
+    {
+        printf("end of string not reached!\n");
         status = -10; // end of string not reached
+    }
 
+    if (status != 0)
+    {
+        printf("bad enum data\n");
+    }
     return status;
 }
 
@@ -203,25 +306,33 @@ void printf_flat(flat_t *flat)
 {
     assert_flat(flat);
 
-    printf("| %02d |", flat->id);
-    printf(" %30s |", flat->address);
-    printf(" %7.2f |", flat->area);
-    printf(" %13d |", flat->rooms_amount);
-    printf(" %9.2f |", flat->price_per_m2);
-    printf(" %9s |", flat->type == PRIMARY ? PRIMARY_TYPE_STR : SECONDARY_TYPE_STR);
+    printf("│ %04d │", flat->id);
+    printf(" %30s │", flat->address);
+    printf(" %7.2f │", flat->area);
+    printf(" %13d │", flat->rooms_amount);
+    printf(" %9.2f │", flat->price_per_m2);
+    printf(" %9s │", flat->type == PRIMARY ? PRIMARY_TYPE_STR : SECONDARY_TYPE_STR);
 
     if (flat->type == PRIMARY)
     {
-        printf(" %7s |", flat->type_data.has_trim ? TRUE_STR : FALSE_STR);
-        printf(" %8s | %11s | %15s | %14s |", "", "", "", "");
+        printf(" %7s │", flat->type_data.has_trim ? TRUE_STR : FALSE_STR);
+        printf(" %8s │ %11s │ %15s │ %14s │", "", "", "", "");
     }
     else
     {
-        printf(" %7s |", "");
-        printf(" %8s |", flat->type_data.has_trim ? TRUE_STR : FALSE_STR);
-        printf(" %11lu |", flat->build_time);
-        printf(" %15d |", flat->prev_owners_amount);
-        printf(" %14d |", flat->prev_lodgers_amount);
+        printf(" %7s │", "");
+        printf(" %8s │", flat->type_data.has_trim ? TRUE_STR : FALSE_STR);
+
+        // print time
+        char time_str[12];
+        struct tm *_tm = localtime(&flat->build_time);
+
+        // printf(" %11lu │", flat->build_time);
+        sprintf(time_str, "%02d.%02d.%04d", _tm->tm_mday, _tm->tm_mon + 1, _tm->tm_year);
+        printf(" %11s │", time_str);
+
+        printf(" %15d │", flat->prev_owners_amount);
+        printf(" %14d │", flat->prev_lodgers_amount);
     }
 
     printf("\n");

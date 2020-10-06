@@ -2,91 +2,15 @@
 #include <string.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <time.h>
 #include <stdbool.h>
 #include <assert.h>
 #include "flat_table.h"
+#include "conio.h"
 #include "operations.h"
 
-static int imp__read_line(char *str, unsigned int max_length)
-{
-    if (fgets(str, max_length, stdin) != str)
-        return -1;
-
-    while (strlen(str) > 0 && (str[strlen(str) - 1] == '\n' || str[strlen(str) - 1] == '\r'))
-        str[strlen(str) - 1] = '\0';
-
-    if (strlen(str) == 0)
-        return -2;
-
-    return 0;
-}
-
-static int imp__read_integer(unsigned char *num)
-{
-    char temp[256];
-    if (fgets(temp, 256, stdin) != temp)
-        return -1;
-
-    char *end;
-    unsigned long val = strtoul(temp, &end, 10);
-
-    if (val == 0 && (errno == EINVAL || end == temp))
-        return -2;
-
-    while (*end == ' ' || *end == '\t' || *end == '\r' || *end == '\n')
-        end++;
-
-    if (*end != '\0')
-        return -3;
-
-    if (val > 255UL)
-        return -4;
-
-    *num = (unsigned char)val;
-    return 0;
-}
-
-static int imp__read_float(float *num)
-{
-    char temp[256];
-    if (fgets(temp, 256, stdin) != temp)
-        return -1;
-
-    char *end;
-    *num = strtof(temp, &end);
-
-    if (*num == 0.0f && errno == EINVAL)
-        return -2;
-
-    while (*end == ' ' || *end == '\t' || *end == '\r' || *end == '\n')
-        end++;
-
-    if (*end != '\0')
-        return -3;
-
-    return 0;
-}
-
-static int imp__read_time(long *time)
-{
-    char temp[256];
-    if (fgets(temp, 256, stdin) != temp)
-        return -1;
-
-    char *end;
-    *time = strtol(temp, &end, 10);
-
-    if (*time == 0 && errno == EINVAL)
-        return -2;
-
-    while (*end == ' ' || *end == '\t' || *end == '\r' || *end == '\n')
-        end++;
-
-    if (*end != '\0')
-        return -3;
-
-    return 0;
-}
+#define MIN_POSSIBLE_YEAR 1880
+#define MAX_POSSIBLE_YEAR 2020
 
 static int imp__input_option()
 {
@@ -111,24 +35,25 @@ static int imp__request_flat_data(flat_t *flat)
 
     int status_code = 0;
 
-    printf("Введите адрес квартиры (желательно не более 200 символов):\n");
-    status_code = imp__read_line(flat->address, MAX_ADDRESS_SIZE);
+    printf("                                               ┌────────────────────────────┐\n"
+           "Введите адрес квартиры (не более 30 символов): ");
+    status_code = cio_read_line(flat->address, MAX_ADDRESS_SIZE);
     if (status_code == 0)
     {
         printf("Введите площадь квартиры (целое или вещественное положительное число): ");
-        status_code = imp__read_float(&flat->area);
+        status_code = cio_read_float(&flat->area);
     }
 
     if (status_code == 0)
     {
         printf("Введите количество комнат (натуральное число): ");
-        status_code = imp__read_integer(&flat->rooms_amount);
+        status_code = cio_read_uchar(&flat->rooms_amount);
     }
 
     if (status_code == 0)
     {
         printf("Введите стоимость за квадратный метр (целое или вещественное положительное число): ");
-        status_code = imp__read_float(&flat->price_per_m2);
+        status_code = cio_read_float(&flat->price_per_m2);
     }
 
     if (status_code == 0)
@@ -165,20 +90,35 @@ static int imp__request_flat_data(flat_t *flat)
 
     if (status_code == 0 && flat->type == SECONDARY)
     {
-        printf("Введите время постройки в миллисекундах: ");
-        status_code = imp__read_time(&flat->build_time);
+        printf("Введите дату постройки в формате ДД.ММ.ГГГГ: ");
+        status_code = cio_read_time(&flat->build_time);
+        if (status_code != 0)
+        {
+            printf("Вы ввели неверную дату. Переповерьте ввод.\n");
+            // printf("Дата не должна быть раньше 01.01.%d или позже 31.12.%d\n", MIN_POSSIBLE_YEAR, MAX_POSSIBLE_YEAR);
+        }
     }
 
     if (status_code == 0 && flat->type == SECONDARY)
     {
-        printf("Введите количество предыдущих владельцев: ");
-        status_code = imp__read_integer(&flat->prev_owners_amount);
+        printf("Введите количество предыдущих владельцев (от 1 до 100): ");
+        status_code = cio_read_uchar(&flat->prev_owners_amount);
+        if (status_code == -4 || flat->prev_owners_amount > 100)
+        {
+            printf("Количество предыдущих владельцев не соответствует требованиям.\n");
+            status_code = -4;
+        }
     }
 
     if (status_code == 0 && flat->type == SECONDARY)
     {
-        printf("Введите количество предыдущих жильцов: ");
-        status_code = imp__read_integer(&flat->prev_lodgers_amount);
+        printf("Введите количество предыдущих жильцов (от 1 до 100): ");
+        status_code = cio_read_uchar(&flat->prev_lodgers_amount);
+        if (status_code == -4 || flat->prev_lodgers_amount > 100)
+        {
+            printf("Количество предыдущих жильцов не соответствует требованиям.\n");
+            status_code = -4;
+        }
     }
 
     return status_code;
@@ -186,10 +126,11 @@ static int imp__request_flat_data(flat_t *flat)
 
 app_state_t create_app_state()
 {
-    return (app_state_t){
+    return (app_state_t)
+    {
         .input_filename = "",
-        .output_filename = "",
-        .table = create_flat_table()};
+        .table = create_flat_table()
+    };
 }
 
 int request_input_filename(app_state_t *state)
@@ -197,15 +138,7 @@ int request_input_filename(app_state_t *state)
     assert(state != NULL);
 
     printf("Введите имя входного файла: ");
-    return imp__read_line(state->input_filename, MAX_FILE_NAME_LENGTH);
-}
-
-int request_output_filename(app_state_t *state)
-{
-    assert(state != NULL);
-
-    printf("Введите имя выходного файла: ");
-    return imp__read_line(state->output_filename, MAX_FILE_NAME_LENGTH);
+    return cio_read_line(state->input_filename, MAX_FILE_NAME_LENGTH);
 }
 
 int read_table_from_file(app_state_t *state)
@@ -228,6 +161,7 @@ int read_table_from_file(app_state_t *state)
     return status_code;
 }
 
+/*
 int write_table_to_file(app_state_t *state)
 {
     assert(state != NULL);
@@ -236,19 +170,38 @@ int write_table_to_file(app_state_t *state)
     FILE *file = fopen(state->output_filename, "wt");
     if (file == NULL)
         return -1;
-
+    
     int status_code = fwrite_flat_table(file, &state->table);
 
     fclose(file);
     return status_code;
 }
+*/
 
-static void imp__print_table_title()
+static inline void imp__print_table_header()
 {
-    printf("| ID | Адрес квартиры                 | Площадь | Кол-во комнат | Стоимость  | Тип       | Отделка | Животные | Построено   | Кол-во собст-ов | Кол-во жильцов |\n");
-    for (int i = 0; i < 160; i++)
-        printf("-");
-    printf("\n");
+    printf("┌──────┬────────────────────────────────┬─────────┬───────────────┬───────────┬───────────┬─────────┬──────────┬─────────────┬─────────────────┬────────────────┐\n"
+           "│  ID  │ Адрес квартиры                 │ Площадь │ Кол-во комнат │ Стоимость │ Тип       │ Отделка │ Животные │ Построено   │ Кол-во собст-ов │ Кол-во жильцов │\n"
+           "├──────┼────────────────────────────────┼─────────┼───────────────┼───────────┼───────────┼─────────┼──────────┼─────────────┼─────────────────┼────────────────┤\n");
+}
+
+static void imp__print_table_footer()
+{
+    printf("└──────┴────────────────────────────────┴─────────┴───────────────┴───────────┴───────────┴─────────┴──────────┴─────────────┴─────────────────┴────────────────┘\n");
+}
+
+static void imp__colorize_output(int i)
+{
+    if (i == -1)
+        printf("\033[0m");
+    else if (i % 6 == 1)
+        printf("\033[0;32m");
+    else if (i % 6 == 2)
+        printf("\033[0;33m");
+    else if (i % 6 == 3)
+        printf("\033[0;32m");
+    else if (i % 6 == 5)
+        printf("\033[0;36m");
 }
 
 int output_flat_table(app_state_t *state)
@@ -256,10 +209,16 @@ int output_flat_table(app_state_t *state)
     assert(state != NULL);
     assert_flat_table(&state->table);
 
-    imp__print_table_title();
+    imp__print_table_header();
 
     for (int i = 0; i < state->table.size; i++)
-        printf_flat(state->table.flats_array + i);
+    {
+        imp__colorize_output(i);
+        printf_flat(*(state->table.flat_ptrs + i));
+        imp__colorize_output(-1);
+    }
+
+    imp__print_table_footer();
 
     return 0;
 }
@@ -275,44 +234,40 @@ int append_flat_to_table(app_state_t *state)
     int status_code = imp__request_flat_data(&flat);
     if (status_code == 0)
         status_code = append_flat_table(&state->table, &flat);
-
-    if (status_code != 0)
-        printf("Что-то вы ввели не по инструкции :с\n");
+    else
+        printf("Не все данные были введены корректно.\n");
 
     return status_code;
 }
 
-static int imp__request_sort_type(sort_fn_t *func)
+static inline void imp__print_sort_opts(void)
 {
-    unsigned char temp;
-
     printf("Выберите тип сортировки:\n\n"
            "  1. Вставками (без доп. массива)\n"
            "  2. Вставками (с доп. массивом)\n"
            "  3. Слиянием (без доп. массива)\n"
            "  4. Слиянием (с доп. массивом)\n"
            "\n[Ваш выбор:] >>> ");
+}
 
-    int status_code = imp__read_integer(&temp);
+static int imp__request_sort_type(sort_fn_t *func)
+{
+    imp__print_sort_opts();
+
+    unsigned char temp;
+    int status_code = cio_read_uchar(&temp);
     if (status_code == 0)
     {
-        switch (temp)
-        {
-        case 1:
-            *func = sort_flat_table_a_slow;
-            break;
-        case 2:
-            *func = sort_flat_table_b_slow;
-            break;
-        case 3:
-            *func = sort_flat_table_a_fast;
-            break;
-        case 4:
-            *func = sort_flat_table_b_fast;
-            break;
-        default:
+        if (temp < 1 || temp > 4)
             status_code = -1;
-            break;
+        else
+        {
+            *func = (sort_fn_t[]) {
+                sort_flat_table_a_slow,
+                sort_flat_table_b_slow,
+                sort_flat_table_a_fast,
+                sort_flat_table_b_fast
+            }[temp - 1];
         }
     }
 
@@ -329,7 +284,7 @@ static int imp__request_sort_key(sort_key_t *key)
            "  3. Количество комнат\n"
            "\n[Ваш выбор:] >>> ");
 
-    int status_code = imp__read_integer(&temp);
+    int status_code = cio_read_uchar(&temp);
     if (status_code == 0 && (temp < 1 || temp > 3))
         status_code = -1;
 
@@ -400,11 +355,11 @@ int imp__request_search_params(float *price_1, float *price_2)
 
     printf("Введите минимальную стоимость квадратного метра: ");
 
-    status_code = imp__read_float(price_1);
+    status_code = cio_read_float(price_1);
     if (status_code == 0)
     {
         printf("Введите максимальную стоимость квадратного метра: ");
-        status_code = imp__read_float(price_2);
+        status_code = cio_read_float(price_2);
 
         if (status_code != 0)
             printf("Неправильный ввод. Ожидается вещественное число.\n");
@@ -425,15 +380,31 @@ int search_flat(app_state_t *state)
     int status_code = 0;
 
     float price_1, price_2;
+    int founded = 0;
 
     status_code = imp__request_search_params(&price_1, &price_2);
     if (status_code != 0)
         return status_code;
 
-    int founded = search_flat_table(&state->table, price_1, price_2, printf_flat);
+    for (int i = 0; i < state->table.size; i++)
+    {
+        if (flat_satisfies(state->table.flat_ptrs[i], price_1, price_2))
+        {
+            if (founded == 0)
+            {
+                printf("\n        Результаты поиска:\n\n");
+                imp__print_table_header();
+            }
+            
+            printf_flat(state->table.flat_ptrs[i]);
+            founded++;
+        }
+    }
 
-    if (founded == 0)
-        printf("По заданным параметром не было найдено ни одной квартиры.\n");
+    if (founded != 0)
+        imp__print_table_footer();
+    else
+        printf("\n  По заданным параметром не было найдено ни одной квартиры.\n");
 
     return status_code;
 }
@@ -443,14 +414,14 @@ int delete_flat(app_state_t *state)
     assert(state != NULL);
     assert_flat_table(&state->table);
 
-    unsigned char id;
+    size_t id;
 
     printf("Введите ID удаляемой записи: ");
-    int status_code = imp__read_integer(&id);
+    int status_code = cio_read_ulong(&id);
 
     if (status_code == 0)
     {
-        if (id < 0 || id >= state->table.size)
+        if (id >= state->table.size)
         {
             printf("Неверный ID записи.\n");
             status_code = -1;
@@ -460,8 +431,9 @@ int delete_flat(app_state_t *state)
             flat_t flat = delete_flat_table(&state->table, id);
 
             printf("Удалена следующая запись:\n");
-            imp__print_table_title();
+            imp__print_table_header();
             printf_flat(&flat);
+            imp__print_table_footer();
         }
     }
     else

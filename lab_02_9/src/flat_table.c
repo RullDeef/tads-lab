@@ -155,11 +155,24 @@ int append_flat_table(flat_table_t *table, flat_t *flat)
     assert_flat_table(table);
     assert_flat(flat);
 
+    // remember index positions of each flat pointer
+    size_t *indices = malloc(table->size * sizeof(size_t));
+    for (size_t i = 0; i < table->size; i++)
+        indices[i] = table->flat_ptrs[i] - table->flats_array;
+
     // realloc array for new element
     table->size += 1;
-    table->flats_array = (flat_t *)realloc(table->flats_array, table->size);
-    table->flats_array[table->size - 1] = *flat;
 
+    table->flats_array = (flat_t *)realloc(table->flats_array, table->size * sizeof(flat_t));
+    table->flat_ptrs = (flat_t **)realloc(table->flat_ptrs, table->size * sizeof(flat_t*));
+    // update pointers
+    for (size_t i = 0; i < table->size - 1; i++)
+        table->flat_ptrs[i] = table->flats_array + indices[i];
+
+    table->flats_array[table->size - 1] = *flat;
+    table->flat_ptrs[table->size - 1] = table->flats_array + table->size - 1;
+
+    free(indices);
     return 0;
 }
 
@@ -343,10 +356,11 @@ void sort_flat_table_b_slow(flat_table_t *flat_table, sort_key_t key, bool ascen
 bool flat_satisfies(flat_t *flat, float price_1, float price_2)
 {
     assert_flat(flat);
-    float price = flat->price_per_m2;
-    return flat->type == SECONDARY && !flat->type_data.was_pets && price >= price_1 && price < price_2;
+    float price = flat->price_per_m2 * flat->area;
+    return flat->type == SECONDARY && flat->rooms_amount == 2 && !flat->type_data.was_pets && price_1 <= price && price < price_2;
 }
 
+/*
 int search_flat_table(flat_table_t *table, float price_1, float price_2, search_callback_t callback)
 {
     assert_flat_table(table);
@@ -364,25 +378,31 @@ int search_flat_table(flat_table_t *table, float price_1, float price_2, search_
 
     return founded;
 }
+*/
 
-flat_t delete_flat_table(flat_table_t *table, unsigned int id)
+int delete_flat_table(flat_table_t *table, unsigned int id, flat_t *deleted_flat)
 {
     assert_flat_table(table);
     assert(0 <= id && id < table->size);
 
-    flat_t removed_flat;
-    flat_t *removed_flat_addr = NULL;
+    flat_t *deleted_flat_addr = NULL;
 
     size_t index = 0;
     while (index < table->size)
     {
         if (table->flats_array[index].id == id)
         {
-            removed_flat = table->flats_array[index];
-            removed_flat_addr = table->flats_array + index;
+            *deleted_flat = table->flats_array[index];
+            deleted_flat_addr = table->flats_array + index;
             break;
         }
         index++;
+    }
+
+    if (index == table->size)
+    {
+        // flat was not found
+        return -1;
     }
 
     while (index + 1 < table->size)
@@ -395,13 +415,13 @@ flat_t delete_flat_table(flat_table_t *table, unsigned int id)
     bool shift = false;
     for (size_t i = 0; i < table->size; i++)
     {
-        if (table->flat_ptrs[i] == removed_flat_addr)
+        if (table->flat_ptrs[i] == deleted_flat_addr)
         {
             shift = true;
             continue;
         }
         
-        if (table->flat_ptrs[i] > removed_flat_addr)
+        if (table->flat_ptrs[i] > deleted_flat_addr)
             table->flat_ptrs[i]--;
         
         if (shift)
@@ -412,10 +432,10 @@ flat_t delete_flat_table(flat_table_t *table, unsigned int id)
 
     // realloc
     table->size--;
-    table->flats_array = realloc(table->flats_array, table->size * sizeof(flat_t));
-    table->flat_ptrs = realloc(table->flat_ptrs, table->size * sizeof(flat_t*));
+    // table->flats_array = realloc(table->flats_array, table->size * sizeof(flat_t));
+    // table->flat_ptrs = realloc(table->flat_ptrs, table->size * sizeof(flat_t*));
 
-    return removed_flat;
+    return 0;
 }
 
 void free_flat_table(flat_table_t *table)

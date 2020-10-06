@@ -353,12 +353,13 @@ int imp__request_search_params(float *price_1, float *price_2)
 
     int status_code = 0;
 
-    printf("Введите минимальную стоимость квадратного метра: ");
+    printf("Поиск вторичного 2-х комнатного жилья в указанном ценовом диапазоне без животных.\n\n"
+           "  Введите минимальную стоимость квартиры: ");
 
     status_code = cio_read_float(price_1);
     if (status_code == 0)
     {
-        printf("Введите максимальную стоимость квадратного метра: ");
+        printf("  Введите максимальную стоимость квартиры: ");
         status_code = cio_read_float(price_2);
 
         if (status_code != 0)
@@ -395,8 +396,10 @@ int search_flat(app_state_t *state)
                 printf("\n        Результаты поиска:\n\n");
                 imp__print_table_header();
             }
-            
+
+            imp__colorize_output(i);
             printf_flat(state->table.flat_ptrs[i]);
+            imp__colorize_output(-1);
             founded++;
         }
     }
@@ -428,12 +431,22 @@ int delete_flat(app_state_t *state)
         }
         else
         {
-            flat_t flat = delete_flat_table(&state->table, id);
+            flat_t flat;
+            status_code = delete_flat_table(&state->table, id, &flat);
 
-            printf("Удалена следующая запись:\n");
-            imp__print_table_header();
-            printf_flat(&flat);
-            imp__print_table_footer();
+            if (status_code == 0)
+            {
+                printf("Удалена следующая запись:\n");
+                imp__print_table_header();
+                printf("\033[1;31m");
+                printf_flat(&flat);
+                imp__colorize_output(-1);
+                imp__print_table_footer();
+            }
+            else
+            {
+                printf("Запись с полем ID = %ld не была найдена.\n", id);
+            }
         }
     }
     else

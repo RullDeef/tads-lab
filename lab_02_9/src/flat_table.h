@@ -42,7 +42,7 @@ int fread_flat_table(FILE *file, flat_table_t *flat_table);
 int fwrite_flat_table(FILE *file, flat_table_t *flat_table);
 
 int append_flat_table(flat_table_t *flat_table, flat_t *flat);
-int search_flat_table(flat_table_t *table, float price_1, float price_2, search_callback_t callback);
+// int search_flat_table(flat_table_t *table, float price_1, float price_2, search_callback_t callback);
 
 bool flat_satisfies(flat_t *flat, float price_1, float price_2);
 
@@ -51,7 +51,7 @@ void sort_flat_table_a_slow(flat_table_t *flat_table, sort_key_t key, bool ascen
 void sort_flat_table_b_fast(flat_table_t *flat_table, sort_key_t key, bool ascending);
 void sort_flat_table_b_slow(flat_table_t *flat_table, sort_key_t key, bool ascending);
 
-flat_t delete_flat_table(flat_table_t *table, unsigned int id);
+int delete_flat_table(flat_table_t *table, unsigned int id, flat_t *deleted_flat);
 
 void free_flat_table(flat_table_t *flat_table);
 

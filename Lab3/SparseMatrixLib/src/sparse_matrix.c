@@ -13,6 +13,8 @@ sparse_matrix_t sp_null_matrix()
         .rows_size = 0,
         .cols_size = 0,
         .nonzero_size = 0,
+        .__alloc_nz_sz = 0,
+        .__alloc_cl_sz = 0,
         .cols = NULL,
         .rows = NULL,
         .nonzero_array = NULL
@@ -22,25 +24,75 @@ sparse_matrix_t sp_null_matrix()
 
 sparse_matrix_t sp_create(mat_size_t rows, mat_size_t cols)
 {
-    assert(rows > 0);
-    assert(cols > 0);
+    if (rows <= 0 || cols <= 0)
+        return sp_null_matrix();
 
     sparse_matrix_t matrix;
 
     matrix.rows_size = rows;
     matrix.cols_size = cols;
-    matrix.nonzero_size = 1;
+    matrix.nonzero_size = 0;
 
-    matrix.nonzero_array = calloc(1, sizeof(mat_elem_t));
-    matrix.rows = calloc(1, sizeof(mat_index_t));
-    matrix.cols = calloc(cols + 1, sizeof(mat_index_t));
+    matrix.__alloc_nz_sz = SP_INITIAL_ALLOC_SIZE * sizeof(mat_elem_t);
+    matrix.nonzero_array = calloc(SP_INITIAL_ALLOC_SIZE, sizeof(mat_elem_t));
+    matrix.rows = calloc(SP_INITIAL_ALLOC_SIZE, sizeof(mat_index_t));
+
+    // "fixed" size space allocation
+    matrix.__alloc_cl_sz = (cols + 1) * SP_ALLOC_MULTIPILER;
+    matrix.cols = calloc(matrix.__alloc_cl_sz, sizeof(mat_index_t));
 
     matrix.cols[0] = 0;
     for (mat_index_t i = 1; i < cols + 1; i++)
-        matrix.cols[i] = 1;
+        matrix.cols[i] = 0;
 
     return matrix;
 }
+
+int sp_recreate(sparse_matrix_t* matrix, mat_size_t rows, mat_size_t cols)
+{
+    sp_free(matrix);
+    *matrix = sp_create(rows, cols);
+}
+
+/*
+int sp_resize(sparse_matrix_t* matrix, mat_size_t new_rows, mat_size_t new_cols)
+{
+    int status = EXIT_SUCCESS;
+
+    if (sp_mat_is_null(matrix))
+    {
+        *matrix = sp_create(new_rows, new_cols);
+        if (sp_mat_is_null(matrix))
+            status = BAD_ALLOC;
+    }
+    else if (matrix->rows != new_rows || matrix->cols != new_cols)
+    {
+        // realloc if need
+        if (matrix->__alloc_cl_sz < new_cols + 1)
+        {
+            mat_size_t new_alloc_cl_sz = (new_cols + 1) * SP_ALLOC_MULTIPILER;
+            mat_index_t* new_cols_ptr = realloc(matrix->cols, new_alloc_cl_sz);
+            if (new_cols_ptr == NULL)
+                status = BAD_ALLOC;
+            else
+            {
+                matrix->cols = new_cols_ptr;
+                matrix->__alloc_cl_sz = new_alloc_cl_sz;
+
+                for (mat_index_t i = matrix->cols_size + 1; i < new_cols + 1; i++)
+                    matrix->cols[i] = matrix->cols[matrix->cols_size];
+
+                // update size variables
+                matrix->rows_size = new_rows;
+                matrix->cols_size = new_cols;
+                // ...
+            }
+        }
+    }
+
+    return status;
+}
+*/
 
 void sp_free(sparse_matrix_t *matrix)
 {
@@ -59,6 +111,11 @@ void sp_free(sparse_matrix_t *matrix)
     matrix->rows_size = INVALID_SIZE;
     matrix->cols_size = INVALID_SIZE;
     matrix->nonzero_size = INVALID_SIZE;
+}
+
+bool sp_mat_is_null(const sparse_matrix_t* matrix)
+{
+    return matrix->nonzero_array != NULL;
 }
 
 /**

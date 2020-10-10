@@ -14,6 +14,8 @@
 #define __SPARSE_MATRIX_H_
 
 #include <stddef.h>
+#include <stdlib.h>
+#include <stdbool.h>
 #include <assert.h>
 
 typedef long ssize_t;
@@ -21,6 +23,9 @@ typedef long ssize_t;
 typedef int mat_elem_t;
 typedef ssize_t mat_index_t;
 typedef ssize_t mat_size_t;
+
+#define SP_INITIAL_ALLOC_SIZE 10
+#define SP_ALLOC_MULTIPILER 1.5
 
 #define INVALID_SIZE 0
 #define INVALID_INDEX -1
@@ -31,13 +36,8 @@ typedef ssize_t mat_size_t;
 #define NEED_START_COL 2
 
 // для возврата ошибки при умножении неумножаемых матриц
-#ifndef EXIT_SUCCESS
-#define EXIT_SUCCESS 0
-#endif
-#ifndef EXIT_FAILURE
-#define EXIT_FAILURE !EXIT_SUCCESS
-#endif
 #define BAD_DIMENSIONS -2
+#define BAD_ALLOC -3
 
 #ifndef NDEBUG
 #define assert_sp_mat(mat) \
@@ -53,6 +53,8 @@ typedef struct sparse_matrix_t
     mat_size_t rows_size;
     mat_size_t cols_size;
     mat_size_t nonzero_size;
+    mat_size_t __alloc_nz_sz;
+    mat_size_t __alloc_cl_sz;
     mat_index_t *cols; // JA
     mat_index_t *rows; // IA
     mat_elem_t *nonzero_array; // A
@@ -60,15 +62,19 @@ typedef struct sparse_matrix_t
 
 sparse_matrix_t sp_null_matrix();
 sparse_matrix_t sp_create(mat_size_t rows, mat_size_t cols);
-void sp_free(sparse_matrix_t *matrix);
+int sp_recreate(sparse_matrix_t *matrix, mat_size_t rows, mat_size_t cols);
+// int sp_resize(sparse_matrix_t* matrix, mat_size_t new_rows, mat_size_t new_cols);
+void sp_free(sparse_matrix_t* matrix);
 
-mat_elem_t sp_get(const sparse_matrix_t *matrix, mat_index_t row, mat_index_t col);
-void sp_set(sparse_matrix_t *matrix, mat_index_t row, mat_index_t col, mat_elem_t value);
+bool sp_mat_is_null(const sparse_matrix_t* matrix);
 
-int sp_mult_by_vector(const sparse_matrix_t *matrix, const mat_elem_t *vector, mat_elem_t *out);
-int sp_mult_matrix(const sparse_matrix_t *matrix_1, const sparse_matrix_t *matrix_2, sparse_matrix_t *out);
+mat_elem_t sp_get(const sparse_matrix_t* matrix, mat_index_t row, mat_index_t col);
+void sp_set(sparse_matrix_t* matrix, mat_index_t row, mat_index_t col, mat_elem_t value);
 
-void sp_print_info(const sparse_matrix_t *matrix);
-void sp_print(const sparse_matrix_t *matrix);
+int sp_mult_by_vector(const sparse_matrix_t* matrix, const mat_elem_t* vector, mat_elem_t* out);
+int sp_mult_matrix(const sparse_matrix_t* matrix_1, const sparse_matrix_t* matrix_2, sparse_matrix_t* out);
+
+void sp_print_info(const sparse_matrix_t* matrix);
+void sp_print(const sparse_matrix_t* matrix);
 
 #endif

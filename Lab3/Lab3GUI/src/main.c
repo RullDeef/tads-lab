@@ -3,8 +3,8 @@
 #include "sparse_matrix.h"
 #include "nuklear_cross.h"
 
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 600
+#define WINDOW_WIDTH 1080
+#define WINDOW_HEIGHT 800
 
 enum menu_opts {
     CHECK_MATRIX,
@@ -18,7 +18,7 @@ struct my_nkc_app {
     /* some user data */
     enum menu_opts opt;
 
-    union {
+    struct {
         struct {
             bool generated;
             mat_size_t input_rows;
@@ -58,21 +58,20 @@ void gui_check_matrix(struct my_nkc_app* myapp)
     static bool error_popup_active = false;
 
     nk_layout_row_dynamic(ctx, 0, 1);
-    nk_label(ctx, "Test matrix input here. It supposed to work without any problems.", NK_TEXT_ALIGN_LEFT);
+    nk_label(ctx, u8"Введите значения матрицы здесь. Должно работать без проблем.", NK_TEXT_ALIGN_LEFT);
 
     nk_layout_row_dynamic(ctx, 0, 4);
-    myapp->opt_data.check_matrix.input_rows = nk_propertyi(ctx, "rows", 1, myapp->opt_data.check_matrix.input_rows, 200, 1, 1);
-    myapp->opt_data.check_matrix.input_cols = nk_propertyi(ctx, "cols", 1, myapp->opt_data.check_matrix.input_cols, 200, 1, 1);
+    myapp->opt_data.check_matrix.input_rows = nk_propertyi(ctx, u8"строк", 1, myapp->opt_data.check_matrix.input_rows, 200, 1, 1);
+    myapp->opt_data.check_matrix.input_cols = nk_propertyi(ctx, u8"столбцов", 1, myapp->opt_data.check_matrix.input_cols, 200, 1, 1);
 
     int rows = myapp->opt_data.check_matrix.input_rows;
     int cols = myapp->opt_data.check_matrix.input_cols;
 
-    if (nk_button_label(ctx, "generate"))
+    if (nk_button_label(ctx, u8"создать"))
     {
         if (app_check_dims(rows, cols))
         {
-            sp_free(&myapp->opt_data.check_matrix.matrix);
-            myapp->opt_data.check_matrix.matrix = sp_create(rows, cols);
+            sp_recreate(&myapp->opt_data.check_matrix.matrix, rows, cols);
             myapp->opt_data.check_matrix.generated = true;
         }
         else
@@ -84,10 +83,10 @@ void gui_check_matrix(struct my_nkc_app* myapp)
 
     if (error_popup_active)
     {
-        if (nk_popup_begin(ctx, NK_POPUP_STATIC, "Error", 0, nk_rect(WINDOW_WIDTH / 4, WINDOW_HEIGHT / 4, WINDOW_WIDTH / 4, WINDOW_HEIGHT / 4)))
+        if (nk_popup_begin(ctx, NK_POPUP_STATIC, u8"Ошибка", 0, nk_rect(WINDOW_WIDTH / 4, WINDOW_HEIGHT / 4, WINDOW_WIDTH / 4, WINDOW_HEIGHT / 4)))
         {
             nk_layout_row_dynamic(ctx, 25, 1);
-            nk_label(ctx, "Invalid dimentions", NK_TEXT_LEFT);
+            nk_label(ctx, u8"Некорректные размеры матрицы", NK_TEXT_LEFT);
             if (nk_button_label(ctx, "OK")) {
                 error_popup_active = false;
                 nk_popup_close(ctx);
@@ -104,36 +103,53 @@ void gui_check_matrix(struct my_nkc_app* myapp)
         int mat_rows = myapp->opt_data.check_matrix.matrix.rows_size;
         int mat_cols = myapp->opt_data.check_matrix.matrix.cols_size;
 
-        nk_layout_row_static(ctx, 0, 56, mat_cols + 1);
-        nk_label(ctx, "row\\col", NK_TEXT_CENTERED);
+        struct nk_rect rect = nk_window_get_content_region(ctx);
 
-        for (int col = 0; col < mat_cols; col++)
+        nk_layout_row_dynamic(ctx, rect.h - 200, 1);
+        // nk_layout_row_static(ctx, 0, 56, mat_cols + 1);
+        if (nk_group_begin(ctx, u8"Матрица", NK_WINDOW_TITLE | NK_WINDOW_BORDER))
         {
-            char col_str[10];
-            sprintf(col_str, "%d", col);
-            nk_label(ctx, col_str, NK_TEXT_CENTERED);
-        }
-
-        for (int row = 0; row < mat_rows; row++)
-        {
-            char row_str[10];
-            sprintf(row_str, "%d", row);
-            nk_label(ctx, row_str, NK_TEXT_CENTERED);
+            nk_layout_row_static(ctx, 0, 56, mat_cols + 1);
+            nk_label(ctx, u8"[\\]", NK_TEXT_CENTERED);
 
             for (int col = 0; col < mat_cols; col++)
             {
-                sparse_matrix_t* mat = &myapp->opt_data.check_matrix.matrix;
+                char col_str[10];
+                sprintf(col_str, "%d", col);
+                nk_label(ctx, col_str, NK_TEXT_CENTERED);
+            }
 
-                int value = sp_get(mat, row, col);
-                int new_value = nk_propertyi(ctx, "", INT_MIN, value, INT_MAX, 1, 1);
+            for (int row = 0; row < mat_rows; row++)
+            {
+                char row_str[10];
+                sprintf(row_str, "%d", row);
+                nk_label(ctx, row_str, NK_TEXT_CENTERED);
 
-                if (new_value != value)
+                for (int col = 0; col < mat_cols; col++)
                 {
-                    sp_set(mat, row, col, new_value);
-                    sp_print_info(mat);
+                    sparse_matrix_t* mat = &myapp->opt_data.check_matrix.matrix;
+
+                    int value = sp_get(mat, row, col);
+                    char text[20];
+                    sprintf(text, "%d", value);
+                    int text_len = strlen(text);
+
+                    // int new_value = nk_propertyi(ctx, "", INT_MIN, value, INT_MAX, 1, 1);
+                    nk_edit_string(ctx, NK_EDIT_SIMPLE, text, &text_len, 6, nk_filter_decimal);
+                    text[text_len] = '\0';
+
+                    int new_value;
+                    if ((sscanf(text, "%d", &new_value) == 1) && new_value != value)
+                    {
+                        sp_set(mat, row, col, new_value);
+                        sp_print_info(mat);
+                    }
                 }
             }
+
+            nk_group_end(ctx);
         }
+        
     }
 }
 
@@ -161,15 +177,19 @@ void mainLoop(void* loopArg) {
         
         nk_layout_row_begin(ctx, NK_STATIC, 0, 1);
         nk_layout_row_push(ctx, 45);
-        if (nk_menu_begin_label(ctx, "MENU", NK_TEXT_LEFT, nk_vec2(120, 200)))
+        if (nk_menu_begin_label(ctx, u8"МЕНЮ", NK_TEXT_LEFT, nk_vec2(220, 200)))
         {
             nk_layout_row_dynamic(ctx, 0, 1);
-            if (nk_menu_item_label(ctx, "Check matrix", NK_TEXT_LEFT))
+            if (nk_menu_item_label(ctx, u8"Проверка матрицы", NK_TEXT_LEFT))
             {
                 if (myapp->opt == MULTIPLY_MATRIX_VECTOR)
                 {
                     sp_free(&myapp->opt_data.mult_mat_vec.matrix);
-                    free(myapp->opt_data.mult_mat_vec.vector);
+                    if (myapp->opt_data.mult_mat_vec.vector != NULL)
+                    {
+                        free(myapp->opt_data.mult_mat_vec.vector);
+                        myapp->opt_data.mult_mat_vec.vector = NULL;
+                    }
                 }
                 else if (myapp->opt == MULTIPLY_MATRIX_MATRIX)
                 {
@@ -178,20 +198,30 @@ void mainLoop(void* loopArg) {
                     sp_free(&myapp->opt_data.mult_mat_mat.result);
                 }
 
-                myapp->opt = CHECK_MATRIX;
-                myapp->opt_data.check_matrix.generated = false;
-                myapp->opt_data.check_matrix.input_rows = 1;
-                myapp->opt_data.check_matrix.input_cols = 1;
-                myapp->opt_data.check_matrix.matrix = sp_null_matrix();
+                if (myapp->opt != CHECK_MATRIX)
+                {
+                    myapp->opt = CHECK_MATRIX;
+                    myapp->opt_data.check_matrix.generated = false;
+                    myapp->opt_data.check_matrix.input_rows = 1;
+                    myapp->opt_data.check_matrix.input_cols = 1;
+                    myapp->opt_data.check_matrix.matrix = sp_null_matrix();
+                }
             }
-            if (nk_menu_item_label(ctx, "Mat X vect", NK_TEXT_LEFT))
-                myapp->opt = MULTIPLY_MATRIX_VECTOR;
-            if (nk_menu_item_label(ctx, "Mat X mat", NK_TEXT_LEFT))
-                myapp->opt = MULTIPLY_MATRIX_MATRIX;
+            if (nk_menu_item_label(ctx, u8"Умножение на вектор", NK_TEXT_LEFT))
+            {
+                if (myapp->opt == CHECK_MATRIX)
+                {
+                    myapp->opt_data.check_matrix.generated = false;
+                    myapp->opt_data.check_matrix.input_rows = 1;
+                    myapp->opt_data.check_matrix.input_cols = 1;
+                    myapp->opt_data.check_matrix.matrix = sp_null_matrix();
+                }
 
-            // nk_progress(ctx, &prog, 100, NK_MODIFIABLE);
-            // nk_slider_int(ctx, 0, &slider, 16, 1);
-            // nk_checkbox_label(ctx, "check", &check);
+                myapp->opt = MULTIPLY_MATRIX_VECTOR;
+
+            }
+            if (nk_menu_item_label(ctx, u8"Умножение на матрицу", NK_TEXT_LEFT))
+                myapp->opt = MULTIPLY_MATRIX_MATRIX;
 
             nk_menu_end(ctx);
         }
@@ -209,34 +239,34 @@ void mainLoop(void* loopArg) {
             gui_multiply_mat_mat(myapp);
             break;
         }
-        /*
-        // fixed widget pixel width
-        nk_layout_row_static(ctx, 30, 80, 1);
-        if (nk_button_label(ctx, "button")) {
-            // event handling
-            printf("Button pressed\n");
-        }
-
-        // fixed widget window ratio width
-        nk_layout_row_dynamic(ctx, 0, 2);
-        if (nk_option_label(ctx, "easy", myapp->opt == 0)) myapp->opt = 0;
-        if (nk_option_label(ctx, "very hard", myapp->opt == 1)) myapp->opt = 1;
-
-        // custom widget pixel width
-        nk_layout_row_begin(ctx, NK_STATIC, 30, 2);
-        {
-            nk_layout_row_push(ctx, 50);
-            nk_label(ctx, "Volume:", NK_TEXT_LEFT);
-            nk_layout_row_push(ctx, 110);
-            // nk_slider_float(ctx, 0, &(myapp->value), 1.0f, 0.1f);
-        }
-        nk_layout_row_end(ctx);
-        */
     }
     nk_end(ctx);
     /* End Nuklear GUI */
 
     nkc_render(myapp->nkcHandle, nk_rgb(40, 40, 40));
+}
+
+void init_myapp(struct my_nkc_app *myapp)
+{
+    myapp->opt = CHECK_MATRIX;
+    myapp->opt_data.check_matrix.generated = false;
+    myapp->opt_data.check_matrix.input_rows = 1;
+    myapp->opt_data.check_matrix.input_cols = 1;
+    myapp->opt_data.check_matrix.matrix = sp_null_matrix();
+
+    myapp->opt_data.mult_mat_vec.generated = false;
+    myapp->opt_data.mult_mat_vec.input_rows = 1;
+    myapp->opt_data.mult_mat_vec.input_cols = 1;
+    myapp->opt_data.mult_mat_vec.matrix = sp_null_matrix();
+    myapp->opt_data.mult_mat_vec.vector = NULL;
+
+    myapp->opt_data.mult_mat_mat.generated = false;
+    myapp->opt_data.mult_mat_mat.input_rows = 1;
+    myapp->opt_data.mult_mat_mat.input_cols = 1;
+    myapp->opt_data.mult_mat_mat.input_cols_res = 1;
+    myapp->opt_data.mult_mat_mat.matrix_1 = sp_null_matrix();
+    myapp->opt_data.mult_mat_mat.matrix_2 = sp_null_matrix();
+    myapp->opt_data.mult_mat_mat.result = sp_null_matrix();
 }
 
 int main() {
@@ -245,19 +275,15 @@ int main() {
     myapp.nkcHandle = &nkcx;
 
     /* init some user data */
-    myapp.opt = CHECK_MATRIX;
-    myapp.opt_data.check_matrix.generated = false;
-    myapp.opt_data.check_matrix.input_rows = 1;
-    myapp.opt_data.check_matrix.input_cols = 1;
-    myapp.opt_data.check_matrix.matrix = sp_null_matrix();
+    init_myapp(&myapp);
 
     if (nkc_init(myapp.nkcHandle, "Nuklear+ Example", WINDOW_WIDTH, WINDOW_HEIGHT, NKC_WIN_NORMAL))
     {
         printf("Successfull init. Starting 'infinite' main loop...\n");
         {
             // setup custom font
-            //struct nk_user_font *font = nkc_load_font_file(myapp.nkcHandle, "Roboto-Regular.ttf", 14, nk_font_cyrillic_glyph_ranges());
-            //nkc_style_set_font(myapp.nkcHandle, font);
+            struct nk_user_font *font = nkc_load_font_file(myapp.nkcHandle, "Roboto-Regular.ttf", 18, nk_font_cyrillic_glyph_ranges());
+            nkc_style_set_font(myapp.nkcHandle, font);
         }
 
         // set style
@@ -272,240 +298,3 @@ int main() {
     nkc_shutdown(myapp.nkcHandle);
     return 0;
 }
-
-/*
-int main(void)
-{
-    struct nk_glfw glfw = { 0 };
-    static GLFWwindow* win;
-    int width = 0, height = 0;
-    struct nk_context* ctx;
-    struct nk_colorf bg;
-
-    { // test sparse matrix realisation
-        sparse_matrix_t mat = sp_create(40, 20);
-        sp_free(&mat);
-    }
-
-    glfwSetErrorCallback(error_callback);
-    if (!glfwInit()) {
-        fprintf(stdout, "[GFLW] failed to init!\n");
-        exit(1);
-    }
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    win = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Lab 3", NULL, NULL);
-    glfwMakeContextCurrent(win);
-    glfwGetWindowSize(win, &width, &height);
-
-    glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-    glewExperimental = 1;
-    if (glewInit() != GLEW_OK) {
-        fprintf(stderr, "Failed to setup GLEW\n");
-        exit(1);
-    }
-
-    ctx = nk_glfw3_init(&glfw, win, NK_GLFW3_INSTALL_CALLBACKS);
-    {
-        struct nk_font_atlas* atlas;
-        nk_glfw3_font_stash_begin(&glfw, &atlas);
-
-        // add cyrillic range
-        // struct nk_font_config config = nk_font_config(18);
-        // config.range = nk_font_cyrillic_glyph_ranges();
-        nk_glfw3_font_stash_end(&glfw);
-        // nk_style_load_all_cursors(ctx, atlas->cursors);
-        //nk_style_set_font(ctx, &roboto->handle);
-    }
-
-
-    bg.r = 0.10f, bg.g = 0.18f, bg.b = 0.24f, bg.a = 1.0f;
-    while (!glfwWindowShouldClose(win))
-    {
-        glfwPollEvents();
-        nk_glfw3_new_frame(&glfw);
-
-        static int main_opt = 0;
-        
-        if (nk_begin(ctx, "Lab_3", nk_rect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT), 0))
-        {
-            nk_layout_row_dynamic(ctx, 30, 1);
-            // if (nk_option_label(ctx, "Проверка корректности заполнения матрицы", main_opt == 0)) main_opt = 0;
-            if (nk_option_label(ctx, "Examine matrix to be readed correctly", main_opt == 0)) main_opt = 0;
-            if (nk_option_label(ctx, "Multiply matrix by vector", main_opt == 1)) main_opt = 1;
-            if (nk_option_label(ctx, "Multiply matrix by matrix", main_opt == 2)) main_opt = 2;
-
-            if (main_opt == 0)
-            {
-                static char row_str[11] = "0";
-                static int row_str_len = 1;
-
-                static char col_str[11] = "0";
-                static int col_str_len = 1;
-
-                const float sizes[] = { 60, 60, 60, 60, 120 };
-                nk_layout_row(ctx, NK_STATIC, 25, 5, sizes);
-
-                nk_label(ctx, "rows:", NK_TEXT_LEFT);
-                nk_edit_string(ctx, NK_EDIT_SIMPLE, row_str, &row_str_len, 10, NK_FILTER_INT);
-
-                nk_label(ctx, "cols:", NK_TEXT_LEFT);
-                nk_edit_string(ctx, NK_EDIT_SIMPLE, col_str, &col_str_len, 10, NK_FILTER_INT);
-
-                static long rows = 0, cols = 0;
-                static int invalid_dims = 0;
-
-                static sparse_matrix_t sparse_matrix;
-                static bool matrix_generated = false;
-
-                // generate matrix wit hnew dimensions
-                if (nk_button_label(ctx, "generate"))
-                {
-                    // обнулили предыдущий вариант матрицы
-                    sp_free(&sparse_matrix);
-                    sparse_matrix = sp_null_matrix();
-
-                    char* end_str;
-
-                    row_str[row_str_len] = '\0';
-                    col_str[col_str_len] = '\0';
-
-                    rows = strtol(row_str, &end_str, 10);
-
-                    if (rows == 0 && (errno == EINVAL || end_str == row_str))
-                        invalid_dims = 1;
-                    
-                    else
-                    {
-                        cols = strtol(col_str, &end_str, 10);
-
-                        if (cols == 0 && (errno == EINVAL || end_str == col_str))
-                            invalid_dims = 1;
-
-                        else if (rows <= 0 || cols <= 0)
-                            invalid_dims = 1;
-
-                        else
-                        {
-                            // создали новую матрицу
-                            sparse_matrix = sp_create(rows, cols);
-                            matrix_generated = true;
-                            printf("Generated matrix with dimensions: %ld x %ld\n", rows, cols);
-                            sp_print_info(&sparse_matrix);
-                        }
-                    }
-                }
-
-                // show error msg popup
-                if (invalid_dims)
-                {
-                    matrix_generated = false;
-                    static struct nk_rect s = { 20, 100, 220, 90 };
-                    if (nk_popup_begin(ctx, NK_POPUP_STATIC, "Error", 0, s))
-                    {
-                        nk_layout_row_dynamic(ctx, 25, 1);
-                        nk_label(ctx, "Invalid dimensions", NK_TEXT_CENTERED);
-                        if (nk_button_label(ctx, "OK")) {
-                            invalid_dims = 0;
-                            nk_popup_close(ctx);
-                        }
-                        nk_popup_end(ctx);
-                    }
-                    else invalid_dims = 0;
-                }
-
-                if (matrix_generated)
-                {
-                    // print input boxes for all dimmensions
-                    nk_layout_row_static(ctx, 40, 400, 1);
-                    nk_label(ctx, "Generated sparse matrix:", NK_TEXT_LEFT);
-                    
-                    nk_layout_row_static(ctx, 0, 56, cols + 1);
-                    nk_label(ctx, "row\\col", NK_TEXT_CENTERED);
-                    for (mat_index_t col = 0; col < cols; col++)
-                    {
-                        char col_num[10];
-                        sprintf(col_num, "%ld", col);
-                        nk_label(ctx, col_num, NK_TEXT_CENTERED);
-                    }
-
-                    for (mat_index_t row = 0; row < rows; row++)
-                    {
-                        char row_num[10];
-                        sprintf(row_num, "%ld", row);
-                        nk_label(ctx, row_num, NK_TEXT_CENTERED);
-
-                        for (mat_index_t col = 0; col < cols; col++)
-                        {
-                            int value = (int)sp_get(&sparse_matrix, row, col);
-                            int new_value = nk_propertyi(ctx, "", INT_MIN, value, INT_MAX, 1, 1);
-                            if (new_value != value)
-                            {
-                                sp_set(&sparse_matrix, row, col, (mat_elem_t)new_value);
-                                printf("Matrix value updated!\n");
-                                sp_print_info(&sparse_matrix);
-                            }
-                        }
-                    }
-
-                    nk_layout_row_static(ctx, 40, 400, 1);
-                    nk_label(ctx, "Try to edit some of the values. Nothing bad must happened.", NK_TEXT_LEFT);
-
-
-                }
-            }
-        }
-        nk_end(ctx);
-
-        /*
-        if (nk_begin(ctx, "Demo", nk_rect(50, 50, 230, 250),
-            NK_WINDOW_BORDER | NK_WINDOW_MOVABLE | NK_WINDOW_SCALABLE |
-            NK_WINDOW_MINIMIZABLE | NK_WINDOW_TITLE))
-        {
-            enum { EASY, HARD };
-            static int op = EASY;
-            static int property = 20;
-            nk_layout_row_static(ctx, 30, 80, 1);
-            if (nk_button_label(ctx, "button"))
-                fprintf(stdout, "button pressed\n");
-
-            nk_layout_row_dynamic(ctx, 30, 2);
-            if (nk_option_label(ctx, "easy", op == EASY)) op = EASY;
-            if (nk_option_label(ctx, "hard", op == HARD)) op = HARD;
-
-            nk_layout_row_dynamic(ctx, 25, 1);
-            nk_property_int(ctx, "Compression:", 0, &property, 100, 10, 1);
-
-            nk_layout_row_dynamic(ctx, 20, 1);
-            nk_label(ctx, "background:", NK_TEXT_LEFT);
-            nk_layout_row_dynamic(ctx, 25, 1);
-            if (nk_combo_begin_color(ctx, nk_rgb_cf(bg), nk_vec2(nk_widget_width(ctx), 400))) {
-                nk_layout_row_dynamic(ctx, 120, 1);
-                bg = nk_color_picker(ctx, bg, NK_RGBA);
-                nk_layout_row_dynamic(ctx, 25, 1);
-                bg.r = nk_propertyf(ctx, "#R:", 0, bg.r, 1.0f, 0.01f, 0.005f);
-                bg.g = nk_propertyf(ctx, "#G:", 0, bg.g, 1.0f, 0.01f, 0.005f);
-                bg.b = nk_propertyf(ctx, "#B:", 0, bg.b, 1.0f, 0.01f, 0.005f);
-                bg.a = nk_propertyf(ctx, "#A:", 0, bg.a, 1.0f, 0.01f, 0.005f);
-                nk_combo_end(ctx);
-            }
-        }
-        nk_end(ctx);
-
-        overview(ctx);
-        
-
-        glfwGetWindowSize(win, &width, &height);
-        glViewport(0, 0, width, height);
-        glClear(GL_COLOR_BUFFER_BIT);
-        glClearColor(bg.r, bg.g, bg.b, bg.a);
-        nk_glfw3_render(&glfw, NK_ANTI_ALIASING_ON, MAX_VERTEX_BUFFER, MAX_ELEMENT_BUFFER);
-        glfwSwapBuffers(win);
-    }
-    nk_glfw3_shutdown(&glfw);
-    glfwTerminate();
-    return 0;
-}
-
-*/

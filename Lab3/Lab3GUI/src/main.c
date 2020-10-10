@@ -459,7 +459,7 @@ int main() {
         printf("Successfull init. Starting 'infinite' main loop...\n");
         {
             // setup custom font
-            struct nk_user_font *font = nkc_load_font_file(myapp.nkcHandle, "Roboto-Regular.ttf", 18, nk_font_cyrillic_glyph_ranges());
+            struct nk_user_font *font = nkc_load_font_file(myapp.nkcHandle, "SourceCodePro-Regular.ttf", 16, nk_font_cyrillic_glyph_ranges());
             nkc_style_set_font(myapp.nkcHandle, font);
         }
 

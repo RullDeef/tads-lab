@@ -6,29 +6,17 @@
 
 #define MAX_FILE_NAME_LENGTH 128
 
-typedef struct
-{
-    char input_filename[MAX_FILE_NAME_LENGTH];
-    char output_filename[MAX_FILE_NAME_LENGTH];
-    flat_table_t table;
-} app_state_t;
+int request_input_filename(char *fname);
 
-app_state_t create_app_state();
+int read_table_from_file(char *fname, flat_table_t *table);
+// int write_table_to_file(app_state_t *state);
 
-int request_input_filename(app_state_t *state);
-int request_output_filename(app_state_t *state);
+int output_flat_table(flat_table_t *table, flat_t **ptrs);
+int append_flat_to_table(flat_table_t *table);
 
-int read_table_from_file(app_state_t *state);
-int write_table_to_file(app_state_t *state);
+int sort_table(flat_table_t *table);
+int search_flat(flat_table_t *table);
 
-int output_flat_table(app_state_t *state);
-int append_flat_to_table(app_state_t *state);
-
-int sort_table(app_state_t *state);
-int search_flat(app_state_t *state);
-
-int delete_flat(app_state_t *state);
-
-void free_app_state(app_state_t *state);
+int delete_flat(flat_table_t *table);
 
 #endif // __OPERATIONS_H_

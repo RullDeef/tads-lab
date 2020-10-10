@@ -2,14 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include "flat_table.h"
+#include <time.h>
 
 #define FLAT_STRING_SIZE 256
-
-#ifdef _PERF_TEST
-    #include <time.h>
-    #define BEGIN_TIMER clock_t __start_time = clock()
-    #define END_TIMER(N) fprintf(stderr, "%d %d %lu\n", N, _PERF_TEST, clock() - __start_time)
-#endif
+#define PERF_TIMES 100000
 
 typedef int (*__comp_fn_t)(void *, void *, sort_key_t);
 typedef void (*__assign_fn_t)(void *, void *);
@@ -69,24 +65,22 @@ int imp__read_flat_table_from_file(FILE *file, flat_table_t *table)
         }
 
         table->flats_array[i].id = i;
-        table->flat_ptrs[i] = table->flats_array + i;
     }
 
     return status;
 }
 
-flat_table_t create_flat_table()
+flat_table_t ft_create()
 {
     flat_table_t table = {
         .flats_array = NULL,
-        .flat_ptrs = NULL,
         .size = 0u
     };
 
     return table;
 }
 
-flat_table_t clone_flat_table(flat_table_t *original)
+flat_table_t ft_clone(flat_table_t *original)
 {
     assert_flat_table(original);
 
@@ -94,18 +88,14 @@ flat_table_t clone_flat_table(flat_table_t *original)
 
     copy.size = original->size;
     copy.flats_array = malloc(copy.size * sizeof(flat_t));
-    copy.flat_ptrs = malloc(copy.size * sizeof(flat_t*));
 
     for (int i = 0; i < copy.size; i++)
-    {
         copy.flats_array[i] = clone_flat(original->flats_array + i);
-        copy.flat_ptrs[i] = copy.flats_array + (original->flat_ptrs[i] - original->flats_array);
-    }
 
     return copy;
 }
 
-int fread_flat_table(FILE *file, flat_table_t *table)
+int ft_read(FILE *file, flat_table_t *table)
 {
     assert(file != NULL);
     assert(table != NULL);
@@ -119,60 +109,70 @@ int fread_flat_table(FILE *file, flat_table_t *table)
     table->flats_array = (flat_t *)calloc(flats_amount, sizeof(flat_t));
     if (table->flats_array == NULL)
         return -2; // bad allocation
-    table->flat_ptrs = (flat_t **)calloc(flats_amount, sizeof(flat_t *));
-    if (table->flat_ptrs == NULL) // bad allocation
-    {
-        free(table->flats_array);
-        printf("bad alloc :c\n");
-        return -3;
-    }
+
     table->size = flats_amount;
 
     // read file line by line
     if (imp__read_flat_table_from_file(file, table))
     {
         // could not read
-        free_flat_table(table);
+        ft_free(table);
         return -3;
     }
 
     return 0;
 }
 
+/*
 int fwrite_flat_table(FILE *file, flat_table_t *table)
 {
     assert(file != NULL);
     assert_flat_table(table);
 
     for (unsigned int i = 0; i < table->size; i++)
-        printf_flat(table->flat_ptrs[i]);
+        printf_flat(table->flats_array + i);
 
     return 0;
 }
+*/
 
-int append_flat_table(flat_table_t *table, flat_t *flat)
+static unsigned int imp__get_free_id(const flat_table_t *table)
+{
+    unsigned int id = 0;
+
+    while (true)
+    {
+        bool id_propageted = false;
+
+        for (unsigned i = 0; i < table->size; i++)
+        {
+            if (table->flats_array[i].id == id)
+            {
+                id++;
+                id_propageted = true;
+            }
+        }
+
+        if (!id_propageted)
+            break;
+    }
+
+    return id;
+}
+
+int ft_append_flat(flat_table_t *table, flat_t *flat)
 {
     assert_flat_table(table);
     assert_flat(flat);
 
-    // remember index positions of each flat pointer
-    size_t *indices = malloc(table->size * sizeof(size_t));
-    for (size_t i = 0; i < table->size; i++)
-        indices[i] = table->flat_ptrs[i] - table->flats_array;
-
     // realloc array for new element
     table->size += 1;
-
     table->flats_array = (flat_t *)realloc(table->flats_array, table->size * sizeof(flat_t));
-    table->flat_ptrs = (flat_t **)realloc(table->flat_ptrs, table->size * sizeof(flat_t*));
-    // update pointers
-    for (size_t i = 0; i < table->size - 1; i++)
-        table->flat_ptrs[i] = table->flats_array + indices[i];
 
+    // get first avaliable id
+    flat->id = imp__get_free_id(table);
     table->flats_array[table->size - 1] = *flat;
-    table->flat_ptrs[table->size - 1] = table->flats_array + table->size - 1;
 
-    free(indices);
     return 0;
 }
 
@@ -279,113 +279,113 @@ static void imp__merge(void *a, size_t count, size_t size, __comp_fn_t comp, __a
     #undef A
 }
 
-void sort_flat_table_a_fast(flat_table_t *flat_table, sort_key_t key, bool ascending)
+void ft_gen_keys(flat_table_t *table, flat_t **keys)
 {
-    assert_flat_table(flat_table);
-
-#ifdef _PERF_TEST
-    BEGIN_TIMER;
-    for (size_t i = 0; i < _PERF_TEST; i++)
-    {
-        flat_table_t clone = clone_flat_table(flat_table);
-        imp__merge(clone.flats_array, clone.size, sizeof(flat_t), imp__flat_comp, assign_flat, key, ascending);
-        free_flat_table(&clone);
-    }
-    END_TIMER(flat_table->size);
-#endif
-    imp__merge(flat_table->flats_array, flat_table->size, sizeof(flat_t), imp__flat_comp, assign_flat, key, ascending);
+    for (size_t i = 0; i < table->size; i++)
+        keys[i] = table->flats_array + i;
 }
 
-void sort_flat_table_a_slow(flat_table_t *flat_table, sort_key_t key, bool ascending)
+size_t ft_sort_a_fast(flat_table_t *table, flat_t **keys, sort_params_t params)
 {
-    assert_flat_table(flat_table);
-
-#ifdef _PERF_TEST
-    BEGIN_TIMER;
-    for (size_t i = 0; i < _PERF_TEST; i++)
+    assert_flat_table(table);
+    size_t result = 0UL;
+    
+    if (!params.real_sort)
     {
-        flat_table_t clone = clone_flat_table(flat_table);
-        imp__insertion(clone.flats_array, clone.size, sizeof(flat_t), imp__flat_comp, swap_flat, key, ascending);
-        free_flat_table(&clone);
+        clock_t __start_time = clock();
+        for (size_t i = 0; i < 1000; i++)
+        {
+            flat_table_t clone = ft_clone(table);
+            imp__merge(clone.flats_array, clone.size, sizeof(flat_t), imp__flat_comp, assign_flat, params.key, params.ascending);
+            ft_free(&clone);
+        }
+        result = clock() - __start_time;
     }
-    END_TIMER(flat_table->size);
-#endif
-    imp__insertion(flat_table->flats_array, flat_table->size, sizeof(flat_t), imp__flat_comp, swap_flat, key, ascending);
+    else
+        imp__merge(table->flats_array, table->size, sizeof(flat_t), imp__flat_comp, assign_flat, params.key, params.ascending);
 
-    for (unsigned int i = 0; i < flat_table->size; i++)
-        flat_table->flat_ptrs[i] = flat_table->flats_array + i;
+    return result;
 }
 
-void sort_flat_table_b_fast(flat_table_t *flat_table, sort_key_t key, bool ascending)
+size_t ft_sort_a_slow(flat_table_t *table, flat_t **keys, sort_params_t params)
 {
-    assert_flat_table(flat_table);
+    assert_flat_table(table);
+    size_t result = 0UL;
 
-#ifdef _PERF_TEST
-    BEGIN_TIMER;
-    for (size_t i = 0; i < _PERF_TEST; i++)
+    if (!params.real_sort)
     {
-        flat_table_t clone = clone_flat_table(flat_table);
-        imp__merge(clone.flat_ptrs, clone.size, sizeof(flat_t*), imp__flat_ptr_comp, assign_flat_ptr, key, ascending);
-        free_flat_table(&clone);
+        clock_t __start_time = clock();
+        for (size_t i = 0; i < PERF_TIMES; i++)
+        {
+            flat_table_t clone = ft_clone(table);
+            imp__insertion(clone.flats_array, clone.size, sizeof(flat_t), imp__flat_comp, swap_flat, params.key, params.ascending);
+            ft_free(&clone);
+        }
+        result = clock() - __start_time;
     }
-    END_TIMER(flat_table->size);
-#endif
-    imp__merge(flat_table->flat_ptrs, flat_table->size, sizeof(flat_t*), imp__flat_ptr_comp, assign_flat_ptr, key, ascending);
+    else
+        imp__insertion(table->flats_array, table->size, sizeof(flat_t), imp__flat_comp, swap_flat, params.key, params.ascending);
+
+    return result;
 }
 
-void sort_flat_table_b_slow(flat_table_t *flat_table, sort_key_t key, bool ascending)
+size_t ft_sort_b_fast(flat_table_t *table, flat_t **keys, sort_params_t params)
 {
-    assert_flat_table(flat_table);
+    assert_flat_table(table);
+    size_t result = 0UL;
 
-#ifdef _PERF_TEST
-    BEGIN_TIMER;
-    for (size_t i = 0; i < _PERF_TEST; i++)
+    if (!params.real_sort)
     {
-        flat_table_t clone = clone_flat_table(flat_table);
-        imp__insertion(clone.flat_ptrs, clone.size, sizeof(flat_t *), imp__flat_ptr_comp, swap_flat_ptr, key, ascending);
-        free_flat_table(&clone);
+        flat_t **keys_clone = malloc(table->size * sizeof(flat_t**));
+        clock_t __start_time = clock();
+        for (size_t i = 0; i < PERF_TIMES; i++)
+        {
+            ft_gen_keys(table, keys_clone);
+            imp__merge(keys_clone, table->size, sizeof(flat_t *), imp__flat_ptr_comp, assign_flat_ptr, params.key, params.ascending);
+        }
+        result = clock() - __start_time;
+        free(keys_clone);
     }
-    END_TIMER(flat_table->size);
-#endif
-    imp__insertion(flat_table->flat_ptrs, flat_table->size, sizeof(flat_t*), imp__flat_ptr_comp, swap_flat_ptr, key, ascending);
+    else
+        imp__merge(keys, table->size, sizeof(flat_t *), imp__flat_ptr_comp, assign_flat_ptr, params.key, params.ascending);
 
-    for (unsigned int i = 0; i < flat_table->size; i++)
-        flat_table->flat_ptrs[i] = flat_table->flats_array + i;
+    return result;
 }
 
-bool flat_satisfies(flat_t *flat, float price_1, float price_2)
+size_t ft_sort_b_slow(flat_table_t *table, flat_t **keys, sort_params_t params)
+{
+    assert_flat_table(table);
+    size_t result = 0UL;
+
+    if (!params.real_sort)
+    {
+        flat_t **keys_clone = malloc(table->size * sizeof(flat_t**));
+        clock_t __start_time = clock();
+        for (size_t i = 0; i < PERF_TIMES; i++)
+        {
+            ft_gen_keys(table, keys_clone);
+            imp__insertion(keys_clone, table->size, sizeof(flat_t *), imp__flat_ptr_comp, swap_flat_ptr, params.key, params.ascending);
+        }
+        result = clock() - __start_time;
+        free(keys_clone);
+    }
+    else
+        imp__insertion(keys, table->size, sizeof(flat_t *), imp__flat_ptr_comp, swap_flat_ptr, params.key, params.ascending);
+
+    return result;
+}
+
+bool ft_flat_satisfies(flat_t *flat, float price_1, float price_2)
 {
     assert_flat(flat);
     float price = flat->price_per_m2 * flat->area;
     return flat->type == SECONDARY && flat->rooms_amount == 2 && !flat->type_data.was_pets && price_1 <= price && price < price_2;
 }
 
-/*
-int search_flat_table(flat_table_t *table, float price_1, float price_2, search_callback_t callback)
+int ft_delete_flat(flat_table_t *table, unsigned int id, flat_t *deleted_flat)
 {
-    assert_flat_table(table);
-
-    int founded = 0;
-
-    for (int i = 0; i < table->size; i++)
-    {
-        if (flat_satisfies(table->flat_ptrs[i], price_1, price_2))
-        {
-            callback(table->flat_ptrs[i]);
-            founded++;
-        }
-    }
-
-    return founded;
-}
-*/
-
-int delete_flat_table(flat_table_t *table, unsigned int id, flat_t *deleted_flat)
-{
-    assert_flat_table(table);
-    assert(0 <= id && id < table->size);
-
-    flat_t *deleted_flat_addr = NULL;
+    if (0 > id || id >= table->size)
+        return -1;
 
     size_t index = 0;
     while (index < table->size)
@@ -393,17 +393,13 @@ int delete_flat_table(flat_table_t *table, unsigned int id, flat_t *deleted_flat
         if (table->flats_array[index].id == id)
         {
             *deleted_flat = table->flats_array[index];
-            deleted_flat_addr = table->flats_array + index;
             break;
         }
         index++;
     }
 
     if (index == table->size)
-    {
-        // flat was not found
-        return -1;
-    }
+        return -2; // flat was not found
 
     while (index + 1 < table->size)
     {
@@ -411,43 +407,17 @@ int delete_flat_table(flat_table_t *table, unsigned int id, flat_t *deleted_flat
         index++;
     }
 
-    // update pointers
-    bool shift = false;
-    for (size_t i = 0; i < table->size; i++)
-    {
-        if (table->flat_ptrs[i] == deleted_flat_addr)
-        {
-            shift = true;
-            continue;
-        }
-        
-        if (table->flat_ptrs[i] > deleted_flat_addr)
-            table->flat_ptrs[i]--;
-        
-        if (shift)
-        {
-            table->flat_ptrs[i - 1] = table->flat_ptrs[i];
-        }
-    }
-
-    // realloc
     table->size--;
+    // realloc
     // table->flats_array = realloc(table->flats_array, table->size * sizeof(flat_t));
-    // table->flat_ptrs = realloc(table->flat_ptrs, table->size * sizeof(flat_t*));
 
     return 0;
 }
 
-void free_flat_table(flat_table_t *table)
+void ft_free(flat_table_t *table)
 {
     if (table == NULL)
         return;
-
-    if (table->flat_ptrs != NULL)
-    {
-        free(table->flat_ptrs);
-        table->flat_ptrs = NULL;
-    }
 
     if (table->flats_array != NULL)
     {

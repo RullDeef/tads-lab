@@ -4,13 +4,6 @@
 #include <stdbool.h>
 #include "operations.h"
 
-typedef enum
-{
-    REQUEST_INPUT_FILE_NAME,
-    REQUEST_OUTPUT_FILE_NAME,
-    RELOAD_TABLE
-} menu_option_t;
-
 static void imp__pause()
 {
     char temp[2];
@@ -23,7 +16,7 @@ int get_menu_opt()
     printf("  [__Меню:__]\n\n"
         " 1. Добавить запись в таблицу\n"
         " 2. Отсортировать таблицу\n"
-        " 3. Вывести часть таблицы на экран\n"
+        " 3. Вывести таблицу на экран\n"
         " 4. Произвести поиск квартиры\n"
         " 5. Удалить запись\n"
         " 0. Выход\n\n"
@@ -32,95 +25,81 @@ int get_menu_opt()
     fgets(opt, 256, stdin);
     while (strlen(opt) > 0 && (opt[strlen(opt) - 1] == '\r' || opt[strlen(opt) - 1] == '\n'))
         opt[strlen(opt) - 1] = '\0';
-    system("clear");
     if (strlen(opt) == 1)
-    {
         if (opt[0] >= '0' && opt[0] <= '5')
             return opt[0] - '0';
-    }
     return -1;
 }
 
-int run_menu_loop()
+int main()
 {
-    app_state_t state = create_app_state();
     int status = 0;
-    bool need_exit = false;
+    char ifname[MAX_FILE_NAME_LENGTH];
+    flat_table_t table;
 
-    status = request_input_filename(&state);
+    status = request_input_filename(ifname);
     if (status == 0)
     {
-        status = read_table_from_file(&state);
+        status = read_table_from_file(ifname, &table);
         if (status != 0)
             printf("Не удалось считать данные из файла.\n");
     }
     else
         printf("Некорректное имя файла.\n");
 
-    while (!need_exit && status == 0)
+    if (status != 0)
+        return status;
+
+    bool need_exit = false;
+    while (!need_exit)
     {
         int opt = get_menu_opt();
 
         switch (opt)
         {
             default:
-            case -1:
-                printf("Вы неправильно ввели номер опции. Повторите попытку.\n");
+                printf("\nВы неправильно ввели номер опции. Повторите попытку.\n");
                 imp__pause();
+                system("clear");
                 break;
             
             case 0:
-                printf("Выход из программы...");
+                printf("\nВыход из программы...");
                 need_exit = true;
                 break;
             
             case 1:
-                status = append_flat_to_table(&state);
-                if (status == 0)
-                    printf("Успешно добавлена новая запись в таблицу.\n");
-                else
-                    printf("При обработки ввода произошла ошибка.\n");
-                status = 0;
+                system("clear");
+                append_flat_to_table(&table);
                 imp__pause();
                 break;
 
             case 2:
-                printf("Выполяется сортировка таблицы...\n");
-                status = sort_table(&state);
-                if (status == 0)
-                {
-                    printf("Сортировка выполнена!\n\n");
-                    output_flat_table(&state);
-                }
-                else
-                    printf("При сортировке возникли ошибки.\n\n");
-                status = 0;
+                system("clear");
+                sort_table(&table);
                 imp__pause();
                 break;
 
             case 3:
                 system("clear");
-                output_flat_table(&state);
+                output_flat_table(&table, NULL);
                 imp__pause();
                 break;
             
             case 4:
-                search_flat(&state);
+                system("clear");
+                search_flat(&table);
                 imp__pause();
                 break;
-            
+
             case 5:
-                delete_flat(&state);
+                system("clear");
+                output_flat_table(&table, NULL);
+                delete_flat(&table);
                 imp__pause();
                 break;
         }
     }
 
-    free_app_state(&state);
     return status;
-}
-
-int main(void)
-{
-    return run_menu_loop();
 }

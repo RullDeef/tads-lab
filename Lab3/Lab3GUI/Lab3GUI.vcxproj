@@ -160,7 +160,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\check_matrix.c" />
+    <ClCompile Include="src\common.c" />
     <ClCompile Include="src\main.c" />
+    <ClCompile Include="src\mult_mat_mat.c" />
+    <ClCompile Include="src\mult_mat_vec.c" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NuklearCrossLib\NuklearCrossLib.vcxproj">
@@ -169,6 +173,9 @@
     <ProjectReference Include="..\SparseMatrixLib\SparseMatrixLib.vcxproj">
       <Project>{d4872110-1639-4cfa-9998-85f227f93060}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\myapp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

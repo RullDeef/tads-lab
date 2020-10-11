@@ -10,7 +10,10 @@ static _imp__input_box(struct my_nkc_app *myapp)
         int rows = myapp->opt_data.check_matrix.input_rows;
         int cols = myapp->opt_data.check_matrix.input_cols;
 
-        nk_layout_row_static(ctx, 0, 80, 5);
+        // nk_layout_row_static(ctx, 0, 80, 5);
+        float widths[] = { 120.0f, 80.0f, 120.0f, 80.0f, 80.0f };
+        gui_make_row_layout(ctx, widths, 5);
+
         gui_input_dim_widget(ctx, u8"Строк", &rows);
         gui_input_dim_widget(ctx, u8"Столбцов", &cols);
 

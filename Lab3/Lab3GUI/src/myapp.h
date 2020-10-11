@@ -53,6 +53,8 @@ bool app_check_dims(int rows, int cols);
 void update_app_state(struct my_nkc_app* myapp, enum menu_opts opt);
 void make_error_popup(struct nk_context* ctx, bool* active, const char* msg);
 
+void gui_make_row_layout(struct nk_context* ctx, float widths[], int size);
+
 void gui_input_elem_widget(struct nk_context* ctx, int* elem);
 void gui_input_dim_widget(struct nk_context* ctx, const char* title, int* dim);
 

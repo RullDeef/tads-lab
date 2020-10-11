@@ -91,6 +91,14 @@ void make_error_popup(struct nk_context* ctx, bool* active, const char* msg)
     }
 }
 
+void gui_make_row_layout(struct nk_context* ctx, float widths[], int size)
+{
+    nk_layout_row_template_begin(ctx, 0);
+    for (int i = 0; i < size; i++)
+        nk_layout_row_template_push_static(ctx, widths[i]);
+    nk_layout_row_template_end(ctx);
+}
+
 void gui_input_elem_widget(struct nk_context* ctx, int* elem)
 {
     char elem_str[MAX_ELEM_STR_LEN];

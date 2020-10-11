@@ -12,7 +12,10 @@ static void _imp__input_box(struct my_nkc_app *myapp)
         int rows = myapp->opt_data.mult_mat_vec.input_rows;
         int cols = myapp->opt_data.mult_mat_vec.input_cols;
 
-        nk_layout_row_static(ctx, 0, 80, 6);
+        // nk_layout_row_static(ctx, 0, 80, 6);
+        float widths[] = { 120.0f, 80.0f, 120.0f, 80.0f, 80.0f, 120.0f };
+        gui_make_row_layout(ctx, widths, 6);
+
         gui_input_dim_widget(ctx, u8"Строк", &rows);
         gui_input_dim_widget(ctx, u8"Столбцов", &cols);
 
@@ -74,7 +77,6 @@ void gui_multiply_mat_vec(struct my_nkc_app* myapp)
         int mat_cols = myapp->opt_data.mult_mat_vec.matrix.cols_size;
 
         struct nk_rect rect = nk_window_get_content_region(ctx);
-
         nk_layout_row_begin(ctx, NK_DYNAMIC, rect.h - 136.0f, 3);
 
         nk_layout_row_push(ctx, 0.6f);

@@ -8,6 +8,14 @@
         с которых начинается описание столбца Nk матрицы A
 
     (Йельский формат)
+
+NULL-матрица детерминируется по значению указателя на список столбцов.
+
+Корректная матрица проверяется утверждением и следующими условиями:
+    0. Она не является NULL-матрицей
+    1. Имеет положительный размер как строк, так и столбцов
+    2. При положительном числе ненулевых элементов имеет ненулевые указатели
+        на массив ненулевых элементов и список их строк.
 */
 
 #ifndef __SPARSE_MATRIX_H_
@@ -15,20 +23,14 @@
 
 #include <stddef.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <stdbool.h>
 #include <assert.h>
 
-typedef long ssize_t;
-
 typedef int mat_elem_t;
-typedef ssize_t mat_index_t;
-typedef ssize_t mat_size_t;
 
 #define SP_INITIAL_ALLOC_SIZE 10
 #define SP_ALLOC_MULTIPILER 1.5
-
-#define INVALID_SIZE 0
-#define INVALID_INDEX -1
 
 // параметры, при конвертации матричных индексов в линейный
 #define NO_NEED_ADJUST 0
@@ -40,41 +42,64 @@ typedef ssize_t mat_size_t;
 #define BAD_ALLOC -3
 
 #ifndef NDEBUG
-#define assert_sp_mat(mat) \
-    assert((mat) != NULL); \
-    assert((mat)->rows_size > 0 && (mat)->cols_size > 0 && (mat)->nonzero_size >= 0); \
-    assert((mat)->rows != NULL && (mat)->cols != NULL && (mat)->nonzero_array != NULL)
+#define assert_sp_mat(mat) assert( \
+        (mat).cols != NULL && (mat).rows_size > 0 && (mat).cols_size > 0 && \
+        ((mat).nonzero_size == 0 || ((mat).nonzero_array != NULL && (mat).rows != NULL)))
 #else
 #define assert_sp_mat(mat) (void*)0
 #endif
 
 typedef struct sparse_matrix_t
 {
-    mat_size_t rows_size;
-    mat_size_t cols_size;
-    mat_size_t nonzero_size;
-    mat_size_t __alloc_nz_sz;
-    mat_size_t __alloc_cl_sz;
-    mat_index_t *cols; // JA
-    mat_index_t *rows; // IA
+    size_t rows_size;
+    size_t cols_size;
+    size_t nonzero_size;
+    size_t __alloc_nz_sz;
+    size_t __alloc_cl_sz;
+    size_t *cols; // JA
+    size_t *rows; // IA
     mat_elem_t *nonzero_array; // A
 } sparse_matrix_t;
 
 sparse_matrix_t sp_null_matrix();
-sparse_matrix_t sp_create(mat_size_t rows, mat_size_t cols);
-int sp_recreate(sparse_matrix_t *matrix, mat_size_t rows, mat_size_t cols);
-// int sp_resize(sparse_matrix_t* matrix, mat_size_t new_rows, mat_size_t new_cols);
+sparse_matrix_t sp_create(size_t rows, size_t cols);
+int sp_recreate(sparse_matrix_t *matrix, size_t rows, size_t cols);
+// int sp_resize(sparse_matrix_t* matrix, size_t new_rows, size_t new_cols);
 void sp_free(sparse_matrix_t* matrix);
 
 bool sp_mat_is_null(const sparse_matrix_t* matrix);
 
-mat_elem_t sp_get(const sparse_matrix_t* matrix, mat_index_t row, mat_index_t col);
-void sp_set(sparse_matrix_t* matrix, mat_index_t row, mat_index_t col, mat_elem_t value);
+mat_elem_t sp_get(const sparse_matrix_t* matrix, size_t row, size_t col);
+void sp_set(sparse_matrix_t* matrix, size_t row, size_t col, mat_elem_t value);
 
+/**
+ * @brief Пытается сжать матрицу, удалив нулевые элементы из неё.
+ * 
+ * При передаче NULL-матрицы ничего не делает.
+ * 
+ * @param matrix - сжимаемая матрица.
+ */
+void sp_compress(sparse_matrix_t* matrix);
+
+/**
+ * @brief Обнуляет матрицу.
+ */
+void sp_clear(sparse_matrix_t* matrix);
+
+void sp_randomize(sparse_matrix_t* matrix, float nz_percent);
+
+// "обычные" операции как с плотными матрицами
 int sp_mult_by_vector(const sparse_matrix_t* matrix, const mat_elem_t* vector, mat_elem_t* out);
 int sp_mult_matrix(const sparse_matrix_t* matrix_1, const sparse_matrix_t* matrix_2, sparse_matrix_t* out);
 
+// специальные алгоритмы
+int sp_mult_by_vector_fast(const sparse_matrix_t* matrix, const mat_elem_t* vector, mat_elem_t* out);
+int sp_mult_matrix_fast(const sparse_matrix_t* matrix_1, const sparse_matrix_t* matrix_2, sparse_matrix_t* out);
+
 void sp_print_info(const sparse_matrix_t* matrix);
 void sp_print(const sparse_matrix_t* matrix);
+
+void sp_fprint_info(FILE* file, const sparse_matrix_t* matrix);
+void sp_fprint(FILE *file, const sparse_matrix_t* matrix);
 
 #endif

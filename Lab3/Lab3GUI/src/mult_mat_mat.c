@@ -11,8 +11,8 @@ static _imp__input_box(struct my_nkc_app* myapp)
         int cols = myapp->opt_data.mult_mat_mat.input_cols;
         int cols_res = myapp->opt_data.mult_mat_mat.input_cols_res;
 
-        float widths[] = { 120.0f, 80.0f, 120.0f, 80.0f, 120.0f, 80.0f, 80.0f, 120.0f };
-        gui_make_row_layout(ctx, widths, 8);
+        float widths[] = { 120.0f, 60.0f, 120.0f, 60.0f, 120.0f, 60.0f, 80.0f, 120.0f, 60.0f, 90.0f, 90.0f };
+        gui_make_row_layout(ctx, widths, 11);
         
         gui_input_dim_widget(ctx, u8"Строк 1-й", &rows);
         gui_input_dim_widget(ctx, u8"Столбцов 1-й", &cols);
@@ -40,6 +40,15 @@ static _imp__input_box(struct my_nkc_app* myapp)
 
         if (myapp->opt_data.mult_mat_mat.generated)
         {
+            static int percent = 0;
+            gui_input_dim_widget(ctx, u8"% заполнения", &percent);
+
+            if (nk_button_label(ctx, u8"заполнить"))
+            {
+                sp_randomize(&myapp->opt_data.mult_mat_mat.matrix_1, (float)percent / 100.0f);
+                sp_randomize(&myapp->opt_data.mult_mat_mat.matrix_2, (float)percent / 100.0f);
+            }
+
             if (nk_button_label(ctx, u8"Умножить"))
             {
                 int status = sp_mult_matrix(&myapp->opt_data.mult_mat_mat.matrix_1, &myapp->opt_data.mult_mat_mat.matrix_2, &myapp->opt_data.mult_mat_mat.result);

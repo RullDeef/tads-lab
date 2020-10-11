@@ -57,7 +57,7 @@ int main() {
     /* init some user data */
     init_myapp(&myapp);
 
-    if (nkc_init(myapp.nkcHandle, "Nuklear+ Example", WINDOW_WIDTH, WINDOW_HEIGHT, NKC_WIN_NORMAL))
+    if (nkc_init(myapp.nkcHandle, u8"Лабораторная работа №3: интерактивная программа", WINDOW_WIDTH, WINDOW_HEIGHT, NKC_WIN_FIXED))
     {
         printf("Successfull init. Starting 'infinite' main loop...\n");
 

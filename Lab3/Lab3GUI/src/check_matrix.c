@@ -11,8 +11,8 @@ static _imp__input_box(struct my_nkc_app *myapp)
         int cols = myapp->opt_data.check_matrix.input_cols;
 
         // nk_layout_row_static(ctx, 0, 80, 5);
-        float widths[] = { 120.0f, 80.0f, 120.0f, 80.0f, 80.0f };
-        gui_make_row_layout(ctx, widths, 5);
+        float widths[] = { 120.0f, 80.0f, 120.0f, 80.0f, 80.0f, 120.0f, 80.0f, 120.0f };
+        gui_make_row_layout(ctx, widths, 8);
 
         gui_input_dim_widget(ctx, u8"Строк", &rows);
         gui_input_dim_widget(ctx, u8"Столбцов", &cols);
@@ -32,6 +32,15 @@ static _imp__input_box(struct my_nkc_app *myapp)
                 error_popup_active = true;
                 myapp->opt_data.check_matrix.generated = false;
             }
+        }
+
+        if (myapp->opt_data.check_matrix.generated)
+        {
+            static int percent = 0;
+            gui_input_dim_widget(ctx, u8"% заполнения", &percent);
+
+            if (nk_button_label(ctx, u8"заполнить"))
+                sp_randomize(&myapp->opt_data.check_matrix.matrix, (float)percent / 100.0f);
         }
 
         make_error_popup(ctx, &error_popup_active, u8"Некорректные размеры матрицы.");

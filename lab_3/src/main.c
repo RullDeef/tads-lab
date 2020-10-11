@@ -134,6 +134,7 @@ void mult_mat_vect(void)
 
     // print vector here and return
     printf("Результат умножения матрицы на вектор:\n");
+    con_print_matrix(&matrix);
     con_print_vector(result, matrix.rows_size);
     con_wait();
 

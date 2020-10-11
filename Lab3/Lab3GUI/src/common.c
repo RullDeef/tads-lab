@@ -1,7 +1,7 @@
 #include "myapp.h"
 
-#define MAX_DIMS_STR_LEN 10
-#define MAX_ELEM_STR_LEN 10
+#define MAX_DIMS_STR_LEN 64
+#define MAX_ELEM_STR_LEN 64
 
 void init_myapp(struct my_nkc_app* myapp)
 {
@@ -42,6 +42,7 @@ void update_app_state(struct my_nkc_app* myapp, enum menu_opts opt)
 
     if (myapp->opt == MULTIPLY_MATRIX_VECTOR)
     {
+        myapp->opt_data.mult_mat_vec.generated = false;
         sp_free(&myapp->opt_data.mult_mat_vec.matrix);
         if (myapp->opt_data.mult_mat_vec.vector != NULL)
         {
@@ -56,6 +57,7 @@ void update_app_state(struct my_nkc_app* myapp, enum menu_opts opt)
     }
     else if (myapp->opt == MULTIPLY_MATRIX_MATRIX)
     {
+        myapp->opt_data.mult_mat_mat.generated = false;
         sp_free(&myapp->opt_data.mult_mat_mat.matrix_1);
         sp_free(&myapp->opt_data.mult_mat_mat.matrix_2);
         sp_free(&myapp->opt_data.mult_mat_mat.result);
@@ -99,26 +101,29 @@ void gui_make_row_layout(struct nk_context* ctx, float widths[], int size)
     nk_layout_row_template_end(ctx);
 }
 
-void gui_input_elem_widget(struct nk_context* ctx, int* elem)
+void gui_input_elem_widget(struct nk_context* ctx, int* elem, bool editable)
 {
     char elem_str[MAX_ELEM_STR_LEN];
     int elem_str_len;
     sprintf(elem_str, "%d", *elem);
-
     elem_str_len = strlen(elem_str);
-    nk_edit_string(ctx, NK_EDIT_SIMPLE, elem_str, &elem_str_len, MAX_ELEM_STR_LEN, nk_filter_decimal);
+
+    nk_edit_string(ctx, editable ? NK_EDIT_SIMPLE : NK_EDIT_READ_ONLY, elem_str, &elem_str_len, MAX_ELEM_STR_LEN, nk_filter_decimal);
     elem_str[elem_str_len] = '\0';
 
-    int new_elem = 0;
-    if (sscanf(elem_str, "%d", &new_elem) == 1)
+    if (editable)
     {
-        if (*elem == 0)
-            *elem = new_elem / 10;
+        int new_elem = 0;
+        if (sscanf(elem_str, "%d", &new_elem) == 1)
+        {
+            if (*elem == 0)
+                *elem = new_elem / 10;
+            else
+                *elem = new_elem;
+        }
         else
-            *elem = new_elem;
+            *elem = 0;
     }
-    else
-        *elem = 0;
 }
 
 void gui_input_dim_widget(struct nk_context* ctx, const char* title, int* dim)
@@ -174,21 +179,13 @@ bool gui_matrix_out(struct nk_context* ctx, const char* title, nk_flags flags, s
             for (int col = 0; col < mat_cols; col++)
             {
                 int value = sp_get(matrix, row, col);
-                char text[20];
-                sprintf(text, "%d", value);
-                int text_len = strlen(text);
+                int new_value = value;
 
-                nk_edit_string(ctx, editable ? NK_EDIT_SIMPLE : NK_EDIT_READ_ONLY, text, &text_len, 6, nk_filter_decimal);
-                text[text_len] = '\0';
-
-                if (editable)
+                gui_input_elem_widget(ctx, &new_value, editable);
+                if (editable && new_value != value)
                 {
-                    int new_value;
-                    if ((sscanf(text, "%d", &new_value) == 1) && new_value != value)
-                    {
-                        sp_set(matrix, row, col, new_value);
-                        changed = true;
-                    }
+                    sp_set(matrix, row, col, new_value);
+                    changed = true;
                 }
             }
         }
@@ -199,7 +196,7 @@ bool gui_matrix_out(struct nk_context* ctx, const char* title, nk_flags flags, s
     return changed;
 }
 
-bool gui_vector_out(struct nk_context* ctx, const char* title, nk_flags flags, mat_elem_t* vector, mat_size_t size, bool editable)
+bool gui_vector_out(struct nk_context* ctx, const char* title, nk_flags flags, mat_elem_t* vector, size_t size, bool editable)
 {
     bool changed = false;
 
@@ -216,21 +213,14 @@ bool gui_vector_out(struct nk_context* ctx, const char* title, nk_flags flags, m
             nk_label(ctx, row_str, NK_TEXT_CENTERED);
 
             int value = vector[row];
-            char text[20];
-            sprintf(text, "%d", value);
-            int text_len = strlen(text);
+            int new_value = value;
 
-            nk_edit_string(ctx, editable ? NK_EDIT_SIMPLE : NK_EDIT_READ_ONLY, text, &text_len, 6, nk_filter_decimal);
-            text[text_len] = '\0';
+            gui_input_elem_widget(ctx, &new_value, editable);
 
-            if (editable)
+            if (editable && new_value != value)
             {
-                int new_value;
-                if ((sscanf(text, "%d", &new_value) == 1) && new_value != value)
-                {
-                    vector[row] = new_value;
-                    changed = true;
-                }
+                vector[row] = new_value;
+                changed = true;
             }
         }
 

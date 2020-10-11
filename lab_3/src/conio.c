@@ -227,6 +227,7 @@ void con_print_matrix(const sparse_matrix_t *matrix)
     printf("Матрица:\n\n");
     sp_print(matrix);
     printf("\n");
+    sp_print_info(matrix);
 }
 
 void con_print_vector(const mat_elem_t *vector, mat_size_t size)

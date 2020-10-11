@@ -1,4 +1,5 @@
 #include "myapp.h"
+#include <math.h>
 
 #define MAX_DIMS_STR_LEN 10
 
@@ -13,8 +14,8 @@ static void _imp__input_box(struct my_nkc_app *myapp)
         int cols = myapp->opt_data.mult_mat_vec.input_cols;
 
         // nk_layout_row_static(ctx, 0, 80, 6);
-        float widths[] = { 120.0f, 80.0f, 120.0f, 80.0f, 80.0f, 120.0f };
-        gui_make_row_layout(ctx, widths, 6);
+        float widths[] = { 120.0f, 80.0f, 120.0f, 80.0f, 80.0f, 120.0f, 120.0f, 80.0f, 120.0f };
+        gui_make_row_layout(ctx, widths, 9);
 
         gui_input_dim_widget(ctx, u8"Строк", &rows);
         gui_input_dim_widget(ctx, u8"Столбцов", &cols);
@@ -46,6 +47,26 @@ static void _imp__input_box(struct my_nkc_app *myapp)
 
         if (myapp->opt_data.mult_mat_vec.generated)
         {
+            static int percent = 0;
+            gui_input_dim_widget(ctx, u8"% заполнения", &percent);
+
+            if (nk_button_label(ctx, u8"заполнить"))
+            {
+                sp_randomize(&myapp->opt_data.mult_mat_vec.matrix, (float)percent / 100.0f);
+                // randomize vector too
+                for (size_t i = 0; i < myapp->opt_data.mult_mat_vec.matrix.cols_size; i++)
+                {
+                    mat_elem_t value = rand() % 99 - 49;
+                    if ((float)rand() / RAND_MAX < (float)percent / 100.0f)
+                    {
+                        if (value <= 0) value--;
+                        myapp->opt_data.mult_mat_vec.vector[i] = value;
+                    }
+                    else
+                        myapp->opt_data.mult_mat_vec.vector[i] = 0;
+                }
+            }
+
             if (nk_button_label(ctx, u8"Умножить"))
             {
                 int status = sp_mult_by_vector(&myapp->opt_data.mult_mat_vec.matrix, myapp->opt_data.mult_mat_vec.vector, myapp->opt_data.mult_mat_vec.result);

@@ -23,23 +23,23 @@ struct my_nkc_app {
     struct {
         struct {
             bool generated;
-            mat_size_t input_rows;
-            mat_size_t input_cols;
+            size_t input_rows;
+            size_t input_cols;
             sparse_matrix_t matrix;
         } check_matrix;
         struct {
             bool generated;
-            mat_size_t input_rows;
-            mat_size_t input_cols;
+            size_t input_rows;
+            size_t input_cols;
             sparse_matrix_t matrix;
             mat_elem_t* vector;
             mat_elem_t* result;
         } mult_mat_vec;
         struct {
             bool generated;
-            mat_size_t input_rows;
-            mat_size_t input_cols;
-            mat_size_t input_cols_res;
+            size_t input_rows;
+            size_t input_cols;
+            size_t input_cols_res;
             sparse_matrix_t matrix_1;
             sparse_matrix_t matrix_2;
             sparse_matrix_t result;
@@ -59,7 +59,7 @@ void gui_input_elem_widget(struct nk_context* ctx, int* elem);
 void gui_input_dim_widget(struct nk_context* ctx, const char* title, int* dim);
 
 bool gui_matrix_out(struct nk_context* ctx, const char* title, nk_flags flags, sparse_matrix_t* matrix, bool editable);
-bool gui_vector_out(struct nk_context* ctx, const char* title, nk_flags flags, mat_elem_t* vector, mat_size_t size, bool editable);
+bool gui_vector_out(struct nk_context* ctx, const char* title, nk_flags flags, mat_elem_t* vector, size_t size, bool editable);
 
 void gui_check_matrix(struct my_nkc_app* myapp);
 void gui_multiply_mat_vec(struct my_nkc_app* myapp);

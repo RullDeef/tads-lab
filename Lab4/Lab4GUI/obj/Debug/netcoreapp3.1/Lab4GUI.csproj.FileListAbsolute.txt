@@ -1,0 +1,13 @@
+D:\Dev\TiSD\Lab4\Lab4GUI\bin\Debug\netcoreapp3.1\Lab4GUI.exe
+D:\Dev\TiSD\Lab4\Lab4GUI\bin\Debug\netcoreapp3.1\Lab4GUI.deps.json
+D:\Dev\TiSD\Lab4\Lab4GUI\bin\Debug\netcoreapp3.1\Lab4GUI.runtimeconfig.json
+D:\Dev\TiSD\Lab4\Lab4GUI\bin\Debug\netcoreapp3.1\Lab4GUI.runtimeconfig.dev.json
+D:\Dev\TiSD\Lab4\Lab4GUI\bin\Debug\netcoreapp3.1\Lab4GUI.dll
+D:\Dev\TiSD\Lab4\Lab4GUI\bin\Debug\netcoreapp3.1\Lab4GUI.pdb
+D:\Dev\TiSD\Lab4\Lab4GUI\obj\Debug\netcoreapp3.1\Lab4GUI.csprojAssemblyReference.cache
+D:\Dev\TiSD\Lab4\Lab4GUI\obj\Debug\netcoreapp3.1\Lab4GUI.AssemblyInfoInputs.cache
+D:\Dev\TiSD\Lab4\Lab4GUI\obj\Debug\netcoreapp3.1\Lab4GUI.AssemblyInfo.cs
+D:\Dev\TiSD\Lab4\Lab4GUI\obj\Debug\netcoreapp3.1\Lab4GUI.csproj.CoreCompileInputs.cache
+D:\Dev\TiSD\Lab4\Lab4GUI\obj\Debug\netcoreapp3.1\Lab4GUI.dll
+D:\Dev\TiSD\Lab4\Lab4GUI\obj\Debug\netcoreapp3.1\Lab4GUI.pdb
+D:\Dev\TiSD\Lab4\Lab4GUI\obj\Debug\netcoreapp3.1\Lab4GUI.genruntimeconfig.cache

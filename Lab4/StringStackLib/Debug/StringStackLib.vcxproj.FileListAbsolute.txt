@@ -1,0 +1,2 @@
+D:\Dev\TiSD\Lab4\Debug\StringStackLib.pdb
+D:\Dev\TiSD\Lab4\StringStackLib\Debug\StringStackLib.pdb

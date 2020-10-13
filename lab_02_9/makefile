@@ -21,7 +21,7 @@ obj/operations.o : src/flat.h src/flat_table.h src/operations.h src/operations.c
 obj/main.o : src/operations.h src/main.c
 	mkdir -p obj; $(CC) $(CFLAGS) -o $@ -c src/main.c
 
-compare : CFLAGS += -D_PERF_TEST=100
+compare : CFLAGS += -D_PERF_TEST
 compare : app.exe
 	./efficiency_test/efficiency_test.sh
 

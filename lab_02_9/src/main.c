@@ -4,12 +4,6 @@
 #include <stdbool.h>
 #include "operations.h"
 
-static void imp__pause()
-{
-    char temp[2];
-    fgets(temp, 2, stdin);
-}
-
 int get_menu_opt()
 {
     system("clear");
@@ -59,7 +53,7 @@ int main()
         {
             default:
                 printf("\nВы неправильно ввели номер опции. Повторите попытку.\n");
-                imp__pause();
+                pause();
                 system("clear");
                 break;
             
@@ -71,32 +65,32 @@ int main()
             case 1:
                 system("clear");
                 append_flat_to_table(&table);
-                imp__pause();
+                pause();
                 break;
 
             case 2:
                 system("clear");
                 sort_table(&table);
-                imp__pause();
+                pause();
                 break;
 
             case 3:
                 system("clear");
                 output_flat_table(&table, NULL);
-                imp__pause();
+                pause();
                 break;
             
             case 4:
                 system("clear");
                 search_flat(&table);
-                imp__pause();
+                pause();
                 break;
 
             case 5:
                 system("clear");
                 output_flat_table(&table, NULL);
                 delete_flat(&table);
-                imp__pause();
+                pause();
                 break;
         }
     }

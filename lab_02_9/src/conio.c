@@ -87,7 +87,7 @@ int cio_read_float(float *num)
     char *end;
     *num = strtof(temp, &end);
 
-    if (*num == 0.0f && errno == EINVAL)
+    if (temp == end)
         return -2;
 
     while (*end == ' ' || *end == '\t' || *end == '\r' || *end == '\n')
@@ -142,10 +142,10 @@ int cio_read_time(time_t *time)
         return -1;
     }
 
-    // if (days < 1 || 31 < days || months < 1 || 12 < months || years < MIN_POSSIBLE_YEAR || MAX_POSSIBLE_YEAR < years)
-    // {
-    //     return -2;
-    // }
+    if (days < 1 || 31 < days || months < 1 || 12 < months || years < 1880 || 2020 < years)
+    {
+        return -2;
+    }
 
     struct tm tmstruct;
     memset((void *)&tmstruct, 0, sizeof(struct tm));

@@ -40,12 +40,11 @@ typedef struct
 typedef void (*search_callback_t)(flat_t *);
 typedef size_t (*sort_fn_t)(flat_table_t *, flat_t **, sort_params_t);
 
-flat_table_t ft_create();
+flat_table_t ft_create(void);
 flat_table_t ft_clone(flat_table_t *original);
 void ft_free(flat_table_t *flat_table);
 
 int ft_read(FILE *file, flat_table_t *flat_table);
-int ft_write(FILE *file, flat_table_t *flat_table);
 
 int ft_append_flat(flat_table_t *flat_table, flat_t *flat);
 int ft_delete_flat(flat_table_t *table, unsigned int id, flat_t *deleted_flat);

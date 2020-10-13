@@ -95,7 +95,7 @@ static int imp__request_flat_data(flat_t *flat)
         if (status_code != 0)
         {
             printf("Вы ввели неверную дату. Переповерьте ввод.\n");
-            // printf("Дата не должна быть раньше 01.01.%d или позже 31.12.%d\n", MIN_POSSIBLE_YEAR, MAX_POSSIBLE_YEAR);
+            printf("Дата не должна быть раньше 01.01.1880 или позже 31.12.2020\n");
         }
     }
 
@@ -232,14 +232,15 @@ int append_flat_to_table(flat_table_t *table)
 
     int status_code = imp__request_flat_data(&flat);
     if (status_code == 0)
+    {
         status_code = ft_append_flat(table, &flat);
+        if (status_code == 0)
+            printf("Успешно добавлена новая запись в таблицу.\n");
+        else
+            printf("При вставке произошла ошибка.\n");
+    }
     else
         printf("Не все данные были введены корректно.\n");
-
-    if (status_code == 0)
-        printf("Успешно добавлена новая запись в таблицу.\n");
-    else
-        printf("При обработке ввода произошла ошибка.\n");
 
     return status_code;
 }
@@ -357,15 +358,16 @@ static void imp__better_sort(flat_table_t *table, flat_t **keys)
            "│  Сорт. обменом   │         да │ %14.3lf с │\n"
            "│  Сорт. слиянием  │        нет │ %14.3lf с │\n"
            "│  Сорт. слиянием  │         да │ %14.3lf с │\n",
-           delta_a_slow, delta_a_fast, delta_b_slow, delta_b_fast);
+           delta_a_slow, delta_b_slow, delta_a_fast, delta_b_fast);
     printf("└──────────────────┴────────────┴──────────────────┘\n");
+
+#ifdef _PERF_TEST
+    fprintf(stderr, "%lf %lf %lf %lf\n", delta_a_slow, delta_b_slow, delta_a_fast, delta_b_fast);
+#endif
 }
 
 int imp__request_search_params(float *price_1, float *price_2)
 {
-    assert(price_1 != NULL);
-    assert(price_2 != NULL);
-
     int status_code = 0;
 
     printf("Поиск вторичного 2-х комнатного жилья в указанном ценовом диапазоне без животных.\n\n"
@@ -448,7 +450,7 @@ static int imp__get_sort_menu_opt()
     return -1;
 }
 
-static void imp__pause()
+void pause()
 {
     char temp[2];
     fgets(temp, 2, stdin);
@@ -519,7 +521,7 @@ int sort_table(flat_table_t *table)
             default:
             case -1:
                 printf("Вы неправильно ввели номер опции. Повторите попытку.\n");
-                imp__pause();
+                pause();
                 break;
             
             case 0:
@@ -529,28 +531,28 @@ int sort_table(flat_table_t *table)
             
             case 1:
                 imp__print_keys_table(table, keys);
-                imp__pause();
+                pause();
                 break;
             
             case 2:
                 imp__print_init_table(table);
-                imp__pause();
+                pause();
                 break;
             
             case 3:
                 printf("  Таблица по ключам:\n\n");
                 output_flat_table(table, keys);
-                imp__pause();
+                pause();
                 break;
             
             case 4:
                 imp__output_both_tables(table, keys);
-                imp__pause();
+                pause();
                 break;
             
             case 5:
                 imp__better_sort(table, keys);
-                imp__pause();
+                pause();
                 break;
         }
     }

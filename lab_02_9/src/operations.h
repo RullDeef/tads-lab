@@ -6,10 +6,10 @@
 
 #define MAX_FILE_NAME_LENGTH 128
 
-int request_input_filename(char *fname);
+void pause();
 
+int request_input_filename(char *fname);
 int read_table_from_file(char *fname, flat_table_t *table);
-// int write_table_to_file(app_state_t *state);
 
 int output_flat_table(flat_table_t *table, flat_t **ptrs);
 int append_flat_to_table(flat_table_t *table);

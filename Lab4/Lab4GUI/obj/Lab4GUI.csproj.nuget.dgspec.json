@@ -30,8 +30,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "D:\\Dev\\TiSD\\Lab4\\StringStackLib\\StringStackLib.vcxproj": {
-                "projectPath": "D:\\Dev\\TiSD\\Lab4\\StringStackLib\\StringStackLib.vcxproj"
+              "D:\\Dev\\TiSD\\Lab4\\StringStackWrapper\\StringStackWrapper.csproj": {
+                "projectPath": "D:\\Dev\\TiSD\\Lab4\\StringStackWrapper\\StringStackWrapper.csproj"
               }
             }
           }
@@ -62,7 +62,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -74,6 +74,65 @@
       },
       "frameworks": {
         "native": {}
+      }
+    },
+    "D:\\Dev\\TiSD\\Lab4\\StringStackWrapper\\StringStackWrapper.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Dev\\TiSD\\Lab4\\StringStackWrapper\\StringStackWrapper.csproj",
+        "projectName": "StringStackWrapper",
+        "projectPath": "D:\\Dev\\TiSD\\Lab4\\StringStackWrapper\\StringStackWrapper.csproj",
+        "packagesPath": "C:\\Users\\MSI_PC\\.nuget\\packages\\",
+        "outputPath": "D:\\Dev\\TiSD\\Lab4\\StringStackWrapper\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\MSI_PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "D:\\Dev\\TiSD\\Lab4\\StringStackLib\\StringStackLib.vcxproj": {
+                "projectPath": "D:\\Dev\\TiSD\\Lab4\\StringStackLib\\StringStackLib.vcxproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        }
       }
     }
   }

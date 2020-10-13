@@ -10,6 +10,19 @@
         "runtime": {
           "bin/placeholder/StringStackLib.dll": {}
         }
+      },
+      "StringStackWrapper/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "StringStackLib": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/StringStackWrapper.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/StringStackWrapper.dll": {}
+        }
       }
     }
   },
@@ -18,11 +31,16 @@
       "type": "project",
       "path": "../StringStackLib/StringStackLib.vcxproj",
       "msbuildProject": "../StringStackLib/StringStackLib.vcxproj"
+    },
+    "StringStackWrapper/1.0.0": {
+      "type": "project",
+      "path": "../StringStackWrapper/StringStackWrapper.csproj",
+      "msbuildProject": "../StringStackWrapper/StringStackWrapper.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "StringStackLib >= 1.0.0"
+      "StringStackWrapper >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -55,8 +73,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "D:\\Dev\\TiSD\\Lab4\\StringStackLib\\StringStackLib.vcxproj": {
-              "projectPath": "D:\\Dev\\TiSD\\Lab4\\StringStackLib\\StringStackLib.vcxproj"
+            "D:\\Dev\\TiSD\\Lab4\\StringStackWrapper\\StringStackWrapper.csproj": {
+              "projectPath": "D:\\Dev\\TiSD\\Lab4\\StringStackWrapper\\StringStackWrapper.csproj"
             }
           }
         }
@@ -87,7 +105,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
       }
     }
   }

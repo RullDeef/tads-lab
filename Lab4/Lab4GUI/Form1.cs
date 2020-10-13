@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using StringStackWrapper;
 
 namespace Lab4GUI
 {
@@ -16,10 +17,19 @@ namespace Lab4GUI
         public Form1()
         {
             InitializeComponent();
-            str_st_create();
-        }
 
-        [DllImport("D:\\Dev\\TiSD\\Lab4\\Debug\\StringStackLib.dll")]
-        public static extern void str_st_create();
+            StringStack stack = new StringStack(13);
+
+            string input = "hello!";
+            foreach (char value in input)
+                stack.Push(value);
+            
+            char mid = stack.Read();
+
+            string res = "";
+            for (int i = 0; i < input.Length; i++)
+                res = stack.Pop() + res;
+            
+        }
     }
 }

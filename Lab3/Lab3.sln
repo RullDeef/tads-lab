@@ -9,7 +9,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SparseMatrixLib", "SparseMa
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NuklearCrossLib", "NuklearCrossLib\NuklearCrossLib.vcxproj", "{AE5F4485-BC19-42B3-ADBF-7701D288E641}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTests", "UnitTests\UnitTests.vcxproj", "{0BC740D5-39B3-413A-935D-800CF9D509C6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PerfTests", "UnitTests\UnitTests.vcxproj", "{0BC740D5-39B3-413A-935D-800CF9D509C6}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lab3Console", "Lab3Console\Lab3Console.vcxproj", "{2CF3DE81-3C3B-4EA3-86E6-16ABB26F5D92}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,14 @@ Global
 		{0BC740D5-39B3-413A-935D-800CF9D509C6}.Release|x64.Build.0 = Release|x64
 		{0BC740D5-39B3-413A-935D-800CF9D509C6}.Release|x86.ActiveCfg = Release|Win32
 		{0BC740D5-39B3-413A-935D-800CF9D509C6}.Release|x86.Build.0 = Release|Win32
+		{2CF3DE81-3C3B-4EA3-86E6-16ABB26F5D92}.Debug|x64.ActiveCfg = Debug|x64
+		{2CF3DE81-3C3B-4EA3-86E6-16ABB26F5D92}.Debug|x64.Build.0 = Debug|x64
+		{2CF3DE81-3C3B-4EA3-86E6-16ABB26F5D92}.Debug|x86.ActiveCfg = Debug|Win32
+		{2CF3DE81-3C3B-4EA3-86E6-16ABB26F5D92}.Debug|x86.Build.0 = Debug|Win32
+		{2CF3DE81-3C3B-4EA3-86E6-16ABB26F5D92}.Release|x64.ActiveCfg = Release|x64
+		{2CF3DE81-3C3B-4EA3-86E6-16ABB26F5D92}.Release|x64.Build.0 = Release|x64
+		{2CF3DE81-3C3B-4EA3-86E6-16ABB26F5D92}.Release|x86.ActiveCfg = Release|Win32
+		{2CF3DE81-3C3B-4EA3-86E6-16ABB26F5D92}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

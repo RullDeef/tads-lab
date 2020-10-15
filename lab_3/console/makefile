@@ -1,10 +1,16 @@
-.PHONY : build clean
+.PHONY : test build_con clean_con
 
-build : bin/app.exe
+build_con : console/bin/console.a
+test : console/bin/test.exe
 
-bin/app.exe: src/main.c src/menu.c
-	mkdir -p bin; $(CC) -std=c99 -o $@ $^
-	# /usr/lib/libpanel.dll.a /usr/lib/libncurses.a
+console/bin/test.exe: console/bin/console.a console/test/main.c
+	mkdir -p console/bin; $(CC) -o $@ $^
 
-clean :
-	rm -rf bin
+console/bin/console.a : console/obj/menu.o
+	mkdir -p console/bin; ar rcs $@ $^
+
+console/obj/menu.o : console/src/menu.c
+	mkdir -p console/obj; $(CC) -Iconsole/include -o $@ -c $^
+
+clean_con :
+	rm -rf console/obj console/bin

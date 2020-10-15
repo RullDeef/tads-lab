@@ -3,7 +3,7 @@
 #include <errno.h>
 #include "../include/conio.h"
 
-int imp__get_indices_pair(mat_size_t rows, mat_size_t cols, mat_index_t *row, mat_index_t *col)
+int imp__get_indices_pair(size_t rows, size_t cols, size_t *row, size_t *col)
 {
     char temp[256];
     if (fgets(temp, 256, stdin) != temp)
@@ -108,7 +108,7 @@ int con_get_numeric_opt(int min, int max)
     return (int)opt;
 }
 
-int imp__input_matrix_dimension(mat_size_t *size)
+int imp__input_matrix_dimension(size_t *size)
 {
     char temp[256];
     if (fgets(temp, 256, stdin) != temp)
@@ -155,7 +155,7 @@ int imp__input_matrix_element(mat_elem_t *value)
 
 int con_input_matrix(sparse_matrix_t *matrix)
 {
-    mat_size_t rows, cols;
+    size_t rows, cols;
 
     printf("Введите число строк матрицы: ");
     if (imp__input_matrix_dimension(&rows))
@@ -178,7 +178,7 @@ int con_input_matrix(sparse_matrix_t *matrix)
     printf("Пример ввода пары чисел: 3 7\n");
     while (true)
     {
-        mat_index_t row, col;
+        size_t row, col;
         mat_elem_t value;
 
         printf("Введите пару чисел, строку и столбец для вставки элемента: ");
@@ -205,11 +205,11 @@ int con_input_matrix(sparse_matrix_t *matrix)
     return 0;
 }
 
-int con_input_vector(mat_elem_t *vector, mat_size_t size)
+int con_input_vector(mat_elem_t *vector, size_t size)
 {
     printf("Приготовьтесь вводить %ld элементов вектора!\n", size);
 
-    for (mat_index_t i = 0; i < size; i++)
+    for (size_t i = 0; i < size; i++)
     {
         printf("Введите %ld-ый элемент: ", i + 1);
         if (imp__input_matrix_element(vector + i))
@@ -230,10 +230,10 @@ void con_print_matrix(const sparse_matrix_t *matrix)
     sp_print_info(matrix);
 }
 
-void con_print_vector(const mat_elem_t *vector, mat_size_t size)
+void con_print_vector(const mat_elem_t *vector, size_t size)
 {
     printf("Вектор:\n\n");
-    for (mat_index_t i = 0; i < size; i++)
+    for (size_t i = 0; i < size; i++)
         printf("  %d\n", vector[i]);
     printf("\n");
 }

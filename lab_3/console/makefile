@@ -6,10 +6,15 @@ test : console/bin/test.exe
 console/bin/test.exe: console/bin/console.a console/test/main.c
 	mkdir -p console/bin; $(CC) -o $@ $^
 
-console/bin/console.a : console/obj/menu.o
+console/bin/console.a : \
+		console/obj/con_menu.o \
+		console/obj/utf8.o
 	mkdir -p console/bin; ar rcs $@ $^
 
-console/obj/menu.o : console/src/menu.c
+console/obj/con_menu.o : console/src/con_menu.c
+	mkdir -p console/obj; $(CC) -Iconsole/include -o $@ -c $^
+
+console/obj/utf8.o : console/src/utf8.c
 	mkdir -p console/obj; $(CC) -Iconsole/include -o $@ -c $^
 
 clean_con :

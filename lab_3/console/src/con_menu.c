@@ -5,7 +5,8 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <wchar.h>
-#include "../include/menu.h"
+#include "con_menu.h"
+#include "utf8.h"
 
 #define TEMP_LINE_LEN 128
 
@@ -37,15 +38,15 @@ static void imp__print_menu(menu_t *menu)
     printf("├");
     for (size_t i = 0; i < len + 5; i++)
         printf("─");
-    printf("┤\n");
+    printf("┘\n");
 
     for (size_t i = 0; i < menu->opt_count; i++)
-        printf("│ %2d %*s │\n", i + 1, len, menu->opts[i].name);
+        printf("│ %2d %s\n", i + 1, menu->opts[i].name);
 
     printf("┕━");
     for (size_t i = 0; i < len + 3; i++)
         printf("━");
-    printf("━┙\n");
+    printf("━\n");
 }
 
 static int imp__get_menu_opt()

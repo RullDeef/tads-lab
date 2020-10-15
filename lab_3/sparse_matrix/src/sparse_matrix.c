@@ -463,7 +463,7 @@ int sp_mult_by_vector_fast(const sparse_matrix_t* matrix, const mat_elem_t* vect
 
 int sp_mult_matrix_fast(const sparse_matrix_t* matrix_1, const sparse_matrix_t* matrix_2, sparse_matrix_t* out)
 {
-    assert(0);
+    return 1;
 }
 
 static void imp__print_title(size_t cols)

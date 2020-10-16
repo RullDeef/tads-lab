@@ -99,7 +99,7 @@ static int imp__parse_flat_type(const char **str, flat_t *flat)
     return status;
 }
 
-static int imp__parse_bit_t(const char **str, bit_t *bit)
+static int imp__parse_uint8_t(const char **str, uint8_t *bit)
 {
     assert(str != NULL);
     assert(*str != NULL);
@@ -207,11 +207,11 @@ int imp__parse_flat_type_data(const char **str, flat_t *flat)
 
     if (flat->type == PRIMARY)
     {
-        status = imp__parse_bit_t(str, &flat->type_data.has_trim);
+        status = imp__parse_uint8_t(str, &flat->type_data.has_trim);
     }
     else // secondary
     {
-        status = imp__parse_bit_t(str, &flat->type_data.was_pets) || imp__parse_time_t(str, &flat->build_time) || imp__parse_uchar(str, &flat->prev_owners_amount) || imp__parse_uchar(str, &flat->prev_lodgers_amount);
+        status = imp__parse_uint8_t(str, &flat->type_data.was_pets) || imp__parse_time_t(str, &flat->build_time) || imp__parse_uchar(str, &flat->prev_owners_amount) || imp__parse_uchar(str, &flat->prev_lodgers_amount);
     }
 
     return status;
@@ -220,7 +220,6 @@ int imp__parse_flat_type_data(const char **str, flat_t *flat)
 flat_t create_flat()
 {
     flat_t flat = {
-        .id = 0,
         .address = "",
         .area = 0.0f,
         .rooms_amount = 0u,
@@ -302,11 +301,11 @@ int sread_flat(const char *str, flat_t *flat)
     return status;
 }
 
-void printf_flat(flat_t *flat)
+void printf_flat(uint32_t id, flat_t *flat)
 {
     assert_flat(flat);
 
-    printf("│ %04d │", flat->id);
+    printf("│ %04u │", id);
     printf(" %30s │", flat->address);
     printf(" %7.2f │", flat->area);
     printf(" %13d │", flat->rooms_amount);
@@ -338,26 +337,12 @@ void printf_flat(flat_t *flat)
     printf("\n");
 }
 
-void swap_flat(void *flat_1, void *flat_2)
-{
-    flat_t temp = *(flat_t*)flat_1;
-    *(flat_t *)flat_1 = *(flat_t *)flat_2;
-    *(flat_t *)flat_2 = temp;
-}
-
-void swap_flat_ptr(void *flat_1, void *flat_2)
-{
-    flat_t *temp = *(flat_t **)flat_1;
-    *(flat_t **)flat_1 = *(flat_t **)flat_2;
-    *(flat_t **)flat_2 = temp;
-}
-
 void assign_flat(void *flat_1, void *flat_2)
 {
     *((flat_t *)flat_1) = *((flat_t *)flat_2);
 }
 
-void assign_flat_ptr(void *flat_1, void *flat_2)
+void assign_flat_key(void *flat_1, void *flat_2)
 {
-    *((flat_t **)flat_1) = *((flat_t **)flat_2);
+    *((flat_key_t *)flat_1) = *((flat_key_t *)flat_2);
 }

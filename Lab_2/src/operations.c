@@ -190,17 +190,17 @@ static void imp__colorize_output(int i)
         printf("\033[1;36m");
 }
 
-int output_flat_table(flat_table_t *table, flat_t **ptrs)
+int output_flat_table(flat_table_t *table, keys_table_t *keys)
 {
     imp__print_table_header();
 
     for (int i = 0; i < table->size; i++)
     {
         imp__colorize_output(i);
-        if (ptrs != NULL)
-            printf_flat(ptrs[i]);
+        if (keys != NULL)
+            printf_flat(keys->keys[i].id, table->flats_array + keys->keys[i].id);
         else
-            printf_flat(table->flats_array + i);
+            printf_flat(i, table->flats_array + i);
         imp__colorize_output(-1);
     }
 
@@ -218,7 +218,7 @@ static void imp__print_init_table(flat_table_t *table)
     for (int i = 0; i < table->size; i++)
     {
         imp__colorize_output(i);
-        printf_flat(table->flats_array + i);
+        printf_flat(i, table->flats_array + i);
         imp__colorize_output(-1);
     }
 
@@ -281,26 +281,6 @@ static int imp__request_sort_type(sort_fn_t *func)
 }
 */
 
-static int imp__request_sort_key(sort_key_t *key)
-{
-    unsigned char temp;
-
-    printf("Введите номер поля, по которому необходимо отсортировать таблицу:\n\n"
-           "  1. Адрес\n"
-           "  2. Общая площадь комнат\n"
-           "  3. Количество комнат\n"
-           "\n[Ваш выбор:] >>> ");
-
-    int status_code = cio_read_uchar(&temp);
-    if (status_code == 0 && (temp < 1 || temp > 3))
-        status_code = -1;
-
-    if (status_code == 0)
-        *key = temp - 1;
-
-    return status_code;
-}
-
 static int imp__request_sort_direction(bool *ascending)
 {
     printf("Выберите вариант сортировки:\n\n"
@@ -318,35 +298,27 @@ static int imp__request_sort_direction(bool *ascending)
     return opt;
 }
 
-static void imp__better_sort(flat_table_t *table, flat_t **keys)
+static void imp__better_sort(flat_table_t *table, keys_table_t keys)
 {
-    sort_key_t key = 0;
-    if (imp__request_sort_key(&key))
-    {
-        printf("Не выбрано поля сортировки. Выбираем по-умолчанию: 1\n");
-        key = 0;
-    }
-
     bool ascending;
     if (imp__request_sort_direction(&ascending))
     {
-        printf("Не выбрано направление сортировки. Выбираем по-умолчанию: 0\n");
+        printf("Не выбрано направление сортировки. Выбираем по-умолчанию: по убыванию.\n");
         ascending = false;
     }
 
     printf("  Выполняется сортировка...\n");
     sort_params_t sort_params = (sort_params_t) {
-        .key = key,
         .ascending = ascending,
         .real_sort = false
     };
-    double delta_a_fast = (double)ft_sort_a_fast(table, keys, sort_params) / CLK_TCK;
-    double delta_b_fast = (double)ft_sort_b_fast(table, keys, sort_params) / CLK_TCK;
-    double delta_a_slow = (double)ft_sort_a_slow(table, keys, sort_params) / CLK_TCK;
-    double delta_b_slow = (double)ft_sort_b_slow(table, keys, sort_params) / CLK_TCK;
+    size_t delta_a_fast = ft_sort_a_fast(table, &keys, sort_params);
+    size_t delta_b_fast = ft_sort_b_fast(table, &keys, sort_params);
+    size_t delta_a_slow = ft_sort_a_slow(table, &keys, sort_params);
+    size_t delta_b_slow = ft_sort_b_slow(table, &keys, sort_params);
 
     sort_params.real_sort = true;
-    ft_sort_b_fast(table, keys, sort_params);
+    ft_sort_b_fast(table, &keys, sort_params);
 
     printf("  Сортировка завершена.\n"
            "  Результаты сортировки (по времени):\n\n");
@@ -354,15 +326,15 @@ static void imp__better_sort(flat_table_t *table, flat_t **keys)
     printf("┌──────────────────┬────────────┬──────────────────┐\n"
            "│  Тип сортировки  │ По ключам? │ Время сортировки │\n"
            "├──────────────────┼────────────┼──────────────────┤\n"
-           "│  Сорт. обменом   │        нет │ %14.3lf с │\n"
-           "│  Сорт. обменом   │         да │ %14.3lf с │\n"
-           "│  Сорт. слиянием  │        нет │ %14.3lf с │\n"
-           "│  Сорт. слиянием  │         да │ %14.3lf с │\n",
+           "│  Сорт. обменом   │        нет │ %13lu tc │\n"
+           "│  Сорт. обменом   │         да │ %13lu tc │\n"
+           "│  Сорт. слиянием  │        нет │ %13lu tc │\n"
+           "│  Сорт. слиянием  │         да │ %13lu tc │\n",
            delta_a_slow, delta_b_slow, delta_a_fast, delta_b_fast);
     printf("└──────────────────┴────────────┴──────────────────┘\n");
 
 #ifdef _PERF_TEST
-    fprintf(stderr, "%lf %lf %lf %lf\n", delta_a_slow, delta_b_slow, delta_a_fast, delta_b_fast);
+    fprintf(stderr, "%lu %lu %lu %lu\n", delta_a_slow, delta_b_slow, delta_a_fast, delta_b_fast);
 #endif
 }
 
@@ -412,7 +384,7 @@ int search_flat(flat_table_t *table)
             }
 
             imp__colorize_output(founded);
-            printf_flat(table->flats_array + i);
+            printf_flat(i, table->flats_array + i);
             imp__colorize_output(-1);
             founded++;
         }
@@ -456,51 +428,54 @@ void pause()
     fgets(temp, 2, stdin);
 }
 
-static void imp__print_keys_table(flat_table_t *table, flat_t **keys)
+static void imp__print_keys_table(flat_table_t *table, keys_table_t keys)
 {
     system("clear");
-    printf("  Индекс - позиция ключа в таблице ключей.\n"
-           "  ID - уникальный идентификатор квартиры.\n\n"
-           "┌──────────┬──────┐\n"
-           "│  Индекс  │  ID  │\n"
-           "├──────────┼──────┤\n");
+    printf("  Таблица ключей:\n\n"
+           "┌──────┬───────────────┐\n"
+           "│  ID  │ Кол-во комнат │\n"
+           "├──────┼───────────────┤\n");
+
+    for (size_t i = 0; i < keys.size; i++)
+    {
+        imp__colorize_output(i);
+        printf("│ %04u │ %13d │\n", keys.keys[i].id, keys.keys[i].rooms_amount);
+        imp__colorize_output(-1);
+    }
+
+    printf("└──────┴───────────────┘\n");
+}
+
+static void imp__output_both_tables(flat_table_t *table, keys_table_t keys)
+{
+    system("clear");
+    printf("  Таблица ключей и исходная таблица:\n\n"
+           "┌──────┬───────────────┐   ┌──────┬────────────────────────────────┬─────────┬───────────────┬───────────┬───────────┬─────────┬──────────┬─────────────┬─────────────────┬────────────────┐\n"
+           "│  ID  │ Кол-во комнат │   │  ID  │ Адрес квартиры                 │ Площадь │ Кол-во комнат │ Стоимость │ Тип       │ Отделка │ Животные │ Построено   │ Кол-во собст-ов │ Кол-во жильцов │\n"
+           "├──────┼───────────────┤   ├──────┼────────────────────────────────┼─────────┼───────────────┼───────────┼───────────┼─────────┼──────────┼─────────────┼─────────────────┼────────────────┤\n");
 
     for (size_t i = 0; i < table->size; i++)
     {
         imp__colorize_output(i);
-        printf("│ %8lu │ %04u │\n", i, keys[i]->id);
+        printf("│ %04u │ %13d │   ", keys.keys[i].id, keys.keys[i].rooms_amount);
+        printf_flat(i, table->flats_array + i);
         imp__colorize_output(-1);
     }
 
-    printf("└──────────┴──────┘\n");
+    printf("└──────┴───────────────┘   └──────┴────────────────────────────────┴─────────┴───────────────┴───────────┴───────────┴─────────┴──────────┴─────────────┴─────────────────┴────────────────┘\n");
 }
 
-static void imp__output_both_tables(flat_table_t *table, flat_t **keys)
+static keys_table_t imp__gen_table_keys(flat_table_t *table)
 {
-    system("clear");
-    printf("  Индекс - позиция ключа в таблице ключей.\n"
-           "  ID - уникальный идентификатор квартиры.\n\n"
-           "┌──────────┬──────┐   ┌──────┬────────────────────────────────┬─────────┬───────────────┬───────────┬───────────┬─────────┬──────────┬─────────────┬─────────────────┬────────────────┐\n"
-           "│  Индекс  │  ID  │   │  ID  │ Адрес квартиры                 │ Площадь │ Кол-во комнат │ Стоимость │ Тип       │ Отделка │ Животные │ Построено   │ Кол-во собст-ов │ Кол-во жильцов │\n"
-           "├──────────┼──────┤   ├──────┼────────────────────────────────┼─────────┼───────────────┼───────────┼───────────┼─────────┼──────────┼─────────────┼─────────────────┼────────────────┤\n");
+    keys_table_t keys;
+    keys.size = table->size;
+    keys.keys = malloc(keys.size * sizeof(flat_key_t));
 
     for (size_t i = 0; i < table->size; i++)
     {
-        imp__colorize_output(i);
-        printf("│ %8lu │ %04u │   ", i, keys[i]->id);
-        printf_flat(table->flats_array + i);
-        imp__colorize_output(-1);
+        keys.keys[i].id = i;
+        keys.keys[i].rooms_amount = table->flats_array[i].rooms_amount;
     }
-
-    printf("└──────────┴──────┘   └──────┴────────────────────────────────┴─────────┴───────────────┴───────────┴───────────┴─────────┴──────────┴─────────────┴─────────────────┴────────────────┘\n");
-}
-
-static flat_t **imp__gen_table_keys(flat_table_t *table)
-{
-    flat_t **keys = malloc(table->size * sizeof(flat_t*));
-
-    for (size_t i = 0; i < table->size; i++)
-        keys[i] = table->flats_array + i;
 
     return keys;
 }
@@ -510,7 +485,7 @@ int sort_table(flat_table_t *table)
     int status = 0;
     bool need_exit = false;
 
-    flat_t **keys = imp__gen_table_keys(table);
+    keys_table_t keys = imp__gen_table_keys(table);
 
     while (!need_exit)
     {
@@ -541,7 +516,7 @@ int sort_table(flat_table_t *table)
             
             case 3:
                 printf("  Таблица по ключам:\n\n");
-                output_flat_table(table, keys);
+                output_flat_table(table, &keys);
                 pause();
                 break;
             
@@ -560,11 +535,12 @@ int sort_table(flat_table_t *table)
     flat_table_t temp = ft_clone(table);
 
     for (size_t i = 0; i < table->size; i++)
-        temp.flats_array[i] = *(keys[i]);
+        temp.flats_array[i] = table->flats_array[keys.keys[i].id];
 
     ft_free(table);
     *table = temp;
 
+    free(keys.keys);
     return status;
 }
 
@@ -592,7 +568,7 @@ int delete_flat(flat_table_t *table)
                 printf("Удалена следующая запись:\n");
                 imp__print_table_header();
                 printf("\033[1;31m");
-                printf_flat(&flat);
+                printf_flat(id, &flat);
                 imp__colorize_output(-1);
                 imp__print_table_footer();
             }

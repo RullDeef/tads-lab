@@ -11,7 +11,7 @@ void pause();
 int request_input_filename(char *fname);
 int read_table_from_file(char *fname, flat_table_t *table);
 
-int output_flat_table(flat_table_t *table, flat_t **ptrs);
+int output_flat_table(flat_table_t *table, keys_table_t *keys);
 int append_flat_to_table(flat_table_t *table);
 
 int sort_table(flat_table_t *table);

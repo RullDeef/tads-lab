@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-N = range(50, 2050, 50)
+N = range(1, 101, 1)
 datas = list(zip(*(map(float, line.split()) for line in open("res.txt"))))
 titles = ["вставками (без ключей)", "вставками (с ключами)", "слиянием (без ключей)", "слияние (с ключами)"]
 

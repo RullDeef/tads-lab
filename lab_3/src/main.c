@@ -270,7 +270,7 @@ int menu_mult_auto_fill(void *data)
         char title[80];
         sprintf(title, "time test (%u,%u)x(%u,%u)",
             matrix_1.rows_size, matrix_1.cols_size, matrix_2.rows_size, matrix_2.cols_size);
-        uki_table_t table = uki_table_create(22, 4, title);
+        uki_table_t table = uki_table_create(22, 6, title);
 
         uki_table_set(&table, 0, 0, "nonzero");
         uki_table_set(&table, 0, 1, "time slow");
@@ -305,12 +305,18 @@ int menu_mult_auto_fill(void *data)
             real_1 = 1000000 * (real_time_2_tv.tv_sec - real_time_1_tv.tv_sec) + real_time_2_tv.tv_usec - real_time_1_tv.tv_usec;
 
             // fast method
+            printf("t1 begin\n");
+            sp_transpose(&matrix_1);
+            printf("t1 end\n");
             gettimeofday(&real_time_1_tv, NULL);
             time_2 = __rdtsc();
             sp_mult_matrix_fast(&matrix_1, &matrix_2, &result);
             time_2 = __rdtsc() - time_2;
             gettimeofday(&real_time_2_tv, NULL);
             real_2 = 1000000 * (real_time_2_tv.tv_sec - real_time_1_tv.tv_sec) + real_time_2_tv.tv_usec - real_time_1_tv.tv_usec;
+            printf("t begin\n");
+            sp_transpose(&matrix_1);
+            printf("t end\n");
 
             // calc efficiency
             float eff = (long double)(time_1 - time_2) / time_1 * 100.0f;
@@ -319,6 +325,8 @@ int menu_mult_auto_fill(void *data)
             uki_table_set_fmt(&table, table_row, 1, "%5.2llf ms", real_1 / 1000.0);
             uki_table_set_fmt(&table, table_row, 2, "%5.2llf ms", real_2 / 1000.0);
             uki_table_set_fmt(&table, table_row, 3, "%5.2f%%", eff);
+            uki_table_set_fmt(&table, table_row, 4, "%5.2lld ms", time_1);
+            uki_table_set_fmt(&table, table_row, 5, "%5.2lld ms", time_2);
             table_row++;
 
             // output data to stats file
@@ -449,24 +457,30 @@ int menu_exit(void *data)
 
 int main(void)
 {
-    sparse_matrix_t mat = sp_create(3, 4);
-    sp_set(&mat, 0, 2, 3);
-    sp_set(&mat, 0, 3, 5);
-    sp_set(&mat, 1, 0, 1);
-    sp_set(&mat, 1, 3, 6);
-    sp_set(&mat, 2, 0, 2);
-    sp_set(&mat, 2, 2, 4);
-    sp_set(&mat, 2, 3, 7);
+    // sparse_matrix_t mat = sp_create(3, 4);
+    // sp_set(&mat, 0, 2, 3);
+    // sp_set(&mat, 0, 3, 5);
+    // sp_set(&mat, 1, 0, 1);
+    // sp_set(&mat, 1, 3, 6);
+    // sp_set(&mat, 2, 0, 2);
+    // sp_set(&mat, 2, 2, 4);
+    // sp_set(&mat, 2, 3, 7);
 
-    sp_print_info(&mat);
-    sp_print(&mat);
+    // sparse_matrix_t mat2 = sp_copy(&mat); // transposed already
+    // sparse_matrix_t res = sp_null_matrix();
 
-    sp_transpose(&mat);
+    // sp_mult_matrix_fast(&mat, &mat2, &res);
 
-    sp_print_info(&mat);
-    sp_print(&mat);
+    // sp_print_info(&mat);
+    // sp_print(&mat);
 
-    return 0;
+    // sp_print_info(&res);
+    // sp_print(&res);
+
+    // return 0;
+
+    //stdin = freopen("command.txt", "rt", stdin);
+    //stdout = freopen("/dev/null", "wt", stdout);
 
     uki_menu_t menu = uki_menu_create("Меню", 6,
         "Умножение матрицы на вектор", menu_mult_vec,

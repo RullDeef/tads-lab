@@ -67,6 +67,8 @@ int sp_recreate(sparse_matrix_t *matrix, uint32_t rows, uint32_t cols);
 // int sp_resize(sparse_matrix_t* matrix, uint32_t new_rows, uint32_t new_cols);
 void sp_free(sparse_matrix_t* matrix);
 
+sparse_matrix_t sp_copy(const sparse_matrix_t *matrix);
+
 bool sp_mat_is_null(const sparse_matrix_t* matrix);
 
 mat_elem_t sp_get(const sparse_matrix_t* matrix, uint32_t row, uint32_t col);

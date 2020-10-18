@@ -1,4 +1,4 @@
-CFLAGS := -std=c99 -Wall -Werror -pedantic -Wextra -Ivendor/uki/include
+CFLAGS := -std=c99 -Wall -Werror -pedantic -Wextra -Ivendor/uki/include -ggdb3 -g
 LFLAGS := -Lvendor/uki/lib -luki
 
 .PHONY : build clean run make_dataset

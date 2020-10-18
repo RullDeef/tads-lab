@@ -45,8 +45,14 @@ sparse_matrix_t sp_create(uint32_t rows, uint32_t cols)
 
 int sp_recreate(sparse_matrix_t* matrix, uint32_t rows, uint32_t cols)
 {
+    printf("trying to free... ");
     sp_free(matrix);
+    printf("done. ");
+    printf("trying to create... ");
     *matrix = sp_create(rows, cols);
+    printf("done\n");
+    printf("recreated mat:\n");
+    sp_print_info(matrix);
     return !sp_mat_is_null(matrix);
 }
 
@@ -103,6 +109,21 @@ void sp_free(sparse_matrix_t *matrix)
 
     free(matrix->cols);
     *matrix = sp_null_matrix();
+}
+
+sparse_matrix_t sp_copy(const sparse_matrix_t *matrix)
+{
+    sparse_matrix_t copy = *matrix;
+    copy.nonzero_array = malloc(matrix->__alloc_nz_sz * sizeof(mat_elem_t));
+    memcpy(copy.nonzero_array, matrix->nonzero_array, matrix->nonzero_size * sizeof(mat_elem_t));
+
+    copy.rows = malloc(matrix->__alloc_nz_sz * sizeof(uint32_t));
+    memcpy(copy.rows, matrix->rows, matrix->nonzero_size * sizeof(uint32_t));
+
+    copy.cols = malloc(matrix->__alloc_cl_sz * sizeof(uint32_t));
+    memcpy(copy.cols, matrix->cols, (matrix->cols_size + 1) * sizeof(uint32_t));
+
+    return copy;
 }
 
 bool sp_mat_is_null(const sparse_matrix_t* matrix)
@@ -425,16 +446,16 @@ void sp_transpose(sparse_matrix_t *matrix)
         triplets[index].col = matrix->rows[index];
         triplets[index].row = col; // transpose values here
 
-        printf("(%u, %u, %d)\n", triplets[index].row, triplets[index].col, triplets[index].value);
+        // printf("(%u, %u, %d)\n", triplets[index].row, triplets[index].col, triplets[index].value);
     }
 
     // realloc cols array
     if (matrix->__alloc_cl_sz < matrix->rows_size + 1)
     {
-        matrix->__alloc_cl_sz = matrix->rows_size + 1;
+        matrix->__alloc_cl_sz = (matrix->rows_size + 1) * SP_ALLOC_MULTIPILER;
         matrix->cols = realloc(matrix->cols, matrix->__alloc_cl_sz);
     }
-    memset(matrix->cols, 0, matrix->__alloc_cl_sz * sizeof(uint32_t));
+    memset(matrix->cols, 0, (matrix->rows_size + 1) * sizeof(uint32_t));
 
     uint32_t mat_index = 0;
     uint32_t curr_row_not_transp = 0;
@@ -583,6 +604,7 @@ static bool imp__get_next_in_col(const sparse_matrix_t *matrix, uint32_t col, ui
     return founded;
 }
 
+// первая матрица должна быть транспонирована перед вызовом данной функции
 int sp_mult_matrix_fast(const sparse_matrix_t *matrix_1, const sparse_matrix_t *matrix_2, sparse_matrix_t *out)
 {
     if (matrix_1 == NULL || matrix_2 == NULL || out == NULL)
@@ -591,14 +613,149 @@ int sp_mult_matrix_fast(const sparse_matrix_t *matrix_1, const sparse_matrix_t *
     if (sp_mat_is_null(matrix_1) || sp_mat_is_null(matrix_2))
         return EXIT_FAILURE;
 
-    if (matrix_1->cols_size != matrix_2->rows_size)
+    if (matrix_1->rows_size != matrix_2->rows_size)
         return BAD_DIMENSIONS;
 
     // WARNING: assuming no bad allocs here
-    sp_recreate(out, matrix_1->rows_size, matrix_2->cols_size);
+    printf("recreating... rows=%u cols=%u\n", matrix_1->cols_size, matrix_2->cols_size);
+    printf("out == %p\n", (void*)out);
+    if (sp_recreate(out, matrix_1->cols_size, matrix_2->cols_size))
+        printf("recreated\n");
+    else
+        printf("bad creation!");
 
+    uint32_t index_out = 0;
 
+    uint32_t col_out = 0;
+    printf("outer while start...\n");
+    while (col_out < out->cols_size)
+    {
+        // определить индексы элементов в текущих перемножаемых векторах
+        uint32_t index_2_begin = matrix_2->cols[col_out];
+        uint32_t index_2_end = matrix_2->cols[col_out + 1];
 
+        // проверить пустоту первого вектора
+        if (index_2_begin != index_2_end)
+        {
+            uint32_t row_out = 0;
+            printf("while started...\n");
+            while (row_out < out->rows_size)
+            {
+                uint32_t index_1_begin = matrix_1->cols[row_out];
+                uint32_t index_1_end = matrix_1->cols[row_out + 1];
+
+                if (index_1_begin != index_1_end)
+                {
+                    mat_elem_t result_value = 0;
+
+                    uint32_t index_1 = index_1_begin;
+                    uint32_t index_2 = index_2_begin;
+
+                    printf("inner start.\n");
+                    while (index_1 < index_1_end && index_2 < index_2_end)
+                    {
+                        uint32_t pos_1 = matrix_1->rows[index_1];
+                        uint32_t pos_2 = matrix_2->rows[index_2];
+                        if (pos_1 < pos_2)
+                            index_1++;
+                        else if (pos_1 > pos_2)
+                            index_2++;
+                        else
+                        {
+                            result_value += matrix_1->nonzero_array[index_1] * matrix_2->nonzero_array[index_2];
+                            index_1++;
+                            index_2++;
+                        }
+                    }
+                    printf("inner end.\n");
+
+                    if (result_value != 0)
+                    {
+                        // insert directly (realloc if needed)
+                        if (index_out >= out->__alloc_nz_sz)
+                        {
+                            printf("REALLOC FROM %u!\n", out->__alloc_nz_sz);
+                            out->__alloc_nz_sz = (index_out + 1) * SP_ALLOC_MULTIPILER;
+                            out->nonzero_array = realloc(out->nonzero_array, out->__alloc_nz_sz);
+                            out->rows = realloc(out->rows, out->__alloc_nz_sz);
+                            printf("REALLOC TO %u!\n", out->__alloc_nz_sz);
+                        }
+
+                        out->nonzero_array[index_out] = result_value;
+                        out->rows[index_out] = row_out;
+                        out->cols[col_out + 1]++;
+                        index_out++;
+                    }
+                }
+
+                row_out++;
+            }
+            printf("while ended.\n");
+        }
+
+        col_out++;
+    }
+    printf("outer end\n");
+
+    // adjust cols
+    printf("adjusting...\n");
+    for (uint32_t col = 0; col < out->cols_size + 1; col++)
+        out->cols[col + 1] += out->cols[col];
+    // setup new nonzero size
+    out->nonzero_size = index_out;
+    printf("adjusted\n");
+
+    /*
+    for (uint32_t index_1 = 0; index_1 < matrix_1->nonzero_size; index_1++)
+    {
+        // if new out_row reached
+        while (matrix_1->cols[row_out] <= index_1)
+        {
+            // place result value in out matrix
+            if (result_value != 0)
+            {
+                sp_set(out, row_out, col_out, result_value);
+                result_value = 0;
+            }
+            row_out++;
+        }
+
+        // use this index for vector multiplication
+        uint32_t active_row_1_index = index_1;
+
+        for (uint32_t index_2 = 0; index_2 < matrix_2->nonzero_size; index_2++)
+        {
+            // if new col reached
+            while (matrix_2->cols[col_out] <= index_2)
+            {
+                if (result_value != 0)
+                {
+                    sp_set(out, row_out, col_out, result_value);
+                    result_value = 0;
+                }
+                col_out++;
+                active_row_1_index = index_1;
+            }
+
+            uint32_t row_1_index = matrix_1->rows[active_row_1_index];
+            uint32_t row_2_index = matrix_2->rows[index_2];
+            if (row_1_index < row_2_index)
+            {
+                active_row_1_index++;
+                if (matrix_1->cols[row_out + 1] <= active_row_1_index)
+                {
+                    // дошли до следующего столбца в первой матрице
+
+                }
+            }
+            if (row_1_index == row_2_index)
+            {
+                result_value += matrix_1->nonzero_array[active_row_1_index] * matrix->nonzero_array[index_2];
+
+            }
+        }
+    }
+    */
     return EXIT_SUCCESS;
 }
 

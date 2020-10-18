@@ -385,15 +385,17 @@ int menu_mult_auto_dim(void *data)
             // slow method
             gettimeofday(&real_time_1_tv, NULL);
             time_1 = __rdtsc();
-            for (uint32_t row = 0; row < matrix_1.rows_size; row++)
+            for (uint32_t row = 0; row < (&matrix_1)->rows_size; row++)
             {
-                for (uint32_t col = 0; col < matrix_2.cols_size; col++)
+                double *sum = malloc(sizeof(double));
+                for (uint32_t col = 0; col < (&matrix_2)->cols_size; col++)
                 {
-                    double sum = 0;
+                    *sum = 0;
                     for (uint32_t dim = 0; dim < matrix_1.cols_size; dim++)
-                        sum += (row + 10) * (col - 8) / 12.0;
-                    sum = sum + 1 - 20.0;
+                        *sum += (row + 10) * (col - 8) / 12.0;
+                    *sum = *sum + 1 - 20.0;
                 }
+                free(sum);
             }
             // sp_mult_matrix(&matrix_1, &matrix_2, &result);
             time_1 = __rdtsc() - time_1;

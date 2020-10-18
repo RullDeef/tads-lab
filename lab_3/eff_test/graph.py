@@ -10,13 +10,13 @@ ax = fig.gca(projection='3d')
 
 # Make data.
 X = np.arange(200, 0, -20)
-Y = np.arange(5, 105, 5)
-Z = np.zeros((20, 10))
+Y = np.arange(0, 21, 1)
+Z = np.zeros((21, 10))
 X, Y = np.meshgrid(X, Y)
 
 for line in open("eff_test/stats.txt", "rt"):
     dims, percent, effect = list(map(float, line.split()))
-    Z[int(percent / 5 - 1), int(dims / 20 - 1)] = int(effect)
+    Z[int(percent), int(dims / 20 - 1)] = int(effect)
 
 # Plot the surface.
 surf = ax.plot_surface(X, Y, Z, cmap=cm.coolwarm,

@@ -1,7 +1,10 @@
 CFLAGS := -std=c99 -Wall -Werror -pedantic -Wextra -Ivendor/uki/include
 LFLAGS := -Lvendor/uki/lib -luki
 
-.PHONY : build clean run inc_uki
+.PHONY : build clean run make_dataset
+
+make_dataset : app.exe
+	eff_test/makedata.sh; py eff_test/graph.py
 
 build : app.exe
 

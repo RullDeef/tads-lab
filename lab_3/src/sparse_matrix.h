@@ -88,6 +88,8 @@ void sp_clear(sparse_matrix_t* matrix);
 
 void sp_randomize(sparse_matrix_t* matrix, float nz_percent);
 
+void sp_transpose(sparse_matrix_t* matrix);
+
 // "обычные" операции как с плотными матрицами
 int sp_mult_by_vector(const sparse_matrix_t* matrix, const mat_elem_t* vector, mat_elem_t* out);
 int sp_mult_matrix(const sparse_matrix_t* matrix_1, const sparse_matrix_t* matrix_2, sparse_matrix_t* out);

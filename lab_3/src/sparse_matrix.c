@@ -401,22 +401,40 @@ void sp_randomize(sparse_matrix_t* matrix, float nz_percent)
         sp_set(matrix, row, col, value);
     }
 
-    // for (uint32_t row = 0; row < matrix->rows_size; row++)
-    // {
-    //     for (uint32_t col = 0; col < matrix->cols_size; col++)
-    //     {
-    //         if ((float)rand() / RAND_MAX < nz_percent)
-    //         {
-    //             mat_elem_t value = rand() % 99 - 49;
-    //             if (value <= 0) value--;
-    //             sp_set(matrix, row, col, value);
-    //         }
-    //         else if (sp_get(matrix, row, col) != 0)
-    //             sp_set(matrix, row, col, 0);
-    //     }
-    // }
-
     sp_compress(matrix);
+}
+
+void sp_transpose(sparse_matrix_t *matrix)
+{
+    struct triplet
+    {
+        uint32_t row;
+        uint32_t col;
+        int value;
+    };
+
+    struct triplet triplets = malloc(matrix->nonzero_size * sizeof(struct triplet));
+
+    uint32_t col = 0;
+    for (uint32_t index = 0; index < matrix->nonzero_size; index++)
+    {
+        while (matrix->cols[col + 1] < index)
+            col++;
+
+        triplets[index].value = matrix->nonzero_array[index];
+        triplets[index].row = matrix->rows[index];
+        triplets[index].col = col;
+    }
+
+    // realloc cols array
+    matrix->cols = realloc(matrix->cols, matrix->rows_size + 1);
+
+    // reassign rows and cols size
+    uint32_t temp = matrix->rows_size;
+    matrix->rows_size = matrix->cols_size;
+    matrix->cols_size = temp;
+
+    free(triplets);
 }
 
 // не отвечает за выделение памяти !!!
@@ -535,7 +553,26 @@ static bool imp__get_next_in_col(const sparse_matrix_t *matrix, uint32_t col, ui
     return founded;
 }
 
-int sp_mult_matrix_fast(const sparse_matrix_t* matrix_1, const sparse_matrix_t* matrix_2, sparse_matrix_t* out)
+int sp_mult_matrix_fast(const sparse_matrix_t *matrix_1, const sparse_matrix_t *matrix_2, sparse_matrix_t *out)
+{
+    if (matrix_1 == NULL || matrix_2 == NULL || out == NULL)
+        return EXIT_FAILURE;
+
+    if (sp_mat_is_null(matrix_1) || sp_mat_is_null(matrix_2))
+        return EXIT_FAILURE;
+
+    if (matrix_1->cols_size != matrix_2->rows_size)
+        return BAD_DIMENSIONS;
+
+    // WARNING: assuming no bad allocs here
+    sp_recreate(out, matrix_1->rows_size, matrix_2->cols_size);
+
+
+
+    return EXIT_SUCCESS;
+}
+
+int sp_mult_matrix_fast_bad(const sparse_matrix_t *matrix_1, const sparse_matrix_t *matrix_2, sparse_matrix_t *out)
 {
     if (matrix_1 == NULL || matrix_2 == NULL || out == NULL)
         return EXIT_FAILURE;

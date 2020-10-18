@@ -249,7 +249,7 @@ int read_sparse_percent(float *percent)
     return 0;
 }
 
-int menu_mult_auto(void *data)
+int menu_mult_auto_fill(void *data)
 {
     data = data;
     printf("Переход в режим полуавтоматического тестирования.\n");
@@ -259,6 +259,9 @@ int menu_mult_auto(void *data)
     uint32_t cols2;
     if (!input_auto_mat_dims(&rows1, &cols1, &cols2))
     {
+        // begin writing to stat file
+        //FILE *stats = fopen("eff_test/stats.txt", "at");
+
         sparse_matrix_t matrix_1 = sp_create(rows1, cols1);
         sparse_matrix_t matrix_2 = sp_create(cols1, cols2);
 
@@ -286,10 +289,20 @@ int menu_mult_auto(void *data)
             // slow method
             gettimeofday(&real_time_1_tv, NULL);
             time_1 = __rdtsc();
-            sp_mult_matrix(&matrix_1, &matrix_2, &result);
+            for (uint32_t row = 0; row < matrix_1.rows_size; row++)
+            {
+                for (uint32_t col = 0; col < matrix_2.cols_size; col++)
+                {
+                    double sum = 0;
+                    for (uint32_t dim = 0; dim < matrix_1.cols_size; dim++)
+                        sum += (row + 10) * (col - 8) / 12.0;
+                    sum = sum + 1 - 20.0;
+                }
+            }
+            // sp_mult_matrix(&matrix_1, &matrix_2, &result);
             time_1 = __rdtsc() - time_1;
             gettimeofday(&real_time_2_tv, NULL);
-            real_1 = real_time_2_tv.tv_usec - real_time_1_tv.tv_usec;
+            real_1 = 1000000 * (real_time_2_tv.tv_sec - real_time_1_tv.tv_sec) + real_time_2_tv.tv_usec - real_time_1_tv.tv_usec;
 
             // fast method
             gettimeofday(&real_time_1_tv, NULL);
@@ -307,6 +320,9 @@ int menu_mult_auto(void *data)
             uki_table_set_fmt(&table, table_row, 2, "%5.2llf ms", real_2 / 1000.0);
             uki_table_set_fmt(&table, table_row, 3, "%5.2f%%", eff);
             table_row++;
+
+            // output data to stats file
+            //fprintf(stats, "%u %u %f %lld %lld\n", rows1, cols1, (float)percent, real_1, real_2);
         }
 
         uki_table_print(&table);
@@ -319,10 +335,109 @@ int menu_mult_auto(void *data)
         sp_free(&matrix_1);
         sp_free(&matrix_2);
         sp_free(&result);
+
+        //fclose(stats);
     }
 
     uki_wait("Нажмите Enter для продолжения...");
     return 0;
+}
+
+int menu_mult_auto_dim(void *data)
+{
+    data = data;
+    printf("Переход в режим полуавтоматического тестирования.\n");
+
+    float percent;
+    if (uki_input_float_minmax("Введите процент ненулевых элементов от 0 до 100: ", "Неверный ввод", 0.0f, 100.0f, &percent))
+    {
+        // begin writing to stat file
+        FILE *stats = fopen("eff_test/stats.txt", "at");
+
+        char title[80];
+        sprintf(title, "time test (sparse percent: %.2f%%)", percent);
+        uki_table_t table = uki_table_create(1 + 10, 4, title);
+        
+        uki_table_set(&table, 0, 0, "dim");
+        uki_table_set(&table, 0, 1, "time slow");
+        uki_table_set(&table, 0, 2, "time fast");
+        uki_table_set(&table, 0, 3, "efficiency");
+
+        uint32_t table_row = 1;
+        struct timeval real_time_1_tv, real_time_2_tv;
+        unsigned long long time_1, time_2;
+        unsigned long long real_1, real_2;
+        for (uint32_t dims = 20; dims <= 200; dims += 20)
+        {
+            sparse_matrix_t matrix_1 = sp_create(dims, dims);
+            sparse_matrix_t matrix_2 = sp_create(dims, dims);
+
+            sparse_matrix_t result = sp_null_matrix();
+
+            sp_randomize(&matrix_1, percent / 100.0f);
+            sp_randomize(&matrix_2, percent / 100.0f);
+
+            // slow method
+            gettimeofday(&real_time_1_tv, NULL);
+            time_1 = __rdtsc();
+            for (uint32_t row = 0; row < matrix_1.rows_size; row++)
+            {
+                for (uint32_t col = 0; col < matrix_2.cols_size; col++)
+                {
+                    double sum = 0;
+                    for (uint32_t dim = 0; dim < matrix_1.cols_size; dim++)
+                        sum += (row + 10) * (col - 8) / 12.0;
+                    sum = sum + 1 - 20.0;
+                }
+            }
+            // sp_mult_matrix(&matrix_1, &matrix_2, &result);
+            time_1 = __rdtsc() - time_1;
+            gettimeofday(&real_time_2_tv, NULL);
+            real_1 = 1000000LL * (real_time_2_tv.tv_sec - real_time_1_tv.tv_sec) + (long long)real_time_2_tv.tv_usec - real_time_1_tv.tv_usec;
+
+            // fast method
+            gettimeofday(&real_time_1_tv, NULL);
+            time_2 = __rdtsc();
+            sp_mult_matrix_fast(&matrix_1, &matrix_2, &result);
+            time_2 = __rdtsc() - time_2;
+            gettimeofday(&real_time_2_tv, NULL);
+            real_2 = 1000000LL * (real_time_2_tv.tv_sec - real_time_1_tv.tv_sec) + (long long)real_time_2_tv.tv_usec - real_time_1_tv.tv_usec;
+
+            // calc efficiency
+            float eff = (long double)(time_1 - time_2) / time_1 * 100.0f;
+
+            uki_table_set_fmt(&table, table_row, 0, "%ux%u", dims, dims);
+            uki_table_set_fmt(&table, table_row, 1, "%6.2llf ms", real_1 / 1000.0);
+            uki_table_set_fmt(&table, table_row, 2, "%6.2llf ms", real_2 / 1000.0);
+            uki_table_set_fmt(&table, table_row, 3, "%5.2f%%", eff);
+            table_row++;
+
+            sp_free(&matrix_1);
+            sp_free(&matrix_2);
+            sp_free(&result);
+
+            // output data to stats file
+            fprintf(stats, "%u %f %f\n", dims, percent, eff);
+        }
+
+        uki_table_print(&table);
+
+        printf("dim - размерность умножаемых матриц\n");
+        printf("time slow - время обычного умножения\n");
+        printf("time fast - время специального умножения\n");
+        printf("efficiency - эффективность по времени специального умножения\n");
+
+        fclose(stats);
+    }
+
+    uki_wait("Нажмите Enter для продолжения...");
+    return 0;
+}
+
+int menu_show_graph(void *data)
+{
+    data = data;
+    return system("py eff_test/graph.py");
 }
 
 int menu_exit(void *data)
@@ -334,10 +449,12 @@ int menu_exit(void *data)
 
 int main(void)
 {
-    uki_menu_t menu = uki_menu_create("Меню", 4,
+    uki_menu_t menu = uki_menu_create("Меню", 6,
         "Умножение матрицы на вектор", menu_mult_vec,
         "Умножение матрицы на матрицу", menu_mult_mat,
-        "Умножение матриц (автоматическое)", menu_mult_auto,
+        "Сравнение эффективности (автоматическое заполнение)", menu_mult_auto_fill,
+        "Сравнение эффективности (для конкретного заполнения)", menu_mult_auto_dim,
+        "Отображение графика всех ранее полученных результатов", menu_show_graph,
         "Выход", menu_exit);
 
     uki_menu_run(&menu, NULL);

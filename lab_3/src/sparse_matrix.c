@@ -32,7 +32,7 @@ sparse_matrix_t sp_create(uint32_t rows, uint32_t cols)
     matrix.cols_size = cols;
     matrix.nonzero_size = 0;
 
-    matrix.__alloc_nz_sz = SP_INITIAL_ALLOC_SIZE * sizeof(mat_elem_t);
+    matrix.__alloc_nz_sz = SP_INITIAL_ALLOC_SIZE;
     matrix.nonzero_array = calloc(SP_INITIAL_ALLOC_SIZE, sizeof(mat_elem_t));
     matrix.rows = calloc(SP_INITIAL_ALLOC_SIZE, sizeof(uint32_t));
 
@@ -45,14 +45,8 @@ sparse_matrix_t sp_create(uint32_t rows, uint32_t cols)
 
 int sp_recreate(sparse_matrix_t* matrix, uint32_t rows, uint32_t cols)
 {
-    printf("trying to free... ");
     sp_free(matrix);
-    printf("done. ");
-    printf("trying to create... ");
     *matrix = sp_create(rows, cols);
-    printf("done\n");
-    printf("recreated mat:\n");
-    sp_print_info(matrix);
     return !sp_mat_is_null(matrix);
 }
 
@@ -389,7 +383,7 @@ void sp_clear(sparse_matrix_t* matrix)
         return;
 
     matrix->nonzero_size = 0;
-    matrix->__alloc_nz_sz = SP_INITIAL_ALLOC_SIZE * sizeof(mat_elem_t);
+    matrix->__alloc_nz_sz = SP_INITIAL_ALLOC_SIZE;
     matrix->nonzero_array = realloc(matrix->nonzero_array, SP_INITIAL_ALLOC_SIZE * sizeof(mat_elem_t));
     matrix->rows = realloc(matrix->rows, SP_INITIAL_ALLOC_SIZE * sizeof(uint32_t));
 
@@ -413,8 +407,8 @@ void sp_randomize(sparse_matrix_t* matrix, float nz_percent)
 
     for (uint64_t i = 0; i < nonzero_amount; i++)
     {
-        uint32_t row = ((float)rand() / RAND_MAX) * matrix->rows_size;
-        uint32_t col = ((float)rand() / RAND_MAX) * matrix->cols_size;
+        uint32_t row = ((float)rand() / (RAND_MAX + 1L)) * matrix->rows_size;
+        uint32_t col = ((float)rand() / (RAND_MAX + 1L)) * matrix->cols_size;
 
         mat_elem_t value = rand() % 99 - 49;
         if (value <= 0)
@@ -617,17 +611,11 @@ int sp_mult_matrix_fast(const sparse_matrix_t *matrix_1, const sparse_matrix_t *
         return BAD_DIMENSIONS;
 
     // WARNING: assuming no bad allocs here
-    printf("recreating... rows=%u cols=%u\n", matrix_1->cols_size, matrix_2->cols_size);
-    printf("out == %p\n", (void*)out);
-    if (sp_recreate(out, matrix_1->cols_size, matrix_2->cols_size))
-        printf("recreated\n");
-    else
-        printf("bad creation!");
+    sp_recreate(out, matrix_1->cols_size, matrix_2->cols_size);
 
     uint32_t index_out = 0;
 
     uint32_t col_out = 0;
-    printf("outer while start...\n");
     while (col_out < out->cols_size)
     {
         // определить индексы элементов в текущих перемножаемых векторах
@@ -638,7 +626,6 @@ int sp_mult_matrix_fast(const sparse_matrix_t *matrix_1, const sparse_matrix_t *
         if (index_2_begin != index_2_end)
         {
             uint32_t row_out = 0;
-            printf("while started...\n");
             while (row_out < out->rows_size)
             {
                 uint32_t index_1_begin = matrix_1->cols[row_out];
@@ -651,7 +638,6 @@ int sp_mult_matrix_fast(const sparse_matrix_t *matrix_1, const sparse_matrix_t *
                     uint32_t index_1 = index_1_begin;
                     uint32_t index_2 = index_2_begin;
 
-                    printf("inner start.\n");
                     while (index_1 < index_1_end && index_2 < index_2_end)
                     {
                         uint32_t pos_1 = matrix_1->rows[index_1];
@@ -667,18 +653,15 @@ int sp_mult_matrix_fast(const sparse_matrix_t *matrix_1, const sparse_matrix_t *
                             index_2++;
                         }
                     }
-                    printf("inner end.\n");
 
                     if (result_value != 0)
                     {
                         // insert directly (realloc if needed)
                         if (index_out >= out->__alloc_nz_sz)
                         {
-                            printf("REALLOC FROM %u!\n", out->__alloc_nz_sz);
                             out->__alloc_nz_sz = (index_out + 1) * SP_ALLOC_MULTIPILER;
-                            out->nonzero_array = realloc(out->nonzero_array, out->__alloc_nz_sz);
-                            out->rows = realloc(out->rows, out->__alloc_nz_sz);
-                            printf("REALLOC TO %u!\n", out->__alloc_nz_sz);
+                            out->nonzero_array = realloc(out->nonzero_array, out->__alloc_nz_sz * sizeof(mat_elem_t));
+                            out->rows = realloc(out->rows, out->__alloc_nz_sz * sizeof(uint32_t));
                         }
 
                         out->nonzero_array[index_out] = result_value;
@@ -690,20 +673,16 @@ int sp_mult_matrix_fast(const sparse_matrix_t *matrix_1, const sparse_matrix_t *
 
                 row_out++;
             }
-            printf("while ended.\n");
         }
 
         col_out++;
     }
-    printf("outer end\n");
 
     // adjust cols
-    printf("adjusting...\n");
     for (uint32_t col = 0; col < out->cols_size + 1; col++)
         out->cols[col + 1] += out->cols[col];
     // setup new nonzero size
     out->nonzero_size = index_out;
-    printf("adjusted\n");
 
     /*
     for (uint32_t index_1 = 0; index_1 < matrix_1->nonzero_size; index_1++)

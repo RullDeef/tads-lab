@@ -23,6 +23,7 @@ NULL-матрица детерминируется по значению ука�
 
 #include <stddef.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include <assert.h>

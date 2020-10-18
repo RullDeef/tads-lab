@@ -2,6 +2,7 @@
 #define __CONIO_H_
 
 #include <stdbool.h>
+#include <stdint.h>
 #include "sparse_matrix.h"
 
 void con_clear(void);

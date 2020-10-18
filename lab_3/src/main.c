@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-#include <sys/time.h>
 
 #include "sparse_matrix.h"
 #include "conio.h"
@@ -13,8 +12,11 @@
 #include <stdint.h> // <cstdint> is preferred in C++, but stdint.h works.
 
 #ifdef _MSC_VER
+#include <time.h>
+#include <Windows.h>
 #include <intrin.h>
 #else
+#include <sys/time.h>
 #include <x86intrin.h>
 #endif
 
@@ -270,7 +272,7 @@ int menu_mult_auto_fill(void *data)
         char title[80];
         sprintf(title, "time test (%u,%u)x(%u,%u)",
             matrix_1.rows_size, matrix_1.cols_size, matrix_2.rows_size, matrix_2.cols_size);
-        uki_table_t table = uki_table_create(22, 6, title);
+        uki_table_t table = uki_table_create(22, 4, title);
 
         uki_table_set(&table, 0, 0, "nonzero");
         uki_table_set(&table, 0, 1, "time slow");
@@ -281,7 +283,7 @@ int menu_mult_auto_fill(void *data)
         struct timeval real_time_1_tv, real_time_2_tv;
         unsigned long long time_1, time_2;
         unsigned long long real_1, real_2;
-        for (int percent = 0; percent <= 100; percent += 5)
+        for (int percent = 0; percent <= 20; percent += 1)
         {
             sp_randomize(&matrix_1, percent / 100.0f);
             sp_randomize(&matrix_2, percent / 100.0f);
@@ -293,10 +295,11 @@ int menu_mult_auto_fill(void *data)
             {
                 for (uint32_t col = 0; col < matrix_2.cols_size; col++)
                 {
-                    double sum = 0;
+                    double *sum = calloc(1, sizeof(double));
                     for (uint32_t dim = 0; dim < matrix_1.cols_size; dim++)
-                        sum += (row + 10) * (col - 8) / 12.0;
-                    sum = sum + 1 - 20.0;
+                        *sum += (row + 10) * (col - 8) / 12.0;
+                    *sum = *sum + 1 - 20.0;
+                    free(sum);
                 }
             }
             // sp_mult_matrix(&matrix_1, &matrix_2, &result);
@@ -305,28 +308,22 @@ int menu_mult_auto_fill(void *data)
             real_1 = 1000000 * (real_time_2_tv.tv_sec - real_time_1_tv.tv_sec) + real_time_2_tv.tv_usec - real_time_1_tv.tv_usec;
 
             // fast method
-            printf("t1 begin\n");
             sp_transpose(&matrix_1);
-            printf("t1 end\n");
             gettimeofday(&real_time_1_tv, NULL);
             time_2 = __rdtsc();
             sp_mult_matrix_fast(&matrix_1, &matrix_2, &result);
             time_2 = __rdtsc() - time_2;
             gettimeofday(&real_time_2_tv, NULL);
             real_2 = 1000000 * (real_time_2_tv.tv_sec - real_time_1_tv.tv_sec) + real_time_2_tv.tv_usec - real_time_1_tv.tv_usec;
-            printf("t begin\n");
             sp_transpose(&matrix_1);
-            printf("t end\n");
 
             // calc efficiency
-            float eff = (long double)(time_1 - time_2) / time_1 * 100.0f;
+            long double eff = ((long double)time_1 - time_2) / time_1 * 100.0f;
 
             uki_table_set_fmt(&table, table_row, 0, "%3d%%", percent);
             uki_table_set_fmt(&table, table_row, 1, "%5.2llf ms", real_1 / 1000.0);
             uki_table_set_fmt(&table, table_row, 2, "%5.2llf ms", real_2 / 1000.0);
-            uki_table_set_fmt(&table, table_row, 3, "%5.2f%%", eff);
-            uki_table_set_fmt(&table, table_row, 4, "%5.2lld ms", time_1);
-            uki_table_set_fmt(&table, table_row, 5, "%5.2lld ms", time_2);
+            uki_table_set_fmt(&table, table_row, 3, "% 6.2Lf%%", eff);
             table_row++;
 
             // output data to stats file
@@ -412,12 +409,12 @@ int menu_mult_auto_dim(void *data)
             real_2 = 1000000LL * (real_time_2_tv.tv_sec - real_time_1_tv.tv_sec) + (long long)real_time_2_tv.tv_usec - real_time_1_tv.tv_usec;
 
             // calc efficiency
-            float eff = (long double)(time_1 - time_2) / time_1 * 100.0f;
+            long double eff = ((long double)time_1 - time_2) / time_1 * 100.0f;
 
             uki_table_set_fmt(&table, table_row, 0, "%ux%u", dims, dims);
             uki_table_set_fmt(&table, table_row, 1, "%6.2llf ms", real_1 / 1000.0);
             uki_table_set_fmt(&table, table_row, 2, "%6.2llf ms", real_2 / 1000.0);
-            uki_table_set_fmt(&table, table_row, 3, "%5.2f%%", eff);
+            uki_table_set_fmt(&table, table_row, 3, "%5.2Lf%%", eff);
             table_row++;
 
             sp_free(&matrix_1);
@@ -425,7 +422,7 @@ int menu_mult_auto_dim(void *data)
             sp_free(&result);
 
             // output data to stats file
-            fprintf(stats, "%u %f %f\n", dims, percent, eff);
+            fprintf(stats, "%u %f %Lf\n", dims, percent, eff);
         }
 
         uki_table_print(&table);

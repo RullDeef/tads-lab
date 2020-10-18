@@ -449,6 +449,25 @@ int menu_exit(void *data)
 
 int main(void)
 {
+    sparse_matrix_t mat = sp_create(3, 4);
+    sp_set(&mat, 0, 2, 3);
+    sp_set(&mat, 0, 3, 5);
+    sp_set(&mat, 1, 0, 1);
+    sp_set(&mat, 1, 3, 6);
+    sp_set(&mat, 2, 0, 2);
+    sp_set(&mat, 2, 2, 4);
+    sp_set(&mat, 2, 3, 7);
+
+    sp_print_info(&mat);
+    sp_print(&mat);
+
+    sp_transpose(&mat);
+
+    sp_print_info(&mat);
+    sp_print(&mat);
+
+    return 0;
+
     uki_menu_t menu = uki_menu_create("Меню", 6,
         "Умножение матрицы на вектор", menu_mult_vec,
         "Умножение матрицы на матрицу", menu_mult_mat,

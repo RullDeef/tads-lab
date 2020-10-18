@@ -410,24 +410,54 @@ void sp_transpose(sparse_matrix_t *matrix)
     {
         uint32_t row;
         uint32_t col;
-        int value;
+        mat_elem_t value;
     };
 
-    struct triplet triplets = malloc(matrix->nonzero_size * sizeof(struct triplet));
+    struct triplet *triplets = malloc(matrix->nonzero_size * sizeof(struct triplet));
 
     uint32_t col = 0;
     for (uint32_t index = 0; index < matrix->nonzero_size; index++)
     {
-        while (matrix->cols[col + 1] < index)
+        while (matrix->cols[col + 1] <= index)
             col++;
 
         triplets[index].value = matrix->nonzero_array[index];
-        triplets[index].row = matrix->rows[index];
-        triplets[index].col = col;
+        triplets[index].col = matrix->rows[index];
+        triplets[index].row = col; // transpose values here
+
+        printf("(%u, %u, %d)\n", triplets[index].row, triplets[index].col, triplets[index].value);
     }
 
     // realloc cols array
-    matrix->cols = realloc(matrix->cols, matrix->rows_size + 1);
+    if (matrix->__alloc_cl_sz < matrix->rows_size + 1)
+    {
+        matrix->__alloc_cl_sz = matrix->rows_size + 1;
+        matrix->cols = realloc(matrix->cols, matrix->__alloc_cl_sz);
+    }
+    memset(matrix->cols, 0, matrix->__alloc_cl_sz * sizeof(uint32_t));
+
+    uint32_t mat_index = 0;
+    uint32_t curr_row_not_transp = 0;
+    while (mat_index < matrix->nonzero_size)
+    {
+        for (uint32_t i = 0; i < matrix->nonzero_size; i++)
+        {
+            struct triplet trp = triplets[i];
+
+            if (trp.col == curr_row_not_transp)
+            {
+                matrix->nonzero_array[mat_index] = trp.value;
+                matrix->rows[mat_index] = trp.row;
+                matrix->cols[trp.col + 1] += 1;
+                mat_index++;
+            }
+        }
+        curr_row_not_transp++;
+    }
+
+    // adjust cols values
+    for (uint32_t col = 0; col < matrix->rows_size + 1; col++)
+        matrix->cols[col + 1] += matrix->cols[col];
 
     // reassign rows and cols size
     uint32_t temp = matrix->rows_size;

@@ -51,26 +51,26 @@ typedef int mat_elem_t;
 
 typedef struct sparse_matrix_t
 {
-    size_t rows_size;
-    size_t cols_size;
-    size_t nonzero_size;
-    size_t __alloc_nz_sz;
-    size_t __alloc_cl_sz;
-    size_t *cols; // JA
-    size_t *rows; // IA
+    uint32_t rows_size;
+    uint32_t cols_size;
+    uint32_t nonzero_size;
+    uint32_t __alloc_nz_sz;
+    uint32_t __alloc_cl_sz;
+    uint32_t *cols; // JA
+    uint32_t *rows; // IA
     mat_elem_t *nonzero_array; // A
 } sparse_matrix_t;
 
 sparse_matrix_t sp_null_matrix();
-sparse_matrix_t sp_create(size_t rows, size_t cols);
-int sp_recreate(sparse_matrix_t *matrix, size_t rows, size_t cols);
-// int sp_resize(sparse_matrix_t* matrix, size_t new_rows, size_t new_cols);
+sparse_matrix_t sp_create(uint32_t rows, uint32_t cols);
+int sp_recreate(sparse_matrix_t *matrix, uint32_t rows, uint32_t cols);
+// int sp_resize(sparse_matrix_t* matrix, uint32_t new_rows, uint32_t new_cols);
 void sp_free(sparse_matrix_t* matrix);
 
 bool sp_mat_is_null(const sparse_matrix_t* matrix);
 
-mat_elem_t sp_get(const sparse_matrix_t* matrix, size_t row, size_t col);
-void sp_set(sparse_matrix_t* matrix, size_t row, size_t col, mat_elem_t value);
+mat_elem_t sp_get(const sparse_matrix_t* matrix, uint32_t row, uint32_t col);
+void sp_set(sparse_matrix_t* matrix, uint32_t row, uint32_t col, mat_elem_t value);
 
 /**
  * @brief Пытается сжать матрицу, удалив нулевые элементы из неё.

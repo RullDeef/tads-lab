@@ -2,10 +2,12 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <sys/time.h>
 
 #include "sparse_matrix.h"
-#include "con_menu.h"
 #include "conio.h"
+
+#include "uki.h"
 
 // time calculations
 #include <stdint.h> // <cstdint> is preferred in C++, but stdint.h works.
@@ -25,70 +27,29 @@
     3. Выход
 */
 
-size_t imp__input_dim(void)
+int input_mat_dims(uint32_t *rows, uint32_t *cols)
 {
-    char line[256];
-    if (fgets(line, 256, stdin) == NULL)
+    if (uki_input_uint32("Введите число строк матрицы: ",
+                         "Число строк должно быть положительным.\n", rows) &&
+        uki_input_uint32("Введите число строк матрицы: ",
+                         "Число столбцов должно быть положительным.\n", cols))
         return 0;
-    return strtoul(line, NULL, 10);
+    return -1;
 }
 
-int input_mat_dims(size_t *rows, size_t *cols)
+int input_auto_mat_dims(uint32_t *dim1, uint32_t *dim2, uint32_t *dim3)
 {
-    printf("Введите число строк матрицы: ");
-
-    *rows = imp__input_dim();
-    if (*rows == 0)
-    {
-        printf("Введено неверное число строк.\n");
-        return -1;
-    }
-
-    printf("Введите число столбцов матрицы: ");
-
-    *cols = imp__input_dim();
-    if (*cols == 0)
-    {
-        printf("Введено неверное число столбцов.\n");
-        return -2;
-    }
-
-    return 0;
+    if (uki_input_uint32("Введите число строк первой матрицы: ",
+                         "Число строк должно быть положительным.\n", dim1) &&
+        uki_input_uint32("Введите число столбцов первой матрицы: ",
+                         "Число столбцов должно быть положительным.\n", dim2) &&
+        uki_input_uint32("Введите число столбцов второй матрицы: ",
+                         "Число столбцов должно быть положительным.\n", dim3))
+        return 0;
+    return -1;
 }
 
-int input_auto_mat_dims(size_t *dim1, size_t *dim2, size_t *dim3)
-{
-    printf("Введите число строк первой матрицы: ");
-
-    *dim1 = imp__input_dim();
-    if (*dim1 == 0)
-    {
-        printf("Введено неверное число строк.\n");
-        return -1;
-    }
-
-    printf("Введите число столбцов первой матрицы: ");
-
-    *dim2 = imp__input_dim();
-    if (*dim2 == 0)
-    {
-        printf("Введено неверное число столбцов.\n");
-        return -2;
-    }
-
-    printf("Введите число столбцов второй матрицы: ");
-
-    *dim3 = imp__input_dim();
-    if (*dim3 == 0)
-    {
-        printf("Введено неверное число столбцов.\n");
-        return -3;
-    }
-
-    return 0;
-}
-
-int input_triplet(size_t *row, size_t *col, double *value)
+int input_triplet(uint32_t *row, uint32_t *col, double *value)
 {
     char line[256];
     if (fgets(line, 256, stdin) == NULL)
@@ -99,7 +60,7 @@ int input_triplet(size_t *row, size_t *col, double *value)
     *row = strtoul(start, &end, 10);
     if (end == start)
         return -1;
-    
+
     start = end;
     *col = strtoul(start, &end, 10);
     if (end == start)
@@ -113,7 +74,7 @@ int input_triplet(size_t *row, size_t *col, double *value)
     return 0;
 }
 
-int input_duplet(size_t *row, double *value)
+int input_duplet(uint32_t *row, double *value)
 {
     char line[256];
     if (fgets(line, 256, stdin) == NULL)
@@ -133,16 +94,16 @@ int input_duplet(size_t *row, double *value)
     return 0;
 }
 
-sparse_matrix_t input_matrix()
+sparse_matrix_t input_matrix(void)
 {
     sparse_matrix_t matrix = sp_null_matrix();
-    size_t rows, cols;
+    uint32_t rows, cols;
     if (!input_mat_dims(&rows, &cols))
     {
         matrix = sp_create(rows, cols);
         printf("Вводите тройки чисел: <строка столбец элемент> для каждого ненулевого элемента в матрице.\n");
 
-        size_t row, col;
+        uint32_t row, col;
         double value;
         while (!input_triplet(&row, &col, &value))
             sp_set(&matrix, row, col, value);
@@ -150,20 +111,18 @@ sparse_matrix_t input_matrix()
     return matrix;
 }
 
-sparse_matrix_t input_matrix_constraint(size_t rows)
+sparse_matrix_t input_matrix_constraint(uint32_t rows)
 {
     sparse_matrix_t matrix = sp_null_matrix();
 
-    printf("Введите число столбцов второй матрицы: ");
-    size_t cols = imp__input_dim();
-    if (cols == 0)
-        printf("Введено неверное число столбцов.\n");
-    else
+    uint32_t cols;
+    if (uki_input_uint32("Введите число столбцов второй матрицы: ",
+                         "Введено неверное число столбцов.\n", &cols))
     {
         matrix = sp_create(rows, cols);
         printf("Вводите тройки чисел: <строка столбец элемент> для каждого ненулевого элемента в матрице.\n");
 
-        size_t row, col;
+        uint32_t row, col;
         double value;
         while (!input_triplet(&row, &col, &value))
             sp_set(&matrix, row, col, value);
@@ -171,14 +130,14 @@ sparse_matrix_t input_matrix_constraint(size_t rows)
     return matrix;
 }
 
-sparse_matrix_t input_vector(size_t size)
+sparse_matrix_t input_vector(uint32_t size)
 {
     sparse_matrix_t vector = sp_create(size, 1);
 
-    printf("Ввод значений умножаемого вектора размером %lu строк.\n", size);
+    printf("Ввод значений умножаемого вектора размером %u строк.\n", size);
     printf("Вводите пары чисел: <строка элемент> для каждого ненулевого элемента вектора.\n");
 
-    size_t row;
+    uint32_t row;
     double value;
     while (!input_duplet(&row, &value))
         sp_set(&vector, row, 0, value);
@@ -188,11 +147,12 @@ sparse_matrix_t input_vector(size_t size)
 
 int menu_mult_vec(void *data)
 {
+    data = data;
     sparse_matrix_t matrix = input_matrix();
     if (!sp_mat_is_null(&matrix))
     {
         sparse_matrix_t vector = input_vector(matrix.cols_size);
-        
+
         printf("Введены данные:\n");
         sp_print_info(&matrix);
         sp_print_info(&vector);
@@ -232,12 +192,14 @@ int menu_mult_vec(void *data)
         sp_free(&vector);
     }
     sp_free(&matrix);
-    con_wait();
+
+    uki_wait("Нажмите Enter для продолжения...");
     return 0;
 }
 
 int menu_mult_mat(void *data)
 {
+    data = data;
     sparse_matrix_t matrix_1 = input_matrix();
     if (!sp_mat_is_null(&matrix_1))
     {
@@ -265,7 +227,8 @@ int menu_mult_mat(void *data)
         sp_free(&matrix_2);
     }
     sp_free(&matrix_1);
-    con_wait();
+
+    uki_wait("Нажмите Enter для продолжения...");
     return 0;
 }
 
@@ -274,25 +237,26 @@ int read_sparse_percent(float *percent)
     char line[256];
     if (fgets(line, 256, stdin) == NULL)
         return 0;
-    
+
     char *end = NULL;
     *percent = strtof(line, &end);
     if (line == end)
         return -1;
-    
+
     if (*percent <= 0.0 || *percent > 100)
         return -2;
-    
+
     return 0;
 }
 
 int menu_mult_auto(void *data)
 {
+    data = data;
     printf("Переход в режим полуавтоматического тестирования.\n");
-    
-    size_t rows1;
-    size_t cols1;
-    size_t cols2;
+
+    uint32_t rows1;
+    uint32_t cols1;
+    uint32_t cols2;
     if (!input_auto_mat_dims(&rows1, &cols1, &cols2))
     {
         sparse_matrix_t matrix_1 = sp_create(rows1, cols1);
@@ -300,92 +264,82 @@ int menu_mult_auto(void *data)
 
         sparse_matrix_t result = sp_null_matrix();
 
-        char table_data[22][4][64] = {};
-        memset(table_data, '\0', sizeof(table_data));
+        char title[80];
+        sprintf(title, "time test (%u,%u)x(%u,%u)",
+            matrix_1.rows_size, matrix_1.cols_size, matrix_2.rows_size, matrix_2.cols_size);
+        uki_table_t table = uki_table_create(22, 4, title);
 
-        strcpy(table_data[0][0], "sparse %");
-        strcpy(table_data[0][1], "slow time");
-        strcpy(table_data[0][2], "fast time");
-        strcpy(table_data[0][3], "efficiency %");
+        uki_table_set(&table, 0, 0, "nonzero");
+        uki_table_set(&table, 0, 1, "time slow");
+        uki_table_set(&table, 0, 2, "time fast");
+        uki_table_set(&table, 0, 3, "efficiency");
 
-        size_t table_row = 1;
+        uint32_t table_row = 1;
+        struct timeval real_time_1_tv, real_time_2_tv;
         unsigned long long time_1, time_2;
-        for (int percent = 0; percent < 100; percent += 5)
+        unsigned long long real_1, real_2;
+        for (int percent = 0; percent <= 100; percent += 5)
         {
             sp_randomize(&matrix_1, percent / 100.0f);
             sp_randomize(&matrix_2, percent / 100.0f);
 
             // slow method
+            gettimeofday(&real_time_1_tv, NULL);
             time_1 = __rdtsc();
             sp_mult_matrix(&matrix_1, &matrix_2, &result);
             time_1 = __rdtsc() - time_1;
+            gettimeofday(&real_time_2_tv, NULL);
+            real_1 = real_time_2_tv.tv_usec - real_time_1_tv.tv_usec;
 
             // fast method
+            gettimeofday(&real_time_1_tv, NULL);
             time_2 = __rdtsc();
             sp_mult_matrix_fast(&matrix_1, &matrix_2, &result);
             time_2 = __rdtsc() - time_2;
+            gettimeofday(&real_time_2_tv, NULL);
+            real_2 = 1000000 * (real_time_2_tv.tv_sec - real_time_1_tv.tv_sec) + real_time_2_tv.tv_usec - real_time_1_tv.tv_usec;
 
             // calc efficiency
             float eff = (long double)(time_1 - time_2) / time_1 * 100.0f;
 
-            sprintf(table_data[table_row][0], "%d", percent);
-            sprintf(table_data[table_row][1], "%llu", time_1);
-            sprintf(table_data[table_row][2], "%llu", time_2);
-            sprintf(table_data[table_row][3], "%.0f", eff);
+            uki_table_set_fmt(&table, table_row, 0, "%3d%%", percent);
+            uki_table_set_fmt(&table, table_row, 1, "%5.2llf ms", real_1 / 1000.0);
+            uki_table_set_fmt(&table, table_row, 2, "%5.2llf ms", real_2 / 1000.0);
+            uki_table_set_fmt(&table, table_row, 3, "%5.2f%%", eff);
             table_row++;
-            // printf("Процент заполнения: %3d%%, процент эффективности быстрого алгоритма: %6.2f%%\n", percent, eff);
         }
 
-        con_print_table(table_row, 4, "Speed test",
-            table_data[0][0], table_data[0][1], table_data[0][2], table_data[0][3],
-            table_data[1][0], table_data[1][1], table_data[1][2], table_data[1][3],
-            table_data[2][0], table_data[2][1], table_data[2][2], table_data[2][3],
-            table_data[3][0], table_data[3][1], table_data[3][2], table_data[3][3],
-            table_data[4][0], table_data[4][1], table_data[4][2], table_data[4][3],
-            table_data[5][0], table_data[5][1], table_data[5][2], table_data[5][3],
-            table_data[6][0], table_data[6][1], table_data[6][2], table_data[6][3],
-            table_data[7][0], table_data[7][1], table_data[7][2], table_data[7][3],
-            table_data[8][0], table_data[8][1], table_data[8][2], table_data[8][3],
-            table_data[9][0], table_data[9][1], table_data[9][2], table_data[9][3],
-            table_data[10][0], table_data[10][1], table_data[10][2], table_data[10][3],
-            table_data[11][0], table_data[11][1], table_data[11][2], table_data[11][3],
-            table_data[12][0], table_data[12][1], table_data[12][2], table_data[12][3],
-            table_data[13][0], table_data[13][1], table_data[13][2], table_data[13][3],
-            table_data[14][0], table_data[14][1], table_data[14][2], table_data[14][3],
-            table_data[15][0], table_data[15][1], table_data[15][2], table_data[15][3],
-            table_data[16][0], table_data[16][1], table_data[16][2], table_data[16][3],
-            table_data[17][0], table_data[17][1], table_data[17][2], table_data[17][3],
-            table_data[18][0], table_data[18][1], table_data[18][2], table_data[18][3],
-            table_data[19][0], table_data[19][1], table_data[19][2], table_data[19][3],
-            table_data[20][0], table_data[20][1], table_data[20][2], table_data[20][3],
-            table_data[21][0], table_data[21][1], table_data[21][2], table_data[21][3],
-            table_data[22][0], table_data[22][1], table_data[22][2], table_data[22][3]
-        );
+        uki_table_print(&table);
+
+        printf("nonzero - процент ненулевых элементов в матрицах\n");
+        printf("time slow - время обычного умножения\n");
+        printf("time fast - время специального умножения\n");
+        printf("efficiency - эффективность по времени специального умножения\n");
 
         sp_free(&matrix_1);
         sp_free(&matrix_2);
         sp_free(&result);
     }
 
-    con_wait();
+    uki_wait("Нажмите Enter для продолжения...");
     return 0;
 }
 
 int menu_exit(void *data)
 {
+    data = data;
     printf("Выход из программы.\n");
-    con_wait();
-    return 1;
+    return UKI_MENU_EXIT;
 }
 
 int main(void)
 {
-    menu_t menu = create_menu(4,
+    uki_menu_t menu = uki_menu_create("Меню", 4,
         "Умножение матрицы на вектор", menu_mult_vec,
         "Умножение матрицы на матрицу", menu_mult_mat,
         "Умножение матриц (автоматическое)", menu_mult_auto,
         "Выход", menu_exit);
 
-    run_menu_loop(&menu, NULL);
+    uki_menu_run(&menu, NULL);
     return 0;
 }

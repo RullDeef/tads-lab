@@ -5,7 +5,7 @@
 #include <errno.h>
 #include "conio.h"
 
-int imp__get_indices_pair(size_t rows, size_t cols, size_t *row, size_t *col)
+int imp__get_indices_pair(uint32_t rows, uint32_t cols, uint32_t *row, uint32_t *col)
 {
     char temp[256];
     if (fgets(temp, 256, stdin) != temp)
@@ -30,7 +30,7 @@ int imp__get_indices_pair(size_t rows, size_t cols, size_t *row, size_t *col)
     if (*end != '\0')
         return -3;
 
-    if (0 > *row || *row >= rows || 0 > *col || *col >= cols)
+    if (*row >= rows || *col >= cols)
         return -3;
 
     return 0;
@@ -104,13 +104,13 @@ int con_get_numeric_opt(int min, int max)
     if (*end != '\0')
         return -3;
 
-    if (opt < min || opt > max)
+    if (opt < (unsigned long)min || opt > (unsigned long)max)
         return -4;
 
     return (int)opt;
 }
 
-int imp__input_matrix_dimension(size_t *size)
+int imp__input_matrix_dimension(uint32_t *size)
 {
     char temp[256];
     if (fgets(temp, 256, stdin) != temp)
@@ -157,7 +157,7 @@ int imp__input_matrix_element(mat_elem_t *value)
 
 int con_input_matrix(sparse_matrix_t *matrix)
 {
-    size_t rows, cols;
+    uint32_t rows, cols;
 
     printf("Введите число строк матрицы: ");
     if (imp__input_matrix_dimension(&rows))
@@ -180,7 +180,7 @@ int con_input_matrix(sparse_matrix_t *matrix)
     printf("Пример ввода пары чисел: 3 7\n");
     while (true)
     {
-        size_t row, col;
+        uint32_t row, col;
         mat_elem_t value;
 
         printf("Введите пару чисел, строку и столбец для вставки элемента: ");
@@ -207,13 +207,13 @@ int con_input_matrix(sparse_matrix_t *matrix)
     return 0;
 }
 
-int con_input_vector(mat_elem_t *vector, size_t size)
+int con_input_vector(mat_elem_t *vector, uint32_t size)
 {
-    printf("Приготовьтесь вводить %ld элементов вектора!\n", size);
+    printf("Приготовьтесь вводить %d элементов вектора!\n", size);
 
-    for (size_t i = 0; i < size; i++)
+    for (uint32_t i = 0; i < size; i++)
     {
-        printf("Введите %ld-ый элемент: ", i + 1);
+        printf("Введите %d-ый элемент: ", i + 1);
         if (imp__input_matrix_element(vector + i))
         {
             printf("Неверный ввод.\n");
@@ -226,20 +226,20 @@ int con_input_vector(mat_elem_t *vector, size_t size)
 
 #define TABLE_MAX_COLS 10
 
-void con_print_table(size_t rows, size_t cols, const char* title, ...)
+void con_print_table(uint32_t rows, uint32_t cols, const char* title, ...)
 {
     va_list va;
 
     // define cols sizes
-    size_t cols_sizes[TABLE_MAX_COLS] = { 0 };
+    uint32_t cols_sizes[TABLE_MAX_COLS] = { 0 };
 
     va_start(va, title);
-    for (size_t row = 0; row < rows; row++)
+    for (uint32_t row = 0; row < rows; row++)
     {
-        for (size_t col = 0; col < cols; col++)
+        for (uint32_t col = 0; col < cols; col++)
         {
             const char *str = va_arg(va, const char*);
-            size_t size = strlen(str);
+            uint32_t size = strlen(str);
             if (size > cols_sizes[col])
                 cols_sizes[col] = size;
         }
@@ -247,28 +247,28 @@ void con_print_table(size_t rows, size_t cols, const char* title, ...)
     va_end(va);
 
     // get total size
-    size_t total_size = cols * 3 + 1;
-    for (size_t i = 0; cols_sizes[i] != 0; i++)
+    uint32_t total_size = cols * 3 + 1;
+    for (uint32_t i = 0; cols_sizes[i] != 0; i++)
         total_size += cols_sizes[i];
     
     // print header and title
     printf("┌");
-    for (size_t i = 0; i < total_size - 2; i++)
+    for (uint32_t i = 0; i < total_size - 2; i++)
         printf("─");
     printf("┐\n");
 
     printf("│ %*s │\n", total_size - 4, title);
 
     printf("├");
-    for (size_t i = 0; i < total_size - 2; i++)
+    for (uint32_t i = 0; i < total_size - 2; i++)
         printf("─");
     printf("┤\n");
 
     va_start(va, title);
-    for (size_t row = 0; row < rows; row++)
+    for (uint32_t row = 0; row < rows; row++)
     {
         printf("│");
-        for (size_t col = 0; col < cols; col++)
+        for (uint32_t col = 0; col < cols; col++)
         {
             const char *str = va_arg(va, const char*);
             printf(" %*s │", cols_sizes[col], str);
@@ -279,7 +279,7 @@ void con_print_table(size_t rows, size_t cols, const char* title, ...)
 
     // print footer
     printf("└");
-    for (size_t i = 0; i < total_size - 2; i++)
+    for (uint32_t i = 0; i < total_size - 2; i++)
         printf("─");
     printf("┘\n");
 }
@@ -292,10 +292,10 @@ void con_print_matrix(const sparse_matrix_t *matrix)
     sp_print_info(matrix);
 }
 
-void con_print_vector(const mat_elem_t *vector, size_t size)
+void con_print_vector(const mat_elem_t *vector, uint32_t size)
 {
     printf("Вектор:\n\n");
-    for (size_t i = 0; i < size; i++)
+    for (uint32_t i = 0; i < size; i++)
         printf("  %d\n", vector[i]);
     printf("\n");
 }

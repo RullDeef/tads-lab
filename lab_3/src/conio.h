@@ -17,12 +17,12 @@ int con_get_numeric_opt(int min, int max);
 
 // сюда же входит разделение на рандом (или нет?)
 int con_input_matrix(sparse_matrix_t *matrix);
-int con_input_vector(mat_elem_t *vector, size_t size);
+int con_input_vector(mat_elem_t *vector, uint32_t size);
 
 // better printer though...
 void con_print_matrix(const sparse_matrix_t *matrix);
-void con_print_vector(const mat_elem_t *vector, size_t size);
+void con_print_vector(const mat_elem_t *vector, uint32_t size);
 
-void con_print_table(size_t rows, size_t cols, const char *title, ...);
+void con_print_table(uint32_t rows, uint32_t cols, const char *title, ...);
 
 #endif // __CONIO_H_

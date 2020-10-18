@@ -24,11 +24,8 @@ sparse_matrix_t sp_null_matrix()
     return matrix;
 }
 
-sparse_matrix_t sp_create(size_t rows, size_t cols)
+sparse_matrix_t sp_create(uint32_t rows, uint32_t cols)
 {
-    if (rows <= 0 || cols <= 0)
-        return sp_null_matrix();
-
     sparse_matrix_t matrix;
 
     matrix.rows_size = rows;
@@ -37,16 +34,16 @@ sparse_matrix_t sp_create(size_t rows, size_t cols)
 
     matrix.__alloc_nz_sz = SP_INITIAL_ALLOC_SIZE * sizeof(mat_elem_t);
     matrix.nonzero_array = calloc(SP_INITIAL_ALLOC_SIZE, sizeof(mat_elem_t));
-    matrix.rows = calloc(SP_INITIAL_ALLOC_SIZE, sizeof(size_t));
+    matrix.rows = calloc(SP_INITIAL_ALLOC_SIZE, sizeof(uint32_t));
 
     // "fixed" size space allocation
-    matrix.__alloc_cl_sz = (size_t)((cols + 1) * SP_ALLOC_MULTIPILER);
-    matrix.cols = calloc(matrix.__alloc_cl_sz, sizeof(size_t));
+    matrix.__alloc_cl_sz = (uint32_t)((cols + 1) * SP_ALLOC_MULTIPILER);
+    matrix.cols = calloc(matrix.__alloc_cl_sz, sizeof(uint32_t));
 
     return matrix;
 }
 
-int sp_recreate(sparse_matrix_t* matrix, size_t rows, size_t cols)
+int sp_recreate(sparse_matrix_t* matrix, uint32_t rows, uint32_t cols)
 {
     sp_free(matrix);
     *matrix = sp_create(rows, cols);
@@ -54,7 +51,7 @@ int sp_recreate(sparse_matrix_t* matrix, size_t rows, size_t cols)
 }
 
 /*
-int sp_resize(sparse_matrix_t* matrix, size_t new_rows, size_t new_cols)
+int sp_resize(sparse_matrix_t* matrix, uint32_t new_rows, uint32_t new_cols)
 {
     int status = EXIT_SUCCESS;
 
@@ -69,8 +66,8 @@ int sp_resize(sparse_matrix_t* matrix, size_t new_rows, size_t new_cols)
         // realloc if need
         if (matrix->__alloc_cl_sz < new_cols + 1)
         {
-            size_t new_alloc_cl_sz = (new_cols + 1) * SP_ALLOC_MULTIPILER;
-            size_t* new_cols_ptr = realloc(matrix->cols, new_alloc_cl_sz);
+            uint32_t new_alloc_cl_sz = (new_cols + 1) * SP_ALLOC_MULTIPILER;
+            uint32_t* new_cols_ptr = realloc(matrix->cols, new_alloc_cl_sz);
             if (new_cols_ptr == NULL)
                 status = BAD_ALLOC;
             else
@@ -78,7 +75,7 @@ int sp_resize(sparse_matrix_t* matrix, size_t new_rows, size_t new_cols)
                 matrix->cols = new_cols_ptr;
                 matrix->__alloc_cl_sz = new_alloc_cl_sz;
 
-                for (size_t i = matrix->cols_size + 1; i < new_cols + 1; i++)
+                for (uint32_t i = matrix->cols_size + 1; i < new_cols + 1; i++)
                     matrix->cols[i] = matrix->cols[matrix->cols_size];
 
                 // update size variables
@@ -116,10 +113,10 @@ bool sp_mat_is_null(const sparse_matrix_t* matrix)
 /**
  * @brief проверяет столбец на наличие элементов.
  */
-static bool imp__has_values_in_col(const sparse_matrix_t *matrix, size_t col)
+static bool imp__has_values_in_col(const sparse_matrix_t *matrix, uint32_t col)
 {
     assert_sp_mat(*matrix);
-    assert(0 <= col && col < matrix->cols_size);
+    assert(col < matrix->cols_size);
 
     return matrix->cols[col] != matrix->cols[col + 1];
 }
@@ -136,11 +133,11 @@ static bool imp__has_values_in_col(const sparse_matrix_t *matrix, size_t col)
  *          NEED_START_COL - необходимо вставить элемент
  *              и начать с него колонку col
  */
-static int imp__find_linear_index(const sparse_matrix_t *matrix, size_t row, size_t col, size_t *index)
+static int imp__find_linear_index(const sparse_matrix_t *matrix, uint32_t row, uint32_t col, uint32_t *index)
 {
     assert_sp_mat(*matrix);
-    assert(0 <= row && row < matrix->rows_size);
-    assert(0 <= col && col < matrix->cols_size);
+    assert(row < matrix->rows_size);
+    assert(col < matrix->cols_size);
 
     // поиск индекса происходит в рамках заданного столбца
     // проверим, не пуст ли данный столбец
@@ -188,15 +185,15 @@ static int imp__find_linear_index(const sparse_matrix_t *matrix, size_t row, siz
     return NEED_ADJUST;
 }
 
-mat_elem_t sp_get(const sparse_matrix_t *matrix, size_t row, size_t col)
+mat_elem_t sp_get(const sparse_matrix_t *matrix, uint32_t row, uint32_t col)
 {
     if (matrix == NULL || matrix->nonzero_size == 0)
         return 0;
 
-    if (0 > row || row >= matrix->rows_size || 0 > col || col >= matrix->cols_size)
+    if (row >= matrix->rows_size || col >= matrix->cols_size)
         return 0;
 
-    size_t index;
+    uint32_t index;
     int adjust = imp__find_linear_index(matrix, row, col, &index);
     if (adjust == NO_NEED_ADJUST)
         return matrix->nonzero_array[index];
@@ -204,13 +201,13 @@ mat_elem_t sp_get(const sparse_matrix_t *matrix, size_t row, size_t col)
     return 0;
 }
 
-void sp_set(sparse_matrix_t *matrix, size_t row, size_t col, mat_elem_t value)
+void sp_set(sparse_matrix_t *matrix, uint32_t row, uint32_t col, mat_elem_t value)
 {
     assert_sp_mat(*matrix);
-    assert(0 <= row && row < matrix->rows_size);
-    assert(0 <= col && col < matrix->cols_size);
+    assert(row < matrix->rows_size);
+    assert(col < matrix->cols_size);
 
-    size_t index;
+    uint32_t index;
     int adjust = imp__find_linear_index(matrix, row, col, &index);
     if (adjust == NO_NEED_ADJUST)
         matrix->nonzero_array[index] = value;
@@ -220,8 +217,8 @@ void sp_set(sparse_matrix_t *matrix, size_t row, size_t col, mat_elem_t value)
 
         // realloc first
         matrix->nonzero_size++;
-        matrix->rows = realloc(matrix->rows, matrix->nonzero_size * sizeof(size_t));
-        matrix->nonzero_array = realloc(matrix->nonzero_array, matrix->nonzero_size * sizeof(size_t));
+        matrix->rows = realloc(matrix->rows, matrix->nonzero_size * sizeof(uint32_t));
+        matrix->nonzero_array = realloc(matrix->nonzero_array, matrix->nonzero_size * sizeof(uint32_t));
 
         // smart check for memory leaks
         assert(matrix->rows != NULL);
@@ -231,7 +228,7 @@ void sp_set(sparse_matrix_t *matrix, size_t row, size_t col, mat_elem_t value)
         mat_elem_t next_value = value; // matrix->nonzero_array[index];
         // matrix->nonzero_array[index] = value;
 
-        size_t next_row = row; // matrix->rows[index];
+        uint32_t next_row = row; // matrix->rows[index];
         // matrix->rows[index] = row;
 
         while (index < matrix->nonzero_size)
@@ -254,7 +251,7 @@ void sp_set(sparse_matrix_t *matrix, size_t row, size_t col, mat_elem_t value)
         }
 
         // propagate cols values
-        size_t start_col = adjust == NEED_START_COL ? col + 1 : col + 1;
+        uint32_t start_col = adjust == NEED_START_COL ? col + 1 : col + 1;
         while (start_col <= matrix->cols_size)
         {
             matrix->cols[start_col]++;
@@ -263,12 +260,12 @@ void sp_set(sparse_matrix_t *matrix, size_t row, size_t col, mat_elem_t value)
     }
 }
 
-static size_t imp__calc_zero_elemets(sparse_matrix_t* matrix)
+static uint32_t imp__calc_zero_elemets(sparse_matrix_t* matrix)
 {
     assert_sp_mat(*matrix);
-    size_t count = 0;
+    uint32_t count = 0;
 
-    for (size_t i = 0; i < matrix->nonzero_size; i++)
+    for (uint32_t i = 0; i < matrix->nonzero_size; i++)
         if (matrix->nonzero_array[i] == 0)
             count++;
 
@@ -291,7 +288,7 @@ void sp_compress(sparse_matrix_t* matrix)
         return;
     }
 
-    size_t z_indices_len = imp__calc_zero_elemets(matrix);
+    uint32_t z_indices_len = imp__calc_zero_elemets(matrix);
 
     // no zero elements
     if (z_indices_len == 0)
@@ -302,11 +299,11 @@ void sp_compress(sparse_matrix_t* matrix)
     // printf("found %lu zeros:", z_indices_len);
 
     // WARNING: check for bad alloc
-    size_t* z_indices = calloc(z_indices_len, sizeof(size_t));
-    size_t z_index = 0; // index in zero indices array
+    uint32_t* z_indices = calloc(z_indices_len, sizeof(uint32_t));
+    uint32_t z_index = 0; // index in zero indices array
 
     // get zeros indices
-    for (size_t i = 0; i < matrix->nonzero_size; i++)
+    for (uint32_t i = 0; i < matrix->nonzero_size; i++)
     {
         if (matrix->nonzero_array[i] == 0)
         {
@@ -319,9 +316,9 @@ void sp_compress(sparse_matrix_t* matrix)
 
     // pack non-zero elements and corresponding rows
     z_index = 0; // index in zero indices array
-    size_t zeros_passed = 0; // кол-во уже пропущенных нулей
+    uint32_t zeros_passed = 0; // кол-во уже пропущенных нулей
 
-    for (size_t nz_index = z_indices[z_index]; nz_index < matrix->nonzero_size; nz_index++)
+    for (uint32_t nz_index = z_indices[z_index]; nz_index < matrix->nonzero_size; nz_index++)
     {
         if (z_index < z_indices_len && nz_index == z_indices[z_index])
         {
@@ -339,7 +336,7 @@ void sp_compress(sparse_matrix_t* matrix)
     z_index = 0; // index in zero indices array
     zeros_passed = 0; // кол-во уже пропущенных нулей
 
-    for (size_t col_index = 0; col_index < matrix->cols_size + 1; col_index++)
+    for (uint32_t col_index = 0; col_index < matrix->cols_size + 1; col_index++)
     {
         if (z_index < z_indices_len && matrix->cols[col_index] > z_indices[z_index])
         {
@@ -355,7 +352,7 @@ void sp_compress(sparse_matrix_t* matrix)
     matrix->nonzero_size -= z_indices_len;
     matrix->__alloc_nz_sz = matrix->nonzero_size;
     matrix->nonzero_array = realloc(matrix->nonzero_array, matrix->__alloc_nz_sz * sizeof(mat_elem_t));
-    matrix->rows = realloc(matrix->rows, matrix->__alloc_nz_sz * sizeof(size_t));
+    matrix->rows = realloc(matrix->rows, matrix->__alloc_nz_sz * sizeof(uint32_t));
     if (matrix->__alloc_nz_sz == 0)
     {
         matrix->nonzero_array = NULL;
@@ -373,9 +370,9 @@ void sp_clear(sparse_matrix_t* matrix)
     matrix->nonzero_size = 0;
     matrix->__alloc_nz_sz = SP_INITIAL_ALLOC_SIZE * sizeof(mat_elem_t);
     matrix->nonzero_array = realloc(matrix->nonzero_array, SP_INITIAL_ALLOC_SIZE * sizeof(mat_elem_t));
-    matrix->rows = realloc(matrix->rows, SP_INITIAL_ALLOC_SIZE * sizeof(size_t));
+    matrix->rows = realloc(matrix->rows, SP_INITIAL_ALLOC_SIZE * sizeof(uint32_t));
 
-    for (size_t i = 0; i < matrix->cols_size + 1; i++)
+    for (uint32_t i = 0; i < matrix->cols_size + 1; i++)
         matrix->cols[i] = 0;
 }
 
@@ -390,21 +387,34 @@ void sp_randomize(sparse_matrix_t* matrix, float nz_percent)
 {
     if (sp_mat_is_null(matrix))
         return;
+    
+    uint64_t nonzero_amount = nz_percent * matrix->rows_size * matrix->cols_size;
 
-    for (size_t row = 0; row < matrix->rows_size; row++)
+    for (uint64_t i = 0; i < nonzero_amount; i++)
     {
-        for (size_t col = 0; col < matrix->cols_size; col++)
-        {
-            if ((float)rand() / RAND_MAX < nz_percent)
-            {
-                mat_elem_t value = rand() % 99 - 49;
-                if (value <= 0) value--;
-                sp_set(matrix, row, col, value);
-            }
-            else if (sp_get(matrix, row, col) != 0)
-                sp_set(matrix, row, col, 0);
-        }
+        uint32_t row = ((float)rand() / RAND_MAX) * matrix->rows_size;
+        uint32_t col = ((float)rand() / RAND_MAX) * matrix->cols_size;
+
+        mat_elem_t value = rand() % 99 - 49;
+        if (value <= 0)
+            value--;
+        sp_set(matrix, row, col, value);
     }
+
+    // for (uint32_t row = 0; row < matrix->rows_size; row++)
+    // {
+    //     for (uint32_t col = 0; col < matrix->cols_size; col++)
+    //     {
+    //         if ((float)rand() / RAND_MAX < nz_percent)
+    //         {
+    //             mat_elem_t value = rand() % 99 - 49;
+    //             if (value <= 0) value--;
+    //             sp_set(matrix, row, col, value);
+    //         }
+    //         else if (sp_get(matrix, row, col) != 0)
+    //             sp_set(matrix, row, col, 0);
+    //     }
+    // }
 
     sp_compress(matrix);
 }
@@ -418,11 +428,11 @@ int sp_mult_by_vector(const sparse_matrix_t *matrix, const mat_elem_t *vector, m
     if (sp_mat_is_null(matrix))
         return EXIT_FAILURE;
 
-    for (size_t i = 0; i < matrix->rows_size; i++)
+    for (uint32_t i = 0; i < matrix->rows_size; i++)
         out[i] = 0;
     
-    for (size_t row = 0; row < matrix->rows_size; row++)
-        for (size_t col = 0; col < matrix->cols_size; col++)
+    for (uint32_t row = 0; row < matrix->rows_size; row++)
+        for (uint32_t col = 0; col < matrix->cols_size; col++)
             out[row] += vector[col] * sp_get(matrix, row, col);
 
     return EXIT_SUCCESS;
@@ -442,11 +452,11 @@ int sp_mult_matrix(const sparse_matrix_t *matrix_1, const sparse_matrix_t *matri
     // WARNING: assuming no bad allocs here
     sp_recreate(out, matrix_1->rows_size, matrix_2->cols_size);
 
-    for (size_t row = 0; row < matrix_1->rows_size; row++)
-    for (size_t col = 0; col < matrix_2->cols_size; col++)
+    for (uint32_t row = 0; row < matrix_1->rows_size; row++)
+    for (uint32_t col = 0; col < matrix_2->cols_size; col++)
     {
         mat_elem_t value = 0;
-        for (size_t i = 0; i < matrix_1->cols_size; i++)
+        for (uint32_t i = 0; i < matrix_1->cols_size; i++)
             value += sp_get(matrix_1, row, i) * sp_get(matrix_2, i, col);
         
         if (value != 0)
@@ -465,17 +475,17 @@ int sp_mult_by_vector_fast(const sparse_matrix_t* matrix, const mat_elem_t* vect
     if (sp_mat_is_null(matrix))
         return EXIT_FAILURE;
 
-    for (size_t i = 0; i < matrix->rows_size; i++)
+    for (uint32_t i = 0; i < matrix->rows_size; i++)
         out[i] = 0;
 
-    for (size_t row = 0; row < matrix->rows_size; row++)
-        for (size_t col = 0; col < matrix->cols_size; col++)
+    for (uint32_t row = 0; row < matrix->rows_size; row++)
+        for (uint32_t col = 0; col < matrix->cols_size; col++)
             out[row] += vector[col] * sp_get(matrix, row, col);
 
     return EXIT_SUCCESS;
 }
 
-static bool imp__get_first_in_row(const sparse_matrix_t *matrix, size_t row, size_t *index, size_t *col)
+static bool imp__get_first_in_row(const sparse_matrix_t *matrix, uint32_t row, uint32_t *index, uint32_t *col)
 {
     *index = 0;
     while (*index < matrix->nonzero_size && matrix->rows[*index] != row)
@@ -490,7 +500,7 @@ static bool imp__get_first_in_row(const sparse_matrix_t *matrix, size_t row, siz
     return *index < matrix->nonzero_size;
 }
 
-static bool imp__get_first_in_col(const sparse_matrix_t *matrix, size_t col, size_t *index, size_t *row)
+static bool imp__get_first_in_col(const sparse_matrix_t *matrix, uint32_t col, uint32_t *index, uint32_t *row)
 {
     *index = matrix->cols[col];
     if (*index < matrix->nonzero_size)
@@ -498,9 +508,9 @@ static bool imp__get_first_in_col(const sparse_matrix_t *matrix, size_t col, siz
     return *index < matrix->nonzero_size;
 }
 
-static bool imp__get_next_in_row(const sparse_matrix_t *matrix, size_t index, size_t *next, size_t *col)
+static bool imp__get_next_in_row(const sparse_matrix_t *matrix, uint32_t index, uint32_t *next, uint32_t *col)
 {
-    size_t row = matrix->rows[index];
+    uint32_t row = matrix->rows[index];
     *next = index + 1;
     while (*next < matrix->nonzero_size && matrix->rows[*next] != row)
         (*next)++;
@@ -514,7 +524,7 @@ static bool imp__get_next_in_row(const sparse_matrix_t *matrix, size_t index, si
     return founded;
 }
 
-static bool imp__get_next_in_col(const sparse_matrix_t *matrix, size_t col, size_t index, size_t *next, size_t *row)
+static bool imp__get_next_in_col(const sparse_matrix_t *matrix, uint32_t col, uint32_t index, uint32_t *next, uint32_t *row)
 {
     *next = index + 1;
     bool founded = (*next < matrix->nonzero_size) && (*next < matrix->cols[col + 1]);
@@ -539,15 +549,15 @@ int sp_mult_matrix_fast(const sparse_matrix_t* matrix_1, const sparse_matrix_t* 
     // WARNING: assuming no bad allocs here
     sp_recreate(out, matrix_1->rows_size, matrix_2->cols_size);
 
-    for (size_t row = 0; row < out->rows_size; row++)
+    for (uint32_t row = 0; row < out->rows_size; row++)
     {
-        for (size_t col = 0; col < out->cols_size; col++)
+        for (uint32_t col = 0; col < out->cols_size; col++)
         {
-            size_t index_1 = 0;
-            size_t index_2 = 0;
+            uint32_t index_1 = 0;
+            uint32_t index_2 = 0;
 
-            size_t col_1 = 0;
-            size_t row_2 = 0;
+            uint32_t col_1 = 0;
+            uint32_t row_2 = 0;
 
             if (imp__get_first_in_row(matrix_1, row, &index_1, &col_1) &&
                 imp__get_first_in_col(matrix_2, col, &index_2, &row_2))
@@ -583,16 +593,16 @@ int sp_mult_matrix_fast(const sparse_matrix_t* matrix_1, const sparse_matrix_t* 
     return EXIT_SUCCESS;
 }
 
-static void imp__print_title(size_t cols)
+static void imp__print_title(uint32_t cols)
 {
     printf("+-");
-    for (size_t col = 0; col < cols; col++)
-        for (size_t i = 0; i < PRINT_ELEM_SIZE + 1; i++)
+    for (uint32_t col = 0; col < cols; col++)
+        for (uint32_t i = 0; i < PRINT_ELEM_SIZE + 1; i++)
             printf("-");
     printf("+\n");
 }
 
-static void imp__print_elem(const sparse_matrix_t *matrix, size_t row, size_t col)
+static void imp__print_elem(const sparse_matrix_t *matrix, uint32_t row, uint32_t col)
 {
     char format[5];
     sprintf(format, "%%%dd", PRINT_ELEM_SIZE);
@@ -602,17 +612,17 @@ static void imp__print_elem(const sparse_matrix_t *matrix, size_t row, size_t co
 void sp_print_info(const sparse_matrix_t *matrix)
 {
     printf("[MATRIX]\n");
-    printf("rows x cols: %ldx%ld\n", matrix->rows_size, matrix->cols_size);
-    printf("nonzero size: %ld\n", matrix->nonzero_size);
+    printf("rows x cols: %dx%d\n", matrix->rows_size, matrix->cols_size);
+    printf("nonzero size: %d\n", matrix->nonzero_size);
     printf("elements:");
-    for (size_t i = 0; i < matrix->nonzero_size; i++)
+    for (uint32_t i = 0; i < matrix->nonzero_size; i++)
         printf(" %3d", matrix->nonzero_array[i]);
     printf("\nrow nums:");
-    for (size_t i = 0; i < matrix->nonzero_size; i++)
-        printf(" %3ld", matrix->rows[i]);
+    for (uint32_t i = 0; i < matrix->nonzero_size; i++)
+        printf(" %3d", matrix->rows[i]);
     printf("\ncols:");
-    for (size_t i = 0; i < matrix->cols_size + 1; i++)
-        printf(" %ld", matrix->cols[i]);
+    for (uint32_t i = 0; i < matrix->cols_size + 1; i++)
+        printf(" %d", matrix->cols[i]);
     printf("\n[END]\n");
 }
 
@@ -622,10 +632,10 @@ void sp_print(const sparse_matrix_t *matrix)
 
     imp__print_title(matrix->cols_size);
 
-    for (size_t row = 0; row < matrix->rows_size; row++)
+    for (uint32_t row = 0; row < matrix->rows_size; row++)
     {
         printf("| ");
-        for (size_t col = 0; col < matrix->cols_size; col++)
+        for (uint32_t col = 0; col < matrix->cols_size; col++)
         {
             imp__print_elem(matrix, row, col);
             printf(" ");
@@ -639,17 +649,17 @@ void sp_print(const sparse_matrix_t *matrix)
 void sp_fprint_info(FILE* file, const sparse_matrix_t* matrix)
 {
     fprintf(file, "[MATRIX]\n");
-    fprintf(file, "rows x cols: %ldx%ld\n", matrix->rows_size, matrix->cols_size);
-    fprintf(file, "nonzero size: %ld\n", matrix->nonzero_size);
+    fprintf(file, "rows x cols: %dx%d\n", matrix->rows_size, matrix->cols_size);
+    fprintf(file, "nonzero size: %d\n", matrix->nonzero_size);
     fprintf(file, "elements:");
-    for (size_t i = 0; i < matrix->nonzero_size; i++)
+    for (uint32_t i = 0; i < matrix->nonzero_size; i++)
         fprintf(file, " %3d", matrix->nonzero_array[i]);
     fprintf(file, "\nrow nums:");
-    for (size_t i = 0; i < matrix->nonzero_size; i++)
-        fprintf(file, " %3ld", matrix->rows[i]);
+    for (uint32_t i = 0; i < matrix->nonzero_size; i++)
+        fprintf(file, " %3d", matrix->rows[i]);
     fprintf(file, "\ncols:");
-    for (size_t i = 0; i < matrix->cols_size + 1; i++)
-        fprintf(file, " %ld", matrix->cols[i]);
+    for (uint32_t i = 0; i < matrix->cols_size + 1; i++)
+        fprintf(file, " %d", matrix->cols[i]);
     fprintf(file, "\n[END]\n");
 }
 
@@ -658,15 +668,15 @@ void sp_fprint(FILE* file, const sparse_matrix_t* matrix)
     assert_sp_mat(*matrix);
 
     fprintf(file, "+-");
-    for (size_t col = 0; col < matrix->cols_size; col++)
-        for (size_t i = 0; i < PRINT_ELEM_SIZE + 1; i++)
+    for (uint32_t col = 0; col < matrix->cols_size; col++)
+        for (uint32_t i = 0; i < PRINT_ELEM_SIZE + 1; i++)
             fprintf(file, "-");
     fprintf(file, "+\n");
 
-    for (size_t row = 0; row < matrix->rows_size; row++)
+    for (uint32_t row = 0; row < matrix->rows_size; row++)
     {
         fprintf(file, "| ");
-        for (size_t col = 0; col < matrix->cols_size; col++)
+        for (uint32_t col = 0; col < matrix->cols_size; col++)
         {
             char format[5];
             sprintf(format, "%%%dd", PRINT_ELEM_SIZE);
@@ -677,8 +687,8 @@ void sp_fprint(FILE* file, const sparse_matrix_t* matrix)
     }
 
     fprintf(file, "+-");
-    for (size_t col = 0; col < matrix->cols_size; col++)
-        for (size_t i = 0; i < PRINT_ELEM_SIZE + 1; i++)
+    for (uint32_t col = 0; col < matrix->cols_size; col++)
+        for (uint32_t i = 0; i < PRINT_ELEM_SIZE + 1; i++)
             fprintf(file, "-");
     fprintf(file, "+\n");
 }

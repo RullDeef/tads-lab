@@ -20,13 +20,13 @@
 
 typedef struct
 {
-    size_t size;
+    uint32_t size;
     flat_t *flats_array;
 } flat_table_t;
 
 typedef struct
 {
-    size_t size;
+    uint32_t size;
     flat_key_t *keys;
 } keys_table_t;
 
@@ -37,7 +37,7 @@ typedef struct
 } sort_params_t;
 
 typedef void (*search_callback_t)(flat_t *);
-typedef size_t (*sort_fn_t)(flat_table_t *, keys_table_t *, sort_params_t);
+typedef uint32_t (*sort_fn_t)(flat_table_t *, keys_table_t *, sort_params_t);
 
 flat_table_t ft_create(void);
 flat_table_t ft_clone(flat_table_t *original);
@@ -52,9 +52,9 @@ bool ft_flat_satisfies(flat_t *flat, float price_1, float price_2);
 
 void ft_gen_keys(flat_table_t *table, keys_table_t *keys);
 
-size_t ft_sort_a_fast(flat_table_t *table, keys_table_t *keys, sort_params_t params);
-size_t ft_sort_a_slow(flat_table_t *table, keys_table_t *keys, sort_params_t params);
-size_t ft_sort_b_fast(flat_table_t *table, keys_table_t *keys, sort_params_t params);
-size_t ft_sort_b_slow(flat_table_t *table, keys_table_t *keys, sort_params_t params);
+uint32_t ft_sort_a_fast(flat_table_t *table, keys_table_t *keys, sort_params_t params);
+uint32_t ft_sort_a_slow(flat_table_t *table, keys_table_t *keys, sort_params_t params);
+uint32_t ft_sort_b_fast(flat_table_t *table, keys_table_t *keys, sort_params_t params);
+uint32_t ft_sort_b_slow(flat_table_t *table, keys_table_t *keys, sort_params_t params);
 
 #endif // __FLAT_TABLE_H_

@@ -2,98 +2,33 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "operations.h"
+#include "uki.h"
+#include "main_menu.h"
 
-int get_menu_opt()
-{
-    system("clear");
-    printf("  [__Меню:__]\n\n"
-        " 1. Добавить запись в таблицу\n"
-        " 2. Отсортировать таблицу\n"
-        " 3. Вывести таблицу на экран\n"
-        " 4. Произвести поиск квартиры\n"
-        " 5. Удалить запись\n"
-        " 0. Выход\n\n"
-        "[Ваш выбор]>>> ");
-    char opt[256];
-    fgets(opt, 256, stdin);
-    while (strlen(opt) > 0 && (opt[strlen(opt) - 1] == '\r' || opt[strlen(opt) - 1] == '\n'))
-        opt[strlen(opt) - 1] = '\0';
-    if (strlen(opt) == 1)
-        if (opt[0] >= '0' && opt[0] <= '5')
-            return opt[0] - '0';
-    return -1;
-}
+#define MAX_FILE_NAME_LENGTH 128
 
 int main()
 {
-    int status = 0;
     char ifname[MAX_FILE_NAME_LENGTH];
     flat_table_t table;
 
-    status = request_input_filename(ifname);
-    if (status == 0)
+    if (!uki_input_str("Введите имя файла: ", "Неверное имя файла.\n", ifname, MAX_FILE_NAME_LENGTH))
+        return -1;
+
+    if (read_table_from_file(ifname, &table))
     {
-        status = read_table_from_file(ifname, &table);
-        if (status != 0)
-            printf("Не удалось считать данные из файла.\n");
-    }
-    else
-        printf("Некорректное имя файла.\n");
-
-    if (status != 0)
-        return status;
-
-    bool need_exit = false;
-    while (!need_exit)
-    {
-        int opt = get_menu_opt();
-
-        switch (opt)
-        {
-            default:
-                printf("\nВы неправильно ввели номер опции. Повторите попытку.\n");
-                pause();
-                system("clear");
-                break;
-            
-            case 0:
-                printf("\nВыход из программы...");
-                need_exit = true;
-                break;
-            
-            case 1:
-                system("clear");
-                append_flat_to_table(&table);
-                pause();
-                break;
-
-            case 2:
-                system("clear");
-                sort_table(&table);
-                pause();
-                break;
-
-            case 3:
-                system("clear");
-                output_flat_table(&table, NULL);
-                pause();
-                break;
-            
-            case 4:
-                system("clear");
-                search_flat(&table);
-                pause();
-                break;
-
-            case 5:
-                system("clear");
-                output_flat_table(&table, NULL);
-                delete_flat(&table);
-                pause();
-                break;
-        }
+        printf("Не удалось считать данные из файла.\n");
+        return -2;
     }
 
-    return status;
+    uki_menu_t menu = uki_menu_create("Меню", 6,
+        "Показать таблицу", show_table,
+        "Добавить квартиру", append_flat,
+        "Удалить квартиру", delete_flat,
+        "Найти квартиру", search_flat,
+        "Сотрировать таблицу", sort_table,
+        "Выход", uki_menu_opt_exit
+    );
+
+    return uki_menu_run(&menu, (void*)&table);
 }

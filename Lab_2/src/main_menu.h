@@ -4,19 +4,17 @@
 #include "flat.h"
 #include "flat_table.h"
 
-#define MAX_FILE_NAME_LENGTH 128
-
 void pause();
 
 int request_input_filename(char *fname);
 int read_table_from_file(char *fname, flat_table_t *table);
 
 int output_flat_table(flat_table_t *table, keys_table_t *keys);
-int append_flat_to_table(flat_table_t *table);
 
-int sort_table(flat_table_t *table);
-int search_flat(flat_table_t *table);
-
-int delete_flat(flat_table_t *table);
+int show_table(void *data);
+int append_flat(void *data);
+int delete_flat(void *data);
+int search_flat(void *data);
+int sort_table(void *data);
 
 #endif // __OPERATIONS_H_

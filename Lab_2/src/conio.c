@@ -12,7 +12,7 @@ int cio_read_line(char *str, int max_length)
     if (fgets(temp, max_length + 2, stdin) != temp)
         return CIO_FGETS_ERROR;
 
-    if (strlen(temp) == max_length + 1)
+    if (strlen(temp) == (size_t)max_length + 1)
     {
         free(temp);
         return CIO_OVERFLOW;

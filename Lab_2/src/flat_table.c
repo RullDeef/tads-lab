@@ -4,21 +4,7 @@
 #include "flat_table.h"
 #include <time.h>
 
-#include <stdint.h>
-
-#ifdef _MSC_VER
-#include <intrin.h>
-#else
-#include <x86intrin.h>
-#endif
-
 #define FLAT_STRING_SIZE 256
-#define PERF_TIMES 100
-
-typedef int (*__comp_fn_t)(void *, void *);
-typedef void (*__assign_fn_t)(void *, void *);
-typedef void (*__swap_fn_t)(void *, void *);
-typedef void (*sort_method_fn_t)(void *, size_t, size_t, __comp_fn_t, __assign_fn_t, bool);
 
 int imp__fget_line(char *str, int size, FILE *file)
 {
@@ -39,7 +25,6 @@ int imp__fget_line(char *str, int size, FILE *file)
 unsigned int imp__count_flats_amount(FILE *file)
 {
     assert(file != NULL);
-
     unsigned int amount = 0;
 
     rewind(file);
@@ -94,7 +79,7 @@ flat_table_t ft_clone(flat_table_t *original)
     copy.size = original->size;
     copy.flats_array = malloc(copy.size * sizeof(flat_t));
 
-    for (int i = 0; i < copy.size; i++)
+    for (uint32_t i = 0; i < copy.size; i++)
         copy.flats_array[i] = clone_flat(original->flats_array + i);
 
     return copy;
@@ -135,163 +120,13 @@ int ft_append_flat(flat_table_t *table, flat_t *flat)
     return 0;
 }
 
-static int imp__flat_comp(void *flat_1, void *flat_2)
-{
-    return ((flat_t*)flat_2)->rooms_amount - ((flat_t*)flat_1)->rooms_amount;
-}
-
-static int imp__flat_key_comp(void *flat_1p, void *flat_2p)
-{
-    return ((flat_key_t *)flat_2p)->rooms_amount - ((flat_key_t *)flat_1p)->rooms_amount;
-}
-
-static void imp__insertion(void *a, size_t count, size_t size, __comp_fn_t comp, __swap_fn_t swap, bool ascending)
-{
-    #define A(i) (void*)((char*)a + size * (i))
-
-    for (size_t i = count; i > 0; i--)
-    {
-        for (size_t j = 0; j + 1 < i; j++)
-        {
-            bool res = comp(A(j), A(j + 1)) < 0;
-            if ((res && ascending) || (!res && !ascending))
-                swap(A(j), A(j + 1));
-        }
-    }
-
-    #undef A
-}
-
-static void imp__merge(void *a, size_t count, size_t size, __comp_fn_t comp, __assign_fn_t assign, bool ascending)
-{
-    #define A(ar,id) (void *)((char *)ar + id * size)
-
-    int rght, rend;
-    int i, j, m;
-
-    void *b = malloc(count * size);
-
-    for (int k = 1; k < count; k *= 2)
-    {
-        for (int left = 0; left + k < count; left += k * 2)
-        {
-            rght = left + k;
-            rend = rght + k;
-            if (rend > count)
-                rend = count;
-            m = left;
-            i = left;
-            j = rght;
-            while (i < rght && j < rend)
-            {
-                bool cmp = comp(A(a, i), A(a, j)) < 0;
-                if ((cmp || ascending) && (!cmp || !ascending))
-                {
-                    assign(A(b, m), A(a, i)); // b[m] = a[i];
-                    i++;
-                }
-                else
-                {
-                    assign(A(b, m), A(a, j)); // b[m] = a[j];
-                    j++;
-                }
-                m++;
-            }
-            while (i < rght)
-            {
-                assign(A(b, m), A(a, i)); // b[m] = a[i];
-                i++;
-                m++;
-            }
-            while (j < rend)
-            {
-                assign(A(b, m), A(a, j)); // b[m] = a[j];
-                j++;
-                m++;
-            }
-            for (m = left; m < rend; m++)
-                assign(A(a, m), A(b, m)); // a[m] = b[m];
-        }
-    }
-
-    free(b);
-
-    #undef A
-}
-
 void ft_gen_keys(flat_table_t *table, keys_table_t *keys)
 {
-    for (size_t i = 0; i < table->size; i++)
+    for (uint32_t i = 0; i < table->size; i++)
     {
         keys->keys[i].id = i;
         keys->keys[i].rooms_amount = table->flats_array[i].rooms_amount;
     }
-}
-
-static size_t imp__apply_sort_method(flat_table_t *table, keys_table_t *keys, sort_params_t params, sort_method_fn_t method)
-{
-    size_t result = 0UL;
-
-    if (!params.real_sort)
-    {
-        for (size_t i = 0; i < 1 + 0 * PERF_TIMES; i++)
-        {
-            flat_table_t clone = ft_clone(table);
-            clock_t __start_time = __rdtsc();
-            method(clone.flats_array, clone.size, sizeof(flat_t), imp__flat_comp, assign_flat, params.ascending);
-            result += __rdtsc() - __start_time;
-            ft_free(&clone);
-        }
-    }
-    else
-        method(table->flats_array, table->size, sizeof(flat_t), imp__flat_comp, assign_flat, params.ascending);
-
-    return result;
-}
-
-static size_t imp__apply_sort_method_key(flat_table_t *table, keys_table_t *keys, sort_params_t params, sort_method_fn_t method)
-{
-    size_t result = 0UL;
-
-    if (!params.real_sort)
-    {
-        keys_table_t keys_clone;
-        keys_clone.size = table->size;
-        keys_clone.keys = malloc(table->size * sizeof(flat_key_t));
-
-        for (size_t i = 0; i < 1 + 0 * PERF_TIMES; i++)
-        {
-            ft_gen_keys(table, &keys_clone);
-            clock_t __start_time = __rdtsc();
-            method(keys_clone.keys, keys_clone.size, sizeof(flat_key_t), imp__flat_key_comp, assign_flat_key, params.ascending);
-            result += __rdtsc() - __start_time;
-        }
-        free(keys_clone.keys);
-    }
-    else
-        method(keys->keys, table->size, sizeof(flat_key_t), imp__flat_key_comp, assign_flat_key, params.ascending);
-
-    return result;
-}
-
-size_t ft_sort_a_fast(flat_table_t *table, keys_table_t *keys, sort_params_t params)
-{
-    return imp__apply_sort_method(table, keys, params, imp__merge);
-}
-
-size_t ft_sort_a_slow(flat_table_t *table, keys_table_t *keys, sort_params_t params)
-{
-    return imp__apply_sort_method(table, keys, params, imp__insertion);
-}
-
-size_t ft_sort_b_fast(flat_table_t *table, keys_table_t *keys, sort_params_t params)
-{
-    return imp__apply_sort_method_key(table, keys, params, imp__merge);
-}
-
-size_t ft_sort_b_slow(flat_table_t *table, keys_table_t *keys, sort_params_t params)
-{
-    return imp__apply_sort_method_key(table, keys, params, imp__insertion);
 }
 
 bool ft_flat_satisfies(flat_t *flat, float price_1, float price_2)
@@ -302,7 +137,7 @@ bool ft_flat_satisfies(flat_t *flat, float price_1, float price_2)
 
 int ft_delete_flat(flat_table_t *table, unsigned int id, flat_t *deleted_flat)
 {
-    if (0 > id || id >= table->size)
+    if (id >= table->size)
         return -1;
     
     *deleted_flat = table->flats_array[id];

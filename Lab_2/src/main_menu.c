@@ -5,9 +5,11 @@
 #include <time.h>
 #include <stdbool.h>
 #include <assert.h>
+#include "uki.h"
 #include "flat_table.h"
 #include "conio.h"
-#include "operations.h"
+#include "sorters.h"
+#include "main_menu.h"
 
 #define MIN_POSSIBLE_YEAR 1880
 #define MAX_POSSIBLE_YEAR 2020
@@ -124,12 +126,6 @@ static int imp__request_flat_data(flat_t *flat)
     return status_code;
 }
 
-int request_input_filename(char *fname)
-{
-    printf("Введите имя входного файла: ");
-    return cio_read_line(fname, MAX_FILE_NAME_LENGTH);
-}
-
 int read_table_from_file(char *fname, flat_table_t *table)
 {
     FILE *file = fopen(fname, "rt");
@@ -147,23 +143,6 @@ int read_table_from_file(char *fname, flat_table_t *table)
     return status_code;
 }
 
-/*
-int write_table_to_file(app_state_t *state)
-{
-    assert(state != NULL);
-    assert(strlen(state->output_filename) > 0);
-
-    FILE *file = fopen(state->output_filename, "wt");
-    if (file == NULL)
-        return -1;
-    
-    int status_code = fwrite_flat_table(file, &state->table);
-
-    fclose(file);
-    return status_code;
-}
-*/
-
 static inline void imp__print_table_header()
 {
     printf("┌──────┬────────────────────────────────┬─────────┬───────────────┬───────────┬───────────┬─────────┬──────────┬─────────────┬─────────────────┬────────────────┐\n"
@@ -171,7 +150,7 @@ static inline void imp__print_table_header()
            "├──────┼────────────────────────────────┼─────────┼───────────────┼───────────┼───────────┼─────────┼──────────┼─────────────┼─────────────────┼────────────────┤\n");
 }
 
-static void imp__print_table_footer()
+static inline void imp__print_table_footer()
 {
     printf("└──────┴────────────────────────────────┴─────────┴───────────────┴───────────┴───────────┴─────────┴──────────┴─────────────┴─────────────────┴────────────────┘\n");
 }
@@ -194,7 +173,7 @@ int output_flat_table(flat_table_t *table, keys_table_t *keys)
 {
     imp__print_table_header();
 
-    for (int i = 0; i < table->size; i++)
+    for (uint32_t i = 0; i < table->size; i++)
     {
         imp__colorize_output(i);
         if (keys != NULL)
@@ -209,32 +188,29 @@ int output_flat_table(flat_table_t *table, keys_table_t *keys)
     return 0;
 }
 
+int show_table(void *data)
+{
+    flat_table_t *table = (flat_table_t *)data;
+    output_flat_table(table, NULL);
+    return 0;
+}
+
 static void imp__print_init_table(flat_table_t *table)
 {
     printf("  Исходная таблица (не по ключам):\n\n");
-
-    imp__print_table_header();
-
-    for (int i = 0; i < table->size; i++)
-    {
-        imp__colorize_output(i);
-        printf_flat(i, table->flats_array + i);
-        imp__colorize_output(-1);
-    }
-
-    imp__print_table_footer();
+    output_flat_table(table, NULL);
 }
 
-int append_flat_to_table(flat_table_t *table)
+int append_flat(void *data)
 {
+    flat_table_t *table = (flat_table_t *)data;
+
     // read flat data to new element and insert in to table
     flat_t flat = create_flat();
 
-    int status_code = imp__request_flat_data(&flat);
-    if (status_code == 0)
+    if (!imp__request_flat_data(&flat))
     {
-        status_code = ft_append_flat(table, &flat);
-        if (status_code == 0)
+        if (!ft_append_flat(table, &flat))
             printf("Успешно добавлена новая запись в таблицу.\n");
         else
             printf("При вставке произошла ошибка.\n");
@@ -242,7 +218,7 @@ int append_flat_to_table(flat_table_t *table)
     else
         printf("Не все данные были введены корректно.\n");
 
-    return status_code;
+    return 0;
 }
 
 static inline void imp__print_sort_opts(void)
@@ -254,32 +230,6 @@ static inline void imp__print_sort_opts(void)
            "  4. Слиянием (с доп. массивом)\n"
            "\n[Ваш выбор:] >>> ");
 }
-
-/*
-static int imp__request_sort_type(sort_fn_t *func)
-{
-    imp__print_sort_opts();
-
-    unsigned char temp;
-    int status_code = cio_read_uchar(&temp);
-    if (status_code == 0)
-    {
-        if (temp < 1 || temp > 4)
-            status_code = -1;
-        else
-        {
-            *func = (sort_fn_t[]) {
-                ft_sort_a_slow,
-                ft_sort_b_slow,
-                ft_sort_a_fast,
-                ft_sort_b_fast
-            }[temp - 1];
-        }
-    }
-
-    return status_code;
-}
-*/
 
 static int imp__request_sort_direction(bool *ascending)
 {
@@ -312,10 +262,10 @@ static void imp__better_sort(flat_table_t *table, keys_table_t keys)
         .ascending = ascending,
         .real_sort = false
     };
-    size_t delta_a_fast = ft_sort_a_fast(table, &keys, sort_params);
-    size_t delta_b_fast = ft_sort_b_fast(table, &keys, sort_params);
-    size_t delta_a_slow = ft_sort_a_slow(table, &keys, sort_params);
-    size_t delta_b_slow = ft_sort_b_slow(table, &keys, sort_params);
+    uint32_t delta_a_fast = ft_sort_a_fast(table, &keys, sort_params);
+    uint32_t delta_b_fast = ft_sort_b_fast(table, &keys, sort_params);
+    uint32_t delta_a_slow = ft_sort_a_slow(table, &keys, sort_params);
+    uint32_t delta_b_slow = ft_sort_b_slow(table, &keys, sort_params);
 
     sort_params.real_sort = true;
     ft_sort_b_fast(table, &keys, sort_params);
@@ -326,10 +276,10 @@ static void imp__better_sort(flat_table_t *table, keys_table_t keys)
     printf("┌──────────────────┬────────────┬──────────────────┐\n"
            "│  Тип сортировки  │ По ключам? │ Время сортировки │\n"
            "├──────────────────┼────────────┼──────────────────┤\n"
-           "│  Сорт. обменом   │        нет │ %13lu tc │\n"
-           "│  Сорт. обменом   │         да │ %13lu tc │\n"
-           "│  Сорт. слиянием  │        нет │ %13lu tc │\n"
-           "│  Сорт. слиянием  │         да │ %13lu tc │\n",
+           "│  Сорт. обменом   │        нет │ %13u tc │\n"
+           "│  Сорт. обменом   │         да │ %13u tc │\n"
+           "│  Сорт. слиянием  │        нет │ %13u tc │\n"
+           "│  Сорт. слиянием  │         да │ %13u tc │\n",
            delta_a_slow, delta_b_slow, delta_a_fast, delta_b_fast);
     printf("└──────────────────┴────────────┴──────────────────┘\n");
 
@@ -362,18 +312,17 @@ int imp__request_search_params(float *price_1, float *price_2)
     return status_code;
 }
 
-int search_flat(flat_table_t *table)
+int search_flat(void *data)
 {
-    int status_code = 0;
+    flat_table_t *table = (flat_table_t *)data;
 
     float price_1, price_2;
     int founded = 0;
 
-    status_code = imp__request_search_params(&price_1, &price_2);
-    if (status_code != 0)
-        return status_code;
+    if (imp__request_search_params(&price_1, &price_2))
+        return 0;
 
-    for (int i = 0; i < table->size; i++)
+    for (uint32_t i = 0; i < table->size; i++)
     {
         if (ft_flat_satisfies(table->flats_array + i, price_1, price_2))
         {
@@ -395,7 +344,7 @@ int search_flat(flat_table_t *table)
     else
         printf("\n  По заданным параметром не было найдено ни одной квартиры.\n");
 
-    return status_code;
+    return 0;
 }
 
 static int imp__get_sort_menu_opt()
@@ -430,13 +379,14 @@ void pause()
 
 static void imp__print_keys_table(flat_table_t *table, keys_table_t keys)
 {
+    table = table;
     system("clear");
     printf("  Таблица ключей:\n\n"
            "┌──────┬───────────────┐\n"
            "│  ID  │ Кол-во комнат │\n"
            "├──────┼───────────────┤\n");
 
-    for (size_t i = 0; i < keys.size; i++)
+    for (uint32_t i = 0; i < keys.size; i++)
     {
         imp__colorize_output(i);
         printf("│ %04u │ %13d │\n", keys.keys[i].id, keys.keys[i].rooms_amount);
@@ -454,7 +404,7 @@ static void imp__output_both_tables(flat_table_t *table, keys_table_t keys)
            "│  ID  │ Кол-во комнат │   │  ID  │ Адрес квартиры                 │ Площадь │ Кол-во комнат │ Стоимость │ Тип       │ Отделка │ Животные │ Построено   │ Кол-во собст-ов │ Кол-во жильцов │\n"
            "├──────┼───────────────┤   ├──────┼────────────────────────────────┼─────────┼───────────────┼───────────┼───────────┼─────────┼──────────┼─────────────┼─────────────────┼────────────────┤\n");
 
-    for (size_t i = 0; i < table->size; i++)
+    for (uint32_t i = 0; i < table->size; i++)
     {
         imp__colorize_output(i);
         printf("│ %04u │ %13d │   ", keys.keys[i].id, keys.keys[i].rooms_amount);
@@ -471,7 +421,7 @@ static keys_table_t imp__gen_table_keys(flat_table_t *table)
     keys.size = table->size;
     keys.keys = malloc(keys.size * sizeof(flat_key_t));
 
-    for (size_t i = 0; i < table->size; i++)
+    for (uint32_t i = 0; i < table->size; i++)
     {
         keys.keys[i].id = i;
         keys.keys[i].rooms_amount = table->flats_array[i].rooms_amount;
@@ -480,8 +430,10 @@ static keys_table_t imp__gen_table_keys(flat_table_t *table)
     return keys;
 }
 
-int sort_table(flat_table_t *table)
+int sort_table(void *data)
 {
+    flat_table_t *table = (flat_table_t *)data;
+
     int status = 0;
     bool need_exit = false;
 
@@ -534,7 +486,7 @@ int sort_table(flat_table_t *table)
 
     flat_table_t temp = ft_clone(table);
 
-    for (size_t i = 0; i < table->size; i++)
+    for (uint32_t i = 0; i < table->size; i++)
         temp.flats_array[i] = table->flats_array[keys.keys[i].id];
 
     ft_free(table);
@@ -544,40 +496,27 @@ int sort_table(flat_table_t *table)
     return status;
 }
 
-int delete_flat(flat_table_t *table)
+int delete_flat(void *data)
 {
-    size_t id;
+    flat_table_t *table = (flat_table_t *)data;
 
-    printf("Введите ID удаляемой записи: ");
-    int status_code = cio_read_ulong(&id);
-
-    if (status_code == 0)
+    uint32_t id;
+    if (uki_input_uint32_minmax("Введите ID удаляемой записи: ",
+        "Неверный ID записи.\n", 0, table->size, &id))
     {
-        if (id >= table->size)
+        flat_t flat;
+        if (!ft_delete_flat(table, id, &flat))
         {
-            printf("Неверный ID записи.\n");
-            status_code = -1;
+            printf("Удалена следующая запись:\n");
+            imp__print_table_header();
+            printf("\033[1;31m");
+            printf_flat(id, &flat);
+            imp__colorize_output(-1);
+            imp__print_table_footer();
         }
         else
-        {
-            flat_t flat;
-            status_code = ft_delete_flat(table, id, &flat);
-
-            if (status_code == 0)
-            {
-                printf("Удалена следующая запись:\n");
-                imp__print_table_header();
-                printf("\033[1;31m");
-                printf_flat(id, &flat);
-                imp__colorize_output(-1);
-                imp__print_table_footer();
-            }
-            else
-                printf("Запись с полем ID = %ld не была найдена.\n", id);
-        }
+            printf("Запись с полем ID = %u не была найдена.\n", id);
     }
-    else
-        printf("Неверный ввод.\n");
 
-    return status_code;
+    return 0;
 }

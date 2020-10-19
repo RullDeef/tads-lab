@@ -1,3 +1,5 @@
+#define MASURE_RDTSC 0
+
 #include <stdlib.h>
 #include "sorters.h"
 #include "flat_table.h"
@@ -5,10 +7,14 @@
 
 #include <stdint.h>
 
-#ifdef _MSC_VER
-#include <intrin.h>
+#if MASURE_RDTSC == 1
+#   ifdef _MSC_VER
+#       include <intrin.h>
+#   else
+#       include <x86intrin.h>
+#   endif
 #else
-#include <x86intrin.h>
+#   include <sys/time.h>
 #endif
 
 static int imp__flat_comp(void *flat_1, void *flat_2)
@@ -29,13 +35,27 @@ static uint32_t imp__apply_sort_method(flat_table_t *table, keys_table_t *keys, 
     if (!params.real_sort)
     {
         flat_table_t clone = ft_clone(table);
-        unsigned long long __start_time = __rdtsc();
-        method(clone.flats_array, clone.size, sizeof(flat_t), imp__flat_comp, assign_flat, params.ascending);
-        result = __rdtsc() - __start_time;
+
+#if MASURE_RDTSC == 1                                                               // Замеры времени двумя способами:
+        unsigned long long __start_time = __rdtsc();                                //
+#else                                                                               // __rdtsc();
+        struct timeval tv1, tv2;                                                    //      и
+        gettimeofday(&tv1, NULL);                                                   // gettimeofday(...);
+#endif                                                                              //
+
+        method(clone.flats_array, clone.size, sizeof(flat_t), imp__flat_comp, assign_flat);
+
+#if MASURE_RDTSC == 1                                                               // Замеры времени двумя способами:
+        result = __rdtsc() - __start_time;                                          //
+#else                                                                               // __rdtsc();
+        gettimeofday(&tv2, NULL);                                                   //      и
+        result = 1000000L * (tv2.tv_sec - tv1.tv_sec) + tv2.tv_usec - tv1.tv_usec;  // gettimeofday(...);
+#endif                                                                              //
+
         ft_free(&clone);
     }
     else
-        method(table->flats_array, table->size, sizeof(flat_t), imp__flat_comp, assign_flat, params.ascending);
+        method(table->flats_array, table->size, sizeof(flat_t), imp__flat_comp, assign_flat);
 
     return result;
 }
@@ -48,14 +68,26 @@ static uint32_t imp__apply_sort_method_key(flat_table_t *table, keys_table_t *ke
     {
         keys_table_t keys_clone = ts_keys_create(table);
 
-        clock_t __start_time = __rdtsc();
-        method(keys_clone.keys, keys_clone.size, sizeof(flat_key_t), imp__flat_key_comp, assign_flat_key, params.ascending);
-        result += __rdtsc() - __start_time;
+#if MASURE_RDTSC == 1                                                               // Замеры времени двумя способами:
+        unsigned long long __start_time = __rdtsc();                                //
+#else                                                                               // __rdtsc();
+        struct timeval tv1, tv2;                                                    //      и
+        gettimeofday(&tv1, NULL);                                                   // gettimeofday(...);
+#endif                                                                              //
+
+        method(keys_clone.keys, keys_clone.size, sizeof(flat_key_t), imp__flat_key_comp, assign_flat_key);
+
+#if MASURE_RDTSC == 1                                                               // Замеры времени двумя способами:
+        result = __rdtsc() - __start_time;                                          //
+#else                                                                               // __rdtsc();
+        gettimeofday(&tv2, NULL);                                                   //      и
+        result = 1000000L * (tv2.tv_sec - tv1.tv_sec) + tv2.tv_usec - tv1.tv_usec;  // gettimeofday(...);
+#endif                                                                              //
 
         ts_keys_free(&keys_clone);
     }
     else
-        method(keys->keys, table->size, sizeof(flat_key_t), imp__flat_key_comp, assign_flat_key, params.ascending);
+        method(keys->keys, table->size, sizeof(flat_key_t), imp__flat_key_comp, assign_flat_key);
 
     return result;
 }

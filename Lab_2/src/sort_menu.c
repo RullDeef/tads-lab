@@ -161,7 +161,7 @@ static int apply_sort(void *data)
            delta_a_slow, delta_b_slow, delta_a_fast, delta_b_fast);
 
 #ifdef _PERF_TEST
-    fprintf(stderr, "%lu %lu %lu %lu\n", delta_a_slow, delta_b_slow, delta_a_fast, delta_b_fast);
+    fprintf(stderr, "%u %u %u %u\n", delta_a_slow, delta_b_slow, delta_a_fast, delta_b_fast);
 #endif
     return 0;
 }

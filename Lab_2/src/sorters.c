@@ -1,7 +1,7 @@
 #include "sorters.h"
 #include <stdlib.h>
 
-void insertion_sort(void *a, size_t count, size_t size, __comp_fn_t comp, __swap_fn_t swap, bool ascending)
+void insertion_sort(void *a, size_t count, size_t size, __comp_fn_t comp, __swap_fn_t swap)
 {
 #define A(i) (void *)((char *)a + size * (i))
 
@@ -18,7 +18,7 @@ void insertion_sort(void *a, size_t count, size_t size, __comp_fn_t comp, __swap
 #undef A
 }
 
-void merge_sort(void *a, size_t count, size_t size, __comp_fn_t comp, __assign_fn_t assign, bool ascending)
+void merge_sort(void *a, size_t count, size_t size, __comp_fn_t comp, __assign_fn_t assign)
 {
 #define A(ar, id) (void *)((char *)ar + id * size)
 

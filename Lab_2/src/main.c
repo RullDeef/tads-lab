@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "uki.h"
+#include "sort_menu.h"
 #include "main_menu.h"
 
 #define MAX_FILE_NAME_LENGTH 128
@@ -26,7 +27,7 @@ int main()
         "Добавить квартиру", append_flat,
         "Удалить квартиру", delete_flat,
         "Найти квартиру", search_flat,
-        "Сотрировать таблицу", sort_table,
+        "Сотрировать таблицу", sort_menu,
         "Выход", uki_menu_opt_exit
     );
 

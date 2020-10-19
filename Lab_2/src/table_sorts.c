@@ -1,6 +1,7 @@
+#include <stdlib.h>
 #include "sorters.h"
 #include "flat_table.h"
-#include <stdlib.h>
+#include "table_sorts.h"
 
 #include <stdint.h>
 
@@ -45,15 +46,13 @@ static uint32_t imp__apply_sort_method_key(flat_table_t *table, keys_table_t *ke
 
     if (!params.real_sort)
     {
-        keys_table_t keys_clone;
-        keys_clone.size = table->size;
-        keys_clone.keys = malloc(table->size * sizeof(flat_key_t));
+        keys_table_t keys_clone = ts_keys_create(table);
 
-        ft_gen_keys(table, &keys_clone);
         clock_t __start_time = __rdtsc();
         method(keys_clone.keys, keys_clone.size, sizeof(flat_key_t), imp__flat_key_comp, assign_flat_key, params.ascending);
         result += __rdtsc() - __start_time;
-        free(keys_clone.keys);
+
+        ts_keys_free(&keys_clone);
     }
     else
         method(keys->keys, table->size, sizeof(flat_key_t), imp__flat_key_comp, assign_flat_key, params.ascending);
@@ -61,22 +60,44 @@ static uint32_t imp__apply_sort_method_key(flat_table_t *table, keys_table_t *ke
     return result;
 }
 
-uint32_t ft_sort_a_fast(flat_table_t *table, keys_table_t *keys, sort_params_t params)
+keys_table_t ts_keys_create(flat_table_t *table)
+{
+    keys_table_t keys;
+    keys.size = table->size;
+    keys.keys = malloc(keys.size * sizeof(flat_key_t));
+
+    for (uint32_t i = 0; i < table->size; i++)
+    {
+        keys.keys[i].id = i;
+        keys.keys[i].rooms_amount = table->flats_array[i].rooms_amount;
+    }
+
+    return keys;
+}
+
+void ts_keys_free(keys_table_t *keys)
+{
+    free(keys->keys);
+    keys->keys = NULL;
+    keys->size = 0;
+}
+
+uint32_t ts_sort_a_fast(flat_table_t *table, keys_table_t *keys, sort_params_t params)
 {
     return imp__apply_sort_method(table, keys, params, merge_sort);
 }
 
-uint32_t ft_sort_a_slow(flat_table_t *table, keys_table_t *keys, sort_params_t params)
+uint32_t ts_sort_a_slow(flat_table_t *table, keys_table_t *keys, sort_params_t params)
 {
     return imp__apply_sort_method(table, keys, params, insertion_sort);
 }
 
-uint32_t ft_sort_b_fast(flat_table_t *table, keys_table_t *keys, sort_params_t params)
+uint32_t ts_sort_b_fast(flat_table_t *table, keys_table_t *keys, sort_params_t params)
 {
     return imp__apply_sort_method_key(table, keys, params, merge_sort);
 }
 
-uint32_t ft_sort_b_slow(flat_table_t *table, keys_table_t *keys, sort_params_t params)
+uint32_t ts_sort_b_slow(flat_table_t *table, keys_table_t *keys, sort_params_t params)
 {
     return imp__apply_sort_method_key(table, keys, params, insertion_sort);
 }

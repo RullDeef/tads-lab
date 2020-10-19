@@ -120,15 +120,6 @@ int ft_append_flat(flat_table_t *table, flat_t *flat)
     return 0;
 }
 
-void ft_gen_keys(flat_table_t *table, keys_table_t *keys)
-{
-    for (uint32_t i = 0; i < table->size; i++)
-    {
-        keys->keys[i].id = i;
-        keys->keys[i].rooms_amount = table->flats_array[i].rooms_amount;
-    }
-}
-
 bool ft_flat_satisfies(flat_t *flat, float price_1, float price_2)
 {
     float price = flat->price_per_m2 * flat->area;

@@ -10,8 +10,8 @@ ax = fig.gca(projection='3d')
 
 # Make data.
 X = np.arange(200, 0, -20)
-Y = np.arange(0, 21, 1)
-Z = np.zeros((21, 10))
+Y = np.arange(0, 51, 1)
+Z = np.zeros((51, 10))
 X, Y = np.meshgrid(X, Y)
 
 for line in open("eff_test/stats.txt", "rt"):

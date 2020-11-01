@@ -13,6 +13,12 @@
 #include <x86intrin.h>
 #endif
 
-#define TIME_IT(expr, var_name) (expr)
+#define BEGIN_TIMER \
+    unsigned long long __timer_ticks = __rdtsc();
+
+#define END_TIMER \
+    __timer_ticks = __rdtsc() - __timer_ticks;
+
+#define TIMER_TICKS __timer_ticks
 
 #endif

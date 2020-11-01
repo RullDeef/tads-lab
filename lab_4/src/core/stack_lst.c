@@ -1,14 +1,14 @@
 #include <stdlib.h>
-#include "status_codes.h"
-#include "stack_lst.h"
+#include "utils/status_codes.h"
+#include "core/stack_lst.h"
 
-struct stack_lst sl_create(void)
+struct stack_lst st_lst_create(void)
 {
     struct stack_lst lst = { .size = 0U, .top = NULL };
     return lst;
 }
 
-void sl_destroy(struct stack_lst *sl)
+void st_lst_destroy(struct stack_lst *sl)
 {
     while (sl->top != NULL)
     {
@@ -19,7 +19,7 @@ void sl_destroy(struct stack_lst *sl)
     sl->size = 0U;
 }
 
-int sl_push(struct stack_lst *sl, int32_t value)
+int st_lst_push(struct stack_lst *sl, int32_t value)
 {
     struct __st_lst_node *new_top = malloc(sizeof(struct __st_lst_node));
     if (new_top == NULL)
@@ -31,7 +31,7 @@ int sl_push(struct stack_lst *sl, int32_t value)
     return EXIT_SUCCESS;
 }
 
-int sl_pop(struct stack_lst *sl, int32_t *value)
+int st_lst_pop(struct stack_lst *sl, int32_t *value)
 {
     if (sl->top == NULL)
         return STACK_EMPTY;

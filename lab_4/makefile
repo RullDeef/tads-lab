@@ -1,7 +1,10 @@
 CC = gcc
 CFLAGS := -std=gnu99 -Wall -Werror -pedantic -Wextra -ggdb3 -g \
 	-Isrc -Ivendor/uki/include -Ivendor/libcmdf/include 
-LFLAGS := -Lvendor/uki/lib -luki
+# LFLAGS := -Lvendor/uki/lib -luki
+
+SRCFILES := $(wildcard src/**/*.c)
+OBJFILES := $(subst .c,.o,$(subst src,obj,$(SRCFILES)))
 
 .PHONY : clean run unit
 
@@ -14,25 +17,14 @@ run : app.exe
 unit : unit.exe
 	./unit.exe
 
-unit.exe : \
-		obj/unit.o
-	$(CC) -o $@ $^ $(LFLAGS)
+unit.exe : $(OBJFILES) obj/unit.o
+	$(CC) $(CFLAGS) -o $@ $^ $(LFLAGS)
 
-app.exe : \
-		obj/stack_arr.o \
-		obj/stack_lst.o \
-		obj/main.o
-	$(CC) -o $@ $^ $(LFLAGS)
+app.exe : $(OBJFILES) obj/main.o
+	$(CC) $(CFLAGS) -o $@ $^ $(LFLAGS)
 
-obj/main.o : src/main.c
-	mkdir -p obj; $(CC) $(CFLAGS) -o $@ -c $^
-
-obj/stack_arr.o : src/stack_arr.c
-	mkdir -p obj; $(CC) $(CFLAGS) -o $@ -c $^
-
-obj/stack_lst.o : src/stack_lst.c
-	mkdir -p obj; $(CC) $(CFLAGS) -o $@ -c $^
+obj/%.o : src/%.c
+	mkdir -p $(dir $@); $(CC) $(CFLAGS) -o $@ -c $^
 
 obj/unit.o : unit_test/unit.c
-	mkdir -p obj; $(CC) $(CFLAGS) -o $@ -c $^
-
+	mkdir -p $(dir $@); $(CC) $(CFLAGS) -o $@ -c $^

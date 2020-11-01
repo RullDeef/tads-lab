@@ -14,10 +14,10 @@ struct stack_arr
     int32_t *top;
 };
 
-struct stack_arr sa_create(void);
-void sa_destroy(struct stack_arr *sa);
+struct stack_arr st_arr_create(void);
+void st_arr_destroy(struct stack_arr *sa);
 
-int sa_push(struct stack_arr *sa, int32_t value);
-int sa_pop(struct stack_arr *sa, int32_t *value);
+int st_arr_push(struct stack_arr *sa, int32_t value);
+int st_arr_pop(struct stack_arr *sa, int32_t *value);
 
 #endif

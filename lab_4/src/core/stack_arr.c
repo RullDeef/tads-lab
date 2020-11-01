@@ -1,9 +1,9 @@
 #include <stdlib.h>
 #include <memory.h>
-#include "status_codes.h"
-#include "stack_arr.h"
+#include "utils/status_codes.h"
+#include "core/stack_arr.h"
 
-struct stack_arr sa_create(void)
+struct stack_arr st_arr_create(void)
 {
     struct stack_arr sa = { .size = 0U };
 
@@ -14,7 +14,7 @@ struct stack_arr sa_create(void)
     return sa;
 }
 
-void sa_destroy(struct stack_arr *sa)
+void st_arr_destroy(struct stack_arr *sa)
 {
     if (sa->__data != NULL)
     {
@@ -23,7 +23,7 @@ void sa_destroy(struct stack_arr *sa)
     }
 }
 
-int sa_push(struct stack_arr *sa, int32_t value)
+int st_arr_push(struct stack_arr *sa, int32_t value)
 {
     if (sa->__data == NULL || sa->top == NULL)
         return STACK_INVALID;
@@ -51,7 +51,7 @@ int sa_push(struct stack_arr *sa, int32_t value)
     return EXIT_SUCCESS;
 }
 
-int sa_pop(struct stack_arr *sa, int32_t *value)
+int st_arr_pop(struct stack_arr *sa, int32_t *value)
 {
     if (sa->size == 0)
         return STACK_EMPTY;

@@ -15,10 +15,10 @@ struct stack_lst
     struct __st_lst_node *top;
 };
 
-struct stack_lst sl_create(void);
-void sl_destroy(struct stack_lst *sl);
+struct stack_lst st_lst_create(void);
+void st_lst_destroy(struct stack_lst *sl);
 
-int sl_push(struct stack_lst *sl, int32_t value);
-int sl_pop(struct stack_lst *sl, int32_t *value);
+int st_lst_push(struct stack_lst *sl, int32_t value);
+int st_lst_pop(struct stack_lst *sl, int32_t *value);
 
 #endif

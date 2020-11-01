@@ -4,8 +4,9 @@
 #include "wrappers/stack_wrapper.h"
 #include "menu/menu.h"
 
-#define CMD_SHOW_HELP "Показать информацию о стэке."
-#define CMD_PUSH_HELP "Вставить число в стэк. Первый аргумент - вставляемое число"
+#define CMD_SHOW_HELP   "Показать информацию о стэке."
+#define CMD_PUSH_HELP   "Вставить число в стэк. Первый аргумент - вставляемое число"
+#define CMD_POP_HELP    "Извлечь число из вершины стэка."
 
 static struct stack_wrapper sw;
 
@@ -20,12 +21,28 @@ static int manual_push(cmdf_arglist *arglist)
     {
         int32_t value = 0;
         if (parse_int32(arglist->args[0], &value) == EXIT_FAILURE)
-            printf("Введено неверное число.\n");
+            printf("Введено неверное число.\n\n");
         else
         {
             sw_push(&sw, value, NULL);
             printf("В стэк добавлено число %d.\n\n", value);
         }
+    }
+
+    return EXIT_SUCCESS;
+}
+
+static int manual_pop(cmdf_arglist *arglist)
+{
+    if (arglist)
+        printf("Для данной команды не нужны параметры.\n\n");
+    else
+    {
+        int32_t value = 0;
+        if (sw_pop(&sw, &value, NULL) == EXIT_SUCCESS)
+            printf("Извлечено число %d из стэка.\n\n", value);
+        else
+            printf("Стэк пуст. Нечего извлекать.\n\n");
     }
 
     return EXIT_SUCCESS;
@@ -59,6 +76,7 @@ int menu_manual(cmdf_arglist *arglist)
 
     cmdf_register_command(manual_back, "back", CMD_BACK_HELP);
     cmdf_register_command(manual_push, "push", CMD_PUSH_HELP);
+    cmdf_register_command(manual_pop, "pop", CMD_POP_HELP);
     cmdf_register_command(manual_show, "show", CMD_SHOW_HELP);
 
     cmdf_commandloop();

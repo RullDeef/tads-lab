@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include <assert.h>
 #include "stack.h"
 #include "utils/status_codes.h"
@@ -54,4 +56,185 @@ uint32_t st_get_size(const struct stack *st)
         return st->data.stack_lst.size;
     else
         assert(0);
+}
+
+int st_merge(struct stack *st_out, struct stack *st_a, struct stack *st_b)
+{
+#define BR(func) \
+    {                               \
+        int status = (func);        \
+        if (status != EXIT_SUCCESS) \
+            return status;          \
+    }
+
+    int32_t value;
+    int32_t value_a;
+    int32_t value_b;
+
+    // clear out stack
+    while (st_pop(st_out, &value) == EXIT_SUCCESS);
+
+    uint32_t size_a = st_get_size(st_a);
+    uint32_t size_b = st_get_size(st_b);
+
+    uint32_t size_out = 0;
+
+    while (size_a != 0 || size_b != 0)
+    {
+        // pick non empty stack
+        if (size_a != 0 && size_b != 0)
+        {
+            BR(st_pop(st_a, &value_a));
+            BR(st_pop(st_b, &value_b));
+
+            if (size_out == 0)
+            {
+                // pick lower value and push in out
+                if (value_a <= value_b)
+                {
+                    BR(st_push(st_out, value_a));
+                    BR(st_push(st_b, value_b));
+                    value = value_a;
+                    size_a--;
+                }
+                else
+                {
+                    BR(st_push(st_out, value_b));
+                    BR(st_push(st_a, value_a));
+                    value = value_b;
+                    size_b--;
+                }
+                size_out++;
+            }
+            else
+            {
+                // value contains last pushed value in out
+                if (value_a <= value_b)
+                {
+                    uint32_t popped = 0;
+
+                    BR(st_push(st_b, value_b));
+                    while (size_out > 0 && value_a < value)
+                    {
+                        BR(st_pop(st_out, &value));
+                        BR(st_push(st_b, value));
+                        size_out--;
+                        popped++;
+                        if (size_out > 0) // lookup
+                        {
+                            BR(st_pop(st_out, &value));
+                            BR(st_push(st_out, value));
+                        }
+                    }
+
+                    BR(st_push(st_out, value_a));
+                    size_out++;
+                    size_a--;
+
+                    while (popped > 0)
+                    {
+                        BR(st_pop(st_b, &value));
+                        BR(st_push(st_out, value));
+                        size_out++;
+                        popped--;
+                    }
+                }
+                else
+                {
+                    uint32_t popped = 0;
+
+                    BR(st_push(st_a, value_a));
+                    while (size_out > 0 && value_b < value)
+                    {
+                        BR(st_pop(st_out, &value));
+                        BR(st_push(st_a, value));
+                        size_out--;
+                        popped++;
+                        if (size_out > 0) // lookup
+                        {
+                            BR(st_pop(st_out, &value));
+                            BR(st_push(st_out, value));
+                        }
+                    }
+
+                    BR(st_push(st_out, value_b));
+                    size_out++;
+                    size_b--;
+
+                    while (popped > 0)
+                    {
+                        BR(st_pop(st_a, &value));
+                        BR(st_push(st_out, value));
+                        size_out++;
+                        popped--;
+                    }
+                }
+            }
+        }
+        else if (size_a != 0)
+        {
+            uint32_t popped = 0;
+
+            BR(st_pop(st_a, &value_a));
+            while (size_out > 0 && value_a < value)
+            {
+                BR(st_pop(st_out, &value));
+                BR(st_push(st_b, value));
+                size_out--;
+                popped++;
+                if (size_out > 0) // lookup
+                {
+                    BR(st_pop(st_out, &value));
+                    BR(st_push(st_out, value));
+                }
+            }
+
+            BR(st_push(st_out, value_a));
+            value = value_a;
+            size_out++;
+            size_a--;
+
+            while (popped > 0)
+            {
+                BR(st_pop(st_b, &value));
+                BR(st_push(st_out, value));
+                size_out++;
+                popped--;
+            }
+        }
+        else
+        {
+            uint32_t popped = 0;
+            
+            BR(st_pop(st_b, &value_b));
+            while (size_out > 0 && value_b < value)
+            {
+                BR(st_pop(st_out, &value));
+                BR(st_push(st_a, value));
+                size_out--;
+                popped++;
+                if (size_out > 0) // lookup
+                {
+                    BR(st_pop(st_out, &value));
+                    BR(st_push(st_out, value));
+                }
+            }
+
+            BR(st_push(st_out, value_b));
+            value = value_b;
+            size_out++;
+            size_b--;
+
+            while (popped > 0)
+            {
+                BR(st_pop(st_a, &value));
+                BR(st_push(st_out, value));
+                size_out++;
+                popped--;
+            }
+        }
+    }
+
+    return EXIT_SUCCESS;
+#undef BR
 }

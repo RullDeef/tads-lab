@@ -26,3 +26,14 @@ int parse_int32(const char *str, int32_t *value)
         return EXIT_SUCCESS;
     return EXIT_FAILURE;
 }
+
+bool parse_all_int32(char **str_arr, uint32_t len)
+{
+    int32_t value;
+
+    for (uint32_t i = 0; i < len; i++)
+        if (parse_int32(str_arr[i], &value) == EXIT_FAILURE)
+            return false;
+
+    return true;
+}

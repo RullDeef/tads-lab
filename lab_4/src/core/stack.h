@@ -28,4 +28,6 @@ int st_pop(struct stack *st, int32_t *value);
 
 uint32_t st_get_size(const struct stack *st);
 
+int st_merge(struct stack *st_out, struct stack *st_a, struct stack *st_b);
+
 #endif

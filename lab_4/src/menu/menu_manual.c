@@ -112,11 +112,12 @@ static int manual_merge(cmdf_arglist *arglist)
         printf("Для этой команды не нужны аргументы.\n\n");
     else
     {
-        if (sw_merge(&sw_c, &sw_a, &sw_b, NULL) != EXIT_SUCCESS)
+        size_t time;
+        if (sw_merge(&sw_c, &sw_a, &sw_b, &time) != EXIT_SUCCESS)
             printf("Не удалось выполнить слияние стеков.\n\n");
         else
         {
-            printf("Слияние стеков выполнено успешно!\n");
+            printf("Слияние стеков выполнено успешно! (время: %lu тиков)\n", time);
             sw_show(&sw_c);
         }
     }
@@ -131,30 +132,52 @@ static int manual_back(cmdf_arglist *arglist)
     return EXIT_SUCCESS;
 }
 
+static __stack_imp_type get_type(const char *arg)
+{
+    if (strcmp(arg, "A") == 0 || strcmp(arg, "a") == 0)
+        return STACK_TYPE_ARRAY;
+    else if (strcmp(arg, "L") == 0 || strcmp(arg, "l") == 0)
+        return STACK_TYPE_LINKED_LIST;
+    else
+        return STACK_TYPE_INVALID;
+}
+
+static bool all_types_valid(char **argv)
+{
+    for (int i = 0; i < 3; i++)
+        if (get_type(argv[i]) == STACK_TYPE_INVALID)
+            return false;
+    return true;
+}
+
 int menu_manual(cmdf_arglist *arglist)
 {
-    arglist = arglist;
-    printf("\n    Переход в режим ручного тестирования...");
+    if (!arglist || arglist->count != 3 || !all_types_valid(arglist->args))
+        printf("Введите \033[37;1;4m\"manual X X X\"\033[0m, где X - A или L - реализация стека.\n");
+    else
+    {
+        printf("\n    Переход в режим ручного тестирования...");
 
-    // init module variables
-    sw_a = sw_wrap("\033[37;1;4mна массиве\033[0m", st_create(STACK_TYPE_ARRAY));
-    sw_b = sw_wrap("\033[37;1;4mна связном списке\033[0m", st_create(STACK_TYPE_LINKED_LIST));
-    sw_c = sw_wrap("\033[37;1;4mрезультат\033[0m", st_create(STACK_TYPE_ARRAY));
+        // init module variables
+        sw_a = sw_wrap("\033[37;1;4mA\033[0m", st_create(get_type(arglist->args[0])));
+        sw_b = sw_wrap("\033[37;1;4mB\033[0m", st_create(get_type(arglist->args[1])));
+        sw_c = sw_wrap("\033[37;1;4mрезультат\033[0m", st_create(get_type(arglist->args[2])));
 
-    cmdf_init("\033[96;1;4mmain/manual>\033[0m ", NULL, DOC_HEADER, UNDOC_HEADER, '~', 0);
+        cmdf_init("\033[96;1;4mmain/manual>\033[0m ", NULL, DOC_HEADER, UNDOC_HEADER, '~', 0);
 
-    cmdf_register_command(manual_back, "back", CMD_BACK_HELP);
-    cmdf_register_command(manual_push, "push", CMD_PUSH_HELP);
-    cmdf_register_command(manual_pop, "pop", CMD_POP_HELP);
-    cmdf_register_command(manual_show, "show", CMD_SHOW_HELP);
-    cmdf_register_command(manual_merge, "merge", CMD_MERGE_HELP);
+        cmdf_register_command(manual_back, "back", CMD_BACK_HELP);
+        cmdf_register_command(manual_push, "push", CMD_PUSH_HELP);
+        cmdf_register_command(manual_pop, "pop", CMD_POP_HELP);
+        cmdf_register_command(manual_show, "show", CMD_SHOW_HELP);
+        cmdf_register_command(manual_merge, "merge", CMD_MERGE_HELP);
 
-    cmdf_commandloop();
+        cmdf_commandloop();
 
-    // destroy module variables
-    sw_destroy(&sw_a);
-    sw_destroy(&sw_b);
-    sw_destroy(&sw_c);
+        // destroy module variables
+        sw_destroy(&sw_a);
+        sw_destroy(&sw_b);
+        sw_destroy(&sw_c);
+    }
 
     return EXIT_SUCCESS;
 }

@@ -1,15 +1,21 @@
 #include <stdio.h>
+#include <stdbool.h>
 #include <assert.h>
 #include "utils/timing.h"
 #include "stack_wrapper.h"
 
 struct stack_wrapper sw_wrap(const char *name, struct stack st)
 {
-    return (struct stack_wrapper){.name = name, .stack = st};
+    struct stack_wrapper sw = {.name = name, .stack = st };
+    if (st.__type == STACK_TYPE_LINKED_LIST)
+        sw.alw = alw_create();
+    return sw;
 }
 
 void sw_destroy(struct stack_wrapper *sw)
 {
+    if (sw->stack.__type == STACK_TYPE_LINKED_LIST)
+        alw_destroy(&sw->alw);
     st_destroy(&sw->stack);
 }
 
@@ -21,6 +27,10 @@ int sw_push(struct stack_wrapper *sw, int32_t value, size_t *dtime)
     result = st_push(&sw->stack, value);
     END_TIMER
 
+    // update free_mem array
+    if (sw->stack.__type == STACK_TYPE_LINKED_LIST)
+        alw_handle_push(&sw->alw, &sw->stack);
+
     if (dtime != NULL)
         *dtime = (size_t)TIMER_TICKS;
     return result;
@@ -29,6 +39,10 @@ int sw_push(struct stack_wrapper *sw, int32_t value, size_t *dtime)
 int sw_pop(struct stack_wrapper *sw, int32_t *value, size_t *dtime)
 {
     int result;
+
+    // update free_mem array
+    if (sw->stack.__type == STACK_TYPE_LINKED_LIST)
+        alw_handle_pop(&sw->alw, &sw->stack);
 
     BEGIN_TIMER
     result = st_pop(&sw->stack, value);
@@ -39,6 +53,7 @@ int sw_pop(struct stack_wrapper *sw, int32_t *value, size_t *dtime)
     return result;
 }
 
+// TODO: check if alw works correct on merge
 int sw_merge(struct stack_wrapper *sw_out, struct stack_wrapper *sw_a, struct stack_wrapper *sw_b, size_t *dtime)
 {
     int result;
@@ -114,7 +129,6 @@ static void __imp_show_elements_lst(struct stack_lst *sl)
     int32_t value;
 
     const unsigned int __print_size = 3;
-    /* const unsigned int __print_len = (5U + __print_size) * size - 1U; */
 
     while (st_lst_pop(sl, &value) == EXIT_SUCCESS)
         st_lst_push(&tmp, value);
@@ -174,5 +188,9 @@ void sw_show(struct stack_wrapper *sw)
     printf("стек '%s'.\n", sw->name);
     printf("Кол-во элементов в стеке: %u\n", st_get_size(&sw->stack));
     __imp_show_elements(&sw->stack);
+
+    if (sw->stack.__type == STACK_TYPE_LINKED_LIST)
+        alw_show(&sw->alw);
+
     printf("\n");
 }

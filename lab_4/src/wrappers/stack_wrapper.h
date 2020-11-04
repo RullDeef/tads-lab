@@ -3,11 +3,14 @@
 
 #include <stddef.h>
 #include "core/stack.h"
+#include "addr_list_wrapper.h"
 
 struct stack_wrapper
 {
     const char *name;
     struct stack stack;
+
+    struct addr_list_wrapper alw;
 };
 
 struct stack_wrapper sw_wrap(const char *name, struct stack st);

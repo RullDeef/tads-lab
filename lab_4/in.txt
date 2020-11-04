@@ -1,0 +1,6 @@
+manual
+push b 1 2 2 3
+pop b
+pop b
+back
+exit

@@ -37,30 +37,38 @@ void alw_handle_pop(struct addr_list_wrapper *alw, struct stack *st)
     assert(al_contains(&alw->list, addr));
 
     struct __a_lst_node *node = al_get(&alw->list, addr);
+    assert(node); // could not get
     node->used = false;
     node->reused = false;
 }
 
+static void print_addr(void *addr, bool used, bool reused)
+{
+    int int_addr = (int64_t)addr & 0xFFFF;
+    if (used)
+        printf("\033[31;1;1m");
+    else if (reused)
+        printf("\033[33;1;1m");
+    else
+        printf("\033[32;1;1m");
+
+    printf(" %s %05d (%d)\n", used ? ">" : " ", int_addr, ((struct __st_lst_node *)addr)->data);
+    printf("\033[0m");
+}
+
 void alw_show(struct addr_list_wrapper *alw)
 {
-    uint32_t amount_to_print = 0U;
-    for (struct __a_lst_node *node = alw->list.head; node; node = node->next)
-        if (!node->used || node->reused)
-            amount_to_print++;
-
-    if (amount_to_print == 0U)
+    if (alw->list.size == 0U)
         return;
 
-    printf("Список свободных адресов:\n");
+    printf("Список используемых адресов:\n");
 
-    for (struct __a_lst_node *node = alw->list.head; node; node = node->next)
-    {
-        if (!node->used)
-            printf("   %p (%d)\n", node->addr, ((struct __st_lst_node *)node->addr)->data);
-        else if (node->reused)
-            printf(" * %p (%d)\n", node->addr, ((struct __st_lst_node *)node->addr)->data);
-    }
+    for (uint32_t i = 0; i < alw->list.size; i++)
+        print_addr(alw->list.data[i].addr, alw->list.data[i].used, alw->list.data[i].reused);
 
-    printf("* - Адрес используется повторно.\n");
+    printf(" ┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅\n");
+    printf(" \033[31;1;1mxxx\033[0m - Адрес занят.\n");
+    printf(" \033[32;1;1mxxx\033[0m - Адрес свободен.\n");
+    printf(" \033[33;1;1mxxx\033[0m - Адрес используется повторно.\n");
     printf("\n");
 }

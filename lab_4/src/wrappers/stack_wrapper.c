@@ -73,16 +73,11 @@ int sw_merge(struct stack_wrapper *sw_out, struct stack_wrapper *sw_a, struct st
 
 static void __imp_show_elements_arr(struct stack_arr *sa)
 {
-    struct stack_arr tmp = st_arr_create();
     uint32_t size = sa->size;
     uint32_t capacity = sa->__capacity;
-    int32_t value;
 
     const unsigned int __print_size = 3;
     const unsigned int __print_len = (3U + __print_size) * capacity - 1U;
-
-    while (st_arr_pop(sa, &value) == EXIT_SUCCESS)
-        st_arr_push(&tmp, value);
 
     printf("Вместимость стека: %d\n", capacity);
 
@@ -98,11 +93,8 @@ static void __imp_show_elements_arr(struct stack_arr *sa)
     else
     {
         uint32_t i = 0U;
-        for (; i < size && st_arr_pop(&tmp, &value) == EXIT_SUCCESS; i++)
-        {
-            st_arr_push(sa, value);
-            printf(" %*d │", __print_size, value);
-        }
+        for (; i < size; i++)
+            printf(" %*d │", __print_size, sa->__data[i]);
         for (; i < capacity; i++)
         {
             printf(" ");
@@ -118,20 +110,21 @@ static void __imp_show_elements_arr(struct stack_arr *sa)
         for (uint32_t i = 0U; i < __print_len; i++)
             printf("─");
     printf("┘\n");
-
-    st_arr_destroy(&tmp);
 }
 
 static void __imp_show_elements_lst(struct stack_lst *sl)
 {
-    struct stack_lst tmp = st_lst_create();
     uint32_t size = sl->size;
-    int32_t value;
+    struct __st_lst_node *nodes = NULL;
+    if (size > 0U)
+    {
+        nodes = malloc(size * sizeof(struct __st_lst_node));
+        uint32_t i = size - 1;
+        for (struct __st_lst_node *node = sl->top; node; node = node->prev)
+            nodes[i--] = *node;
+    }
 
     const unsigned int __print_size = 3;
-
-    while (st_lst_pop(sl, &value) == EXIT_SUCCESS)
-        st_lst_push(&tmp, value);
 
     if (size == 0U)
     {
@@ -152,11 +145,8 @@ static void __imp_show_elements_lst(struct stack_lst *sl)
         printf("\n");
 
         printf("NULL");
-        for (uint32_t i = 0U; i < size && st_lst_pop(&tmp, &value) == EXIT_SUCCESS; i++)
-        {
-            st_lst_push(sl, value);
-            printf("<-║ %*d │", __print_size, value);
-        }
+        for (uint32_t i = 0U; i < size; i++)
+            printf("<-║ %*d │", __print_size, nodes[i].data);
         printf("\n");
 
         printf("    ");
@@ -170,7 +160,8 @@ static void __imp_show_elements_lst(struct stack_lst *sl)
         printf("\n");
     }
 
-    st_lst_destroy(&tmp);
+    if (size > 0U)
+        free(nodes);
 }
 
 static void __imp_show_elements(struct stack *st)

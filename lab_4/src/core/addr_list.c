@@ -1,109 +1,57 @@
 #include "addr_list.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <memory.h>
 #include <assert.h>
+
+#define INIT_ALLOC 20U
+#define ALLOC_DELTA 10U
 
 struct addr_list al_create(void)
 {
-    return (struct addr_list) { .size = 0U, .head = NULL, .tail = NULL };
+    struct addr_list al = { .size = 0U };
+    al.data = malloc(INIT_ALLOC * sizeof(struct __a_lst_node));
+    al.capacity = INIT_ALLOC;
+    return al;
 }
 
 void al_destroy(struct addr_list *al)
 {
-    if (al->size != 0U)
-    {
-        for (struct __a_lst_node *node = al->head, *next = al->head->next;
-                node;
-                node = next, next = (next == NULL ? NULL : next->next))
-            free(node);
-        al->size = 0U;
-    }
+    free(al->data);
+    al->size = 0U;
+    al->capacity = 0U;
 }
 
 bool al_contains(struct addr_list *al, void *addr)
 {
-    for (struct __a_lst_node *node = al->head; node; node = node->next)
-        if (node->addr == addr)
+    for (uint32_t i = 0; i < al->size; i++)
+        if (al->data[i].addr == addr)
             return true;
     return false;
 }
 
 void al_insert(struct addr_list *al, void *addr)
 {
-    if (al->size == 0U)
+    if (al->size == al->capacity)
     {
-        struct __a_lst_node *new_node = calloc(1, sizeof(struct __a_lst_node));
-        new_node->addr = addr;
-        al->head = new_node;
-        al->tail = new_node;
-        al->size++;
+        al->capacity += ALLOC_DELTA;
+        al->data = realloc(al->data, al->capacity * sizeof(struct __a_lst_node));
     }
-    else
-    {
-        bool inserted = false;
-        for (struct __a_lst_node *node = al->head; node; node = node->next)
-        {
-            if (node->addr > addr)
-            {
-                struct __a_lst_node *new_node = calloc(1, sizeof(struct __a_lst_node));
-                new_node->addr = addr;
-                new_node->next = node;
-                new_node->prev = node->prev;
 
-                if (node == al->head)
-                    al->head = new_node;
-                else
-                    node->prev->next = new_node;
-                node->prev = new_node;
-
-                al->size++;
-                inserted = true;
-                break;
-            }
-        }
-
-        if (!inserted) // push back
-        {
-            struct __a_lst_node *new_node = calloc(1, sizeof(struct __a_lst_node));
-            new_node->addr = addr;
-            // new_node->next = NULL;
-            new_node->prev = al->tail;
-
-            al->tail->next = new_node;
-            al->tail = new_node;
-            al->size++;
-        }
-    }
-}
-
-void al_remove(struct addr_list *al, void *addr)
-{
-    for (struct __a_lst_node *node = al->head; node; node = node->next)
-    {
-        if (node->addr == addr)
-        {
-            if (node == al->head)
-                al->head = node->next;
-            else
-                node->prev->next = node->next;
-            
-            if (node == al->tail)
-                al->tail = node->prev;
-            else
-                node->next->prev = node->prev;
-
-            free(node);
-            al->size--;
-            break;
-        }
-    }
+    uint32_t i;
+    for (i = al->size; i > 0 && al->data[i - 1].addr > addr; i--)
+        al->data[i] = al->data[i - 1];
+    
+    memset(al->data + i, 0, sizeof(struct __a_lst_node));
+    al->data[i].addr = addr;
+    al->size++;
 }
 
 struct __a_lst_node *al_get(struct addr_list *al, void *addr)
 {
-    for (struct __a_lst_node *node = al->head; node; node = node->next)
-        if (node->addr == addr)
-            return node;
+    for (uint32_t i = 0; i < al->size; i++)
+        if (al->data[i].addr == addr)
+            return al->data + i;
 
     assert(0);
     return NULL;

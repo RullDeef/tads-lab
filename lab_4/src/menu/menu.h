@@ -14,5 +14,6 @@
 int menu_main(void);
 
 int menu_manual(cmdf_arglist *arglist);
+int menu_auto(cmdf_arglist *arglist);
 
 #endif

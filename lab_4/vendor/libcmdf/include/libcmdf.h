@@ -635,7 +635,7 @@ void cmdf_free_arglist(cmdf_arglist *arglist) {
     /* Check if any argument list was provided. */
     if (arglist) {
         /* Free every argument */
-        for (i = 0; i < arglist->count - 1; i++)
+        for (i = 0; i < arglist->count; i++)
             CMDF_FREE(arglist->args[i]);
 
         /* Free args */

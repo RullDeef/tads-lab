@@ -1,7 +1,5 @@
 #include "menu/menu.h"
 
-
-
 static int auto_back(cmdf_arglist *arglist)
 {
     printf("\n    Выход из автоматизированного режима.\n\n");

@@ -9,6 +9,8 @@
 #define CMD_MANUAL_HELP "Перейти в режим тестирования стека в ручную " \
                         "с возможностью просматривать содержимое стека."
 
+#define CMD_AUTO_HELP   "Перейти в режим автоматического тестирования."
+
 
 static int __menu_exit(cmdf_arglist *arglist)
 {

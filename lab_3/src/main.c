@@ -42,13 +42,13 @@ int menu_mult_vec(void *data)
 
         printf("Введена матрица:\n");
         sp_print_info(&matrix);
-        if (matrix.rows_size <= 10 && matrix.cols_size <= 10)
-            sp_print(&matrix);
+        // if (matrix.rows_size <= 10 && matrix.cols_size <= 10)
+        //     sp_print(&matrix);
 
         printf("\nВведен вектор:\n");
         sp_print_info(&vector);
-        if (vector.rows_size <= 10 && vector.cols_size <= 10)
-            sp_print(&vector);
+        // if (vector.rows_size <= 10 && vector.cols_size <= 10)
+        //     sp_print(&vector);
 
         printf("\nВыполняем умножение...\n");
         sparse_matrix_t result = sp_null_matrix();
@@ -64,8 +64,8 @@ int menu_mult_vec(void *data)
             time_1 = __rdtsc() - start;
 
             result = cv_sparse_from_dense(&res);
-            printf("Результат умножения (плотного):\n");
-            sp_print_info(&result);
+            // printf("Результат умножения (плотного):\n");
+            // sp_print_info(&result);
 
             dn_free(&mat_1);
             dn_free(&mat_2);
@@ -81,11 +81,11 @@ int menu_mult_vec(void *data)
             printf("Ошибки при умножении.\n");
         else
         {
-            printf("Результат умножения (разреженного):\n");
+            printf("Результат умножения:\n");
             sp_print_info(&result);
 
-            printf("\nВремя обычного умножения: %llu.\n", time_1);
-            printf("Время специального умножения: %llu.\n", time_2);
+            printf("\nВремя обычного умножения: %llu тактов.\n", time_1);
+            printf("Время специального умножения: %llu тактов.\n", time_2);
             printf("Эффективность: %.2f%%\n\n", (100.0f * ((float)time_1 - time_2) / (time_1)));
         }
 
@@ -114,12 +114,12 @@ int menu_mult_mat(void *data)
             {
                 printf("Введены матрицы:\n\n");
                 sp_print_info(&matrix_1);
-                if (matrix_1.rows_size <= 10 && matrix_1.cols_size <= 10)
-                    sp_print(&matrix_1);
+                // if (matrix_1.rows_size <= 10 && matrix_1.cols_size <= 10)
+                //     sp_print(&matrix_1);
 
                 sp_print_info(&matrix_2);
-                if (matrix_2.rows_size <= 10 && matrix_2.cols_size <= 10)
-                    sp_print(&matrix_2);
+                // if (matrix_2.rows_size <= 10 && matrix_2.cols_size <= 10)
+                //     sp_print(&matrix_2);
 
                 sparse_matrix_t result = sp_null_matrix();
                 printf("\nВыполняем умножение...\n");
@@ -135,8 +135,8 @@ int menu_mult_mat(void *data)
                     time_1 = __rdtsc() - start;
 
                     result = cv_sparse_from_dense(&res);
-                    printf("Результат умножения (плотного):\n");
-                    sp_print_info(&result);
+                    // printf("Результат умножения (плотного):\n");
+                    // sp_print_info(&result);
 
                     dn_free(&mat_1);
                     dn_free(&mat_2);
@@ -155,8 +155,8 @@ int menu_mult_mat(void *data)
                     printf("Результат умножения (разреженного):\n");
                     sp_print_info(&result);
 
-                    printf("\nВремя обычного умножения: %llu.\n", time_1);
-                    printf("Время специального умножения: %llu.\n", time_2);
+                    printf("\nВремя обычного умножения: %llu тактов.\n", time_1);
+                    printf("Время специального умножения: %llu тактов.\n", time_2);
                     printf("Эффективность: %.2f%%\n\n", (100.0f * ((float)time_1 - time_2) / (time_1)));
                 }
 
@@ -263,7 +263,7 @@ int menu_mult_auto_fill(void *data)
             table_row++;
 
             // output data to stats file
-            fprintf(stats, "%u %u %f %lld %lld\n", rows1, cols1, (float)percent, real_1, real_2);
+            // fprintf(stats, "%u %u %f %lld %lld\n", rows1, cols1, (float)percent, real_1, real_2);
         }
 
         uki_table_print(&table);
@@ -286,7 +286,7 @@ int menu_mult_auto_fill(void *data)
 
 int menu_mult_auto_dim(void *data)
 {
-    data = data;
+    (void)data;
     printf("Переход в режим полуавтоматического тестирования.\n");
 
     float percent;
@@ -375,6 +375,103 @@ int menu_mult_auto_dim(void *data)
     return 0;
 }
 
+int menu_show_table(void *data)
+{
+    (void)data;
+    printf("Переход в режим вывода таблицы.\n");
+
+    const uint32_t dim_delta = 50;
+    const uint32_t pc_delta = 5;
+
+    const uint32_t rows = 6, cols = 7;
+
+    char title[] = "efficiency table (%)";
+    uki_table_t table = uki_table_create(1 + rows, 1 + cols, title);
+    uki_table_set(&table, 0, 0, "dims\\sparse %");
+
+    for (uint32_t col = 1; col <= cols; col++)
+    {
+        char str[30];
+        sprintf(str, "<[%2d%%]>", pc_delta * col);
+        uki_table_set(&table, 0, col, str);
+    }
+
+    for (uint32_t row = 1; row <= rows; row++)
+    {
+        char str[10];
+        sprintf(str, "%d", dim_delta * row);
+        uki_table_set(&table, row, 0, str);
+    }
+
+    for (uint32_t row = 1; row <= rows; row++)
+    {
+        for (uint32_t col = 1; col <= cols; col++)
+        {
+            printf("%3d%%...", 100 * (col + row * (cols + 1)) / ((rows + 1) * (cols + 1)));
+            fflush(stdout);
+
+            uint32_t percent = pc_delta * col;
+            uint32_t dims = dim_delta * row;
+
+            sparse_matrix_t matrix_1 = sp_create(dims, dims);
+            sparse_matrix_t matrix_2 = sp_create(dims, dims);
+
+            sparse_matrix_t result = sp_null_matrix();
+
+            sp_randomize(&matrix_1, percent / 100.0f);
+            sp_randomize(&matrix_2, percent / 100.0f);
+
+            // struct timeval real_time_1_tv, real_time_2_tv;
+            unsigned long long time_1, time_2;
+            // unsigned long long real_1, real_2;
+
+            // slow method
+            { // dense variant
+                dense_matrix_t mat_1 = cv_dense_from_sparse(&matrix_1);
+                dense_matrix_t mat_2 = cv_dense_from_sparse(&matrix_2);
+                dense_matrix_t res = dn_null_matrix();
+
+                // gettimeofday(&real_time_1_tv, NULL);
+                time_1 = __rdtsc();
+                dn_mult_matrix(&mat_1, &mat_2, &res);
+                time_1 = __rdtsc() - time_1;
+                // gettimeofday(&real_time_2_tv, NULL);
+                // real_1 = 1000000LL * (real_time_2_tv.tv_sec - real_time_1_tv.tv_sec) + (long long)real_time_2_tv.tv_usec - real_time_1_tv.tv_usec;
+
+                dn_free(&mat_1);
+                dn_free(&mat_2);
+                dn_free(&res);
+            }
+
+            // fast method
+            // gettimeofday(&real_time_1_tv, NULL);
+            time_2 = __rdtsc();
+            sp_mult_matrix(&matrix_1, &matrix_2, &result);
+            time_2 = __rdtsc() - time_2;
+            // gettimeofday(&real_time_2_tv, NULL);
+            // real_2 = 1000000LL * (real_time_2_tv.tv_sec - real_time_1_tv.tv_sec) + (long long)real_time_2_tv.tv_usec - real_time_1_tv.tv_usec;
+
+            // calc efficiency
+            long double eff = ((long double)time_1 - time_2) / time_1 * 100.0f;
+
+            // print it on table
+            uki_table_set_fmt(&table, row, col, "%5.2Lf", eff);
+
+            printf("\b\b\b\b\b\b\b       \b\b\b\b\b\b\b");
+            fflush(stdout);
+        }
+    }
+
+    uki_table_print(&table);
+
+    printf("В первой колонке указывается размерность перемножаемых матриц.\n");
+    printf("В первой строке указывается процент разреженности матриц (процент ненулевых элементов).\n");
+    printf("В ячейках таблицы указан процент, показывающий на сколько разреженная матрица работает быстрее плотной.\n");
+    printf("Если это число отрицательно - значит разреженная матрица является менее эффективной.\n\n");
+
+    return 0;
+}
+
 int menu_show_graph(void *data)
 {
     data = data;
@@ -390,11 +487,12 @@ int menu_exit(void *data)
 
 int main(void)
 {
-    uki_menu_t menu = uki_menu_create("Меню", 6,
+    uki_menu_t menu = uki_menu_create("Меню", 7,
         "Умножение матрицы на вектор", menu_mult_vec,
         "Умножение матрицы на матрицу", menu_mult_mat,
         "Сравнение эффективности (автоматическое заполнение)", menu_mult_auto_fill,
         "Сравнение эффективности (для конкретного заполнения)", menu_mult_auto_dim,
+        "Отображение сравнительной таблицы для сравнения эффективности", menu_show_table,
         "Отображение графика всех ранее полученных результатов", menu_show_graph,
         "Выход", menu_exit);
 

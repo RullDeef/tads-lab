@@ -65,7 +65,7 @@ sparse_matrix_t input_vector(uint32_t size)
     uint32_t row;
     int value;
     while (!imp__input_duplet(&row, &value))
-        sp_set(&vector, row, 0, value);
+        sp_set(&vector, row - 1, 0, value);
 
     return vector;
 }
@@ -75,8 +75,8 @@ sparse_matrix_t ultimate_input_matrix(void)
     // request input format
     uint32_t input_format;
     if (uki_input_uint32_minmax("Выберите формат ввода матрицы:\n"
-                                "  1. Размер + все элементы\n"
-                                "  2. Размер и кол-во ненулевых эл-тов + ненулевые эл-ты\n"
+                                "  1. Размер и все элементы\n"
+                                "  2. Размер, кол-во ненулевых эл-тов и ненулевые эл-ты\n"
                                 "  3. Размер и процент ненулевых эл-тов\n"
                                 "> ",
                                 "Неверный ввод.\n", 1, 4, &input_format))
@@ -116,6 +116,9 @@ static bool imp__input_triplet(uint32_t *row, uint32_t *col, int *value)
     *value = strtod(start, &end);
     if (end == start)
         return -1;
+    
+    if (*row == 0 || *col == 0)
+        return -1;
 
     return 0;
 }
@@ -135,6 +138,9 @@ static bool imp__input_duplet(uint32_t *row, int *value)
     start = end;
     *value = strtol(start, &end, 10);
     if (end == start)
+        return -1;
+
+    if (*row == 0)
         return -1;
 
     return 0;
@@ -215,7 +221,7 @@ static sparse_matrix_t imp__input_matrix_coordinate(void)
                     sp_free(&matrix);
                     break;
                 }
-                sp_set(&matrix, row, col, value);
+                sp_set(&matrix, row - 1, col - 1, value);
             }
         }
     }

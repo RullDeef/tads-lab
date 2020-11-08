@@ -1,3 +1,4 @@
+CC := gcc
 CFLAGS := -std=c99 -Wall -Werror -pedantic -Wextra -Ivendor/uki/include -ggdb3 -g -Isrc
 LFLAGS := -Lvendor/uki/lib -luki
 

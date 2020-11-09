@@ -8,7 +8,7 @@
 
 #define CMD_EXIT_HELP       "Выйти из программы."
 
-#define CMD_BACK_HELP   "Перейти в главное меню."
+#define CMD_BACK_HELP       "Перейти в главное меню."
 
 
 int menu_main(void);

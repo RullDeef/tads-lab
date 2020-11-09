@@ -26,6 +26,7 @@ int menu_main(void)
     /* Register our custom commands */
     cmdf_register_command(__menu_exit, "exit", CMD_EXIT_HELP);
     cmdf_register_command(menu_manual, "manual", CMD_MANUAL_HELP);
+    cmdf_register_command(menu_auto, "auto", CMD_AUTO_HELP);
 
     cmdf_commandloop();
     return EXIT_SUCCESS;

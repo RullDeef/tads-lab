@@ -3,7 +3,7 @@
 #include <ctype.h>
 #include <stdbool.h>
 #include "uki.h"
-#include "sparse_matrix.h"
+#include "core/matrix.h"
 #include "matrix_input.h"
 
 static bool imp__input_mat_dims(uint32_t *rows, uint32_t *cols);

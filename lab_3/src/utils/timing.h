@@ -1,8 +1,7 @@
 #ifndef __TIMING_H_
 #define __TIMING_H_
 
-// time calculations
-#include <stdint.h> // <cstdint> is preferred in C++, but stdint.h works.
+#include <stdint.h>
 
 #ifdef _MSC_VER
 #include <time.h>
@@ -13,12 +12,20 @@
 #include <x86intrin.h>
 #endif
 
-#define BEGIN_TIMER \
+#define BEGIN_TIMER                            \
+    struct timeval __timer_tv_1, __timer_tv_2; \
+    unsigned long long __timer_real;           \
+    gettimeofday(&__timer_tv_1, NULL);         \
     unsigned long long __timer_ticks = __rdtsc();
 
-#define END_TIMER \
-    __timer_ticks = __rdtsc() - __timer_ticks;
+#define END_TIMER                              \
+    __timer_ticks = __rdtsc() - __timer_ticks; \
+    gettimeofday(&__timer_tv_2, NULL);         \
+    __timer_real = 1000000 * (__timer_tv_2.tv_sec - __timer_tv_1.tv_sec) + __timer_tv_2.tv_usec - __timer_tv_1.tv_usec;
 
-#define TIMER_TICKS __timer_ticks
+#define TIMER_TICKS         __timer_ticks
+#define TIMER_NANOSECONDS   __timer_real
+#define TIMER_MILISECONDS   (__timer_real / 1e3)
+#define TIMER_SECONDS       (__timer_real / 1e6) 
 
 #endif

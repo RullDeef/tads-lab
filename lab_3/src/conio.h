@@ -3,7 +3,7 @@
 
 #include <stdbool.h>
 #include <stdint.h>
-#include "sparse_matrix.h"
+#include "core/sparse_matrix.h"
 
 void con_clear(void);
 

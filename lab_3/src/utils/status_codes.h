@@ -11,9 +11,7 @@
 
 enum
 {
-    STACK_INVALID = 2,
-    STACK_EMPTY,
-    STACK_OVERFLOW
+    MATRIX_INVALID = 2
 };
 
 #endif

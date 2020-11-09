@@ -28,7 +28,10 @@ NULL-матрица детерминируется по значению ука�
 #include <stdbool.h>
 #include <assert.h>
 
+#ifndef __MAT_ELEM_DEFINED
+#define __MAT_ELEM_DEFINED
 typedef int mat_elem_t;
+#endif
 
 #define SP_INITIAL_ALLOC_SIZE 10
 #define SP_ALLOC_MULTIPILER 1.5

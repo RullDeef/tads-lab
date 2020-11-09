@@ -2,7 +2,7 @@
 #define __MATRIX_INPUT_H_
 
 #include <stdbool.h>
-#include "sparse_matrix.h"
+#include "core/sparse_matrix.h"
 
 bool input_auto_mat_dims(uint32_t *dim1, uint32_t *dim2, uint32_t *dim3);
 

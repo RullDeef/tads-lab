@@ -42,13 +42,9 @@ int menu_mult_vec(void *data)
 
         printf("Введена матрица:\n");
         sp_print_info(&matrix);
-        // if (matrix.rows_size <= 10 && matrix.cols_size <= 10)
-        //     sp_print(&matrix);
 
         printf("\nВведен вектор:\n");
         sp_print_info(&vector);
-        // if (vector.rows_size <= 10 && vector.cols_size <= 10)
-        //     sp_print(&vector);
 
         printf("\nВыполняем умножение...\n");
         sparse_matrix_t result = sp_null_matrix();
@@ -64,8 +60,6 @@ int menu_mult_vec(void *data)
             time_1 = __rdtsc() - start;
 
             result = cv_sparse_from_dense(&res);
-            // printf("Результат умножения (плотного):\n");
-            // sp_print_info(&result);
 
             dn_free(&mat_1);
             dn_free(&mat_2);
@@ -114,12 +108,7 @@ int menu_mult_mat(void *data)
             {
                 printf("Введены матрицы:\n\n");
                 sp_print_info(&matrix_1);
-                // if (matrix_1.rows_size <= 10 && matrix_1.cols_size <= 10)
-                //     sp_print(&matrix_1);
-
                 sp_print_info(&matrix_2);
-                // if (matrix_2.rows_size <= 10 && matrix_2.cols_size <= 10)
-                //     sp_print(&matrix_2);
 
                 sparse_matrix_t result = sp_null_matrix();
                 printf("\nВыполняем умножение...\n");
@@ -135,8 +124,6 @@ int menu_mult_mat(void *data)
                     time_1 = __rdtsc() - start;
 
                     result = cv_sparse_from_dense(&res);
-                    // printf("Результат умножения (плотного):\n");
-                    // sp_print_info(&result);
 
                     dn_free(&mat_1);
                     dn_free(&mat_2);
@@ -290,7 +277,7 @@ int menu_mult_auto_dim(void *data)
     printf("Переход в режим полуавтоматического тестирования.\n");
 
     float percent;
-    if (uki_input_float_minmax("Введите процент ненулевых элементов от 0 до 100: ", "Неверный ввод", 0.0f, 100.0f, &percent))
+    if (uki_input_float_minmax("Введите процент ненулевых элементов от 1 до 100: ", "Неверный ввод\n", 0.0f, 100.0f, &percent))
     {
         // begin writing to stat file
         FILE *stats = fopen("eff_test/stats.txt", "at");
@@ -310,6 +297,9 @@ int menu_mult_auto_dim(void *data)
         unsigned long long real_1, real_2;
         for (uint32_t dims = 20; dims <= 200; dims += 20)
         {
+            printf("%3d%%...", (int)(dims / 2.2));
+            fflush(stdout);
+
             sparse_matrix_t matrix_1 = sp_create(dims, dims);
             sparse_matrix_t matrix_2 = sp_create(dims, dims);
 
@@ -358,7 +348,10 @@ int menu_mult_auto_dim(void *data)
             sp_free(&result);
 
             // output data to stats file
-            fprintf(stats, "%u %f %Lf\n", dims, percent, eff);
+            // fprintf(stats, "%u %f %Lf\n", dims, percent, eff);
+
+            printf("\b\b\b\b\b\b\b       \b\b\b\b\b\b\b");
+            fflush(stdout);
         }
 
         uki_table_print(&table);
@@ -421,9 +414,7 @@ int menu_show_table(void *data)
             sp_randomize(&matrix_1, percent / 100.0f);
             sp_randomize(&matrix_2, percent / 100.0f);
 
-            // struct timeval real_time_1_tv, real_time_2_tv;
             unsigned long long time_1, time_2;
-            // unsigned long long real_1, real_2;
 
             // slow method
             { // dense variant
@@ -431,12 +422,9 @@ int menu_show_table(void *data)
                 dense_matrix_t mat_2 = cv_dense_from_sparse(&matrix_2);
                 dense_matrix_t res = dn_null_matrix();
 
-                // gettimeofday(&real_time_1_tv, NULL);
                 time_1 = __rdtsc();
                 dn_mult_matrix(&mat_1, &mat_2, &res);
                 time_1 = __rdtsc() - time_1;
-                // gettimeofday(&real_time_2_tv, NULL);
-                // real_1 = 1000000LL * (real_time_2_tv.tv_sec - real_time_1_tv.tv_sec) + (long long)real_time_2_tv.tv_usec - real_time_1_tv.tv_usec;
 
                 dn_free(&mat_1);
                 dn_free(&mat_2);
@@ -444,12 +432,9 @@ int menu_show_table(void *data)
             }
 
             // fast method
-            // gettimeofday(&real_time_1_tv, NULL);
             time_2 = __rdtsc();
             sp_mult_matrix(&matrix_1, &matrix_2, &result);
             time_2 = __rdtsc() - time_2;
-            // gettimeofday(&real_time_2_tv, NULL);
-            // real_2 = 1000000LL * (real_time_2_tv.tv_sec - real_time_1_tv.tv_sec) + (long long)real_time_2_tv.tv_usec - real_time_1_tv.tv_usec;
 
             // calc efficiency
             long double eff = ((long double)time_1 - time_2) / time_1 * 100.0f;

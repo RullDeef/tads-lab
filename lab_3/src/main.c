@@ -132,7 +132,7 @@ int menu_show_table(void *data)
     const uint32_t dim_delta = 50;
     const uint32_t pc_delta = 5;
 
-    const uint32_t rows = 6, cols = 7;
+    const uint32_t rows = 8, cols = 7;
 
     uki_table_t table = uki_table_create(1 + rows, 1 + cols, "efficiency table (%)");
     uki_table_set(&table, 0, 0, "dims\\sparse %");
@@ -203,11 +203,11 @@ int menu_exit(void *data)
 
 int main(void)
 {
-    uki_menu_t menu = uki_menu_create("Меню", 5,
+    uki_menu_t menu = uki_menu_create("Меню", 4,
         "Умножение матрицы на вектор", menu_mult_vec,
         "Умножение матрицы на матрицу", menu_mult_mat,
         "Отображение таблицы для сравнения эффективности", menu_show_table,
-        "Отображение графика всех ранее полученных результатов", menu_show_graph,
+        /* "Отображение графика всех ранее полученных результатов", menu_show_graph, */
         "Выход", menu_exit);
 
     uki_menu_run(&menu, NULL);

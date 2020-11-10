@@ -42,6 +42,11 @@ void alw_handle_pop(struct addr_list_wrapper *alw, struct stack *st)
     node->reused = false;
 }
 
+void alw_handle_clear(struct addr_list_wrapper *alw)
+{
+    alw->list.size = 0;
+}
+
 static void print_addr(void *addr, bool used, bool reused)
 {
     int int_addr = (int64_t)addr & 0xFFFF;

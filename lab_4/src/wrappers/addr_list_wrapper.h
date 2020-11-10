@@ -15,6 +15,8 @@ void alw_destroy(struct addr_list_wrapper *alw);
 void alw_handle_push(struct addr_list_wrapper *alw, struct stack *st);
 void alw_handle_pop(struct addr_list_wrapper *alw, struct stack *st);
 
+void alw_handle_clear(struct addr_list_wrapper *alw);
+
 void alw_show(struct addr_list_wrapper *alw);
 
 #endif

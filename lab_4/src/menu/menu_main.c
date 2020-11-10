@@ -1,10 +1,13 @@
+#include "utils/colors.h"
 #include "menu/menu.h"
 
-#define PROG_INTRO      "    \033[32;1;4mЛабораторная работа №4 по типам и структурам данных.\033[0m\n\n" \
+#define PROG_INTRO      "    " CLR_BR_GREEN_U "Лабораторная работа №4 по типам и структурам данных." CLR_RESET "\n" \
+                        "\n" \
                         "Список доступных комманд:\n" \
                         "    manual     ручной режим\n" \
-                        "    exit       выйти из программы\n\n" \
-                        "Более подробно можно узнать о команде, набрав 'help <название команды>'."
+                        "    auto       автоматический режим\n" \
+                        "    exit       выход из программы\n\n" \
+                        "Более подробно можно узнать о команде, набрав " CLR_EMPH "'help <название команды>'" CLR_RESET "."
 
 #define CMD_MANUAL_HELP "Перейти в режим тестирования стека в ручную " \
                         "с возможностью просматривать содержимое стека."
@@ -21,7 +24,7 @@ static int __menu_exit(cmdf_arglist *arglist)
 
 int menu_main(void)
 {
-    cmdf_init("\033[96;1;4mmain>\033[0m ", PROG_INTRO, DOC_HEADER, UNDOC_HEADER, '~', 0);
+    cmdf_init(CLR_BR_CYAN_U "main>" CLR_RESET " ", PROG_INTRO, DOC_HEADER, UNDOC_HEADER, '~', 0);
 
     /* Register our custom commands */
     cmdf_register_command(__menu_exit, "exit", CMD_EXIT_HELP);

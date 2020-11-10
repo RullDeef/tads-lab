@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <assert.h>
+#include "utils/colors.h"
 #include "utils/status_codes.h"
 #include "utils/str_parser.h"
 #include "wrappers/stack_wrapper.h"
@@ -153,17 +154,17 @@ static bool all_types_valid(char **argv)
 int menu_manual(cmdf_arglist *arglist)
 {
     if (!arglist || arglist->count != 3 || !all_types_valid(arglist->args))
-        printf("Введите \033[37;1;4m\"manual X X X\"\033[0m, где X - A или L - реализация стека.\n");
+        printf("Введите " CLR_EMPH "\"manual X X X\"" CLR_RESET ", где X - A или L - реализация стека.\n");
     else
     {
         printf("\n    Переход в режим ручного тестирования...");
 
         // init module variables
-        sw_a = sw_wrap("\033[37;1;4mA\033[0m", st_create(get_type(arglist->args[0])));
-        sw_b = sw_wrap("\033[37;1;4mB\033[0m", st_create(get_type(arglist->args[1])));
-        sw_c = sw_wrap("\033[37;1;4mрезультат\033[0m", st_create(get_type(arglist->args[2])));
+        sw_a = sw_wrap(CLR_EMPH "A" CLR_RESET, st_create(get_type(arglist->args[0])));
+        sw_b = sw_wrap(CLR_EMPH "B" CLR_RESET, st_create(get_type(arglist->args[1])));
+        sw_c = sw_wrap(CLR_EMPH "результат" CLR_RESET, st_create(get_type(arglist->args[2])));
 
-        cmdf_init("\033[96;1;4mmain/manual>\033[0m ", NULL, DOC_HEADER, UNDOC_HEADER, '~', 0);
+        cmdf_init(CLR_BR_CYAN_U "main/manual>" CLR_RESET " ", NULL, DOC_HEADER, UNDOC_HEADER, '~', 0);
 
         cmdf_register_command(manual_back, "back", CMD_BACK_HELP);
         cmdf_register_command(manual_push, "push", CMD_PUSH_HELP);

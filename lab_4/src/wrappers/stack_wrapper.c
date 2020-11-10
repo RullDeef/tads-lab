@@ -61,6 +61,12 @@ int sw_merge(struct stack_wrapper *sw_out, struct stack_wrapper *sw_a, struct st
     struct stack *a = &sw_a->stack;
     struct stack *b = &sw_b->stack;
 
+    if (sw_a->stack.__type == STACK_TYPE_LINKED_LIST)
+        alw_handle_clear(&sw_a->alw);
+
+    if (sw_b->stack.__type == STACK_TYPE_LINKED_LIST)
+        alw_handle_clear(&sw_b->alw);
+
     BEGIN_TIMER
     result = st_merge(out, a, b);
     END_TIMER

@@ -15,7 +15,7 @@ dense_matrix_t dn_null_matrix(void)
 
 dense_matrix_t dn_create(uint32_t rows, uint32_t cols)
 {
-    dense_matrix_t matrix;
+    dense_matrix_t matrix = dn_null_matrix();
 
     if (rows > 0 && cols > 0)
     {

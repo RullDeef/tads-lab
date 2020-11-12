@@ -84,7 +84,7 @@ sparse_matrix_t input_vector(uint32_t size)
 
     uint32_t row;
     int value;
-    while (!imp__input_duplet(&row, &value))
+    while (!imp__input_duplet(&row, &value) && 0 < row && row <= vector.rows_size)
         sp_set(&vector, row - 1, 0, value);
 
     return vector;
@@ -119,28 +119,28 @@ static bool imp__input_triplet(uint32_t *row, uint32_t *col, int *value)
 {
     char line[256];
     if (fgets(line, 256, stdin) == NULL)
-        return -1;
+        return false;
 
     char *start = line;
     char *end = NULL;
     *row = strtoul(start, &end, 10);
     if (end == start)
-        return -1;
+        return false;
 
     start = end;
     *col = strtoul(start, &end, 10);
     if (end == start)
-        return -1;
+        return false;
 
     start = end;
     *value = strtod(start, &end);
     if (end == start)
-        return -1;
+        return false;
     
     if (*row == 0 || *col == 0)
-        return -1;
+        return false;
 
-    return 0;
+    return true;
 }
 
 static bool imp__input_duplet(uint32_t *row, int *value)
@@ -315,7 +315,7 @@ static sparse_matrix_t imp__input_matrix_auto(void)
                                 "Число строк должно быть положительным.\n", 1, 1 << 20, &rows) &&
         uki_input_uint32_minmax("Введите число столбцов матрицы: ",
                                 "Число столбцов должно быть положительным.\n", 1, 1 << 20, &cols) &&
-        imp__input_percent_bounds("Введите процент ненулевых элементов от 0 до 100 (и минимальный и максимальный элементы, если нужно): ",
+        imp__input_percent_bounds("Введите процент ненулевых элементов от 0 до 100: ",
                                   "Неверный ввод.\n", &percent, &min_elem, &max_elem))
     {
         matrix = sp_create(rows, cols);

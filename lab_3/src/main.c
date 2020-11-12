@@ -48,7 +48,7 @@ int menu_mult_vec(void *data)
 
             printf("\nВремя обычного умножения: %llu тактов.\n", time_1);
             printf("Время специального умножения: %llu тактов.\n", time_2);
-            printf("Эффективность: %.2f%%\n\n", (100.0f * ((float)time_1 - time_2) / (time_1)));
+            printf("Эффективность по времени: %.2f%%\n\n", (100.0f * ((float)time_1 - time_2) / (time_1)));
         }
 
         sp_free(&result);
@@ -134,7 +134,7 @@ int menu_show_table(void *data)
 
     const uint32_t rows = 8, cols = 7;
 
-    uki_table_t table = uki_table_create(1 + rows, 1 + cols, "efficiency table (%)");
+    uki_table_t table = uki_table_create(1 + rows, 1 + cols, "speed efficiency table (%)");
     uki_table_set(&table, 0, 0, "dims\\sparse %");
 
     for (uint32_t col = 1; col <= cols; col++)
@@ -164,10 +164,10 @@ int menu_show_table(void *data)
             mult_mats(&matrix_1, &matrix_2, &result, &time_1, &time_2, NULL, NULL);
 
             // calc efficiency
-            long double eff = ((long double)time_1 - time_2) / time_1 * 100.0f;
+            float eff_speed = ((float)time_1 - time_2) / time_1 * 100.0f;
 
             // print it on table
-            uki_table_set_fmt(&table, row, col, "%5.2Lf", eff);
+            uki_table_set_fmt(&table, row, col, "%5.2f", eff_speed);
 
             sp_free(&matrix_1);
             sp_free(&matrix_2);
@@ -188,6 +188,66 @@ int menu_show_table(void *data)
     return 0;
 }
 
+int menu_show_table_mem(void *data)
+{
+    (void)data;
+    printf("Переход в режим вывода таблицы.\n");
+
+    const uint32_t row_delta = 50;
+    const uint32_t col_delta = 50;
+
+    const uint32_t rows = 20, cols = 20;
+
+    uki_table_t table = uki_table_create(1 + rows, 1 + cols, "memory efficiency table (%)");
+    uki_table_set(&table, 0, 0, "N\\M");
+
+    for (uint32_t col = 1; col <= cols; col++)
+        uki_table_set_fmt(&table, 0, col, "[%d]", col_delta * col);
+
+    for (uint32_t row = 1; row <= rows; row++)
+        uki_table_set_fmt(&table, row, 0, "[%d]", row_delta * row);
+
+    FILE *out = fopen("./eff_test/stats2.txt", "wt");
+    for (uint32_t row = 1; row <= rows; row++)
+    {
+        for (uint32_t col = 1; col <= cols; col++)
+        {
+            printf("%3d%%...", 100 * (col + row * (cols + 1)) / ((rows + 1) * (cols + 1)));
+            fflush(stdout);
+
+            uint32_t real_row = row * row_delta;
+            uint32_t real_col = col * col_delta;
+
+            float prev_eff;
+            float percent;
+            float eff = 0.0;
+            
+            for (percent = 0.0f; percent < 1.0f; percent += 0.0001f)
+            {
+                prev_eff = eff;
+
+                // calc efficiency
+                eff = mat_mem_eff(real_row, real_col, percent);
+
+                if (percent > 0.0f && (eff * prev_eff <= 0.0f))
+                    break;
+            }
+
+            // print it on table
+            uki_table_set_fmt(&table, row, col, "%5.2f", 100.0f * percent);
+            fprintf(out, "%d %d %f\n", real_row, real_col, percent);
+
+            printf("\b\b\b\b\b\b\b       \b\b\b\b\b\b\b");
+            fflush(stdout);
+        }
+    }
+    fclose(out);
+
+    uki_table_print(&table);
+
+    return 0;
+}
+
 int menu_show_graph(void *data)
 {
     (void)data;
@@ -203,10 +263,11 @@ int menu_exit(void *data)
 
 int main(void)
 {
-    uki_menu_t menu = uki_menu_create("Меню", 4,
+    uki_menu_t menu = uki_menu_create("Меню", 5,
         "Умножение матрицы на вектор", menu_mult_vec,
         "Умножение матрицы на матрицу", menu_mult_mat,
-        "Отображение таблицы для сравнения эффективности", menu_show_table,
+        "Отображение таблицы для сравнения эффективности по времени", menu_show_table,
+        "Отображение таблицы для сравнения эффективности по памяти", menu_show_table_mem,
         /* "Отображение графика всех ранее полученных результатов", menu_show_graph, */
         "Выход", menu_exit);
 

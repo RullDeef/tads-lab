@@ -412,6 +412,12 @@ void sp_randomize(sparse_matrix_t *matrix, float nz_percent)
         mat_elem_t value = rand() % 99 - 49;
         if (value <= 0)
             value--;
+
+        if (row >= matrix->rows_size)
+            row = matrix->rows_size - 1;
+        if (col >= matrix->cols_size)
+            col = matrix->cols_size - 1;
+
         sp_set(matrix, row, col, value);
     }
 
@@ -544,7 +550,8 @@ int sp_mult_matrix(const sparse_matrix_t *matrix_1, const sparse_matrix_t *matri
         return BAD_DIMENSIONS;
 
     // WARNING: assuming no bad allocs here
-    sp_recreate(out, matrix_1->cols_size, matrix_2->cols_size);
+    if (!sp_recreate(out, matrix_1->cols_size, matrix_2->cols_size))
+        return EXIT_FAILURE;
 
     uint32_t index_out = 0;
 
@@ -659,7 +666,7 @@ void sp_print_info(const sparse_matrix_t *matrix)
     if (matrix->nonzero_size <= 11)
     {
         for (uint32_t i = 0; i < matrix->nonzero_size; i++)
-            printf(" %5d", matrix->nonzero_array[i]);
+            printf(" %5d", matrix->rows[i]);
     }
     else
     {
@@ -693,7 +700,7 @@ void sp_print_info(const sparse_matrix_t *matrix)
                 printf(" %d", matrix->cols[i]);
         }
     }
-    if (matrix->rows_size <= 10 && matrix->cols_size <= 10)
+    if (matrix->rows_size <= 12 && matrix->cols_size <= 12)
     {
         printf("\n[В обычном виде:]\n");
         sp_print(matrix);

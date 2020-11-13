@@ -15,18 +15,48 @@ typedef struct
     time_interval_t t_out1;
     time_interval_t t_in2;
     time_interval_t t_out2;
-
-    time_interval_t t_proc;
 } worker_params_t;
+
+typedef struct
+{
+    float total_push_time;
+    float total_pop_time;
+
+    unsigned long long total_push_us;
+    unsigned long long total_pop_us;
+
+    float avg_push_time;
+    float avg_pop_time;
+
+    uint32_t total_push_amount;
+    uint32_t total_pop_amount;
+    uint32_t avg_push_ns;
+    uint32_t avg_pop_ns;
+
+    uint32_t max_size;
+    uint32_t curr_size;
+} queue_stats_t;
+
+typedef struct
+{
+    float time;
+    float work_time;
+    uint32_t request_index;
+
+    // сколько заявок из 2 очереди было выброшено
+    uint32_t request_dismissed;
+
+    queue_stats_t qu1;
+    queue_stats_t qu2;
+} worker_stats_t;
 
 struct worker
 {
-    float time;
-
     struct queue qu1;
     struct queue qu2;
 
     worker_params_t params;
+    worker_stats_t stats;
 };
 
 struct worker wk_create(queue_imp_t imp_qu1, queue_imp_t imp_qu2, uint32_t qu_capacity);
@@ -35,6 +65,6 @@ void wk_destroy(struct worker *wk);
 worker_params_t wk_default_params(void);
 
 // Моделирует ОА до времени полной обработки requests_amount заявок первого типа.
-void wk_model_run(struct worker *wk, uint32_t requests_amount);
+int wk_model_run(struct worker *wk, uint32_t requests_amount);
 
 #endif

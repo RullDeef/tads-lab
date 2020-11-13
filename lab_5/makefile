@@ -1,6 +1,8 @@
 CC = gcc
-CFLAGS := -std=gnu99 -Wall -Werror -pedantic -Wextra -ggdb3 -g \
-	-Isrc -Ivendor/uki/include -Ivendor/libcmdf/include 
+CFLAGS := -std=gnu99 -Wall -Werror -pedantic -Wextra \
+	-Wuninitialized \
+	-Isrc -Ivendor/uki/include -Ivendor/libcmdf/include \
+	-ggdb3 -g
 # LFLAGS := -Lvendor/uki/lib -luki
 
 SRCFILES := $(shell find src -name *.c)

@@ -31,7 +31,7 @@ int qua_push_back(struct queue_arr *qua, qdata_t value)
 {
     int status = EXIT_FAILURE;
 
-    if (qua->first != qua->last || qua->size == 0U)
+    if (qua->size < qua->capacity)
     {
         status = EXIT_SUCCESS;
 
@@ -40,6 +40,8 @@ int qua_push_back(struct queue_arr *qua, qdata_t value)
 
         if (qua->last == qua->end)
             qua->last = qua->begin;
+
+        qua->size++;
     }
 
     return status;
@@ -49,7 +51,7 @@ int qua_pop_front(struct queue_arr *qua, qdata_t *value)
 {
     int status = EXIT_FAILURE;
 
-    if (qua->first != qua->last || qua->size > 0U)
+    if (qua->size > 0U)
     {
         status = EXIT_SUCCESS;
 
@@ -58,6 +60,8 @@ int qua_pop_front(struct queue_arr *qua, qdata_t *value)
 
         if (qua->first == qua->end)
             qua->first = qua->begin;
+
+        qua->size--;
     }
 
     return status;

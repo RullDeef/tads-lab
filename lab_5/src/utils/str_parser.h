@@ -7,4 +7,6 @@
 int parse_int32(const char *str, int32_t *value);
 bool parse_all_int32(char **str_arr, uint32_t len);
 
+int parse_float(const char *str, float *value);
+
 #endif

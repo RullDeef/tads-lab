@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include "utils/colors.h"
+#include "utils/str_parser.h"
 #include "core/worker.h"
 #include "menu/menu.h"
 
@@ -30,24 +31,44 @@ static int config_reset(cmdf_arglist *arglist)
     return EXIT_SUCCESS;
 }
 
-static int parse_arglist(cmdf_arglist *arglist)
+static int parse_arglist_offset(const char *str, size_t *offset)
 {
-    (void)arglist;
+    if (strcmp(str, "a") == 0 || strcmp(str, "A") == 0)
+        *offset = 0;
+    else if (strcmp(str, "b") == 0 || strcmp(str, "B") == 0)
+        *offset = 1;
+    else if (strcmp(str, "c") == 0 || strcmp(str, "C") == 0)
+        *offset = 2;
+    else if (strcmp(str, "d") == 0 || strcmp(str, "D") == 0)
+        *offset = 3;
+    else
+        return EXIT_FAILURE;
+
     return EXIT_SUCCESS;
 }
 
 static int config_set(cmdf_arglist *arglist)
 {
-    if (!arglist || arglist->count != 3)
+    size_t offset;
+    float begin;
+    float end;
+
+    if (!arglist || arglist->count != 3 || parse_arglist_offset(arglist->args[0], &offset) ||
+        parse_float(arglist->args[1], &begin) || parse_float(arglist->args[2], &end))
     {
         printf("Использование: " CLR_EMPH "set [имя параметра] [начало] [конец]" CLR_RESET ", где\n");
-        printf("    имя параметра - одно из ...,\n");
+        printf("    имя параметра - одно из " CLR_BR_GREEN_U "a" CLR_RESET ", " CLR_BR_GREEN_U "b" CLR_RESET ", " CLR_BR_GREEN_U "c" CLR_RESET " или " CLR_BR_GREEN_U "d" CLR_RESET ",\n");
         printf("    начало и конец - вещественные числа в единицах времени.\n");
     }
+    else if (begin < 0.0f || end < 0.0f)
+        printf("Значения времени не могут быть отрицательными\n");
+    else if (begin > end)
+        printf("Начальное значение времени не может быть больше конечного.\n");
     else
     {
-        int parse_result = parse_arglist(arglist);
-        (void)parse_result;
+        time_interval_t *intv = &(wk_params.t_in1) + offset;
+        intv->begin = begin;
+        intv->end = end;
     }
 
     return EXIT_SUCCESS;
@@ -59,7 +80,15 @@ static int config_show(cmdf_arglist *arglist)
         printf("Для данной команды не нужны дополнительные аргументы.\n");
     else
     {
-
+        printf("\n  " CLR_BR_YELLOW_U "Параметры моделирования:" CLR_RESET "\n");
+        printf("    [a] " CLR_BR_CYAN_U "%g..%g" CLR_RESET " е.в. - время прихода заявки в первую очередь.\n",
+            wk_params.t_in1.begin, wk_params.t_in1.end);
+        printf("    [b] " CLR_BR_CYAN_U "%g..%g" CLR_RESET " е.в. - время прихода заявки во вторую очередь.\n",
+            wk_params.t_in2.begin, wk_params.t_in2.end);
+        printf("    [с] " CLR_BR_CYAN_U "%g..%g" CLR_RESET " е.в. - время обработки заявки из первой очереди.\n",
+            wk_params.t_out1.begin, wk_params.t_out1.end);
+        printf("    [d] " CLR_BR_CYAN_U "%g..%g" CLR_RESET " е.в. - время обработки заявки из второй очереди.\n\n",
+            wk_params.t_out2.begin, wk_params.t_out2.end);
     }
     
     return EXIT_SUCCESS;

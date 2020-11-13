@@ -37,3 +37,26 @@ bool parse_all_int32(char **str_arr, uint32_t len)
 
     return true;
 }
+
+int parse_float(const char *str, float *value)
+{
+
+    while (*str != '\0' && isspace((int)*str))
+        str++;
+
+    if (*str == '\0')
+        return EXIT_FAILURE;
+
+    char *end = NULL;
+    *value = strtof(str, &end);
+
+    if (end == NULL)
+        return EXIT_FAILURE;
+
+    while (*end != '\0' && isspace((int)*end))
+        end++;
+
+    if (*end == '\0')
+        return EXIT_SUCCESS;
+    return EXIT_FAILURE;
+}

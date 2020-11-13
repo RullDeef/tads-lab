@@ -26,7 +26,7 @@
 #define UKI_FMT_STR_BUF_LEN         20
 
 #define UKI_TABLE_MAX_ROWS          100
-#define UKI_TABLE_MAX_COLS          20
+#define UKI_TABLE_MAX_COLS          30
 #define UKI_TABLE_TITLE_BUF_LEN     255
 #define UKI_TABLE_STR_BUF_LEN       64
 

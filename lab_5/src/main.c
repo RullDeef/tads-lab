@@ -3,6 +3,6 @@
 
 int main(void)
 {
-    // stdin = freopen("in.txt", "rt", stdin);
+    stdin = freopen("in.txt", "rt", stdin);
     return menu_main();
 }

@@ -5,7 +5,7 @@
 
 static float get_random_time(time_interval_t tv)
 {
-    float t = (rand() % 101) / 100.0f;
+    float t = (rand() % 1001) / 1000.0f;
     return tv.begin + (tv.end - tv.begin) * t;
 }
 
@@ -23,6 +23,8 @@ static worker_stats_t wk_start_stats(void)
     stats.time = 0.0f;
     stats.work_time = 0.0f;
     stats.request_index = 0U;
+    stats.requests_1 = 0U;
+    stats.requests_2 = 0U;
     stats.request_dismissed = 0U;
     stats.qu1 = qu_start_stats();
     stats.qu2 = qu_start_stats();
@@ -77,7 +79,11 @@ static int model_req1_arrive(struct worker *wk)
 
     wk->stats.qu1.total_push_amount++;
     wk->stats.qu1.total_push_us += TIMER_MICROSECONDS;
+    wk->stats.qu1.curr_size = qu_get_size(&wk->qu1);
+    if (wk->stats.qu1.max_size < wk->stats.qu1.curr_size)
+        wk->stats.qu1.max_size = wk->stats.qu1.curr_size;
     wk->stats.request_index++;
+    wk->stats.requests_1++;
 
     return status;
 }
@@ -92,7 +98,11 @@ static int model_req2_arrive(struct worker *wk)
 
     wk->stats.qu2.total_push_amount++;
     wk->stats.qu2.total_push_us += TIMER_MICROSECONDS;
+    wk->stats.qu2.curr_size = qu_get_size(&wk->qu2);
+    if (wk->stats.qu2.max_size < wk->stats.qu2.curr_size)
+        wk->stats.qu2.max_size = wk->stats.qu2.curr_size;
     wk->stats.request_index++;
+    wk->stats.requests_2++;
 
     return status;
 }
@@ -119,6 +129,8 @@ static int model_proc_next_req(struct worker *wk, qdata_t *value)
         wk->stats.qu2.total_pop_us += TIMER_MICROSECONDS;
         *value = 2U;
     }
+    else
+        *value = 0U;
 
     return status;
 }
@@ -137,8 +149,8 @@ int wk_model_run(struct worker *wk, uint32_t requests_amount)
     float curr_proc_time = 0.0f;
     qdata_t curr_request = 0U; // 1 - из первой очереди, 2 - из второй
 
-    wk->stats.qu1.total_push_time += next_req1_time;
-    wk->stats.qu2.total_push_time += next_req2_time;
+    // wk->stats.qu1.total_push_time += next_req1_time;
+    // wk->stats.qu2.total_push_time += next_req2_time;
 
     while (status == EXIT_SUCCESS && requests_amount > 0U)
     {
@@ -190,22 +202,34 @@ int wk_model_run(struct worker *wk, uint32_t requests_amount)
         wk->stats.time += delta;
     }
 
-    wk->stats.qu1.total_push_time -= next_req1_time;
-    wk->stats.qu2.total_push_time -= next_req2_time;
+    // wk->stats.qu1.total_push_time -= next_req1_time;
+    // wk->stats.qu2.total_push_time -= next_req2_time;
     wk->stats.work_time -= curr_proc_time;
 
     // обновить средние статистические показатели
-    wk->stats.qu1.avg_push_time = wk->stats.qu1.total_push_time / wk->stats.qu1.total_push_amount;
-    wk->stats.qu1.avg_pop_time = wk->stats.qu1.total_pop_time / wk->stats.qu1.total_pop_amount;
+    if (wk->stats.qu1.total_push_amount != 0.0f)
+        wk->stats.qu1.avg_push_time = wk->stats.qu1.total_push_time / wk->stats.qu1.total_push_amount;
+    if (wk->stats.qu1.total_pop_amount != 0.0f)
+        wk->stats.qu1.avg_pop_time = wk->stats.qu1.total_pop_time / wk->stats.qu1.total_pop_amount;
 
-    wk->stats.qu2.avg_push_time = wk->stats.qu2.total_push_time / wk->stats.qu2.total_push_amount;
-    wk->stats.qu2.avg_pop_time = wk->stats.qu2.total_pop_time / wk->stats.qu2.total_pop_amount;
+    if (wk->stats.qu2.total_push_amount != 0.0f)
+        wk->stats.qu2.avg_push_time = wk->stats.qu2.total_push_time / wk->stats.qu2.total_push_amount;
+    if (wk->stats.qu2.total_pop_amount != 0.0f)
+        wk->stats.qu2.avg_pop_time = wk->stats.qu2.total_pop_time / wk->stats.qu2.total_pop_amount;
 
-    wk->stats.qu1.avg_push_ns = 1000U * wk->stats.qu1.total_push_us / wk->stats.qu1.total_push_amount;
-    wk->stats.qu1.avg_pop_ns = 1000U * wk->stats.qu1.total_pop_us / wk->stats.qu1.total_pop_amount;
+    wk->stats.qu1.curr_size = qu_get_size(&wk->qu1);
 
-    wk->stats.qu2.avg_push_ns = 1000U * wk->stats.qu2.total_push_us / wk->stats.qu2.total_push_amount;
-    wk->stats.qu2.avg_pop_ns = 1000U * wk->stats.qu2.total_pop_us / wk->stats.qu2.total_pop_amount;
+    if (wk->stats.qu1.total_push_amount != 0.0f)
+        wk->stats.qu1.avg_push_ns = 1000U * wk->stats.qu1.total_push_us / wk->stats.qu1.total_push_amount;
+    if (wk->stats.qu1.total_pop_amount != 0.0f)
+        wk->stats.qu1.avg_pop_ns = 1000U * wk->stats.qu1.total_pop_us / wk->stats.qu1.total_pop_amount;
+
+    if (wk->stats.qu2.total_push_amount != 0.0f)
+        wk->stats.qu2.avg_push_ns = 1000U * wk->stats.qu2.total_push_us / wk->stats.qu2.total_push_amount;
+    if (wk->stats.qu2.total_pop_amount != 0.0f)
+        wk->stats.qu2.avg_pop_ns = 1000U * wk->stats.qu2.total_pop_us / wk->stats.qu2.total_pop_amount;
+
+    wk->stats.qu2.curr_size = qu_get_size(&wk->qu2);
 
     return status;
 }

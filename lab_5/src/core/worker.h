@@ -12,8 +12,8 @@ typedef struct
 typedef struct
 {
     time_interval_t t_in1;
-    time_interval_t t_out1;
     time_interval_t t_in2;
+    time_interval_t t_out1;
     time_interval_t t_out2;
 } worker_params_t;
 
@@ -42,6 +42,9 @@ typedef struct
     float time;
     float work_time;
     uint32_t request_index;
+
+    uint32_t requests_1;
+    uint32_t requests_2;
 
     // сколько заявок из 2 очереди было выброшено
     uint32_t request_dismissed;

@@ -1,0 +1,9 @@
+config
+set a 3 3
+set b 2 2
+set c 2 2
+set d 1 1
+show
+back
+run a a
+exit

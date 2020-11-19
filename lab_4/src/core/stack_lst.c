@@ -24,6 +24,14 @@ int st_lst_push(struct stack_lst *sl, int32_t value)
     struct __st_lst_node *new_top = malloc(sizeof(struct __st_lst_node));
     if (new_top == NULL)
         return STACK_OVERFLOW;
+
+    // simulate overflow
+    if (sl->top != NULL && new_top > sl->top + SL_MAX_ADDR_OFFSET)
+    {
+        free(new_top);
+        return STACK_OVERFLOW;
+    }
+    
     new_top->data = value;
     new_top->prev = sl->top;
     sl->top = new_top;

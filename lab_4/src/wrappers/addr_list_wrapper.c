@@ -57,7 +57,7 @@ static void print_addr(void *addr, bool used, bool reused)
     else
         printf("\033[32;1;1m");
 
-    printf(" %s %05d (%d)\n", used ? ">" : " ", int_addr, ((struct __st_lst_node *)addr)->data);
+    printf(" %s 0x%04x (%d)\n", used ? ">" : " ", int_addr, ((struct __st_lst_node *)addr)->data);
     printf("\033[0m");
 }
 

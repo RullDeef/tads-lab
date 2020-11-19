@@ -4,6 +4,7 @@
 #include <stdint.h>
 
 #define SA_INIT_CAPACITY 10U
+#define SA_MAX_CAPACITY 15U
 #define SA_REALLOC_MULTIPLIER 1.2
 
 struct stack_arr

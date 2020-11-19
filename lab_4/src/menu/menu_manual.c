@@ -54,14 +54,24 @@ static int manual_push(cmdf_arglist *arglist)
         else
         {
             int32_t value = 0;
+            int not_pushed = 0;
             for (uint32_t i = 1; i < arglist->count; i++)
             {
                 if (parse_int32(arglist->args[i], &value) == EXIT_FAILURE)
                     assert(0);
-                else
-                    sw_push(sw, value, NULL);
+                else if (sw_push(sw, value, NULL) != EXIT_SUCCESS)
+                {
+                    not_pushed = 1;
+                    break;
+                }
             }
-            printf("Введёные числа добавлены в стек '%s'.\n\n", sw->name);
+            if (not_pushed != 0)
+            {
+                printf("На этапе ввода числа %d в стек '%s' произошло переполнение.\n", value, sw->name);
+                printf("Число %d и последующие за ним (если были) не попали в стек.\n\n", value);
+            }
+            else
+                printf("Введёные числа добавлены в стек '%s'.\n\n", sw->name);
         }
     }
 
@@ -120,13 +130,25 @@ static int manual_merge(cmdf_arglist *arglist)
     else
     {
         size_t time;
-        if (sw_merge(&sw_c, &sw_a, &sw_b, &time) != EXIT_SUCCESS)
-            printf("Не удалось выполнить слияние стеков.\n\n");
-        else
+        int status = sw_merge(&sw_c, &sw_a, &sw_b, &time);
+        if (status == EXIT_SUCCESS)
         {
             printf("Слияние стеков выполнено успешно! (время: %lu тиков)\n", time);
             sw_show(&sw_c);
         }
+        else if (status == STACK_OVERFLOW)
+        {
+            printf("Не удалось выполнить слияние стеков (переполнение стека).\n\n");
+            sw_show(&sw_a);
+            sw_show(&sw_b);
+            sw_show(&sw_c);
+
+            int32_t value;
+            while (st_pop(&sw_a.stack, &value) == EXIT_SUCCESS);
+            while (st_pop(&sw_b.stack, &value) == EXIT_SUCCESS);
+        }
+        else
+            printf("Не удалось выполнить слияние стеков.\n\n");
     }
 
     return EXIT_SUCCESS;

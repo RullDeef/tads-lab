@@ -28,9 +28,14 @@ int st_arr_push(struct stack_arr *sa, int32_t value)
     if (sa->__data == NULL || sa->top == NULL)
         return STACK_INVALID;
     
+    if (sa->size + 1 > SA_MAX_CAPACITY) // simulate overflow
+        return STACK_OVERFLOW;
+
     if (sa->size + 1 > sa->__capacity) // resize
     {
         uint32_t new_capacity = (sa->size + 1) * SA_REALLOC_MULTIPLIER;
+        if (new_capacity > SA_MAX_CAPACITY)
+            new_capacity = SA_MAX_CAPACITY;
         int32_t *new_data = realloc(sa->__data, new_capacity * sizeof(int32_t));
         if (new_data == NULL)
         {

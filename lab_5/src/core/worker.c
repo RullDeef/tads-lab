@@ -135,6 +135,25 @@ static int model_proc_next_req(struct worker *wk, qdata_t *value)
     return status;
 }
 
+static queue_stats_t update_qu_stats(struct queue *qu, queue_stats_t stats)
+{
+    if (stats.total_push_amount != 0U)
+        stats.avg_push_time = stats.total_push_time / stats.total_push_amount;
+    if (stats.total_pop_amount != 0U)
+        stats.avg_pop_time = stats.total_pop_time / stats.total_pop_amount;
+
+    if (stats.total_push_amount != 0U)
+        stats.avg_push_ns = 1000U * stats.total_push_us / stats.total_push_amount;
+    if (stats.total_pop_amount != 0U)
+        stats.avg_pop_ns = 1000U * stats.total_pop_us / stats.total_pop_amount;
+
+    if (stats.total_push_amount != 0U) 
+        stats.avg_wait_time = stats.total_wait_time / stats.total_push_amount;
+
+    stats.curr_size = qu_get_size(qu);
+    return stats;
+}
+
 // Моделирует ОА до времени полной обработки requests_amount заявок первого типа.
 int wk_model_run(struct worker *wk, uint32_t requests_amount)
 {
@@ -196,6 +215,9 @@ int wk_model_run(struct worker *wk, uint32_t requests_amount)
         next_req2_time -= delta;
         curr_proc_time -= delta;
 
+        wk->stats.qu1.total_wait_time += wk->stats.qu1.curr_size * delta;
+        wk->stats.qu2.total_wait_time += wk->stats.qu2.curr_size * delta;
+
         wk->stats.time += delta;
     }
 
@@ -204,29 +226,8 @@ int wk_model_run(struct worker *wk, uint32_t requests_amount)
         wk->stats.time += curr_proc_time;
 
     // обновить средние статистические показатели
-    if (wk->stats.qu1.total_push_amount != 0.0f)
-        wk->stats.qu1.avg_push_time = wk->stats.qu1.total_push_time / wk->stats.qu1.total_push_amount;
-    if (wk->stats.qu1.total_pop_amount != 0.0f)
-        wk->stats.qu1.avg_pop_time = wk->stats.qu1.total_pop_time / wk->stats.qu1.total_pop_amount;
-
-    if (wk->stats.qu2.total_push_amount != 0.0f)
-        wk->stats.qu2.avg_push_time = wk->stats.qu2.total_push_time / wk->stats.qu2.total_push_amount;
-    if (wk->stats.qu2.total_pop_amount != 0.0f)
-        wk->stats.qu2.avg_pop_time = wk->stats.qu2.total_pop_time / wk->stats.qu2.total_pop_amount;
-
-    wk->stats.qu1.curr_size = qu_get_size(&wk->qu1);
-
-    if (wk->stats.qu1.total_push_amount != 0.0f)
-        wk->stats.qu1.avg_push_ns = 1000U * wk->stats.qu1.total_push_us / wk->stats.qu1.total_push_amount;
-    if (wk->stats.qu1.total_pop_amount != 0.0f)
-        wk->stats.qu1.avg_pop_ns = 1000U * wk->stats.qu1.total_pop_us / wk->stats.qu1.total_pop_amount;
-
-    if (wk->stats.qu2.total_push_amount != 0.0f)
-        wk->stats.qu2.avg_push_ns = 1000U * wk->stats.qu2.total_push_us / wk->stats.qu2.total_push_amount;
-    if (wk->stats.qu2.total_pop_amount != 0.0f)
-        wk->stats.qu2.avg_pop_ns = 1000U * wk->stats.qu2.total_pop_us / wk->stats.qu2.total_pop_amount;
-
-    wk->stats.qu2.curr_size = qu_get_size(&wk->qu2);
+    wk->stats.qu1 = update_qu_stats(&wk->qu1, wk->stats.qu1);
+    wk->stats.qu2 = update_qu_stats(&wk->qu2, wk->stats.qu2);
 
     return status;
 }

@@ -35,6 +35,9 @@ typedef struct
 
     uint32_t max_size;
     uint32_t curr_size;
+
+    float total_wait_time; // время пребывания заявок в очереди (заявок-е.в.)
+    float avg_wait_time; // среднее время пребывания заявок в очереди
 } queue_stats_t;
 
 typedef struct

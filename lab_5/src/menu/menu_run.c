@@ -38,6 +38,7 @@ static void print_queue_stats(queue_stats_t *stats)
         stats->avg_push_time, stats->avg_push_ns);
     printf("    Среднее время обработки заявки:      %7.2f е.в. (%7u нс )\n",
         stats->avg_pop_time, stats->avg_pop_ns);
+    printf("    Среднее время пребывания в очереди:  %7.2f е.в.\n", stats->avg_wait_time);
     printf("    Число заявок в очереди сейчас:       %7u\n", stats->curr_size);
     printf("    Максимальное число заявок в очереди: %7u\n", stats->max_size);
 }

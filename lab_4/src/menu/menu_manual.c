@@ -6,9 +6,19 @@
 #include "wrappers/stack_wrapper.h"
 #include "menu/menu.h"
 
-#define CMD_SHOW_HELP   "Показать информацию о стеке."
-#define CMD_PUSH_HELP   "Вставить число в стек. Первый аргумент - вставляемое число"
-#define CMD_POP_HELP    "Извлечь число из вершины стека."
+#define MANUAL_INTRO    "    " CLR_EMPH "Переход в режим ручного тестирования." CLR_RESET "\n" \
+                        "\n" \
+                        "Список доступных команд:\n" \
+                        "    show       показать информацию о стеке\n" \
+                        "    push       вставить число в стек\n" \
+                        "    pop        извлечь число из вершины стека\n" \
+                        "    merge      выполнить слияние двух стеков в третий\n" \
+                        "    back       выйти из ручного режима\n\n" \
+                        "Более подробно можно узнать о команде, набрав " CLR_EMPH "'help <название команды>'" CLR_RESET "."
+
+#define CMD_SHOW_HELP   "Показать информацию о стеке. Первый аргумент - буква стека (A или B)."
+#define CMD_PUSH_HELP   "Вставить числа в стек. Первый аргумент - буква стека (A или B), остальные - вставляемые числа."
+#define CMD_POP_HELP    "Извлечь число из вершины стека. Первый аргумент - буква стека (A или B)."
 #define CMD_MERGE_HELP  "Выполнить слияние двух стеков в третий."
 
 static struct stack_wrapper sw_a;
@@ -31,10 +41,8 @@ static struct stack_wrapper *get_stack_by_char(const char *str)
 
 static int manual_push(cmdf_arglist *arglist)
 {
-    if (!arglist)
-        printf("Используйте параметры команды чтобы вставить число в стек.\n\n");
-    else if (arglist->count == 1)
-        printf("Введите букву стека и последовательность чисел для вставки через пробел.\n\n");
+    if (!arglist || arglist->count == 1)
+        printf("Введите " CLR_EMPH "\"push X num1 [num2 ...]\"" CLR_RESET ", где X - A или B - буква стека, а numN - числа.\n");
     else
     {
         struct stack_wrapper *sw = get_stack_by_char(arglist->args[0]);
@@ -62,10 +70,8 @@ static int manual_push(cmdf_arglist *arglist)
 
 static int manual_pop(cmdf_arglist *arglist)
 {
-    if (!arglist)
-        printf("Для данной команды нужен один параметр - буква стека.\n\n");
-    else if (arglist->count != 1)
-        printf("Кроме бувкы стека в качестве аргументов ничего не требуется.\n\n");
+    if (!arglist || arglist->count != 1)
+        printf("Введите " CLR_EMPH "\"pop X\"" CLR_RESET ", где X - A или B - буква стека.\n");
     else
     {
         struct stack_wrapper *sw = get_stack_by_char(arglist->args[0]);
@@ -93,13 +99,13 @@ static int manual_show(cmdf_arglist *arglist)
         sw_show(&sw_b);
     }
     else if (arglist->count > 1)
-        printf("Кроме бувкы стека в качестве аргументов ничего не требуется.\n\n");
+        printf("Введите " CLR_EMPH "\"show [X]\"" CLR_RESET ", где X - A или B - буква стека.\n");
     else
     {
         struct stack_wrapper *sw = get_stack_by_char(arglist->args[0]);
 
         if (sw == NULL)
-            printf("Единственным аргументом необходимо указать букву стека.\nНапример A или B.\n\n");
+            printf("Введите " CLR_EMPH "\"show [X]\"" CLR_RESET ", где X - A или B - буква стека.\n");
         else
             sw_show(sw);
     }
@@ -110,7 +116,7 @@ static int manual_show(cmdf_arglist *arglist)
 static int manual_merge(cmdf_arglist *arglist)
 {
     if (arglist)
-        printf("Для этой команды не нужны аргументы.\n\n");
+        printf("Введите " CLR_EMPH "\"merge\"" CLR_RESET " без дополнительных аргументов.\n");
     else
     {
         size_t time;
@@ -157,14 +163,12 @@ int menu_manual(cmdf_arglist *arglist)
         printf("Введите " CLR_EMPH "\"manual X X X\"" CLR_RESET ", где X - A или L - реализация стека.\n");
     else
     {
-        printf("\n    Переход в режим ручного тестирования...");
-
         // init module variables
         sw_a = sw_wrap(CLR_EMPH "A" CLR_RESET, st_create(get_type(arglist->args[0])));
         sw_b = sw_wrap(CLR_EMPH "B" CLR_RESET, st_create(get_type(arglist->args[1])));
         sw_c = sw_wrap(CLR_EMPH "результат" CLR_RESET, st_create(get_type(arglist->args[2])));
 
-        cmdf_init(CLR_BR_CYAN_U "main/manual>" CLR_RESET " ", NULL, DOC_HEADER, UNDOC_HEADER, '~', 0);
+        cmdf_init(CLR_BR_CYAN_U "main/manual>" CLR_RESET " ", MANUAL_INTRO, DOC_HEADER, UNDOC_HEADER, '~', 0);
 
         cmdf_register_command(manual_back, "back", CMD_BACK_HELP);
         cmdf_register_command(manual_push, "push", CMD_PUSH_HELP);

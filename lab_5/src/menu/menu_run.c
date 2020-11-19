@@ -90,7 +90,7 @@ int menu_run(cmdf_arglist *arglist)
     }
     else
     {
-        const uint32_t requests_count = 1U;
+        const uint32_t requests_count = 2U;
         struct worker wk = wk_create(qu1_imp, qu2_imp, requests_count);
         wk.params = wk_params;
 

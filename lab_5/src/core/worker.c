@@ -149,9 +149,6 @@ int wk_model_run(struct worker *wk, uint32_t requests_amount)
     float curr_proc_time = 0.0f;
     qdata_t curr_request = 0U; // 1 - из первой очереди, 2 - из второй
 
-    // wk->stats.qu1.total_push_time += next_req1_time;
-    // wk->stats.qu2.total_push_time += next_req2_time;
-
     while (status == EXIT_SUCCESS && requests_amount > 0U)
     {
         // определиться с текущим событиями и обработать их
@@ -202,9 +199,9 @@ int wk_model_run(struct worker *wk, uint32_t requests_amount)
         wk->stats.time += delta;
     }
 
-    // wk->stats.qu1.total_push_time -= next_req1_time;
-    // wk->stats.qu2.total_push_time -= next_req2_time;
     wk->stats.work_time -= curr_proc_time;
+    if (curr_request == 1U)
+        wk->stats.time += curr_proc_time;
 
     // обновить средние статистические показатели
     if (wk->stats.qu1.total_push_amount != 0.0f)

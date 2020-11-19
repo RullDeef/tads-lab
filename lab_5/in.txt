@@ -1,7 +1,7 @@
 config
-set a 3 3
-set b 2 2
-set c 2 2
+set a 2 2
+set b 4 4
+set c 1 1
 set d 1 1
 show
 back

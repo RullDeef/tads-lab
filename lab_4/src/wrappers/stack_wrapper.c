@@ -41,7 +41,7 @@ int sw_pop(struct stack_wrapper *sw, int32_t *value, size_t *dtime)
     int result;
 
     // update free_mem array
-    if (sw->stack.__type == STACK_TYPE_LINKED_LIST)
+    if (st_get_size(&sw->stack) > 0U && sw->stack.__type == STACK_TYPE_LINKED_LIST)
         alw_handle_pop(&sw->alw, &sw->stack);
 
     BEGIN_TIMER

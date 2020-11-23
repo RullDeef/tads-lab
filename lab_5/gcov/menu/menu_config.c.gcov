@@ -1,0 +1,125 @@
+        -:    0:Source:src/menu/menu_config.c
+        -:    0:Graph:./obj//menu/menu_config.gcno
+        -:    0:Data:./obj//menu/menu_config.gcda
+        -:    0:Runs:3
+        -:    1:#include <stdio.h>
+        -:    2:#include <assert.h>
+        -:    3:#include "utils/colors.h"
+        -:    4:#include "utils/str_parser.h"
+        -:    5:#include "core/worker.h"
+        -:    6:#include "menu/menu.h"
+        -:    7:
+        -:    8:#define CONFIG_INTRO    "    " CLR_EMPH "Переход в режим настройки параметров обслуживающего аппарата." CLR_RESET "\n" \
+        -:    9:                        "\n" \
+        -:   10:                        "Список доступных комманд:\n" \
+        -:   11:                        "    show       показать текущие параметры обслуживающего аппарата\n" \
+        -:   12:                        "    set        установить конкретный параметр\n" \
+        -:   13:                        "    reset      восстановить параметры по-умолчанию\n" \
+        -:   14:                        "    back       выход из меню\n\n" \
+        -:   15:                        "Более подробно можно узнать о команде, набрав " CLR_EMPH "'help <название команды>'" CLR_RESET "."
+        -:   16:
+        -:   17:#define CMD_RESET_HELP   "Восстановить параметры по-умолчанию."
+        -:   18:#define CMD_SET_HELP    "Установить временные рамки заданного параметра ОА."
+        -:   19:#define CMD_SHOW_HELP   "Показать информацию о параметрах ОА."
+        -:   20:
+        3:   21:static int config_reset(cmdf_arglist *arglist)
+        -:   22:{
+        3:   23:    if (arglist)
+        1:   24:        printf("Для данной команды не нужны дополнительные аргументы.\n");
+        -:   25:    else
+        -:   26:    {
+        2:   27:        wk_params = wk_default_params();
+        2:   28:        printf("Параметры обслуживающего аппарата установлены по-умолчанию.\n");
+        -:   29:    }
+        -:   30:
+        3:   31:    return EXIT_SUCCESS;
+        -:   32:}
+        -:   33:
+       11:   34:static int parse_arglist_offset(const char *str, size_t *offset)
+        -:   35:{
+       11:   36:    if (strcmp(str, "a") == 0 || strcmp(str, "A") == 0)
+        4:   37:        *offset = 0;
+        7:   38:    else if (strcmp(str, "b") == 0 || strcmp(str, "B") == 0)
+        2:   39:        *offset = 1;
+        5:   40:    else if (strcmp(str, "c") == 0 || strcmp(str, "C") == 0)
+        2:   41:        *offset = 2;
+        3:   42:    else if (strcmp(str, "d") == 0 || strcmp(str, "D") == 0)
+        2:   43:        *offset = 3;
+        -:   44:    else
+        1:   45:        return EXIT_FAILURE;
+        -:   46:
+       10:   47:    return EXIT_SUCCESS;
+        -:   48:}
+        -:   49:
+       12:   50:static int config_set(cmdf_arglist *arglist)
+        -:   51:{
+        -:   52:    size_t offset;
+        -:   53:    float begin;
+        -:   54:    float end;
+        -:   55:
+       22:   56:    if (!arglist || arglist->count != 3 || parse_arglist_offset(arglist->args[0], &offset) ||
+       20:   57:        parse_float(arglist->args[1], &begin) || parse_float(arglist->args[2], &end))
+        -:   58:    {
+        2:   59:        printf("Использование: " CLR_EMPH "set [имя параметра] [начало] [конец]" CLR_RESET ", где\n");
+        2:   60:        printf("    имя параметра - одно из " CLR_BR_GREEN_U "a" CLR_RESET ", " CLR_BR_GREEN_U "b" CLR_RESET ", " CLR_BR_GREEN_U "c" CLR_RESET " или " CLR_BR_GREEN_U "d" CLR_RESET ",\n");
+        2:   61:        printf("    начало и конец - вещественные числа в единицах времени.\n");
+        -:   62:    }
+       10:   63:    else if (begin < 0.0f || end < 0.0f)
+        2:   64:        printf("Значения времени не могут быть отрицательными\n");
+        8:   65:    else if (begin > end)
+    #####:   66:        printf("Начальное значение времени не может быть больше конечного.\n");
+        -:   67:    else
+        -:   68:    {
+        8:   69:        time_interval_t *intv = &(wk_params.t_in1) + offset;
+        8:   70:        intv->begin = begin;
+        8:   71:        intv->end = end;
+        -:   72:    }
+        -:   73:
+       12:   74:    return EXIT_SUCCESS;
+        -:   75:}
+        -:   76:
+        3:   77:static int config_show(cmdf_arglist *arglist)
+        -:   78:{
+        3:   79:    if (arglist)
+        1:   80:        printf("Для данной команды не нужны дополнительные аргументы.\n");
+        -:   81:    else
+        -:   82:    {
+        2:   83:        printf("\n  " CLR_BR_YELLOW_U "Параметры моделирования:" CLR_RESET "\n");
+        2:   84:        printf("    [a] " CLR_BR_CYAN_U "%g..%g" CLR_RESET " е.в. - время прихода заявки в первую очередь.\n",
+        2:   85:            wk_params.t_in1.begin, wk_params.t_in1.end);
+        2:   86:        printf("    [b] " CLR_BR_CYAN_U "%g..%g" CLR_RESET " е.в. - время прихода заявки во вторую очередь.\n",
+        2:   87:            wk_params.t_in2.begin, wk_params.t_in2.end);
+        2:   88:        printf("    [с] " CLR_BR_CYAN_U "%g..%g" CLR_RESET " е.в. - время обработки заявки из первой очереди.\n",
+        2:   89:            wk_params.t_out1.begin, wk_params.t_out1.end);
+        2:   90:        printf("    [d] " CLR_BR_CYAN_U "%g..%g" CLR_RESET " е.в. - время обработки заявки из второй очереди.\n\n",
+        2:   91:            wk_params.t_out2.begin, wk_params.t_out2.end);
+        -:   92:    }
+        -:   93:    
+        3:   94:    return EXIT_SUCCESS;
+        -:   95:}
+        -:   96:
+        3:   97:static int config_back(cmdf_arglist *arglist)
+        -:   98:{
+        3:   99:    printf("\n    Выход из режима настройки.\n\n");
+        3:  100:    cmdf__default_do_exit(arglist);
+        3:  101:    return EXIT_SUCCESS;
+        -:  102:}
+        -:  103:
+        4:  104:int menu_config(cmdf_arglist *arglist)
+        -:  105:{
+        4:  106:    if (arglist)
+        1:  107:        printf("Для данной команды не нужны дополнительные аргументы.\n");
+        -:  108:    else
+        -:  109:    {
+        3:  110:        cmdf_init(CLR_BR_CYAN_U "main/config>" CLR_RESET " ", CONFIG_INTRO, DOC_HEADER, UNDOC_HEADER, '~', 0);
+        -:  111:
+        3:  112:        cmdf_register_command(config_back, "back", CMD_BACK_HELP);
+        3:  113:        cmdf_register_command(config_reset, "reset", CMD_RESET_HELP);
+        3:  114:        cmdf_register_command(config_set, "set", CMD_SET_HELP);
+        3:  115:        cmdf_register_command(config_show, "show", CMD_SHOW_HELP);
+        -:  116:
+        3:  117:        cmdf_commandloop();
+        -:  118:    }
+        -:  119:
+        4:  120:    return EXIT_SUCCESS;
+        -:  121:}

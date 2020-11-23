@@ -1,0 +1,50 @@
+        -:    0:Source:src/core/queue/queue.c
+        -:    0:Graph:./obj//core/queue/queue.gcno
+        -:    0:Data:./obj//core/queue/queue.gcda
+        -:    0:Runs:3
+        -:    1:#include <assert.h>
+        -:    2:#include "queue.h"
+        -:    3:
+        4:    4:struct queue qu_create(queue_imp_t type, uint32_t capacity)
+        -:    5:{
+        4:    6:    struct queue qu = { .type = type };
+        -:    7:
+        4:    8:    if (type == QUEUE_ARRAY)
+        3:    9:        qu.imp.array = qua_create(capacity);
+        1:   10:    else if (type == QUEUE_LINKED_LIST)
+        1:   11:        qu.imp.list = qul_create();
+        -:   12:
+        4:   13:    return qu;
+        -:   14:}
+        -:   15:
+        4:   16:void qu_destroy(struct queue *qu)
+        -:   17:{
+        4:   18:    if (qu->type == QUEUE_ARRAY)
+        3:   19:        qua_destroy(&qu->imp.array);
+        -:   20:    else
+        1:   21:        qul_destroy(&qu->imp.list);
+        4:   22:}
+        -:   23:
+       27:   24:uint32_t qu_get_size(struct queue *qu)
+        -:   25:{
+       27:   26:    if (qu->type == QUEUE_ARRAY)
+       19:   27:        return qu->imp.array.size;
+        -:   28:    else
+        8:   29:        return qu->imp.list.size;
+        -:   30:}
+        -:   31:
+        9:   32:int qu_push_back(struct queue *qu, qdata_t value)
+        -:   33:{
+        9:   34:    if (qu->type == QUEUE_ARRAY)
+        5:   35:        return qua_push_back(&qu->imp.array, value);
+        -:   36:    else
+        4:   37:        return qul_push_back(&qu->imp.list, value);
+        -:   38:}
+        -:   39:
+        6:   40:int qu_pop_front(struct queue *qu, qdata_t *value)
+        -:   41:{
+        6:   42:    if (qu->type == QUEUE_ARRAY)
+        4:   43:        return qua_pop_front(&qu->imp.array, value);
+        -:   44:    else
+        2:   45:        return qul_pop_front(&qu->imp.list, value);
+        -:   46:}

@@ -41,6 +41,16 @@ static void print_queue_stats(queue_stats_t *stats)
     printf("    Среднее время пребывания в очереди:  %7.2f е.в.\n", stats->avg_wait_time);
     printf("    Число заявок в очереди сейчас:       %7u\n", stats->curr_size);
     printf("    Максимальное число заявок в очереди: %7u\n", stats->max_size);
+
+#if defined(FUNC_TEST) && defined(FUNC_TEST_FNAME)
+    FILE *out_file = fopen(FUNC_TEST_FNAME, "at");
+
+    fprintf(out_file, "%.2f %.2f %.2f %.2f %.2f %u %u\n",
+            stats->total_push_time, stats->total_pop_time, stats->avg_push_time,
+            stats->avg_pop_time, stats->avg_wait_time, stats->curr_size, stats->max_size);
+
+    fclose(out_file);
+#endif
 }
 
 static float _time_mid(time_interval_t interval)
@@ -58,6 +68,14 @@ static void print_theor_stats(struct worker *wk, uint32_t requests_1)
 
     printf("\n  " CLR_BR_YELLOW_U "Теоритические рассчёты:" CLR_RESET "\n");
     printf("    Среднее полное время обработки заявок: %.2f е.в.\n", full_time);
+
+#if defined(FUNC_TEST) && defined(FUNC_TEST_FNAME)
+    FILE *out_file = fopen(FUNC_TEST_FNAME, "at");
+
+    fprintf(out_file, "%.2f\n", full_time);
+
+    fclose(out_file);
+#endif
 }
 
 static void print_worker_stats(struct worker *wk)
@@ -72,6 +90,16 @@ static void print_worker_stats(struct worker *wk)
     printf("      Первого типа:                      %u\n", wk->stats.requests_1);
     printf("      Второго типа:                      %u\n", wk->stats.requests_2);
     printf("    Отклонено заявок из 2 очереди:       %u\n", wk->stats.request_dismissed);
+
+#if defined(FUNC_TEST) && defined(FUNC_TEST_FNAME)
+    FILE *out_file = fopen(FUNC_TEST_FNAME, "at");
+
+    fprintf(out_file, "%.2f %u %u %u %u\n",
+            wk->stats.time, wk->stats.request_index, wk->stats.requests_1,
+            wk->stats.requests_2, wk->stats.request_dismissed);
+
+    fclose(out_file);
+#endif
 }
 
 int menu_run(cmdf_arglist *arglist)

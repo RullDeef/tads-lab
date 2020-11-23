@@ -1,0 +1,12 @@
+        -:    0:Source:src/main.c
+        -:    0:Graph:./obj/main.gcno
+        -:    0:Data:./obj/main.gcda
+        -:    0:Runs:3
+        -:    1:#include <stdio.h>
+        -:    2:#include "menu/menu.h"
+        -:    3:
+        3:    4:int main(void)
+        -:    5:{
+        -:    6:    // stdin = freopen("in.txt", "rt", stdin);
+        3:    7:    return menu_main();
+        -:    8:}

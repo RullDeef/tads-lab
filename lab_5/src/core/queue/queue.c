@@ -9,8 +9,6 @@ struct queue qu_create(queue_imp_t type, uint32_t capacity)
         qu.imp.array = qua_create(capacity);
     else if (type == QUEUE_LINKED_LIST)
         qu.imp.list = qul_create();
-    else
-        assert(0 && "invalid queue imp type");
 
     return qu;
 }

@@ -1,5 +1,6 @@
 #include <string.h>
 #include "utils/colors.h"
+#include "utils/str_parser.h"
 #include "menu.h"
 #include "core/worker.h"
 
@@ -106,29 +107,54 @@ int menu_run(cmdf_arglist *arglist)
 {
     queue_imp_t qu1_imp;
     queue_imp_t qu2_imp;
+    int32_t N = 1000, M = 100;
 
-    if (!arglist || arglist->count != 2 ||
-        parse_imp_char(arglist->args[0], &qu1_imp) ||
-        parse_imp_char(arglist->args[1], &qu2_imp))
+    if (!arglist || !(arglist->count >= 2 &&
+        !parse_imp_char(arglist->args[0], &qu1_imp) &&
+        !parse_imp_char(arglist->args[1], &qu2_imp) &&
+        (
+            arglist->count == 2 ||
+            (arglist->count >= 3 && !parse_int32(arglist->args[2], &N) && 0 < N && N <= 1000 &&
+                ((arglist->count == 3 && (M = N, true)) || (arglist->count == 4 && !parse_int32(arglist->args[3], &M) && 0 < M && M <= N))
+            )
+        )))
     {
-        printf("Использование: " CLR_EMPH "run [очередь 1] [очередь 2]" CLR_RESET ", где\n");
+        printf("Использование: " CLR_EMPH "run <очередь 1> <очередь 2> [N [M]]" CLR_RESET ", где\n");
         printf("    очередь 1 - реализация очереди высокого приоритета: "
             CLR_BR_GREEN_U "A" CLR_RESET " (массив) или " CLR_BR_GREEN_U "L" CLR_RESET " (список),\n");
         printf("    очередь 2 - реализация очереди низкого приоритета: "
             CLR_BR_GREEN_U "A" CLR_RESET " (массив) или " CLR_BR_GREEN_U "L" CLR_RESET " (список).\n");
+        printf("    N - максимальное число обрабатываемых заявок первого типа в интервале [1; 1000]. 1000 по-умолчанию.\n");
+        printf("    M - шаг для вывода промежуточной информации об ОА в интервале [1; N]. 100 по-умолчанию (или равно N, если N введено).\n");
     }
     else
     {
-        const uint32_t requests_count = 2U;
+        uint32_t requests_count = (uint32_t)N;
+        uint32_t requests_step = (uint32_t)M;
+        uint32_t passed_requests = 0U;
+
+        printf("Запуск моделирования для числа заявок первого типа: " CLR_GREEN "%u" CLR_RESET " и шага " CLR_GREEN "%u" CLR_RESET "\n", requests_count, requests_step);
+
         struct worker wk = wk_create(qu1_imp, qu2_imp, requests_count);
         wk.params = wk_params;
 
-        int status = wk_model_run(&wk, requests_count);
-        if (status != EXIT_SUCCESS)
-            printf("При моделировании возникли серьёзные неисправности!\n");
+        while (passed_requests < requests_count)
+        {
+            int status = wk_model_run(&wk, requests_step);
+            if (status != EXIT_SUCCESS)
+            {
+                printf("При моделировании возникли серьёзные неисправности!\n");
+                break;
+            }
+            passed_requests += requests_step;
 
-        print_worker_stats(&wk);
-        print_theor_stats(&wk, requests_count);
+            print_worker_stats(&wk);
+            print_theor_stats(&wk, passed_requests);
+
+            printf(CLR_BLUE "  Нажмите Enter для продолжения..." CLR_RESET "\n");
+            getchar();
+        }
+
         wk_destroy(&wk);
     }
 

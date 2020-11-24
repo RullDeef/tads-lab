@@ -55,15 +55,20 @@ static int manual_push(cmdf_arglist *arglist)
         {
             int32_t value = 0;
             int not_pushed = 0;
+
+            size_t total_time = 0U;
+            size_t dtime;
+
             for (uint32_t i = 1; i < arglist->count; i++)
             {
-                if (parse_int32(arglist->args[i], &value) == EXIT_FAILURE)
-                    assert(0);
-                else if (sw_push(sw, value, NULL) != EXIT_SUCCESS)
+                parse_int32(arglist->args[i], &value);
+
+                if (sw_push(sw, value, &dtime) != EXIT_SUCCESS)
                 {
                     not_pushed = 1;
                     break;
                 }
+                total_time += dtime;
             }
             if (not_pushed != 0)
             {
@@ -71,7 +76,10 @@ static int manual_push(cmdf_arglist *arglist)
                 printf("Число %d и последующие за ним (если были) не попали в стек.\n\n", value);
             }
             else
-                printf("Введёные числа добавлены в стек '%s'.\n\n", sw->name);
+            {
+                printf("Введёные числа добавлены в стек '%s'.\n", sw->name);
+                printf("Операция заняла %lu тиков.\n\n", total_time);
+            }
         }
     }
 
@@ -91,8 +99,14 @@ static int manual_pop(cmdf_arglist *arglist)
         else
         {
             int32_t value = 0;
-            if (sw_pop(sw, &value, NULL) == EXIT_SUCCESS)
-                printf("Из стека '%s' извлечено число %d.\n\n", sw->name, value);
+
+            size_t dtime;
+
+            if (sw_pop(sw, &value, &dtime) == EXIT_SUCCESS)
+            {
+                printf("Из стека '%s' извлечено число %d.\n", sw->name, value);
+                printf("Операция заняла %lu тиков.\n\n", dtime);
+            }
             else
                 printf("стек '%s' пуст. Нечего извлекать.\n\n", sw->name);
         }

@@ -23,8 +23,9 @@ int sw_push(struct stack_wrapper *sw, int32_t value, size_t *dtime)
 {
     int result;
 
+    struct stack *stack = &sw->stack;
     BEGIN_TIMER
-    result = st_push(&sw->stack, value);
+    result = st_push(stack, value);
     END_TIMER
 
     // update free_mem array
@@ -44,8 +45,9 @@ int sw_pop(struct stack_wrapper *sw, int32_t *value, size_t *dtime)
     if (st_get_size(&sw->stack) > 0U && sw->stack.__type == STACK_TYPE_LINKED_LIST)
         alw_handle_pop(&sw->alw, &sw->stack);
 
+    struct stack *stack = &sw->stack;
     BEGIN_TIMER
-    result = st_pop(&sw->stack, value);
+    result = st_pop(stack, value);
     END_TIMER
 
     if (dtime != NULL)

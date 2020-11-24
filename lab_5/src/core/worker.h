@@ -1,6 +1,7 @@
 #ifndef __WORKER_H_
 #define __WORKER_H_
 
+#include <stdbool.h>
 #include "core/queue/queue.h"
 
 typedef struct
@@ -56,6 +57,17 @@ typedef struct
     queue_stats_t qu2;
 } worker_stats_t;
 
+typedef struct
+{
+    bool initialized;
+
+    float next_req1_time;
+    float next_req2_time;
+
+    qdata_t curr_request;
+    float curr_proc_time;
+} worker_interm_state_t;
+
 struct worker
 {
     struct queue qu1;
@@ -71,6 +83,6 @@ void wk_destroy(struct worker *wk);
 worker_params_t wk_default_params(void);
 
 // Моделирует ОА до времени полной обработки requests_amount заявок первого типа.
-int wk_model_run(struct worker *wk, uint32_t requests_amount);
+int wk_model_run(struct worker *wk, uint32_t requests_amount, worker_interm_state_t *state);
 
 #endif

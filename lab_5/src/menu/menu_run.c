@@ -138,9 +138,10 @@ int menu_run(cmdf_arglist *arglist)
         struct worker wk = wk_create(qu1_imp, qu2_imp, requests_count);
         wk.params = wk_params;
 
+        worker_interm_state_t wk_state = { .initialized = false };
         while (passed_requests < requests_count)
         {
-            int status = wk_model_run(&wk, requests_step);
+            int status = wk_model_run(&wk, requests_step, &wk_state);
             if (status != EXIT_SUCCESS)
             {
                 printf("При моделировании возникли серьёзные неисправности!\n");

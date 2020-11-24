@@ -155,65 +155,67 @@ static queue_stats_t update_qu_stats(struct queue *qu, queue_stats_t stats)
 }
 
 // Моделирует ОА до времени полной обработки requests_amount заявок первого типа.
-int wk_model_run(struct worker *wk, uint32_t requests_amount)
+int wk_model_run(struct worker *wk, uint32_t requests_amount, worker_interm_state_t *state)
 {
     int status = EXIT_SUCCESS;
 
-    float next_req1_time = get_random_time(wk->params.t_in1);
-    float next_req2_time = get_random_time(wk->params.t_in2);
-
-    // время на обработку текущего элемента из непустой очереди
-    // элемент в данный момент уже находится в ОА, поэтому удалять
-    // из очереди ничего не нужно.
-    float curr_proc_time = 0.0f;
-    qdata_t curr_request = 0U; // 1 - из первой очереди, 2 - из второй
+    if (!state->initialized)
+    {
+        state->next_req1_time = get_random_time(wk->params.t_in1);
+        state->next_req2_time = get_random_time(wk->params.t_in2);
+        // время на обработку текущего элемента из непустой очереди
+        // элемент в данный момент уже находится в ОА, поэтому удалять
+        // из очереди ничего не нужно.
+        state->curr_request = 0U; // 1 - из первой очереди, 2 - из второй
+        state->curr_proc_time = 0.0f;
+    }
 
     while (status == EXIT_SUCCESS && requests_amount > 0U)
     {
         // определиться с текущим событиями и обработать их
-        if (next_req1_time < 1.0e-3)
+        if (state->next_req1_time < 1.0e-3)
         {
             status = model_req1_arrive(wk);
-            next_req1_time = get_random_time(wk->params.t_in1);
-            wk->stats.qu1.total_push_time += next_req1_time;
+            state->next_req1_time = get_random_time(wk->params.t_in1);
+            wk->stats.qu1.total_push_time += state->next_req1_time;
 
-            if (curr_request == 2U)
+            if (state->curr_request == 2U)
             {
-                curr_proc_time = 0U;
+                state->curr_proc_time = 0U;
                 wk->stats.request_dismissed++;
             }
         }
-        if (next_req2_time < 1.0e-3)
+        if (state->next_req2_time < 1.0e-3)
         {
             status = model_req2_arrive(wk);
-            next_req2_time = get_random_time(wk->params.t_in2);
-            wk->stats.qu2.total_push_time += next_req2_time;
+            state->next_req2_time = get_random_time(wk->params.t_in2);
+            wk->stats.qu2.total_push_time += state->next_req2_time;
         }
-        if (curr_proc_time < 1.0e-3)
+        if (state->curr_proc_time < 1.0e-3)
         {
-            status = model_proc_next_req(wk, &curr_request);
-            if (curr_request == 1U)
+            status = model_proc_next_req(wk, &state->curr_request);
+            if (state->curr_request == 1U)
             {
-                curr_proc_time = get_random_time(wk->params.t_out1);
-                wk->stats.qu1.total_pop_time += curr_proc_time;
+                state->curr_proc_time = get_random_time(wk->params.t_out1);
+                wk->stats.qu1.total_pop_time += state->curr_proc_time;
                 requests_amount--;
             }
-            else if (curr_request == 2U)
+            else if (state->curr_request == 2U)
             {
-                curr_proc_time = get_random_time(wk->params.t_out2);
-                wk->stats.qu2.total_pop_time += curr_proc_time;
+                state->curr_proc_time = get_random_time(wk->params.t_out2);
+                wk->stats.qu2.total_pop_time += state->curr_proc_time;
             }
-            wk->stats.work_time += curr_proc_time;
+            wk->stats.work_time += state->curr_proc_time;
         }
 
         // рассчитать смещение во времени до следующего ближайшего события
-        float delta = fmin(next_req1_time, next_req2_time);
-        if (curr_proc_time > 1.0e-3)
-            delta =  fmin(delta, curr_proc_time);
+        float delta = fmin(state->next_req1_time, state->next_req2_time);
+        if (state->curr_proc_time > 1.0e-3)
+            delta = fmin(delta, state->curr_proc_time);
 
-        next_req1_time -= delta;
-        next_req2_time -= delta;
-        curr_proc_time -= delta;
+        state->next_req1_time -= delta;
+        state->next_req2_time -= delta;
+        state->curr_proc_time -= delta;
 
         wk->stats.qu1.total_wait_time += wk->stats.qu1.curr_size * delta;
         wk->stats.qu2.total_wait_time += wk->stats.qu2.curr_size * delta;
@@ -221,9 +223,13 @@ int wk_model_run(struct worker *wk, uint32_t requests_amount)
         wk->stats.time += delta;
     }
 
-    wk->stats.work_time -= curr_proc_time;
-    if (curr_request == 1U)
-        wk->stats.time += curr_proc_time;
+    if (!state->initialized)
+    {
+        wk->stats.work_time -= state->curr_proc_time;
+        if (state->curr_request == 1U)
+            wk->stats.time += state->curr_proc_time;
+        state->initialized = true;
+    }
 
     // обновить средние статистические показатели
     wk->stats.qu1 = update_qu_stats(&wk->qu1, wk->stats.qu1);

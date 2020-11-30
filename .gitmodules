@@ -1,0 +1,6 @@
+[submodule "lab_6/vendor/uki"]
+	path = lab_6/vendor/uki
+	url = https://github.com/RullDeef/uki
+[submodule "lab_6/vendor/callocs"]
+	path = lab_6/vendor/callocs
+	url = https://github.com/RullDeef/c-allocators

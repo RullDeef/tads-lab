@@ -4,13 +4,14 @@
 #define PROG_INTRO      "    " CLR_BR_GREEN_U "Лабораторная работа №5 по типам и структурам данных." CLR_RESET "\n" \
                         "\n" \
                         "Список доступных комманд:\n" \
+                        "    manual     Ручной режим работы с очередями\n" \
                         "    config     Настроить временные параметры обслуживающего аппарата.\n" \
                         "    run        Запустить моделирование обслуживающего аппарата\n" \
                         "    exit       выход из программы\n\n" \
                         "Более подробно можно узнать о команде, набрав " CLR_EMPH "'help <название команды>'" CLR_RESET "."
 
+#define CMD_MANUAL_HELP "Ручной режим работы с очередями."
 #define CMD_CONFIG_HELP "Настроить временные параметры обслуживающего аппарата."
-
 #define CMD_RUN_HELP    "Запустить моделирование обслуживающего аппарата."
 
 worker_params_t wk_params;
@@ -28,6 +29,7 @@ int menu_main(void)
 
     /* Register our custom commands */
     cmdf_register_command(__menu_exit, "exit", CMD_EXIT_HELP);
+    cmdf_register_command(menu_manual, "manual", CMD_MANUAL_HELP);
     cmdf_register_command(menu_config, "config", CMD_CONFIG_HELP);
     cmdf_register_command(menu_run, "run", CMD_RUN_HELP);
 

@@ -16,6 +16,7 @@ UNIT_OBJFILES := $(subst .c,.o,$(subst unit_test,obj/unit_test,$(UNIT_SRCFILES))
 clean :
 	rm -rf obj *.exe
 
+run : CFLAGS += -O3
 run : app.exe
 	./app.exe
 

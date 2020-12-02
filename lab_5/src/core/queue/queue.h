@@ -3,8 +3,10 @@
 
 #include <stdint.h>
 
+#ifndef __QDATA_DEFINED
 #define __QDATA_DEFINED
 typedef uint32_t qdata_t;
+#endif
 
 #include "queue_arr.h"
 #include "queue_lst.h"

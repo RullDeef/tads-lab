@@ -16,6 +16,7 @@ extern worker_params_t wk_params;
 
 int menu_main(void);
 
+int menu_manual(cmdf_arglist *arglist);
 int menu_config(cmdf_arglist *arglist);
 int menu_run(cmdf_arglist *arglist);
 

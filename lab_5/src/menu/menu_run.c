@@ -1,4 +1,5 @@
 #include <string.h>
+#include <math.h>
 #include "utils/colors.h"
 #include "utils/str_parser.h"
 #include "menu.h"
@@ -67,8 +68,11 @@ static void print_theor_stats(struct worker *wk, uint32_t requests_1)
     float full_time_out = (requests_1 - 1U) * time_out;
     float full_time = time_in + (full_time_in > full_time_out ? full_time_in : full_time_out) + time_out;
 
+    float full_real_time = wk->stats.time;
+
     printf("\n  " CLR_BR_YELLOW_U "Теоритические рассчёты:" CLR_RESET "\n");
     printf("    Среднее полное время обработки заявок: %.2f е.в.\n", full_time);
+    printf("    Относительная погрешность вычислений:  %.2f %%.\n", 100.0f * fabsf(full_time - full_real_time) / full_real_time);
 
 #if defined(FUNC_TEST) && defined(FUNC_TEST_FNAME)
     FILE *out_file = fopen(FUNC_TEST_FNAME, "at");
@@ -105,8 +109,8 @@ static void print_worker_stats(struct worker *wk)
 
 int menu_run(cmdf_arglist *arglist)
 {
-    queue_imp_t qu1_imp;
-    queue_imp_t qu2_imp;
+    queue_imp_t qu1_imp = QUEUE_LINKED_LIST;
+    queue_imp_t qu2_imp = QUEUE_LINKED_LIST;
     int32_t N = 1000, M = 100;
 
     if (!arglist || !(arglist->count >= 2 &&
@@ -118,7 +122,13 @@ int menu_run(cmdf_arglist *arglist)
                 ((arglist->count == 3 && (M = N, true)) || (arglist->count == 4 && !parse_int32(arglist->args[3], &M) && 0 < M && M <= N))
             )
         )))
+    /*
+    if (arglist && !((arglist->count == 1 && !parse_int32(arglist->args[0], &N) && (0 < N && N <= 1000)) ||
+        (arglist->count == 2 && (!parse_int32(arglist->args[0], &N) && (0 < N && N <= 1000) &&
+            !parse_int32(arglist->args[1], &M) && (0 < M && M <= N)))))
+    */
     {
+        // printf("Использование: " CLR_EMPH "run [N [M]]" CLR_RESET ", где\n");
         printf("Использование: " CLR_EMPH "run <очередь 1> <очередь 2> [N [M]]" CLR_RESET ", где\n");
         printf("    очередь 1 - реализация очереди высокого приоритета: "
             CLR_BR_GREEN_U "A" CLR_RESET " (массив) или " CLR_BR_GREEN_U "L" CLR_RESET " (список),\n");

@@ -3,7 +3,7 @@
 #include "utils/colors.h"
 #include "utils/str_parser.h"
 #include "menu.h"
-#include "core/worker.h"
+#include "wrappers/worker_wrapper.h"
 
 static int parse_imp_char(const char *str, queue_imp_t *type)
 {
@@ -145,13 +145,13 @@ int menu_run(cmdf_arglist *arglist)
 
         printf("Запуск моделирования для числа заявок первого типа: " CLR_GREEN "%u" CLR_RESET " и шага " CLR_GREEN "%u" CLR_RESET "\n", requests_count, requests_step);
 
-        struct worker wk = wk_create(qu1_imp, qu2_imp, requests_count);
-        wk.params = wk_params;
+        struct worker_wrapper wkw = wkw_create(qu1_imp, qu2_imp, requests_count);
+        wkw.wk.params = wk_params;
 
         worker_interm_state_t wk_state = { .initialized = false };
         while (passed_requests < requests_count)
         {
-            int status = wk_model_run(&wk, requests_step, &wk_state);
+            int status = wkw_model_run(&wkw, requests_step, &wk_state);
             if (status != EXIT_SUCCESS)
             {
                 printf("При моделировании возникли серьёзные неисправности!\n");
@@ -159,14 +159,17 @@ int menu_run(cmdf_arglist *arglist)
             }
             passed_requests += requests_step;
 
-            print_worker_stats(&wk);
-            print_theor_stats(&wk, passed_requests);
+            print_worker_stats(&wkw.wk);
+            print_theor_stats(&wkw.wk, passed_requests);
+
+            // print addr list
+            alw_show(&wkw.alw);
 
             printf(CLR_BLUE "  Нажмите Enter для продолжения..." CLR_RESET "\n");
             getchar();
         }
 
-        wk_destroy(&wk);
+        wkw_destroy(&wkw);
     }
 
     return EXIT_SUCCESS;

@@ -29,6 +29,31 @@ struct avl *avlw_find(struct avl_wrapper *avlw, int data)
     return avl_find(avlw->root, data);
 }
 
+int avlw_fscanf(FILE *file, struct avl_wrapper *tree)
+{
+    int status = 0;
+
+    unsigned int numbers_count = 0U;
+    int num;
+
+    rewind(file);
+    while (fscanf(file, "%d", &num) != EOF)
+        numbers_count++;
+
+    if (numbers_count == 0U)
+        status = -1;
+    else
+    {
+        *tree = avlw_create();
+
+        rewind(file);
+        while (fscanf(file, "%d", &num) != EOF)
+            avlw_insert(tree, num);
+    }
+
+    return status;
+}
+
 static void __prn_rec(FILE *file, struct avl *node, int tab)
 {
     if (node != NULL)

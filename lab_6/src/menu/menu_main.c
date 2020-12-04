@@ -1,102 +1,76 @@
 #include <stdio.h>
+#include <string.h>
 #include "utils/logger.h"
 #include "uki.h"
 #include "menu.h"
 #include "wrappers/bst/bst_wrapper.h"
 #include "wrappers/avl/avl_wrapper.h"
+#include "wrappers/hash_table/ht_wrapper.h"
 
-int powered_main_menu(FILE *data_file);
+static int powered_main_menu(FILE *data_file);
 
 int menu_main(void)
 {
-    int status = 0;
+    int status = -1;
+
+    char buffer[256] = "data.txt";
+    FILE *data_file = NULL;
+
+    printf("Введите имя файла для ввода данных: ");
+    if (fgets(buffer, 256, stdin) != NULL)
+    {
+        while (buffer[strlen(buffer) - 1] == '\n' || buffer[strlen(buffer) - 1] == '\r')
+            buffer[strlen(buffer) - 1] = '\0';
+        log_info("Файл: \"%s\"", buffer);
+        printf("\n");
+        data_file = fopen(buffer, "rt");
+    }
+
+    if (data_file == NULL)
+        printf("Неверное имя файла.\n");
+    else
+        status = powered_main_menu(data_file);
+
+    fclose(data_file);
+    return status;
+}
+
+static int powered_main_menu(FILE *data_file)
+{
     uki_menu_t menu = uki_menu_create_cmd();
 
     if (!menu)
     {
-        fprintf(stderr, "Не удалось создать главное меню.\n");
-        status = -1;
-    }
-    else
-    {
-        char buffer[256] = "data.txt";
-        FILE *data_file = NULL;
-
-        // printf("Введите имя файла для ввода данных: ");
-        // if (fgets(buffer, 256, stdin) != NULL)
-        // {
-        //     while (buffer[strlen(buffer) - 1] == '\n' || buffer[strlen(buffer) - 1] == '\r')
-        //         buffer[strlen(buffer) - 1] = '\0';
-        //     printf("%s\n", buffer);
-        data_file = fopen(buffer, "rt");
-        // }
-
-        if (data_file == NULL)
-        {
-            fprintf(stderr, "Неверное имя файла.\n");
-            status = -2;
-        }
-        else
-            status = powered_main_menu(data_file);
-
-        fclose(data_file);
-
+        log_error("Не удалось создать главное меню");
+        return -1;
     }
 
-    return status;
-}
-
-static struct bst *load_bst(FILE *file)
-{
-    struct bst *tree = bst_create();
-
-    int number;
-    while (fscanf(file, "%d", &number) == 1)
-    {
-        if (bst_insert(&tree, number) != 0)
-        {
-            bst_destroy(&tree);
-            break;
-        }
-    }
-
-    return tree;
-}
-
-static struct avl *load_avl(FILE *file)
-{
-    struct avl *tree = avl_create();
-
-    rewind(file);
-
-    int number;
-    while (fscanf(file, "%d", &number) == 1)
-    {
-        if (avl_insert(&tree, number) != 0)
-        {
-            avl_destroy(&tree);
-            break;
-        }
-    }
-
-    return tree;
-}
-
-int powered_main_menu(FILE *data_file)
-{
     // create BST from numbers in file
     struct bst_wrapper bstw;
-    bstw.root = load_bst(data_file);
+    bstw_fscanf(data_file, &bstw);
 
     // print out
-    printf("BST:\n");
+    log_info("BST:");
     bstw_fprintf(stdout, &bstw);
 
     struct avl_wrapper avlw;
-    avlw.root = load_avl(data_file);
+    avlw_fscanf(data_file, &avlw);
 
-    printf("AVL:\n");
+    log_info("AVL:");
     avlw_fprintf(stdout, &avlw);
 
+    log_info("loading hash table");
+
+    struct ht_wrapper htw;
+    htw_fscanf(data_file, &htw);
+
+    log_info("HASH TABLE:");
+    htw_fprintf(stdout, &htw);
+
+    bstw_destroy(&bstw);
+    avlw_destroy(&avlw);
+    htw_destroy(&htw);
+
+    uki_menu_destroy(menu);
     return 0;
 }

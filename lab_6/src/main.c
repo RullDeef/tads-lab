@@ -30,12 +30,12 @@ int main(void)
         }
         else
         {
-            log_info("Запуск главного меню");
             status = menu_main();
-            log_info("Выход из главного меню");
             uki_destroy();
         }
 
+        log_info("Пул памяти на момент окончания программы:");
+        callocs_fprintf_heap_info(stdout);
         callocs_destroy();
     }
 

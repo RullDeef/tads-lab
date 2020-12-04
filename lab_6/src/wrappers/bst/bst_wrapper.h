@@ -20,6 +20,7 @@ int bstw_remove(struct bst_wrapper *tree, int data);
 // NULL - если не найдено.
 struct bst *bstw_find(struct bst_wrapper *tree, int data);
 
+int bstw_fscanf(FILE *file, struct bst_wrapper *tree);
 void bstw_fprintf(FILE *file, struct bst_wrapper *tree);
 
 #endif

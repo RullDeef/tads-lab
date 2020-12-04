@@ -20,6 +20,7 @@ int avlw_remove(struct avl_wrapper *tree, int data);
 // NULL - если не найдено.
 struct avl *avlw_find(struct avl_wrapper *tree, int data);
 
+int avlw_fscanf(FILE *file, struct avl_wrapper *tree);
 void avlw_fprintf(FILE *file, struct avl_wrapper *tree);
 
 #endif

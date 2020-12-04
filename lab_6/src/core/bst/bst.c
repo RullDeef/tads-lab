@@ -1,5 +1,5 @@
 #include "./bst.h"
-
+#include "utils/logger.h"
 #define CALLOCS_REDEFINE
 #include "callocs.h"
 
@@ -7,7 +7,10 @@ static int __create_leaf(struct bst **leaf, int data)
 {
     *leaf = malloc(sizeof(struct bst));
     if (!*leaf)
+    {
+        log_error("__create_leaf (BST): невозможно выделить %u байт памяти", sizeof(struct bst));
         return -1;
+    }
     (*leaf)->depth = 1;
     (*leaf)->data = data;
     (*leaf)->count = 1;

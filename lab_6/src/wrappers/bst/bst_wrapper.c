@@ -32,20 +32,30 @@ struct bst *bstw_find(struct bst_wrapper *bstw, int data)
     return bst_find(bstw->root, data);
 }
 
-/*
-#define PRN_DATA_WIDTH 5
-static int *__get_by_path(struct bst *tree, long path, int len)
+int bstw_fscanf(FILE *file, struct bst_wrapper *tree)
 {
-    if (len == 0)
-        return &tree->data;
-    else if ((path & (1 << (len - 1))) == 0 && tree->left)
-        return __get_by_path(tree->left, path, len - 1);
-    else if ((path & (1 << (len - 1))) == 1 && tree->right)
-        return __get_by_path(tree->right, path, len - 1);
+    int status = 0;
+
+    unsigned int numbers_count = 0U;
+    int num;
+
+    rewind(file);
+    while (fscanf(file, "%d", &num) != EOF)
+        numbers_count++;
+
+    if (numbers_count == 0U)
+        status = -1;
     else
-        return NULL;
+    {
+        *tree = bstw_create();
+
+        rewind(file);
+        while (fscanf(file, "%d", &num) != EOF)
+            bstw_insert(tree, num);
+    }
+
+    return status;
 }
-*/
 
 static void __prn_rec(FILE *file, struct bst *node, int tab)
 {

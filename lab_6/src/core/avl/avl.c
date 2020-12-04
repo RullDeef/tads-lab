@@ -1,6 +1,6 @@
 #include <assert.h>
 #include "./avl.h"
-
+#include "utils/logger.h"
 #define CALLOCS_REDEFINE
 #include "callocs.h"
 
@@ -8,7 +8,10 @@ static int __create_leaf(struct avl **leaf, int data)
 {
     *leaf = malloc(sizeof(struct avl));
     if (!*leaf)
+    {
+        log_error("__create_leaf (AVL): Невозможно выделить %u байт памяти", sizeof(struct avl));
         return -1;
+    }
     (*leaf)->depth = 1;
     (*leaf)->data = data;
     (*leaf)->count = 1;

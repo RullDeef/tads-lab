@@ -1,5 +1,5 @@
 #include "hash_table.h"
-
+#include "utils/logger.h"
 #define CALLOCS_REDEFINE
 #include "callocs.h"
 
@@ -15,6 +15,8 @@ struct hash_table ht_create(unsigned int size, unsigned int step, hash_func_t fu
         ht.step = step;
         ht.func = func;
     }
+    else
+        log_error("ht_create: невозможно выделить %u байт памяти", size * sizeof(ht_data_t));
 
     return ht;
 }

@@ -7,7 +7,7 @@ struct hash_table ht_create(unsigned int size, unsigned int step, hash_func_t fu
 {
     struct hash_table ht = { .size = 0U };
 
-    ht.data = calloc(size * sizeof(ht_data_t));
+    ht.data = calloc(size, sizeof(ht_data_t));
 
     if (ht.data != NULL)
     {

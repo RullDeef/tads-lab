@@ -78,9 +78,9 @@ static void __prn_rec(FILE *file, struct avl *node, int tab, bool is_left, bool 
         }
         fprintf(file, "%s", (is_left ? "╭" : (is_right ? "╰" : " ")));
 
-        int n = snprintf(NULL, 0, "%d", node->data);
+        int n = snprintf(NULL, 0, "[%d]", node->data);
         fprintf(file, "%.*s", PRN_DATA_LEN - n, "------------------");
-        fprintf(file, PRN_COLOR "%d" CLR_RESET, node->data);
+        fprintf(file, PRN_COLOR "[%d]" CLR_RESET, node->data);
 
         if (node->left != NULL && node->right != NULL)
             fprintf(file, "┥");

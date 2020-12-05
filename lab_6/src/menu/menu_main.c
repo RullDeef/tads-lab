@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
 #include "utils/logger.h"
 #include "uki.h"
 #include "menu.h"
@@ -7,6 +8,7 @@
 #include "wrappers/avl/avl_wrapper.h"
 #include "wrappers/hash_table/ht_wrapper.h"
 
+static bool file_is_valid(FILE *data_file);
 static int powered_main_menu(FILE *data_file);
 
 int menu_main(void)
@@ -28,11 +30,23 @@ int menu_main(void)
 
     if (data_file == NULL)
         printf("Неверное имя файла.\n");
+    else if (!file_is_valid(data_file))
+        printf("Неверное содержание файла.\n");
     else
         status = powered_main_menu(data_file);
 
     fclose(data_file);
     return status;
+}
+
+static bool file_is_valid(FILE *data_file)
+{
+    int num;
+
+    while (fscanf(data_file, "%d", &num) == 1)
+        ;
+
+    return fscanf(data_file, "%d", &num) == EOF;
 }
 
 static int powered_main_menu(FILE *data_file)

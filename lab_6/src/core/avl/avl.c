@@ -180,6 +180,24 @@ static struct avl *__left_deep_rotate(struct avl *tree)
 
 static struct avl *__balance_tree(struct avl *tree)
 {
+    while (tree->diff > 1)
+    {
+        assert(tree->right && "bad right part when balance");
+        if (tree->right->left)
+            tree = __left_deep_rotate(tree);
+        else
+            tree = __left_short_rotate(tree);
+    }
+
+    while (tree->diff < -1)
+    {
+        assert(tree->left && "bad left part when balance");
+        if (tree->left->right)
+            tree = __right_deep_rotate(tree);
+        else
+            tree = __right_short_rotate(tree);
+    }
+
     switch (tree->diff)
     {
     case -1:
@@ -204,7 +222,8 @@ static struct avl *__balance_tree(struct avl *tree)
         break;
 
     default:
-        assert(0 && "bad tree->diff when balance");
+        log_error("bad tree->diff when balance: %d", tree->diff);
+        assert(0);
         break;
     }
 

@@ -12,7 +12,7 @@ clean :
 	rm -rf obj *.exe
 
 run : app.exe
-	./app.exe
+	./app.exe < stdin.txt
 
 app.exe : $(OBJFILES) obj/main.o vendor/callocs/src/callocs.c
 	$(CC) $(CFLAGS) -o $@ $^ $(LFLAGS)

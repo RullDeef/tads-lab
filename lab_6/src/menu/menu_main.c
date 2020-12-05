@@ -4,22 +4,26 @@
 #include "utils/logger.h"
 #include "uki.h"
 #include "menu.h"
+
 #include "wrappers/bst/bst_wrapper.h"
 #include "wrappers/avl/avl_wrapper.h"
 #include "wrappers/hash_table/ht_wrapper.h"
+#include "wrappers/file/file_wrapper.h"
+
+#define INPUT_BUFFER_SIZE 256U
 
 static bool file_is_valid(FILE *data_file);
-static int powered_main_menu(FILE *data_file);
+static int powered_main_menu(const char *data_file_name);
 
 int menu_main(void)
 {
     int status = -1;
 
-    char buffer[256] = "data.txt";
+    char buffer[INPUT_BUFFER_SIZE];
     FILE *data_file = NULL;
 
     printf("Введите имя файла для ввода данных: ");
-    if (fgets(buffer, 256, stdin) != NULL)
+    if (fgets(buffer, INPUT_BUFFER_SIZE, stdin) != NULL)
     {
         while (buffer[strlen(buffer) - 1] == '\n' || buffer[strlen(buffer) - 1] == '\r')
             buffer[strlen(buffer) - 1] = '\0';
@@ -31,11 +35,16 @@ int menu_main(void)
     if (data_file == NULL)
         printf("Неверное имя файла.\n");
     else if (!file_is_valid(data_file))
+    {
         printf("Неверное содержание файла.\n");
+        fclose(data_file);
+    }
     else
-        status = powered_main_menu(data_file);
+    {
+        fclose(data_file);
+        status = powered_main_menu(buffer);
+    }
 
-    fclose(data_file);
     return status;
 }
 
@@ -49,42 +58,47 @@ static bool file_is_valid(FILE *data_file)
     return fscanf(data_file, "%d", &num) == EOF;
 }
 
-static int powered_main_menu(FILE *data_file)
+static int powered_main_menu(const char *data_file_name)
 {
-    uki_menu_t menu = uki_menu_create_cmd();
+    int status = 0;
 
-    if (!menu)
+    // create file wrapper
+    struct file_wrapper fw = fw_create(data_file_name);
+
+    struct bst_wrapper bstw;
+    struct avl_wrapper avlw;
+    struct ht_wrapper htw;
+
+    if (bstw_fscanf(fw.file, &bstw) != 0)
     {
-        log_error("Не удалось создать главное меню");
-        return -1;
+        log_error("Невозможно создать ДДП.");
+        status = -1;
+    }
+    else
+    {
+        if (avlw_fscanf(fw.file, &avlw) != 0)
+        {
+            log_error("Невозможно создать AVL дерево.");
+            status = -2;
+        }
+        else
+        {
+            if (htw_fscanf(fw.file, &htw) != 0)
+            {
+                log_error("Невозможно создать хеш-таблицу.");
+                status = -2;
+            }
+            else
+            {
+                log_info("Все структуры созданы успешно.");
+                status = menu_worker(&bstw, &avlw, &htw, &fw);
+                htw_destroy(&htw);
+            }
+            avlw_destroy(&avlw);
+        }
+        bstw_destroy(&bstw);
     }
 
-    // create BST from numbers in file
-    struct bst_wrapper bstw;
-    bstw_fscanf(data_file, &bstw);
-
-    // print out
-    log_info("BST:");
-    bstw_fprintf(stdout, &bstw);
-
-    struct avl_wrapper avlw;
-    avlw_fscanf(data_file, &avlw);
-
-    log_info("AVL:");
-    avlw_fprintf(stdout, &avlw);
-
-    log_info("loading hash table");
-
-    struct ht_wrapper htw;
-    htw_fscanf(data_file, &htw);
-
-    log_info("HASH TABLE:");
-    htw_fprintf(stdout, &htw);
-
-    bstw_destroy(&bstw);
-    avlw_destroy(&avlw);
-    htw_destroy(&htw);
-
-    uki_menu_destroy(menu);
-    return 0;
+    fw_destroy(&fw);
+    return status;
 }

@@ -6,13 +6,16 @@ LFLAGS :=
 SRCFILES := $(shell find src \( -name *.c ! -name "main.c" \))
 OBJFILES := $(subst .c,.o,$(subst src,obj,$(SRCFILES)))
 
-.PHONY : clean run gendata
+.PHONY : clean run auto gendata
 
 clean :
 	rm -rf obj *.exe
 
-run : app.exe
+auto : app.exe
 	./app.exe < stdin.txt
+
+run : app.exe
+	./app.exe
 
 gendata :
 	py gendata.py 20

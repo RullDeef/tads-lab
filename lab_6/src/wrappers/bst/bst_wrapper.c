@@ -100,3 +100,35 @@ size_t bstw_calc_size(struct bst_wrapper *tree)
 {
     return __calc_node_size(tree->root);
 }
+
+static int __calc_mean_cmp_amount(struct bst *node, int *count)
+{
+    if (!node)
+        return 0;
+
+    int left_amount = 0;
+    int right_amount = 0;
+    int cmps = 1;
+
+    if (node->left)
+    {
+        int left_cmps = __calc_mean_cmp_amount(node->left, &left_amount);
+        cmps += left_cmps + left_amount;
+    }
+
+    if (node->right)
+    {
+        int right_cmps = __calc_mean_cmp_amount(node->right, &right_amount);
+        cmps += right_cmps + right_amount;
+    }
+
+    *count = 1 + left_amount + right_amount;
+    return cmps;
+}
+
+float bstw_calc_mean_cmp_amount(struct bst_wrapper *tree)
+{
+    int count = 0;
+    int cmps = __calc_mean_cmp_amount(tree->root, &count);
+    return count == 0 ? 0.0f : (float)cmps / count;
+}

@@ -25,4 +25,6 @@ void bstw_fprintf(FILE *file, struct bst_wrapper *tree);
 
 size_t bstw_calc_size(struct bst_wrapper *tree);
 
+float bstw_calc_mean_cmp_amount(struct bst_wrapper *tree);
+
 #endif

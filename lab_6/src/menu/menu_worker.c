@@ -76,46 +76,11 @@ static int structs_insert(int argc, const char **argv)
 
         printf("Ключ %d успешно добавлен во все структуры.\n\n", num);
 
-        uki_table_t table = uki_table_create(5, 3U);
-
-        uki_table_write(table, 0U, 0U, " struct ");
-        uki_table_write(table, 0U, 1U, " insert time ");
-        uki_table_write(table, 0U, 2U, " struct size ");
-
-        uki_table_write(table, 1U, 0U, " BST ");
-        uki_table_write(table, 2U, 0U, " AVL ");
-        uki_table_write(table, 3U, 0U, " hash table ");
-        uki_table_write(table, 4U, 0U, " file ");
-
-        const size_t buf_size = 64U;
-        char buf[buf_size];
-
-        snprintf(buf, buf_size, " %llu ticks ", bst_time);
-        uki_table_write(table, 1U, 1U, buf);
-
-        snprintf(buf, buf_size, " %llu ticks ", avl_time);
-        uki_table_write(table, 2U, 1U, buf);
-
-        snprintf(buf, buf_size, " %llu ticks ", ht_time);
-        uki_table_write(table, 3U, 1U, buf);
-
-        snprintf(buf, buf_size, " %llu ticks ", f_time);
-        uki_table_write(table, 4U, 1U, buf);
-
-        snprintf(buf, buf_size, " %lu Bytes ", bstw_calc_size(bst_wp));
-        uki_table_write(table, 1U, 2U, buf);
-
-        snprintf(buf, buf_size, " %lu Bytes ", avlw_calc_size(avl_wp));
-        uki_table_write(table, 2U, 2U, buf);
-
-        snprintf(buf, buf_size, " %lu Bytes ", htw_calc_size(ht_wp));
-        uki_table_write(table, 3U, 2U, buf);
-
-        snprintf(buf, buf_size, " %lu Bytes ", fw_calc_size(f_wp));
-        uki_table_write(table, 4U, 2U, buf);
-
-        uki_table_print(table, stdout);
-        uki_table_destroy(table);
+        printf("  Структура  |  Время вставки | Размер структуры | Ср. число сравнений\n");
+        printf("     ДДП     |  %6llu тактов |    %5lu байт    |      %4.1f\n", bst_time, bstw_calc_size(bst_wp), bstw_calc_mean_cmp_amount(bst_wp));
+        printf("     AVL     |  %6llu тактов |    %5lu байт    |      %4.1f\n", avl_time, avlw_calc_size(avl_wp), avlw_calc_mean_cmp_amount(avl_wp));
+        printf(" Хеш-таблица |  %6llu тактов |    %5lu байт    |      %4.1f\n", ht_time, htw_calc_size(ht_wp), htw_calc_mean_cmp_amount(ht_wp));
+        printf("    Файл     |  %6llu тактов |    %5lu байт    |      %4.1f\n", f_time, fw_calc_size(f_wp), fw_calc_mean_cmp_amont(f_wp));
     }
 
     return 0;

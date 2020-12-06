@@ -25,4 +25,6 @@ void avlw_fprintf(FILE *file, struct avl_wrapper *tree);
 
 size_t avlw_calc_size(struct avl_wrapper *tree);
 
+float avlw_calc_mean_cmp_amount(struct avl_wrapper *tree);
+
 #endif

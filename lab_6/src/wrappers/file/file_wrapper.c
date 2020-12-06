@@ -53,3 +53,19 @@ size_t fw_calc_size(struct file_wrapper *fw)
     (void)fw;
     return sizeof(FILE);
 }
+
+float fw_calc_mean_cmp_amont(struct file_wrapper *fw)
+{
+    int keys = 0;
+    int cmps = 0;
+    int num;
+
+    rewind(fw->file);
+    while (fscanf(fw->file, "%d", &num) != EOF)
+    {
+        keys++;
+        cmps += keys;
+    }
+
+    return keys == 0 ? 0.0f : (float)cmps / keys;
+}

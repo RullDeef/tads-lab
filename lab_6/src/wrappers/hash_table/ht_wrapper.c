@@ -105,3 +105,31 @@ size_t htw_calc_size(struct ht_wrapper *htw)
     (void)htw;
     return sizeof(struct hash_table) + htw->table.size * sizeof(ht_data_t);
 }
+
+static int __get_cmp_amount(struct hash_table *ht, int key)
+{
+    int cmps = 1;
+    unsigned int hash = ht->func(key) % ht->size;
+
+    for (unsigned int i = 0; i < ht->size && ht->data[hash].valid && ht->data[hash].key != key; i++, cmps++)
+        hash = (hash + ht->step) % ht->size;
+
+    return cmps;
+}
+
+float htw_calc_mean_cmp_amount(struct ht_wrapper *htw)
+{
+    int keys = 0;
+    int cmps = 0;
+
+    for (unsigned int i = 0; i < htw->table.size; i++)
+    {
+        if (htw->table.data[i].valid)
+        {
+            keys++;
+            cmps += __get_cmp_amount(&htw->table, htw->table.data[i].key);
+        }
+    }
+
+    return keys == 0 ? 0.0f : (float)cmps / keys;
+}

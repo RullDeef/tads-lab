@@ -47,3 +47,9 @@ int fw_fprintf(FILE *file, struct file_wrapper *fw)
 
     return 0;
 }
+
+size_t fw_calc_size(struct file_wrapper *fw)
+{
+    (void)fw;
+    return sizeof(FILE);
+}

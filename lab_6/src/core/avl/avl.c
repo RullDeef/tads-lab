@@ -13,6 +13,7 @@ static int __create_leaf(struct avl **leaf, int data)
         return -1;
     }
     (*leaf)->depth = 1;
+    (*leaf)->diff = 0;
     (*leaf)->data = data;
     (*leaf)->count = 1;
     (*leaf)->left = NULL;
@@ -85,6 +86,8 @@ static struct avl *__right_short_rotate(struct avl *tree)
 
     tree->left = __balance_tree(tree->left);
     tree->right = __balance_tree(tree->right);
+    tree->depth = DETERM_DEPTH(tree);
+    tree->diff = DETERM_DIFF(tree);
 
     return tree;
 }
@@ -117,6 +120,8 @@ static struct avl *__right_deep_rotate(struct avl *tree)
 
     tree->left = __balance_tree(tree->left);
     tree->right = __balance_tree(tree->right);
+    tree->depth = DETERM_DEPTH(tree);
+    tree->diff = DETERM_DIFF(tree);
 
     return tree;
 }
@@ -142,6 +147,8 @@ static struct avl *__left_short_rotate(struct avl *tree)
 
     tree->left = __balance_tree(tree->left);
     tree->right = __balance_tree(tree->right);
+    tree->depth = DETERM_DEPTH(tree);
+    tree->diff = DETERM_DIFF(tree);
 
     return tree;
 }
@@ -174,57 +181,30 @@ static struct avl *__left_deep_rotate(struct avl *tree)
 
     tree->left = __balance_tree(tree->left);
     tree->right = __balance_tree(tree->right);
+    tree->depth = DETERM_DEPTH(tree);
+    tree->diff = DETERM_DIFF(tree);
 
     return tree;
 }
 
 static struct avl *__balance_tree(struct avl *tree)
 {
-    while (tree->diff > 1)
+    while (tree != NULL && (tree->diff > 1 || tree->diff < -1))
     {
-        assert(tree->right && "bad right part when balance");
-        if (tree->right->left)
-            tree = __left_deep_rotate(tree);
+        if (tree->diff < -1)
+        {
+            if (tree->left && tree->left->right)
+                tree = __right_deep_rotate(tree);
+            else
+                tree = __right_short_rotate(tree);
+        }
         else
-            tree = __left_short_rotate(tree);
-    }
-
-    while (tree->diff < -1)
-    {
-        assert(tree->left && "bad left part when balance");
-        if (tree->left->right)
-            tree = __right_deep_rotate(tree);
-        else
-            tree = __right_short_rotate(tree);
-    }
-
-    switch (tree->diff)
-    {
-    case -1:
-    case 0:
-    case 1:
-        break;
-
-    case -2:
-        assert(tree->left && "bad left part when balance");
-        if (tree->left->right)
-            tree = __right_deep_rotate(tree);
-        else
-            tree = __right_short_rotate(tree);
-        break;
-
-    case 2:
-        assert(tree->right && "bad right part when balance");
-        if (tree->right->left)
-            tree = __left_deep_rotate(tree);
-        else
-            tree = __left_short_rotate(tree);
-        break;
-
-    default:
-        log_error("bad tree->diff when balance: %d", tree->diff);
-        assert(0);
-        break;
+        {
+            if (tree->right && tree->right->left)
+                tree = __left_deep_rotate(tree);
+            else
+                tree = __left_short_rotate(tree);
+        }
     }
 
     return tree;
@@ -301,7 +281,12 @@ int avl_remove(struct avl *tree, int data)
 // NULL - если не найдено.
 struct avl *avl_find(struct avl *tree, int data)
 {
-    (void)tree;
-    (void)data;
-    return NULL;
+    if (tree == NULL)
+        return NULL;
+    else if (data == tree->data)
+        return tree;
+    else if (data < tree->data)
+        return avl_find(tree->left, data);
+    else
+        return avl_find(tree->right, data);
 }

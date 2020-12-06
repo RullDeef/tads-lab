@@ -41,16 +41,11 @@ int htw_fscanf(FILE *file, struct ht_wrapper *htw)
     while (fscanf(file, "%d", &num) != EOF)
         numbers_count++;
 
-    if (numbers_count == 0U)
-        status = -1;
-    else
-    {
-        *htw = htw_create(numbers_count + 5U, 1U, hash_func_2);
+    *htw = htw_create(numbers_count + 5U, 1U, hash_func_2);
 
-        rewind(file);
-        while (fscanf(file, "%d", &num) != EOF)
-            htw_insert(htw, num);
-    }
+    rewind(file);
+    while (fscanf(file, "%d", &num) != EOF)
+        htw_insert(htw, num);
 
     return status;
 }
@@ -103,4 +98,10 @@ void htw_fprintf(FILE *file, struct ht_wrapper *htw)
         if (i < ht.size)
             fprintf(file, "\n");
     }
+}
+
+size_t htw_calc_size(struct ht_wrapper *htw)
+{
+    (void)htw;
+    return sizeof(struct hash_table) + htw->table.size * sizeof(ht_data_t);
 }

@@ -6,7 +6,7 @@ LFLAGS :=
 SRCFILES := $(shell find src \( -name *.c ! -name "main.c" \))
 OBJFILES := $(subst .c,.o,$(subst src,obj,$(SRCFILES)))
 
-.PHONY : clean run auto gendata
+.PHONY : clean run auto gendata func
 
 clean :
 	rm -rf obj *.exe
@@ -19,6 +19,12 @@ run : app.exe
 
 gendata :
 	py gendata.py 20
+
+func : func.exe
+	py func_test/test.py
+
+func.exe : $(OBJFILES) obj/main.o vendor/callocs/src/callocs.c
+	$(CC) $(CFLAGS) -o $@ $^ $(LFLAGS)
 
 app.exe : $(OBJFILES) obj/main.o vendor/callocs/src/callocs.c
 	$(CC) $(CFLAGS) -o $@ $^ $(LFLAGS)

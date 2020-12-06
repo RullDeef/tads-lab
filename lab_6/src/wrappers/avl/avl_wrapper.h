@@ -23,4 +23,6 @@ struct avl *avlw_find(struct avl_wrapper *tree, int data);
 int avlw_fscanf(FILE *file, struct avl_wrapper *tree);
 void avlw_fprintf(FILE *file, struct avl_wrapper *tree);
 
+size_t avlw_calc_size(struct avl_wrapper *tree);
+
 #endif

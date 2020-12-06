@@ -4,7 +4,7 @@
 #include "bst_wrapper.h"
 
 #define PRN_DATA_LEN 6
-#define PRN_COLOR CLR_BR_GREEN_U
+#define PRN_COLOR CLR_BR_GREEN
 
 struct bst_wrapper bstw_create(void)
 {
@@ -38,24 +38,13 @@ struct bst *bstw_find(struct bst_wrapper *bstw, int data)
 int bstw_fscanf(FILE *file, struct bst_wrapper *tree)
 {
     int status = 0;
-
-    unsigned int numbers_count = 0U;
     int num;
 
+    *tree = bstw_create();
+
     rewind(file);
-    while (fscanf(file, "%d", &num) != EOF)
-        numbers_count++;
-
-    if (numbers_count == 0U)
-        status = -1;
-    else
-    {
-        *tree = bstw_create();
-
-        rewind(file);
-        while (fscanf(file, "%d", &num) != EOF)
-            bstw_insert(tree, num);
-    }
+    while (status == 0 && fscanf(file, "%d", &num) != EOF)
+        status = bstw_insert(tree, num);
 
     return status;
 }
@@ -70,7 +59,7 @@ static void __prn_rec(FILE *file, struct bst *node, int tab, bool is_left, bool 
         for (int i = 0; i < tab; i++)
         {
             if ((i != 0) && (notch & (1U << (tab - i - 1))))
-                fprintf(file, "|");
+                fprintf(file, "│");
             else
                 fprintf(file, " ");
             fprintf(file, "%*s", PRN_DATA_LEN, "");
@@ -78,8 +67,8 @@ static void __prn_rec(FILE *file, struct bst *node, int tab, bool is_left, bool 
         fprintf(file, "%s", (is_left ? "╭" : (is_right ? "╰" : " ")));
 
         int n = snprintf(NULL, 0, "[%d]", node->data);
-        fprintf(file, "%.*s", PRN_DATA_LEN - n, "------------------");
-        fprintf(file, PRN_COLOR "[%d]" CLR_RESET, node->data);
+        fprintf(file, "%.*s", (PRN_DATA_LEN - n) * 3, "──────────────");
+        fprintf(file, PRN_COLOR " %d " CLR_RESET, node->data);
 
         if (node->left != NULL && node->right != NULL)
             fprintf(file, "┥");
@@ -97,4 +86,17 @@ static void __prn_rec(FILE *file, struct bst *node, int tab, bool is_left, bool 
 void bstw_fprintf(FILE *file, struct bst_wrapper *bstw)
 {
     __prn_rec(file, bstw->root, 0, false, false, 0U);
+}
+
+static size_t __calc_node_size(struct bst *node)
+{
+    if (node == NULL)
+        return 0U;
+    else
+        return sizeof(struct bst) + __calc_node_size(node->left) + __calc_node_size(node->right);
+}
+
+size_t bstw_calc_size(struct bst_wrapper *tree)
+{
+    return __calc_node_size(tree->root);
 }

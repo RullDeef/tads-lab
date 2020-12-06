@@ -1,1 +1,3 @@
 ./data.txt
+show avl
+exit

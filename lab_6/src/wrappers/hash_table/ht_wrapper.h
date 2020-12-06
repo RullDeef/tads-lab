@@ -19,4 +19,6 @@ int htw_find(struct ht_wrapper *htw, int key);
 int htw_fscanf(FILE *file, struct ht_wrapper *htw);
 void htw_fprintf(FILE *file, struct ht_wrapper *htw);
 
+size_t htw_calc_size(struct ht_wrapper *htw);
+
 #endif // __HT_WRAPPER_H_

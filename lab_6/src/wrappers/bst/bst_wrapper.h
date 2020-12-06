@@ -23,4 +23,6 @@ struct bst *bstw_find(struct bst_wrapper *tree, int data);
 int bstw_fscanf(FILE *file, struct bst_wrapper *tree);
 void bstw_fprintf(FILE *file, struct bst_wrapper *tree);
 
+size_t bstw_calc_size(struct bst_wrapper *tree);
+
 #endif

@@ -25,7 +25,8 @@
     (void)__timer_real;
 
 #define TIMER_TICKS __timer_ticks
-#define TIMER_MICROSECONDS __timer_real
+#define TIMER_NANOSECONDS ((float)__timer_real)
+#define TIMER_MICROSECONDS (__timer_real / 1e3)
 #define TIMER_MILISECONDS (__timer_real / 1e6)
 #define TIMER_SECONDS (__timer_real / 1e9)
 

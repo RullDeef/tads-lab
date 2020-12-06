@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include "utils/timing.h"
 #include "utils/logger.h"
 #include "uki.h"
 #include "menu.h"
@@ -69,27 +70,45 @@ static int powered_main_menu(const char *data_file_name)
     struct avl_wrapper avlw;
     struct ht_wrapper htw;
 
-    if (bstw_fscanf(fw.file, &bstw) != 0)
+    BEGIN_TIMER;
+    status = bstw_fscanf(fw.file, &bstw);
+    END_TIMER;
+
+    if (status != 0)
     {
         log_error("Невозможно создать ДДП.");
         status = -1;
     }
     else
     {
-        if (avlw_fscanf(fw.file, &avlw) != 0)
+        printf("Загружено ДДП         за %llu тактов и %.2f нс.\n", TIMER_TICKS, TIMER_NANOSECONDS);
+
+        BEGIN_TIMER;
+        status = avlw_fscanf(fw.file, &avlw);
+        END_TIMER;
+
+        if (status != 0)
         {
             log_error("Невозможно создать AVL дерево.");
             status = -2;
         }
         else
         {
-            if (htw_fscanf(fw.file, &htw) != 0)
+            printf("Загружено AVL дерево  за %llu тактов и %.2f нс.\n", TIMER_TICKS, TIMER_NANOSECONDS);
+
+            BEGIN_TIMER;
+            status = htw_fscanf(fw.file, &htw);
+            END_TIMER;
+
+            if (status != 0)
             {
                 log_error("Невозможно создать хеш-таблицу.");
                 status = -2;
             }
             else
             {
+                printf("Загружена хеш-таблица за %llu тактов и %.2f нс.\n", TIMER_TICKS, TIMER_NANOSECONDS);
+
                 log_info("Все структуры созданы успешно.");
                 status = menu_worker(&bstw, &avlw, &htw, &fw);
                 htw_destroy(&htw);

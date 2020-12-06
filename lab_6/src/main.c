@@ -14,7 +14,7 @@ int main(void)
 
     int status = 0;
 
-    if (callocs_init(20U * 1024U))
+    if (callocs_init(200U * 1024U))
     {
         log_error("Не удалось инициализировать пул памяти");
         status = -2;

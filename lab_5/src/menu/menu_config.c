@@ -31,7 +31,7 @@ static int config_reset(cmdf_arglist *arglist)
     return EXIT_SUCCESS;
 }
 
-static int parse_arglist_offset(const char *str, size_t *offset)
+static int parse_offset(const char *str, size_t *offset)
 {
     if (strcmp(str, "a") == 0 || strcmp(str, "A") == 0)
         *offset = 0;
@@ -53,7 +53,7 @@ static int config_set(cmdf_arglist *arglist)
     float begin;
     float end;
 
-    if (!arglist || arglist->count != 3 || parse_arglist_offset(arglist->args[0], &offset) ||
+    if (!arglist || arglist->count != 3 || parse_offset(arglist->args[0], &offset) ||
         parse_float(arglist->args[1], &begin) || parse_float(arglist->args[2], &end))
     {
         printf("Использование: " CLR_EMPH "set [имя параметра] [начало] [конец]" CLR_RESET ", где\n");
@@ -101,10 +101,32 @@ static int config_back(cmdf_arglist *arglist)
     return EXIT_SUCCESS;
 }
 
+static void scanf_intv(time_interval_t *intv)
+{
+    scanf("%f%f", &intv->begin, &intv->end);
+    char buf[2];
+    fgets(buf, 2, stdin);
+}
+
 int menu_config(cmdf_arglist *arglist)
 {
-    if (arglist)
-        printf("Для данной команды не нужны дополнительные аргументы.\n");
+    if (arglist && arglist->count == 1 && strcmp(arglist->args[0], "fast") == 0)
+    {
+        printf("Время прихода заявки в первую очередь: ");
+        scanf_intv(&wk_params.t_in1);
+
+        printf("Время прихода заявки во вторую очередь: ");
+        scanf_intv(&wk_params.t_in2);
+
+        printf("Время обработки заявки из первой очереди: ");
+        scanf_intv(&wk_params.t_out1);
+
+        printf("Время обработки заявки из второй очереди: ");
+        scanf_intv(&wk_params.t_out2);
+
+        printf("\n");
+        config_show(NULL);
+    }
     else
     {
         cmdf_init(CLR_BR_CYAN_U "main/config>" CLR_RESET " ", CONFIG_INTRO, DOC_HEADER, UNDOC_HEADER, '~', 0);

@@ -145,7 +145,7 @@ int menu_run(cmdf_arglist *arglist)
 
         printf("Запуск моделирования для числа заявок первого типа: " CLR_GREEN "%u" CLR_RESET " и шага " CLR_GREEN "%u" CLR_RESET "\n", requests_count, requests_step);
 
-        struct worker_wrapper wkw = wkw_create(qu1_imp, qu2_imp, requests_count);
+        struct worker_wrapper wkw = wkw_create(qu1_imp, qu2_imp, 2U * requests_count);
         wkw.wk.params = wk_params;
 
         worker_interm_state_t wk_state = { .initialized = false };
@@ -154,7 +154,8 @@ int menu_run(cmdf_arglist *arglist)
             int status = wkw_model_run(&wkw, requests_step, &wk_state);
             if (status != EXIT_SUCCESS)
             {
-                printf("При моделировании возникли серьёзные неисправности!\n");
+                // printf("При моделировании возникли серьёзные неисправности!\n");
+                printf("При моделировании возникло переполнение очереди.\n");
                 break;
             }
             passed_requests += requests_step;

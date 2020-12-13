@@ -22,4 +22,10 @@ void htw_fprintf(FILE *file, struct ht_wrapper *htw);
 size_t htw_calc_size(struct ht_wrapper *htw);
 float htw_calc_mean_cmp_amount(struct ht_wrapper *htw);
 
+unsigned int htw_get_keys_amount(struct ht_wrapper *htw);
+unsigned int htw_calc_remain_space(struct ht_wrapper *htw);
+unsigned int htw_calc_best_size(struct ht_wrapper *htw);
+
+void htw_restruct(struct ht_wrapper *htw, unsigned int new_size, hash_func_t new_func);
+
 #endif // __HT_WRAPPER_H_

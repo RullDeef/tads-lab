@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS := -std=gnu99 -Wall -Werror -pedantic -Wextra -Wuninitialized \
+CFLAGS := -std=gnu99 -Wall -Werror -Wextra -Wuninitialized \
 	-Isrc -Ivendor/uki -Ivendor/callocs/src -ggdb3 -g
 LFLAGS :=
 

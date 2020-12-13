@@ -81,7 +81,7 @@ static int powered_main_menu(const char *data_file_name)
     }
     else
     {
-        printf("Загружено ДДП         за %llu тактов и %.2f нс.\n", TIMER_TICKS, TIMER_NANOSECONDS);
+        printf("Загружено ДДП         за %llu тактов и %.3f мс.\n", TIMER_TICKS, TIMER_MILISECONDS);
 
         BEGIN_TIMER;
         status = avlw_fscanf(fw.file, &avlw);
@@ -94,7 +94,7 @@ static int powered_main_menu(const char *data_file_name)
         }
         else
         {
-            printf("Загружено AVL дерево  за %llu тактов и %.2f нс.\n", TIMER_TICKS, TIMER_NANOSECONDS);
+            printf("Загружено AVL дерево  за %llu тактов и %.3f мс.\n", TIMER_TICKS, TIMER_MILISECONDS);
 
             BEGIN_TIMER;
             status = htw_fscanf(fw.file, &htw);
@@ -107,7 +107,7 @@ static int powered_main_menu(const char *data_file_name)
             }
             else
             {
-                printf("Загружена хеш-таблица за %llu тактов и %.2f нс.\n", TIMER_TICKS, TIMER_NANOSECONDS);
+                printf("Загружена хеш-таблица за %llu тактов и %.3f мс.\n", TIMER_TICKS, TIMER_MILISECONDS);
 
                 log_info("Все структуры созданы успешно.");
                 status = menu_worker(&bstw, &avlw, &htw, &fw);

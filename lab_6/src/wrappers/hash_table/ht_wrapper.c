@@ -1,10 +1,11 @@
 #include <stdio.h>
+#include <assert.h>
 #include "utils/colors.h"
 #include "utils/logger.h"
 #include "ht_wrapper.h"
 
-#define PRN_WIDTH 80
-#define PRN_ITEM_WIDTH 4
+#define PRN_WIDTH 120
+#define PRN_ITEM_WIDTH 5
 
 #define ITEMS_COUNT ((PRN_WIDTH - 7) / PRN_ITEM_WIDTH)
 
@@ -41,7 +42,7 @@ int htw_fscanf(FILE *file, struct ht_wrapper *htw)
     while (fscanf(file, "%d", &num) != EOF)
         numbers_count++;
 
-    *htw = htw_create(numbers_count + 5U, 1U, hash_func_2);
+    *htw = htw_create(numbers_count + 5U, 1U, hash_func_1);
 
     rewind(file);
     while (fscanf(file, "%d", &num) != EOF)
@@ -50,11 +51,44 @@ int htw_fscanf(FILE *file, struct ht_wrapper *htw)
     return status;
 }
 
+size_t __get_collisions_amount(struct ht_wrapper *htw)
+{
+    size_t collisions = 0UL;
+
+    for (unsigned int i = 0; i < htw->table.size; i++)
+    {
+        if (htw->table.data[i].valid)
+        {
+            int key = htw->table.data[i].key;
+            if (htw->table.func(key) % htw->table.size != i)
+                collisions++;
+        }
+    }
+
+    return collisions;
+}
+
+void __fprint_func_name(FILE *file, hash_func_t func)
+{
+    fprintf(file, "Используемая хеш-функция: ");
+
+    if (func == hash_func_1)
+        fprintf(file, CLR_BR_GREEN "сумма цифр числа" CLR_RESET ".\n");
+    else if (func == hash_func_2)
+        fprintf(file, CLR_BR_GREEN "сумма цифр числа c солью" CLR_RESET ".\n");
+    else if (func == hash_func_3)
+        fprintf(file, CLR_BR_GREEN "хеширование Фибоначчи" CLR_RESET ".\n");
+    else
+        fprintf(file, CLR_BR_RED "(описание не предоставлено)" CLR_RESET ".\n");
+}
+
 void htw_fprintf(FILE *file, struct ht_wrapper *htw)
 {
     struct hash_table ht = htw->table;
 
     unsigned int i = 0U;
+
+    fprintf(file, "Хеш-таблица:\n");
 
     while (i < ht.size)
     {
@@ -98,6 +132,12 @@ void htw_fprintf(FILE *file, struct ht_wrapper *htw)
         if (i < ht.size)
             fprintf(file, "\n");
     }
+
+    fprintf(file, "Размер структуры: " CLR_BR_GREEN "%lu" CLR_RESET " байт.\n", htw_calc_size(htw));
+    fprintf(file, "Среднее число сравнений в структуре: " CLR_BR_GREEN "%.2f" CLR_RESET ".\n", htw_calc_mean_cmp_amount(htw));
+    fprintf(file, "Число коллизий в таблице: " CLR_RED "%lu" CLR_RESET ".\n", __get_collisions_amount(htw));
+    __fprint_func_name(file, htw->table.func);
+    fprintf(file, "\n");
 }
 
 size_t htw_calc_size(struct ht_wrapper *htw)
@@ -132,4 +172,50 @@ float htw_calc_mean_cmp_amount(struct ht_wrapper *htw)
     }
 
     return keys == 0 ? 0.0f : (float)cmps / keys;
+}
+
+unsigned int htw_get_keys_amount(struct ht_wrapper *htw)
+{
+    unsigned int amount = 0U;
+
+    for (unsigned int i = 0; i < htw->table.size; i++)
+        if (htw->table.data[i].valid)
+            amount++;
+
+    return amount;
+}
+
+unsigned int htw_calc_remain_space(struct ht_wrapper *htw)
+{
+    unsigned int space = 0U;
+
+    for (unsigned int i = 0; i < htw->table.size; i++)
+        if (!htw->table.data[i].valid)
+            space++;
+
+    return space;
+}
+
+unsigned int htw_calc_best_size(struct ht_wrapper *htw)
+{
+    unsigned int size = 1U;
+
+    for (unsigned int i = 0; i < htw->table.size; i++)
+        if (htw->table.data[i].valid)
+            size++;
+
+    return 1.2f * size;
+}
+
+void htw_restruct(struct ht_wrapper *htw, unsigned int new_size, hash_func_t new_func)
+{
+    struct hash_table new_ht = ht_create(new_size, htw->table.step, new_func);
+
+    // copy old keys
+    for (unsigned int i = 0U; i < htw->table.size; i++)
+        if (htw->table.data[i].valid)
+            assert(ht_insert(&new_ht, htw->table.data[i].key) == 0);
+
+    ht_destroy(&htw->table);
+    htw->table = new_ht;
 }

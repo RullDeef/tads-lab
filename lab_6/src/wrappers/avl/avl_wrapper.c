@@ -86,7 +86,11 @@ static void __prn_rec(FILE *file, struct avl *node, int tab, bool is_left, bool 
 
 void avlw_fprintf(FILE *file, struct avl_wrapper *avlw)
 {
+    fprintf(file, "AVL:\n");
     __prn_rec(file, avlw->root, 0, false, false, 0U);
+
+    fprintf(file, "Размер структуры: " PRN_COLOR "%lu" CLR_RESET " байт.\n", avlw_calc_size(avlw));
+    fprintf(file, "Среднее число сравнений в структуре: " PRN_COLOR "%.2f" CLR_RESET ".\n\n", avlw_calc_mean_cmp_amount(avlw));
 }
 
 static size_t __calc_node_size(struct avl *node)

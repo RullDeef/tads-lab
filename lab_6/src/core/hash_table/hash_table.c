@@ -1,3 +1,5 @@
+#include <math.h>
+#include <limits.h>
 #include "hash_table.h"
 #include "utils/logger.h"
 #define CALLOCS_REDEFINE
@@ -66,30 +68,43 @@ int ht_find(struct hash_table *ht, int key)
 
 unsigned int hash_func_1(int key)
 {
-    return key + 200;
+    unsigned int sum = 0;
+
+    if (key < 0)
+        key *= -1;
+
+    while (key != 0)
+    {
+        sum += key % 10;
+        key /= 10;
+    }
+
+    return sum;
 }
 
 unsigned int hash_func_2(int key)
 {
-    unsigned int sum = 0U;
+    unsigned int sum = 0;
 
-    sum += 54 * (key % 53);
-    sum += 59 * (key % 59);
-    sum += 61 * (key % 61);
+    if (key < 0)
+        key *= -1;
+
+    key *= 59;
+    while (key != 0)
+    {
+        sum += key % 10;
+        key /= 10;
+    }
 
     return sum;
 }
 
 unsigned int hash_func_3(int key)
 {
-    unsigned int sum = 0U;
-    if (key < 0) key *= -1;
+    const long double golden_ratio = 0.618033988749894848204586834365638118;
 
-    while (key > 0)
-    {
-        sum += key * (key % 11);
-        key = key / 11;
-    }
+    long double value = key * golden_ratio;
+    value -= floorl(value);
 
-    return sum;
+    return UINT_MAX * value;
 }

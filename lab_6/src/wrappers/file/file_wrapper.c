@@ -1,3 +1,4 @@
+#include "utils/colors.h"
 #include "file_wrapper.h"
 
 struct file_wrapper fw_create(const char *name)
@@ -5,6 +6,10 @@ struct file_wrapper fw_create(const char *name)
     struct file_wrapper fw;
     fw.name = name;
     fw.file = fopen(name, "a+");
+
+    fseek(fw.file, 0L, SEEK_END);
+    fw.size = ftell(fw.file);
+
     return fw;
 }
 
@@ -21,6 +26,8 @@ int fw_insert(struct file_wrapper *fw, int data)
 {
     fseek(fw->file, 0L, SEEK_END);
     fprintf(fw->file, " %d", data);
+    fseek(fw->file, 0L, SEEK_END);
+    fw->size = ftell(fw->file);
     return 0;
 }
 
@@ -38,6 +45,8 @@ int fw_find(struct file_wrapper *fw, int data)
 
 int fw_fprintf(FILE *file, struct file_wrapper *fw)
 {
+    fprintf(file, "Файл:\n");
+
     fseek(fw->file, 0L, SEEK_SET);
 
     int num;
@@ -45,16 +54,18 @@ int fw_fprintf(FILE *file, struct file_wrapper *fw)
         fprintf(file, "%d ", num);
     fprintf(file, "\n");
 
+    fprintf(file, "Размер структуры: " CLR_BR_GREEN "%lu" CLR_RESET " байт.\n", fw_calc_size(fw));
+    fprintf(file, "Среднее число сравнений в структуре: " CLR_BR_GREEN "%.2f" CLR_RESET ".\n\n", fw_calc_mean_cmp_amount(fw));
+
     return 0;
 }
 
 size_t fw_calc_size(struct file_wrapper *fw)
 {
-    (void)fw;
-    return sizeof(FILE);
+    return fw->size;
 }
 
-float fw_calc_mean_cmp_amont(struct file_wrapper *fw)
+float fw_calc_mean_cmp_amount(struct file_wrapper *fw)
 {
     int keys = 0;
     int cmps = 0;

@@ -6,6 +6,7 @@
 struct file_wrapper
 {
     const char *name;
+    size_t size;
     FILE *file;
 };
 
@@ -20,6 +21,6 @@ int fw_find(struct file_wrapper *fw, int data);
 int fw_fprintf(FILE *file, struct file_wrapper *fw);
 
 size_t fw_calc_size(struct file_wrapper *fw);
-float fw_calc_mean_cmp_amont(struct file_wrapper *fw);
+float fw_calc_mean_cmp_amount(struct file_wrapper *fw);
 
 #endif // __FILE_WRAPPER_H_

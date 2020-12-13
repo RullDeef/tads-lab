@@ -85,7 +85,11 @@ static void __prn_rec(FILE *file, struct bst *node, int tab, bool is_left, bool 
 
 void bstw_fprintf(FILE *file, struct bst_wrapper *bstw)
 {
+    fprintf(file, "ДДП:\n");
     __prn_rec(file, bstw->root, 0, false, false, 0U);
+
+    fprintf(file, "Размер структуры: " PRN_COLOR "%lu" CLR_RESET " байт.\n", bstw_calc_size(bstw));
+    fprintf(file, "Среднее число сравнений в структуре: " PRN_COLOR "%.2f" CLR_RESET ".\n\n", bstw_calc_mean_cmp_amount(bstw));
 }
 
 static size_t __calc_node_size(struct bst *node)

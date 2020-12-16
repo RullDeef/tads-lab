@@ -92,14 +92,14 @@ static int structs_insert(int argc, const char **argv)
             printf(CLR_BR_RED "Внимание." CLR_RESET " Хеш-таблица полностью заполнена.\n");
 
         printf("\n");
-        printf("  Структура  |  Время вставки | Размер структуры | Ср. число сравнений\n");
-        printf("     ДДП     |  %6llu тактов |    %5lu байт    |      %4.1f\n", bst_time, bstw_calc_size(bst_wp), bstw_calc_mean_cmp_amount(bst_wp));
-        printf("     AVL     |  %6llu тактов |    %5lu байт    |      %4.1f\n", avl_time, avlw_calc_size(avl_wp), avlw_calc_mean_cmp_amount(avl_wp));
+        printf("  Структура  |    Время вставки   | Размер структуры | Ср. число сравнений\n");
+        printf("     ДДП     |  %10llu тактов |    %5lu байт    |      %4.1f\n", bst_time, bstw_calc_size(bst_wp), bstw_calc_mean_cmp_amount(bst_wp));
+        printf("     AVL     |  %10llu тактов |    %5lu байт    |      %4.1f\n", avl_time, avlw_calc_size(avl_wp), avlw_calc_mean_cmp_amount(avl_wp));
         if (space_bef != 0U)
-            printf(" Хеш-таблица |  %6llu тактов |    %5lu байт    |      %4.1f\n", ht_time, htw_calc_size(ht_wp), htw_calc_mean_cmp_amount(ht_wp));
+            printf(" Хеш-таблица |  %10llu тактов |    %5lu байт    |      %4.1f\n", ht_time, htw_calc_size(ht_wp), htw_calc_mean_cmp_amount(ht_wp));
         else
             printf(" Хеш-таблица |  ------------- |    %5lu байт    |      %4.1f\n", htw_calc_size(ht_wp), htw_calc_mean_cmp_amount(ht_wp));
-        printf("    Файл     |  %6llu тактов |    %5lu байт    |      %4.1f\n", f_time, fw_calc_size(f_wp), fw_calc_mean_cmp_amount(f_wp));
+        printf("    Файл     |  %10llu тактов |    %5lu байт    |      %4.1f\n", f_time, fw_calc_size(f_wp), fw_calc_mean_cmp_amount(f_wp));
     }
 
     return EXIT_SUCCESS;

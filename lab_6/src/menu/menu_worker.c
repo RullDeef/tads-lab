@@ -170,8 +170,9 @@ static int structs_find(int argc, const char **argv)
         printf("Использование: find <num>\n");
     else
     {
-        unsigned long long bst_time, avl_time, ht_time, f_time;
+        float bst_time, avl_time, ht_time, f_time;
         int cmp_bst = 0, cmp_avl = 0, cmp_ht = 0, cmp_f = 0;
+        size_t finds_count = 1000UL;
 
         struct bst *bst_res;
         struct avl *avl_res;
@@ -180,39 +181,43 @@ static int structs_find(int argc, const char **argv)
 
         {
             BEGIN_TIMER;
-            bst_res = bstw_find(bst_wp, num, &cmp_bst);
+            for (size_t n = 0UL; n < finds_count; n++)
+                bst_res = bstw_find(bst_wp, num, &cmp_bst);
             END_TIMER;
-            bst_time = TIMER_MICROSECONDS;
+            bst_time = (float) TIMER_MICROSECONDS / finds_count;
         }
 
         {
             BEGIN_TIMER;
-            avl_res = avlw_find(avl_wp, num, &cmp_avl);
+            for (size_t n = 0UL; n < finds_count; n++)
+                avl_res = avlw_find(avl_wp, num, &cmp_avl);
             END_TIMER;
-            avl_time = TIMER_MICROSECONDS;
+            avl_time = (float) TIMER_MICROSECONDS / finds_count;
         }
 
         {
             BEGIN_TIMER;
-            ht_res = htw_find(ht_wp, num, &cmp_ht);
+            for (size_t n = 0UL; n < finds_count; n++)
+                ht_res = htw_find(ht_wp, num, &cmp_ht);
             END_TIMER;
-            ht_time = TIMER_MICROSECONDS;
+            ht_time = (float) TIMER_MICROSECONDS / finds_count;
         }
 
         {
             BEGIN_TIMER;
-            f_res = fw_find(f_wp, num, &cmp_f);
+            for (size_t n = 0UL; n < finds_count; n++)
+                f_res = fw_find(f_wp, num, &cmp_f);
             END_TIMER;
-            f_time = TIMER_MICROSECONDS;
+            f_time = (float) TIMER_MICROSECONDS / finds_count;
         }
 
         printf("Результаты поиска ключа " CLR_CYAN "%d" CLR_RESET ".\n\n", num);
 
         printf("  Структура  | Ключ |    Время поиска    | Размер структуры | Число сравнений при поиске\n");
-        printf("     ДДП     | %4s |    %10llu мкс  |    %5lu байт    |      %4d\n", (bst_res ? CLR_BR_GREEN "есть" CLR_RESET : CLR_RED " нет" CLR_RESET), bst_time, bstw_calc_size(bst_wp), cmp_bst);
-        printf("     AVL     | %4s |    %10llu мкс  |    %5lu байт    |      %4d\n", (avl_res ? CLR_BR_GREEN "есть" CLR_RESET : CLR_RED " нет" CLR_RESET), avl_time, avlw_calc_size(avl_wp), cmp_avl);
-        printf(" Хеш-таблица | %4s |    %10llu мкс  |    %5lu байт    |      %4d\n", (!ht_res ? CLR_BR_GREEN "есть" CLR_RESET : CLR_RED " нет" CLR_RESET), ht_time, htw_calc_size(ht_wp), cmp_ht);
-        printf("    Файл     | %4s |    %10llu мкс  |    %5lu байт    |      %4d\n", (!f_res ? CLR_BR_GREEN "есть" CLR_RESET : CLR_RED " нет" CLR_RESET), f_time, fw_calc_size(f_wp), cmp_f);
+        printf("     ДДП     | %4s |    %10.2f мкс  |    %5lu байт    |      %4lu\n", (bst_res ? CLR_BR_GREEN "есть" CLR_RESET : CLR_RED " нет" CLR_RESET), bst_time, bstw_calc_size(bst_wp), cmp_bst / finds_count);
+        printf("     AVL     | %4s |    %10.2f мкс  |    %5lu байт    |      %4lu\n", (avl_res ? CLR_BR_GREEN "есть" CLR_RESET : CLR_RED " нет" CLR_RESET), avl_time, avlw_calc_size(avl_wp), cmp_avl / finds_count);
+        printf(" Хеш-таблица | %4s |    %10.2f мкс  |    %5lu байт    |      %4lu\n", (!ht_res ? CLR_BR_GREEN "есть" CLR_RESET : CLR_RED " нет" CLR_RESET), ht_time, htw_calc_size(ht_wp), cmp_ht / finds_count);
+        printf("    Файл     | %4s |    %10.2f мкс  |    %5lu байт    |      %4lu\n", (!f_res ? CLR_BR_GREEN "есть" CLR_RESET : CLR_RED " нет" CLR_RESET), f_time, fw_calc_size(f_wp), cmp_f / finds_count);
     }
 
     return EXIT_SUCCESS;

@@ -210,7 +210,7 @@ static struct avl *__balance_tree(struct avl *tree)
     return tree;
 }
 
-int avl_insert(struct avl **tree, int data)
+int avl_insert(struct avl **tree, int data, int *cmp)
 {
     int status = 0;
     struct avl *root = *tree;
@@ -224,48 +224,106 @@ int avl_insert(struct avl **tree, int data)
         root->data = data;
         root->count = 1;
         root->depth = 1;
+        (*cmp)++;
     }
     else if (data == root->data)
+    {
         root->count++;
+        (*cmp)++;
+    }
     else if (data < root->data)
     {
         if (root->left)
         {
-            status = avl_insert(&root->left, data);
+            status = avl_insert(&root->left, data, cmp);
             root->depth = DETERM_DEPTH(root);
             if (root->right)
                 root->diff = root->right->depth - root->left->depth;
             else
                 root->diff = -root->left->depth;
+            (*cmp)++;
         }
         else
         {
             status = __create_leaf(&root->left, data);
             root->depth = root->depth == 1 ? 2 : root->depth;
             root->diff--;
+            (*cmp)++;
         }
     }
     else
     {
         if (root->right)
         {
-            status = avl_insert(&root->right, data);
+            status = avl_insert(&root->right, data, cmp);
             root->depth = DETERM_DEPTH(root);
             if (root->left)
                 root->diff = root->right->depth - root->left->depth;
             else
                 root->diff = root->right->depth;
+            (*cmp)++;
         }
         else
         {
             status = __create_leaf(&root->right, data);
             root->depth = root->depth == 1 ? 2 : root->depth;
             root->diff++;
+            (*cmp)++;
         }
     }
 
     if (root != NULL && (root->diff < -1 || root->diff > 1))
         *tree = __balance_tree(*tree);
+
+    return status;
+}
+
+int avl_shallow_insert(struct avl **tree, int data)
+{
+    int status = 0;
+    struct avl *root = *tree;
+
+    if (root == NULL)
+    {
+        status = 0;
+    }
+    else if (root->depth == 0)
+    {
+    }
+    else if (data == root->data)
+    {
+    }
+    else if (data < root->data)
+    {
+        if (root->left)
+        {
+            status = avl_shallow_insert(&root->left, data);
+            if (root->right)
+                (void)(root->right->depth - root->left->depth);
+            else
+                (void)(-root->left->depth);
+        }
+        else
+        {
+            status = 0;
+            (void)(root->depth == 1 ? 2 : root->depth);
+        }
+    }
+    else
+    {
+        if (root->right)
+        {
+            status = avl_shallow_insert(&root->right, data);
+            if (root->left)
+                (void)(root->right->depth - root->left->depth);
+            else
+                (void)(root->right->depth);
+        }
+        else
+        {
+            (void)(root->depth == 1 ? 2 : root->depth);
+        }
+    }
 
     return status;
 }
@@ -279,14 +337,18 @@ int avl_remove(struct avl *tree, int data)
 }
 
 // NULL - если не найдено.
-struct avl *avl_find(struct avl *tree, int data)
+struct avl *avl_find(struct avl *tree, int data, int *cmp)
 {
+    (*cmp)++;
     if (tree == NULL)
+    {
+        (*cmp)--;
         return NULL;
+    }
     else if (data == tree->data)
         return tree;
     else if (data < tree->data)
-        return avl_find(tree->left, data);
+        return avl_find(tree->left, data, cmp);
     else
-        return avl_find(tree->right, data);
+        return avl_find(tree->right, data, cmp);
 }

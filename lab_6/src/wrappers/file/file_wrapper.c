@@ -31,14 +31,25 @@ int fw_insert(struct file_wrapper *fw, int data)
     return 0;
 }
 
+int fw_shallow_insert(struct file_wrapper *fw, int data)
+{
+    data = data;
+    fseek(fw->file, 0L, SEEK_END);
+    // fprintf(fw->file, " %d", data);
+    // fseek(fw->file, 0L, SEEK_END);
+    // fw->size = ftell(fw->file);
+    return 0;
+}
+
 // 0 - найдено, -1 - не найдено
-int fw_find(struct file_wrapper *fw, int data)
+int fw_find(struct file_wrapper *fw, int data, int *cmp)
 {
     fseek(fw->file, 0L, SEEK_SET);
 
+    (*cmp)++;
     int num;
     while (fscanf(fw->file, "%d", &num) == 1 && num != data)
-        ;
+        (*cmp)++;
     
     return num == data ? 0 : -1;
 }

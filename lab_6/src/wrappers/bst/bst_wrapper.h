@@ -12,13 +12,14 @@ struct bst_wrapper
 struct bst_wrapper bstw_create(void);
 void bstw_destroy(struct bst_wrapper *tree);
 
-int bstw_insert(struct bst_wrapper *tree, int data);
+int bstw_insert(struct bst_wrapper *tree, int data, int *cmp);
+int bstw_shallow_insert(struct bst_wrapper *tree, int data);
 
 // возвращает -1 если элемента нет, и 0 - если успешно удалён.
 int bstw_remove(struct bst_wrapper *tree, int data);
 
 // NULL - если не найдено.
-struct bst *bstw_find(struct bst_wrapper *tree, int data);
+struct bst *bstw_find(struct bst_wrapper *tree, int data, int *cmp);
 
 int bstw_fscanf(FILE *file, struct bst_wrapper *tree);
 void bstw_fprintf(FILE *file, struct bst_wrapper *tree);

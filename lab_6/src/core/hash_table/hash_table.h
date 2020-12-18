@@ -23,10 +23,11 @@ struct hash_table ht_create(unsigned int size, unsigned int step, hash_func_t fu
 void ht_destroy(struct hash_table *ht);
 
 // 0 - ок, -1 - своб. место не найдено
-int ht_insert(struct hash_table *ht, int key);
+int ht_insert(struct hash_table *ht, int key, int *cmp);
+int ht_shallow_insert(struct hash_table *ht, int key);
 
 // 0 - ок, есть. -1 - ключа нет
-int ht_find(struct hash_table *ht, int key);
+int ht_find(struct hash_table *ht, int key, int *cmp);
 
 // несколько хеш-функций
 unsigned int hash_func_1(int key);

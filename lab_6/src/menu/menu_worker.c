@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "uki.h"
 #include "./menu.h"
@@ -13,6 +14,7 @@ static struct file_wrapper *f_wp;
 
 static int structs_insert(int argc, const char **argv);
 static int structs_show(int argc, const char **argv);
+static int structs_find(int argc, const char **argv);
 static int structs_diff(int argc, const char **argv);
 static int ht_restruct(int argc, const char **argv);
 
@@ -27,6 +29,7 @@ int menu_worker(struct bst_wrapper *bstw, struct avl_wrapper *avlw, struct ht_wr
     uki_menu_cmd_info_set(menu, PROG_INTRO);
 
     uki_menu_cmd_opt_add(menu, "insert <num>", structs_insert, "Добавить ключ во все структуры.");
+    uki_menu_cmd_opt_add(menu, "find <num>", structs_find, "Найти ключ во всех структурах.");
     uki_menu_cmd_opt_add(menu, "show [bst|avl|ht|file]", structs_show, "Вывести структуру на экран (или все сразу).");
     uki_menu_cmd_opt_add(menu, "diff", structs_diff, "Показать сравнительную таблицу.");
     uki_menu_cmd_opt_add(menu, "restruct", ht_restruct, "Реструктуризировать хеш-таблицу.");
@@ -42,10 +45,11 @@ int menu_worker(struct bst_wrapper *bstw, struct avl_wrapper *avlw, struct ht_wr
 static int structs_insert(int argc, const char **argv)
 {
     int num = 0;
+    int cmp = 0;
 
     if (argc != 2 || parse_int(argv[1], &num) != EXIT_SUCCESS)
         printf("Использование: insert <num>\n");
-    else if (avlw_find(avl_wp, num) != NULL)
+    else if (avlw_find(avl_wp, num, &cmp) != NULL)
         printf("Ключ %d уже есть в структурах. Попробуйте добавить другой.\n", num);
     else
     {
@@ -53,34 +57,44 @@ static int structs_insert(int argc, const char **argv)
         if (space_bef == 0U)
             printf(CLR_BR_RED "Внимание." CLR_RESET " Хеш-таблица заполнена. Новое число не будет вставлено в хеш-таблицу.\n");
 
-        unsigned long long bst_time, avl_time, ht_time, f_time;
+        float bst_time = 0, avl_time = 0, ht_time = 0, f_time = 0;
+        int cmp_bst = 0, cmp_avl = 0, cmp_ht = 0;
+        const size_t inserts_count = 1000UL;
 
         {
             BEGIN_TIMER;
-            bstw_insert(bst_wp, num);
+            for (size_t n = 0UL; n < inserts_count; n++)
+                bstw_shallow_insert(bst_wp, num);
+            bstw_insert(bst_wp, num, &cmp_bst);
             END_TIMER;
-            bst_time = TIMER_TICKS;
+            bst_time = (float) TIMER_MICROSECONDS / inserts_count;
         }
 
         {
             BEGIN_TIMER;
-            avlw_insert(avl_wp, num);
+            for (size_t n = 0UL; n < inserts_count; n++)
+                avlw_shallow_insert(avl_wp, num);
+            avlw_insert(avl_wp, num, &cmp_avl);
             END_TIMER;
-            avl_time = TIMER_TICKS;
+            avl_time = (float) TIMER_MICROSECONDS / inserts_count;
         }
 
         {
             BEGIN_TIMER;
-            htw_insert(ht_wp, num);
+            for (size_t n = 0UL; n < inserts_count; n++)
+                htw_shallow_insert(ht_wp, num);
+            htw_insert(ht_wp, num, &cmp_ht);
             END_TIMER;
-            ht_time = TIMER_TICKS;
+            ht_time = (float) TIMER_MICROSECONDS / inserts_count;
         }
 
         {
             BEGIN_TIMER;
+            for (size_t n = 0UL; n < inserts_count; n++)
+                fw_shallow_insert(f_wp, num);
             fw_insert(f_wp, num);
             END_TIMER;
-            f_time = TIMER_TICKS;
+            f_time = (float) TIMER_MICROSECONDS / inserts_count;
         }
 
         printf("Добавлен ключ " CLR_CYAN "%d" CLR_RESET ".\n", num);
@@ -92,14 +106,14 @@ static int structs_insert(int argc, const char **argv)
             printf(CLR_BR_RED "Внимание." CLR_RESET " Хеш-таблица полностью заполнена.\n");
 
         printf("\n");
-        printf("  Структура  |    Время вставки   | Размер структуры | Ср. число сравнений\n");
-        printf("     ДДП     |  %10llu тактов |    %5lu байт    |      %4.1f\n", bst_time, bstw_calc_size(bst_wp), bstw_calc_mean_cmp_amount(bst_wp));
-        printf("     AVL     |  %10llu тактов |    %5lu байт    |      %4.1f\n", avl_time, avlw_calc_size(avl_wp), avlw_calc_mean_cmp_amount(avl_wp));
+        printf("  Структура  |    Время вставки   | Размер структуры | Число сравнений при вставке\n");
+        printf("     ДДП     |    %10.2f мкс  |    %5lu байт    |      %4d\n", bst_time, bstw_calc_size(bst_wp), cmp_bst);
+        printf("     AVL     |    %10.2f мкс  |    %5lu байт    |      %4d\n", avl_time, avlw_calc_size(avl_wp), cmp_avl);
         if (space_bef != 0U)
-            printf(" Хеш-таблица |  %10llu тактов |    %5lu байт    |      %4.1f\n", ht_time, htw_calc_size(ht_wp), htw_calc_mean_cmp_amount(ht_wp));
+            printf(" Хеш-таблица |    %10.2f мкс  |    %5lu байт    |      %4d\n", ht_time, htw_calc_size(ht_wp), cmp_ht);
         else
-            printf(" Хеш-таблица |  ------------- |    %5lu байт    |      %4.1f\n", htw_calc_size(ht_wp), htw_calc_mean_cmp_amount(ht_wp));
-        printf("    Файл     |  %10llu тактов |    %5lu байт    |      %4.1f\n", f_time, fw_calc_size(f_wp), fw_calc_mean_cmp_amount(f_wp));
+            printf(" Хеш-таблица |  ------------- |    %5lu байт    |      %4d\n", htw_calc_size(ht_wp), cmp_ht);
+        printf("    Файл     |    %10.2f мкс  |    %5lu байт    |      -\n", f_time, fw_calc_size(f_wp));
     }
 
     return EXIT_SUCCESS;
@@ -148,6 +162,62 @@ static int structs_show(int argc, const char **argv)
     return EXIT_SUCCESS;
 }
 
+static int structs_find(int argc, const char **argv)
+{
+    int num;
+
+    if (argc != 2 || parse_int(argv[1], &num) != EXIT_SUCCESS)
+        printf("Использование: find <num>\n");
+    else
+    {
+        unsigned long long bst_time, avl_time, ht_time, f_time;
+        int cmp_bst = 0, cmp_avl = 0, cmp_ht = 0, cmp_f = 0;
+
+        struct bst *bst_res;
+        struct avl *avl_res;
+        int ht_res;
+        int f_res;
+
+        {
+            BEGIN_TIMER;
+            bst_res = bstw_find(bst_wp, num, &cmp_bst);
+            END_TIMER;
+            bst_time = TIMER_MICROSECONDS;
+        }
+
+        {
+            BEGIN_TIMER;
+            avl_res = avlw_find(avl_wp, num, &cmp_avl);
+            END_TIMER;
+            avl_time = TIMER_MICROSECONDS;
+        }
+
+        {
+            BEGIN_TIMER;
+            ht_res = htw_find(ht_wp, num, &cmp_ht);
+            END_TIMER;
+            ht_time = TIMER_MICROSECONDS;
+        }
+
+        {
+            BEGIN_TIMER;
+            f_res = fw_find(f_wp, num, &cmp_f);
+            END_TIMER;
+            f_time = TIMER_MICROSECONDS;
+        }
+
+        printf("Результаты поиска ключа " CLR_CYAN "%d" CLR_RESET ".\n\n", num);
+
+        printf("  Структура  | Ключ |    Время поиска    | Размер структуры | Число сравнений при поиске\n");
+        printf("     ДДП     | %4s |    %10llu мкс  |    %5lu байт    |      %4d\n", (bst_res ? CLR_BR_GREEN "есть" CLR_RESET : CLR_RED " нет" CLR_RESET), bst_time, bstw_calc_size(bst_wp), cmp_bst);
+        printf("     AVL     | %4s |    %10llu мкс  |    %5lu байт    |      %4d\n", (avl_res ? CLR_BR_GREEN "есть" CLR_RESET : CLR_RED " нет" CLR_RESET), avl_time, avlw_calc_size(avl_wp), cmp_avl);
+        printf(" Хеш-таблица | %4s |    %10llu мкс  |    %5lu байт    |      %4d\n", (!ht_res ? CLR_BR_GREEN "есть" CLR_RESET : CLR_RED " нет" CLR_RESET), ht_time, htw_calc_size(ht_wp), cmp_ht);
+        printf("    Файл     | %4s |    %10llu мкс  |    %5lu байт    |      %4d\n", (!f_res ? CLR_BR_GREEN "есть" CLR_RESET : CLR_RED " нет" CLR_RESET), f_time, fw_calc_size(f_wp), cmp_f);
+    }
+
+    return EXIT_SUCCESS;
+}
+
 static int structs_diff(int argc, const char **argv)
 {
     (void)argc;
@@ -189,7 +259,7 @@ static int ht_restruct(int argc, const char **argv)
     uki_menu_ctx_info_set(menu, "Выберите новую хеш-функцию");
 
     uki_menu_ctx_opt_add(menu, "сложение цифр числа", (void *)hash_func_1);
-    uki_menu_ctx_opt_add(menu, "сложение цифр числа с солью", (void *)hash_func_2);
+    // uki_menu_ctx_opt_add(menu, "сложение цифр числа с солью", (void *)hash_func_2);
     uki_menu_ctx_opt_add(menu, "хеширование Фибоначчи", (void *)hash_func_3);
 
     hash_func_t new_func = NULL;

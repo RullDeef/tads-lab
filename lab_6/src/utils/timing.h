@@ -21,12 +21,12 @@
 #define END_TIMER                                                                                                       \
     __timer_ticks = __rdtsc() - __timer_ticks;                                                                          \
     gettimeofday(&__timer_tv_2, NULL);                                                                                  \
-    __timer_real = 1000000 * (__timer_tv_2.tv_sec - __timer_tv_1.tv_sec) + __timer_tv_2.tv_usec - __timer_tv_1.tv_usec; \
+    __timer_real = 1000000ULL * (__timer_tv_2.tv_sec - __timer_tv_1.tv_sec) + __timer_tv_2.tv_usec - __timer_tv_1.tv_usec; \
     (void)__timer_real;
 
 #define TIMER_TICKS __timer_ticks
-#define TIMER_MICROSECONDS ((float)__timer_real)
-#define TIMER_MILISECONDS ((float)__timer_real / 1e3)
-#define TIMER_SECONDS ((float)__timer_real / 1e6)
+#define TIMER_MICROSECONDS (__timer_real)
+#define TIMER_MILISECONDS ((double)__timer_real / 1e3)
+#define TIMER_SECONDS ((double)__timer_real / 1e6)
 
 #endif

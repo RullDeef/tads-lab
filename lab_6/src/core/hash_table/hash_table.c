@@ -33,13 +33,17 @@ void ht_destroy(struct hash_table *ht)
 }
 
 // 0 - ок, -1 - своб. место не найдено
-int ht_insert(struct hash_table *ht, int key)
+int ht_insert(struct hash_table *ht, int key, int *cmp)
 {
     int status = -1;
     unsigned int hash = ht->func(key) % ht->size;
 
+    (*cmp)++;
     for (unsigned int i = 0; i < ht->size && ht->data[hash].valid; i++)
+    {
         hash = (hash + ht->step) % ht->size;
+        (*cmp)++;
+    }
 
     if (!ht->data[hash].valid)
     {
@@ -51,15 +55,33 @@ int ht_insert(struct hash_table *ht, int key)
     return status;
 }
 
-// 0 - ок, есть. -1 - ключа нет
-int ht_find(struct hash_table *ht, int key)
+int ht_shallow_insert(struct hash_table *ht, int key)
 {
     int status = -1;
     unsigned int hash = ht->func(key) % ht->size;
 
-    for (unsigned int i = 0; i < ht->size && ht->data[hash].valid && ht->data[hash].key != key; i++)
+    for (unsigned int i = 0; i < ht->size && ht->data[hash].valid; i++)
         hash = (hash + ht->step) % ht->size;
-    
+
+    if (!ht->data[hash].valid)
+        status = 0;
+
+    return status;
+}
+
+// 0 - ок, есть. -1 - ключа нет
+int ht_find(struct hash_table *ht, int key, int *cmp)
+{
+    int status = -1;
+    unsigned int hash = ht->func(key) % ht->size;
+
+    (*cmp)++;
+    for (unsigned int i = 0; i < ht->size && ht->data[hash].valid && ht->data[hash].key != key; i++)
+    {
+        hash = (hash + ht->step) % ht->size;
+        (*cmp)++;
+    }
+
     if (key == ht->data[hash].key)
         status = 0;
 

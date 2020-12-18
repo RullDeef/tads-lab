@@ -18,9 +18,14 @@ void bstw_destroy(struct bst_wrapper *bstw)
     bst_destroy(&bstw->root);
 }
 
-int bstw_insert(struct bst_wrapper *bstw, int data)
+int bstw_insert(struct bst_wrapper *bstw, int data, int *cmp)
 {
-    return bst_insert(&bstw->root, data);
+    return bst_insert(&bstw->root, data, cmp);
+}
+
+int bstw_shallow_insert(struct bst_wrapper *tree, int data)
+{
+    return bst_shallow_insert(&tree->root, data);
 }
 
 // возвращает -1 если элемента нет, и 0 - если успешно удалён.
@@ -30,21 +35,22 @@ int bstw_remove(struct bst_wrapper *bstw, int data)
 }
 
 // NULL - если не найдено.
-struct bst *bstw_find(struct bst_wrapper *bstw, int data)
+struct bst *bstw_find(struct bst_wrapper *bstw, int data, int *cmp)
 {
-    return bst_find(bstw->root, data);
+    return bst_find(bstw->root, data, cmp);
 }
 
 int bstw_fscanf(FILE *file, struct bst_wrapper *tree)
 {
     int status = 0;
     int num;
+    int cmp = 0;
 
     *tree = bstw_create();
 
     rewind(file);
     while (status == 0 && fscanf(file, "%d", &num) != EOF)
-        status = bstw_insert(tree, num);
+        status = bstw_insert(tree, num, &cmp);
 
     return status;
 }

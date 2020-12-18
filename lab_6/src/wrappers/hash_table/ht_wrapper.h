@@ -12,9 +12,10 @@ struct ht_wrapper
 struct ht_wrapper htw_create(unsigned int size, unsigned int step, hash_func_t func);
 void htw_destroy(struct ht_wrapper *htw);
 
-int htw_insert(struct ht_wrapper *htw, int key);
+int htw_insert(struct ht_wrapper *htw, int key, int *cmp);
+int htw_shallow_insert(struct ht_wrapper *htw, int key);
 
-int htw_find(struct ht_wrapper *htw, int key);
+int htw_find(struct ht_wrapper *htw, int key, int *cmp);
 
 int htw_fscanf(FILE *file, struct ht_wrapper *htw);
 void htw_fprintf(FILE *file, struct ht_wrapper *htw);

@@ -19,9 +19,14 @@ void avlw_destroy(struct avl_wrapper *avlw)
     avl_destroy(&avlw->root);
 }
 
-int avlw_insert(struct avl_wrapper *avlw, int data)
+int avlw_insert(struct avl_wrapper *avlw, int data, int *cmp)
 {
-    return avl_insert(&avlw->root, data);
+    return avl_insert(&avlw->root, data, cmp);
+}
+
+int avlw_shallow_insert(struct avl_wrapper *tree, int data)
+{
+    return avl_shallow_insert(&tree->root, data);
 }
 
 // возвращает -1 если элемента нет, и 0 - если успешно удалён.
@@ -31,21 +36,22 @@ int avlw_remove(struct avl_wrapper *avlw, int data)
 }
 
 // NULL - если не найдено.
-struct avl *avlw_find(struct avl_wrapper *avlw, int data)
+struct avl *avlw_find(struct avl_wrapper *avlw, int data, int *cmp)
 {
-    return avl_find(avlw->root, data);
+    return avl_find(avlw->root, data, cmp);
 }
 
 int avlw_fscanf(FILE *file, struct avl_wrapper *tree)
 {
     int status = 0;
     int num;
+    int cmp = 0;
 
     *tree = avlw_create();
 
     rewind(file);
     while (status == 0 && fscanf(file, "%d", &num) != EOF)
-        status = avlw_insert(tree, num);
+        status = avlw_insert(tree, num, &cmp);
 
     return status;
 }

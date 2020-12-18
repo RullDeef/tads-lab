@@ -1,10 +1,11 @@
 #include <stdio.h>
+#include <stdbool.h>
 #include <assert.h>
 #include "utils/colors.h"
 #include "utils/logger.h"
 #include "ht_wrapper.h"
 
-#define PRN_WIDTH 120
+#define PRN_WIDTH 80
 #define PRN_ITEM_WIDTH 5
 
 #define ITEMS_COUNT ((PRN_WIDTH - 7) / PRN_ITEM_WIDTH)
@@ -21,14 +22,27 @@ void htw_destroy(struct ht_wrapper *htw)
     ht_destroy(&htw->table);
 }
 
-int htw_insert(struct ht_wrapper *htw, int key)
+int htw_insert(struct ht_wrapper *htw, int key, int *cmp)
 {
-    return ht_insert(&htw->table, key);
+    return ht_insert(&htw->table, key, cmp);
 }
 
-int htw_find(struct ht_wrapper *htw, int key)
+int htw_shallow_insert(struct ht_wrapper *htw, int key)
 {
-    return ht_find(&htw->table, key);
+    return ht_shallow_insert(&htw->table, key);
+}
+
+int htw_find(struct ht_wrapper *htw, int key, int *cmp)
+{
+    return ht_find(&htw->table, key, cmp);
+}
+
+static bool is_prime(unsigned int num)
+{
+    for (unsigned int i = 2; i < num / 2; i++)
+        if (num % i == 0)
+            return false;
+    return true;
 }
 
 int htw_fscanf(FILE *file, struct ht_wrapper *htw)
@@ -37,16 +51,21 @@ int htw_fscanf(FILE *file, struct ht_wrapper *htw)
 
     unsigned int numbers_count = 0U;
     int num;
+    int cmp = 0;
 
     rewind(file);
     while (fscanf(file, "%d", &num) != EOF)
         numbers_count++;
 
-    *htw = htw_create(numbers_count + 5U, 1U, hash_func_1);
+    numbers_count *= 1.2f;
+    while (!is_prime(numbers_count))
+        numbers_count++;
+
+    *htw = htw_create(numbers_count, numbers_count / 3, hash_func_1);
 
     rewind(file);
     while (fscanf(file, "%d", &num) != EOF)
-        htw_insert(htw, num);
+        htw_insert(htw, num, &cmp);
 
     return status;
 }
@@ -134,6 +153,7 @@ void htw_fprintf(FILE *file, struct ht_wrapper *htw)
     }
 
     fprintf(file, "Размер структуры: " CLR_BR_GREEN "%lu" CLR_RESET " байт.\n", htw_calc_size(htw));
+    fprintf(file, "Число ключей в таблице: " CLR_BR_GREEN "%u" CLR_RESET "/%u.\n", htw->table.size - htw_calc_remain_space(htw), htw->table.size);
     fprintf(file, "Среднее число сравнений в структуре: " CLR_BR_GREEN "%.2f" CLR_RESET ".\n", htw_calc_mean_cmp_amount(htw));
     fprintf(file, "Число коллизий в таблице: " CLR_RED "%lu" CLR_RESET ".\n", __get_collisions_amount(htw));
     __fprint_func_name(file, htw->table.func);
@@ -204,17 +224,23 @@ unsigned int htw_calc_best_size(struct ht_wrapper *htw)
         if (htw->table.data[i].valid)
             size++;
 
-    return 1.2f * size;
+    size = 1.2f * size;
+
+    while (!is_prime(size))
+        size++;
+
+    return size;
 }
 
 void htw_restruct(struct ht_wrapper *htw, unsigned int new_size, hash_func_t new_func)
 {
+    int cmp = 0;
     struct hash_table new_ht = ht_create(new_size, htw->table.step, new_func);
 
     // copy old keys
     for (unsigned int i = 0U; i < htw->table.size; i++)
         if (htw->table.data[i].valid)
-            assert(ht_insert(&new_ht, htw->table.data[i].key) == 0);
+            assert(ht_insert(&new_ht, htw->table.data[i].key, &cmp) == 0);
 
     ht_destroy(&htw->table);
     htw->table = new_ht;

@@ -59,7 +59,7 @@ static int structs_insert(int argc, const char **argv)
 
         float bst_time = 0, avl_time = 0, ht_time = 0, f_time = 0;
         int cmp_bst = 0, cmp_avl = 0, cmp_ht = 0;
-        const size_t inserts_count = 1000UL;
+        const size_t inserts_count = 50000UL;
 
         {
             BEGIN_TIMER;
@@ -107,13 +107,13 @@ static int structs_insert(int argc, const char **argv)
 
         printf("\n");
         printf("  Структура  |    Время вставки   | Размер структуры | Число сравнений при вставке\n");
-        printf("     ДДП     |    %10.2f мкс  |    %5lu байт    |      %4d\n", bst_time, bstw_calc_size(bst_wp), cmp_bst);
-        printf("     AVL     |    %10.2f мкс  |    %5lu байт    |      %4d\n", avl_time, avlw_calc_size(avl_wp), cmp_avl);
+        printf("     ДДП     |    %10.3f мкс  |    %5lu байт    |      %4d\n", bst_time, bstw_calc_size(bst_wp), cmp_bst);
+        printf("     AVL     |    %10.3f мкс  |    %5lu байт    |      %4d\n", avl_time, avlw_calc_size(avl_wp), cmp_avl);
         if (space_bef != 0U)
-            printf(" Хеш-таблица |    %10.2f мкс  |    %5lu байт    |      %4d\n", ht_time, htw_calc_size(ht_wp), cmp_ht);
+            printf(" Хеш-таблица |    %10.3f мкс  |    %5lu байт    |      %4d\n", ht_time, htw_calc_size(ht_wp), cmp_ht);
         else
             printf(" Хеш-таблица |  ------------- |    %5lu байт    |      %4d\n", htw_calc_size(ht_wp), cmp_ht);
-        printf("    Файл     |    %10.2f мкс  |    %5lu байт    |      -\n", f_time, fw_calc_size(f_wp));
+        printf("    Файл     |    %10.3f мкс  |    %5lu байт    |      -\n", f_time, fw_calc_size(f_wp));
     }
 
     return EXIT_SUCCESS;
@@ -172,7 +172,7 @@ static int structs_find(int argc, const char **argv)
     {
         float bst_time, avl_time, ht_time, f_time;
         int cmp_bst = 0, cmp_avl = 0, cmp_ht = 0, cmp_f = 0;
-        size_t finds_count = 1000UL;
+        size_t finds_count = 50000UL;
 
         struct bst *bst_res;
         struct avl *avl_res;
@@ -214,10 +214,10 @@ static int structs_find(int argc, const char **argv)
         printf("Результаты поиска ключа " CLR_CYAN "%d" CLR_RESET ".\n\n", num);
 
         printf("  Структура  | Ключ |    Время поиска    | Размер структуры | Число сравнений при поиске\n");
-        printf("     ДДП     | %4s |    %10.2f мкс  |    %5lu байт    |      %4lu\n", (bst_res ? CLR_BR_GREEN "есть" CLR_RESET : CLR_RED " нет" CLR_RESET), bst_time, bstw_calc_size(bst_wp), cmp_bst / finds_count);
-        printf("     AVL     | %4s |    %10.2f мкс  |    %5lu байт    |      %4lu\n", (avl_res ? CLR_BR_GREEN "есть" CLR_RESET : CLR_RED " нет" CLR_RESET), avl_time, avlw_calc_size(avl_wp), cmp_avl / finds_count);
-        printf(" Хеш-таблица | %4s |    %10.2f мкс  |    %5lu байт    |      %4lu\n", (!ht_res ? CLR_BR_GREEN "есть" CLR_RESET : CLR_RED " нет" CLR_RESET), ht_time, htw_calc_size(ht_wp), cmp_ht / finds_count);
-        printf("    Файл     | %4s |    %10.2f мкс  |    %5lu байт    |      %4lu\n", (!f_res ? CLR_BR_GREEN "есть" CLR_RESET : CLR_RED " нет" CLR_RESET), f_time, fw_calc_size(f_wp), cmp_f / finds_count);
+        printf("     ДДП     | %4s |    %10.3f мкс  |    %5lu байт    |      %4lu\n", (bst_res ? CLR_BR_GREEN "есть" CLR_RESET : CLR_RED " нет" CLR_RESET), bst_time, bstw_calc_size(bst_wp), cmp_bst / finds_count);
+        printf("     AVL     | %4s |    %10.3f мкс  |    %5lu байт    |      %4lu\n", (avl_res ? CLR_BR_GREEN "есть" CLR_RESET : CLR_RED " нет" CLR_RESET), avl_time, avlw_calc_size(avl_wp), cmp_avl / finds_count);
+        printf(" Хеш-таблица | %4s |    %10.3f мкс  |    %5lu байт    |      %4lu\n", (!ht_res ? CLR_BR_GREEN "есть" CLR_RESET : CLR_RED " нет" CLR_RESET), ht_time, htw_calc_size(ht_wp), cmp_ht / finds_count);
+        printf("    Файл     | %4s |    %10.3f мкс  |    %5lu байт    |      %4lu\n", (!f_res ? CLR_BR_GREEN "есть" CLR_RESET : CLR_RED " нет" CLR_RESET), f_time, fw_calc_size(f_wp), cmp_f / finds_count);
     }
 
     return EXIT_SUCCESS;

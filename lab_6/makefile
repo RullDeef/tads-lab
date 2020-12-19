@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS := -std=gnu99 -Wall -Werror -Wextra -Wuninitialized \
-	-Isrc -Ivendor/uki -Ivendor/callocs/src -ggdb3 -g
+	-Isrc -Ivendor/uki -Ivendor/callocs/src -ggdb3 -g -O0
 LFLAGS :=
 
 SRCFILES := $(shell find src \( -name *.c ! -name "main.c" \))

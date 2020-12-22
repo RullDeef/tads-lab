@@ -4,6 +4,7 @@ C A 7
 A D 8
 E F 4
 E K 6
-D C 3
+D B 3
 F K 5
-G E 7
+A E 7
+K B 1

@@ -117,14 +117,26 @@ road_graph_t rg_load(const char *filename)
     graph->nodes = NULL;
     graph->center = NULL;
 
+    bool bad_file = false;
     char buffer[128];
+    int line_number = 0;
     while (fgets(buffer, 128, file) != NULL && !feof(file))
     {
+        line_number++;
+
         char city_from[64];
         char city_to[64];
         int weight;
         if (sscanf(buffer, "%s %s %d", city_from, city_to, &weight) != 3)
-            log_error("bad file! line: \"%s\"", buffer);
+        {
+            log_error("Некорректный файл! строка %d.", line_number);
+            bad_file = true;
+        }
+        else if (weight <= 0)
+        {
+            log_error("вес %d недопустим (строка %d). Используйте положительные числа.", weight, line_number);
+            bad_file = true;
+        }
         else
         {
             struct node *node_from = insert_node(graph, city_from);
@@ -135,6 +147,9 @@ road_graph_t rg_load(const char *filename)
     }
 
     fclose(file);
+
+    if (bad_file)
+        rg_destroy(&graph);
     return graph;
 }
 

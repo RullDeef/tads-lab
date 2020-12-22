@@ -9,7 +9,7 @@
 void output_graph(road_graph_t graph)
 {
     rg_output(graph, "graph.txt");
-    system("dot -O -Tpng:cairo graph.txt");
+    system("dot -Tpng -o graph.png graph.txt");
 }
 
 int main(void)
@@ -21,18 +21,22 @@ int main(void)
     printf("Введите имя файла с данными: ");
     scanf("%s", file_name);
     road_graph_t graph = rg_load(file_name);
-    output_graph(graph);
 
-    char center_name[128];
-    int distance;
-    printf("Введите название центрального города для расчёта и минимальное расстояние через пробел:\n");
-    while (scanf("%s %d", center_name, &distance) != 2)
-        printf("Неверный ввод. Повторите попытку.\n");
+    if (graph != NULL)
+    {
+        output_graph(graph);
 
-    rg_pick_farther(graph, center_name, distance);
+        char center_name[128];
+        int distance;
+        printf("Введите название центрального города для расчёта и минимальное расстояние через пробел:\n");
+        while (scanf("%s %d", center_name, &distance) != 2)
+            printf("Неверный ввод. Повторите попытку.\n");
 
-    output_graph(graph);
-    rg_destroy(&graph);
+        rg_pick_farther(graph, center_name, distance);
+
+        output_graph(graph);
+        rg_destroy(&graph);
+    }
 
     log_info("Пул памяти на момент окончания программы:");
     callocs_fprintf_heap_info(stdout);

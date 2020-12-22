@@ -61,7 +61,7 @@ int htw_fscanf(FILE *file, struct ht_wrapper *htw)
     while (!is_prime(numbers_count))
         numbers_count++;
 
-    *htw = htw_create(numbers_count, numbers_count / 3, hash_func_1);
+    *htw = htw_create(numbers_count, 5, hash_func_1);
 
     rewind(file);
     while (fscanf(file, "%d", &num) != EOF)

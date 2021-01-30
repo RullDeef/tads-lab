@@ -1,0 +1,18 @@
+manual A L A
+push b 1 2 2 3
+pop b
+pop b
+show
+show A
+show b
+push a 9 8 2 0 4
+pop A
+pop 1
+pop a
+push a 8 9 2 4
+show
+show
+merge
+show
+back
+exit

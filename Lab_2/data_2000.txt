@@ -1,0 +1,2000 @@
+Poplar Chase Lane, 40; 43.12; 7; 114.92; PRIMARY; no
+Oliverio Drive, 33; 212.57; 10; 267.16; PRIMARY; no
+Simons Hollow Road, 7; 113.18; 10; 226.76; PRIMARY; yes
+Oliverio Drive, 48; 146.92; 10; 121.62; SECONDARY; no; 13.10.2018; 11; 7
+Half and Half Drive, 74; 166.91; 9; 285.69; PRIMARY; no
+Michael Street, 72; 84.52; 8; 208.29; SECONDARY; no; 23.01.1955; 14; 1
+Simons Hollow Road, 26; 24.59; 2; 197.56; PRIMARY; no
+Hilltop Street, 62; 12.09; 1; 249.1; SECONDARY; no; 17.09.2018; 21; 10
+Michael Street, 51; 86.16; 7; 258.31; SECONDARY; yes; 31.02.2013; 19; 2
+Michael Street, 46; 17.38; 2; 133.36; SECONDARY; no; 14.01.1942; 34; 3
+Hilltop Street, 23; 86.57; 4; 129.84; SECONDARY; yes; 24.04.1933; 2; 7
+Modoc Alley, 48; 15.35; 2; 113.26; SECONDARY; yes; 08.04.1931; 18; 4
+Modoc Alley, 68; 72.02; 5; 194.82; PRIMARY; yes
+Tetrick Road, 1; 155.4; 9; 214.04; PRIMARY; no
+Poplar Chase Lane, 14; 74.78; 5; 110.6; PRIMARY; no
+Hilltop Street, 76; 125.7; 6; 166.44; SECONDARY; yes; 23.12.2016; 29; 6
+Tetrick Road, 43; 110.65; 7; 192.26; SECONDARY; no; 17.02.1972; 13; 10
+Snowbird Lane, 48; 195.39; 9; 159.02; PRIMARY; no
+Park Boulevard, 5; 103.19; 9; 204.21; PRIMARY; no
+Dovetail Drive, 42; 95.14; 7; 126.76; PRIMARY; no
+Poplar Chase Lane, 17; 9.88; 1; 259.21; PRIMARY; yes
+Gladwell Street, 4; 102.12; 10; 236.99; SECONDARY; no; 27.07.1913; 18; 1
+Michael Street, 65; 74.16; 6; 170.83; SECONDARY; no; 19.12.1901; 12; 7
+Oliverio Drive, 10; 184.99; 9; 298.61; SECONDARY; yes; 31.05.1908; 24; 8
+Hilltop Street, 55; 143.89; 7; 271.44; SECONDARY; no; 08.09.1991; 26; 4
+Poplar Chase Lane, 72; 216.01; 10; 133.28; PRIMARY; yes
+Dovetail Drive, 57; 89.01; 7; 147.67; SECONDARY; yes; 10.10.1920; 20; 6
+Park Boulevard, 35; 179.77; 8; 112.95; PRIMARY; no
+Poplar Chase Lane, 70; 165.69; 9; 190.95; SECONDARY; yes; 26.09.1996; 29; 1
+Dovetail Drive, 77; 100.52; 8; 117.93; SECONDARY; yes; 07.06.2015; 7; 2
+Modoc Alley, 19; 51.76; 5; 220.59; SECONDARY; no; 17.09.1958; 37; 2
+Simons Hollow Road, 62; 69.88; 4; 211.04; SECONDARY; no; 17.10.2009; 16; 6
+Gladwell Street, 76; 7.76; 1; 286.93; SECONDARY; yes; 29.03.1931; 27; 9
+Modoc Alley, 13; 43.61; 8; 163.44; SECONDARY; no; 27.02.1933; 17; 1
+Half and Half Drive, 25; 36.45; 2; 192.8; PRIMARY; yes
+Half and Half Drive, 61; 31.27; 3; 210.43; SECONDARY; yes; 02.05.1999; 11; 2
+Oliverio Drive, 64; 26.03; 2; 199.92; SECONDARY; yes; 14.09.1976; 35; 5
+Modoc Alley, 10; 56.07; 8; 187.47; PRIMARY; no
+Gladwell Street, 17; 151.95; 7; 216.11; SECONDARY; no; 08.10.1969; 4; 6
+Snowbird Lane, 6; 78.42; 5; 217.73; PRIMARY; no
+Dovetail Drive, 59; 23.94; 4; 110.89; PRIMARY; yes
+Snowbird Lane, 42; 69.36; 5; 166.31; SECONDARY; no; 27.07.1914; 17; 3
+Hilltop Street, 72; 59.36; 4; 202.51; SECONDARY; yes; 27.03.2018; 4; 5
+Gladwell Street, 69; 92.05; 5; 247.04; PRIMARY; no
+Poplar Chase Lane, 20; 104.48; 7; 121.68; PRIMARY; no
+Gladwell Street, 13; 64.39; 3; 268.69; SECONDARY; no; 19.09.1915; 35; 8
+Dovetail Drive, 19; 63.56; 8; 105.57; SECONDARY; no; 05.09.1942; 14; 1
+Michael Street, 80; 159.55; 7; 287.26; PRIMARY; no
+Park Boulevard, 77; 22.71; 1; 191.53; PRIMARY; no
+Half and Half Drive, 8; 22.88; 4; 198.29; PRIMARY; no
+Modoc Alley, 54; 178.82; 8; 172.48; SECONDARY; no; 30.12.1972; 36; 2
+Modoc Alley, 28; 40.18; 2; 127.22; SECONDARY; yes; 21.05.1991; 16; 8
+Simons Hollow Road, 68; 111.92; 6; 110.32; SECONDARY; yes; 13.05.2007; 39; 5
+Park Boulevard, 70; 60.36; 4; 194.93; PRIMARY; yes
+Oliverio Drive, 69; 173.1; 7; 275.27; PRIMARY; no
+Simons Hollow Road, 52; 62.0; 7; 175.37; SECONDARY; no; 19.11.1996; 33; 6
+Dovetail Drive, 3; 54.85; 3; 239.44; SECONDARY; yes; 16.10.1984; 13; 5
+Half and Half Drive, 32; 166.43; 7; 143.4; SECONDARY; yes; 15.01.2007; 20; 8
+Poplar Chase Lane, 23; 155.97; 7; 181.8; SECONDARY; yes; 23.10.1975; 39; 3
+Hilltop Street, 9; 127.18; 7; 132.91; PRIMARY; yes
+Michael Street, 25; 113.7; 6; 275.9; PRIMARY; no
+Simons Hollow Road, 23; 60.36; 5; 178.18; SECONDARY; yes; 07.07.1912; 14; 10
+Hilltop Street, 54; 97.33; 7; 217.14; PRIMARY; yes
+Michael Street, 46; 20.5; 2; 191.05; PRIMARY; yes
+Tetrick Road, 32; 24.07; 3; 293.41; SECONDARY; no; 21.04.1931; 12; 10
+Half and Half Drive, 30; 97.64; 6; 131.16; PRIMARY; no
+Gladwell Street, 77; 47.87; 3; 122.3; PRIMARY; no
+Oliverio Drive, 56; 38.04; 4; 116.74; SECONDARY; no; 14.06.1926; 19; 8
+Simons Hollow Road, 43; 55.83; 3; 265.11; SECONDARY; no; 11.09.1928; 35; 9
+Dovetail Drive, 35; 69.35; 6; 187.7; SECONDARY; no; 13.11.2003; 13; 9
+Park Boulevard, 61; 66.63; 5; 232.35; PRIMARY; yes
+Simons Hollow Road, 42; 63.43; 4; 225.9; PRIMARY; no
+Dovetail Drive, 56; 149.71; 6; 212.47; SECONDARY; no; 15.07.1954; 36; 6
+Half and Half Drive, 70; 92.97; 8; 203.68; PRIMARY; yes
+Michael Street, 46; 18.64; 1; 292.87; PRIMARY; no
+Park Boulevard, 17; 109.64; 9; 281.84; PRIMARY; no
+Gladwell Street, 17; 7.18; 1; 220.28; PRIMARY; no
+Poplar Chase Lane, 72; 129.72; 10; 283.77; PRIMARY; no
+Tetrick Road, 18; 73.04; 4; 140.39; PRIMARY; no
+Gladwell Street, 9; 57.25; 6; 293.16; SECONDARY; yes; 05.09.1994; 27; 5
+Snowbird Lane, 17; 59.03; 9; 178.64; PRIMARY; yes
+Poplar Chase Lane, 30; 52.5; 9; 154.7; SECONDARY; yes; 08.10.1984; 35; 1
+Gladwell Street, 69; 15.67; 1; 190.64; PRIMARY; no
+Half and Half Drive, 2; 97.21; 8; 100.83; SECONDARY; yes; 13.11.1930; 2; 3
+Hilltop Street, 9; 105.94; 9; 264.23; PRIMARY; no
+Oliverio Drive, 63; 89.51; 4; 214.17; PRIMARY; yes
+Hilltop Street, 34; 17.54; 1; 281.34; SECONDARY; no; 03.05.1976; 29; 6
+Michael Street, 33; 124.29; 5; 138.32; PRIMARY; yes
+Poplar Chase Lane, 24; 158.08; 9; 294.78; SECONDARY; yes; 09.05.1977; 24; 3
+Simons Hollow Road, 67; 34.24; 4; 292.4; SECONDARY; yes; 10.07.1975; 34; 5
+Michael Street, 29; 80.03; 4; 246.57; SECONDARY; yes; 04.11.1968; 3; 6
+Dovetail Drive, 28; 143.96; 9; 158.06; SECONDARY; yes; 10.06.1949; 40; 7
+Simons Hollow Road, 53; 136.11; 8; 280.87; PRIMARY; yes
+Modoc Alley, 4; 19.67; 1; 282.01; PRIMARY; no
+Poplar Chase Lane, 20; 54.73; 7; 141.46; PRIMARY; no
+Modoc Alley, 51; 67.79; 3; 104.53; PRIMARY; yes
+Modoc Alley, 80; 218.71; 10; 146.8; SECONDARY; no; 24.02.2011; 14; 5
+Dovetail Drive, 2; 21.38; 1; 100.74; SECONDARY; no; 30.08.1922; 2; 1
+Michael Street, 13; 93.2; 6; 149.4; SECONDARY; no; 18.05.1998; 30; 4
+Gladwell Street, 56; 73.69; 10; 174.93; SECONDARY; no; 01.01.1956; 31; 8
+Michael Street, 65; 77.16; 6; 125.45; SECONDARY; no; 06.06.1922; 37; 9
+Modoc Alley, 67; 101.57; 9; 169.99; SECONDARY; no; 14.12.1988; 28; 5
+Hilltop Street, 80; 42.4; 3; 299.52; SECONDARY; no; 06.12.1981; 21; 8
+Simons Hollow Road, 45; 12.89; 2; 186.89; PRIMARY; no
+Park Boulevard, 50; 83.39; 8; 116.58; PRIMARY; yes
+Michael Street, 11; 183.96; 9; 271.81; SECONDARY; yes; 08.05.1997; 18; 1
+Oliverio Drive, 63; 184.77; 8; 201.73; PRIMARY; yes
+Tetrick Road, 73; 80.12; 6; 216.03; PRIMARY; no
+Oliverio Drive, 41; 68.84; 10; 101.56; SECONDARY; yes; 01.10.1921; 4; 3
+Oliverio Drive, 60; 30.63; 4; 112.2; SECONDARY; yes; 10.10.2006; 2; 8
+Simons Hollow Road, 30; 51.14; 6; 128.97; PRIMARY; no
+Park Boulevard, 70; 94.58; 7; 180.61; SECONDARY; yes; 03.06.1995; 6; 5
+Michael Street, 53; 186.71; 10; 128.7; PRIMARY; yes
+Tetrick Road, 67; 15.74; 1; 236.65; SECONDARY; yes; 17.04.1920; 13; 2
+Half and Half Drive, 73; 169.92; 9; 294.08; PRIMARY; no
+Park Boulevard, 76; 16.83; 3; 278.87; PRIMARY; yes
+Dovetail Drive, 5; 199.88; 10; 247.87; PRIMARY; no
+Park Boulevard, 28; 43.67; 2; 256.88; SECONDARY; yes; 13.05.1981; 19; 7
+Park Boulevard, 41; 75.77; 5; 179.25; SECONDARY; no; 03.07.2003; 11; 7
+Park Boulevard, 70; 58.96; 5; 239.81; PRIMARY; yes
+Gladwell Street, 77; 6.56; 1; 210.21; SECONDARY; no; 28.09.1956; 35; 4
+Gladwell Street, 59; 49.42; 5; 123.44; PRIMARY; yes
+Gladwell Street, 15; 13.28; 1; 164.56; PRIMARY; no
+Oliverio Drive, 43; 105.5; 9; 177.76; SECONDARY; no; 11.03.1967; 40; 3
+Poplar Chase Lane, 6; 94.26; 6; 288.88; SECONDARY; no; 30.07.1933; 13; 2
+Park Boulevard, 36; 140.09; 10; 298.51; SECONDARY; no; 07.12.1965; 29; 10
+Gladwell Street, 63; 28.03; 3; 142.96; PRIMARY; yes
+Dovetail Drive, 34; 101.56; 5; 135.71; SECONDARY; no; 17.05.1945; 39; 5
+Oliverio Drive, 77; 101.58; 10; 170.01; PRIMARY; yes
+Snowbird Lane, 16; 144.41; 6; 131.42; SECONDARY; yes; 12.01.1953; 35; 1
+Gladwell Street, 5; 51.62; 7; 236.96; SECONDARY; no; 30.01.1952; 8; 5
+Hilltop Street, 15; 34.0; 5; 172.14; SECONDARY; yes; 23.10.1903; 1; 5
+Snowbird Lane, 57; 85.81; 9; 191.64; SECONDARY; no; 09.12.2001; 15; 7
+Hilltop Street, 51; 121.67; 5; 132.54; SECONDARY; yes; 27.03.1969; 2; 6
+Oliverio Drive, 30; 12.24; 2; 106.91; SECONDARY; yes; 03.12.1927; 3; 5
+Simons Hollow Road, 45; 172.26; 8; 235.98; SECONDARY; no; 16.01.1965; 25; 10
+Park Boulevard, 29; 200.73; 9; 188.95; SECONDARY; no; 15.09.1984; 25; 7
+Snowbird Lane, 16; 99.26; 4; 255.09; SECONDARY; yes; 29.09.1972; 14; 3
+Dovetail Drive, 40; 120.48; 10; 211.02; PRIMARY; yes
+Hilltop Street, 7; 119.41; 5; 155.33; PRIMARY; yes
+Poplar Chase Lane, 67; 14.14; 1; 207.77; SECONDARY; yes; 10.10.1961; 19; 5
+Gladwell Street, 31; 201.27; 10; 113.84; SECONDARY; yes; 19.06.1955; 23; 10
+Snowbird Lane, 2; 132.95; 8; 113.37; SECONDARY; yes; 13.04.1912; 16; 10
+Hilltop Street, 64; 199.08; 8; 291.9; PRIMARY; no
+Park Boulevard, 3; 62.43; 9; 116.05; PRIMARY; yes
+Hilltop Street, 33; 30.41; 3; 113.16; PRIMARY; no
+Simons Hollow Road, 64; 23.89; 4; 113.08; PRIMARY; no
+Oliverio Drive, 53; 173.34; 8; 265.66; PRIMARY; yes
+Half and Half Drive, 67; 215.7; 9; 181.04; SECONDARY; yes; 22.04.1972; 4; 4
+Dovetail Drive, 30; 113.58; 5; 135.34; SECONDARY; yes; 16.03.1991; 21; 10
+Simons Hollow Road, 6; 19.15; 1; 139.51; SECONDARY; no; 10.03.1989; 3; 10
+Half and Half Drive, 64; 30.43; 5; 227.17; SECONDARY; yes; 16.05.1996; 7; 6
+Hilltop Street, 42; 39.48; 5; 212.35; SECONDARY; no; 16.12.1948; 26; 6
+Park Boulevard, 55; 41.81; 3; 151.36; SECONDARY; no; 14.10.2002; 33; 6
+Gladwell Street, 70; 143.87; 6; 223.47; PRIMARY; yes
+Michael Street, 4; 67.88; 4; 198.09; SECONDARY; yes; 22.01.1905; 30; 8
+Gladwell Street, 29; 74.25; 4; 120.53; SECONDARY; yes; 10.11.2020; 33; 7
+Tetrick Road, 26; 107.49; 7; 122.05; SECONDARY; no; 11.11.1953; 19; 8
+Oliverio Drive, 4; 65.4; 3; 151.2; PRIMARY; no
+Modoc Alley, 7; 59.9; 3; 208.22; PRIMARY; yes
+Gladwell Street, 37; 149.58; 10; 156.61; PRIMARY; yes
+Snowbird Lane, 52; 84.27; 5; 233.09; PRIMARY; yes
+Tetrick Road, 61; 54.0; 8; 287.55; PRIMARY; yes
+Dovetail Drive, 33; 56.03; 6; 234.92; SECONDARY; no; 01.03.1975; 32; 10
+Simons Hollow Road, 31; 59.34; 4; 289.12; SECONDARY; yes; 17.02.1973; 27; 2
+Michael Street, 51; 136.4; 7; 287.18; PRIMARY; no
+Simons Hollow Road, 20; 222.76; 9; 205.35; SECONDARY; no; 12.04.2000; 28; 10
+Michael Street, 6; 9.91; 1; 105.88; PRIMARY; yes
+Poplar Chase Lane, 8; 19.03; 3; 116.65; SECONDARY; no; 26.01.1915; 21; 5
+Simons Hollow Road, 67; 57.77; 6; 271.1; PRIMARY; yes
+Dovetail Drive, 25; 135.35; 10; 140.38; SECONDARY; yes; 07.12.1931; 22; 1
+Modoc Alley, 36; 72.06; 6; 190.53; SECONDARY; yes; 13.12.1970; 3; 9
+Poplar Chase Lane, 34; 57.87; 8; 141.41; SECONDARY; no; 03.02.1908; 1; 3
+Dovetail Drive, 58; 104.84; 7; 180.54; SECONDARY; no; 09.02.1961; 1; 8
+Tetrick Road, 30; 35.07; 5; 100.4; PRIMARY; yes
+Park Boulevard, 33; 62.45; 6; 166.61; PRIMARY; yes
+Snowbird Lane, 18; 24.43; 1; 134.6; PRIMARY; yes
+Snowbird Lane, 17; 22.16; 1; 278.48; SECONDARY; no; 13.05.1923; 3; 4
+Dovetail Drive, 46; 23.39; 4; 142.78; PRIMARY; yes
+Park Boulevard, 43; 19.09; 3; 245.94; PRIMARY; yes
+Park Boulevard, 35; 76.55; 4; 184.05; SECONDARY; yes; 06.06.1947; 36; 9
+Poplar Chase Lane, 5; 15.09; 2; 157.58; SECONDARY; no; 28.07.2002; 27; 10
+Oliverio Drive, 46; 203.27; 10; 114.46; PRIMARY; yes
+Park Boulevard, 42; 145.93; 9; 163.77; PRIMARY; yes
+Snowbird Lane, 29; 30.62; 2; 153.16; PRIMARY; yes
+Poplar Chase Lane, 25; 41.59; 3; 212.32; PRIMARY; yes
+Snowbird Lane, 18; 226.74; 10; 152.82; SECONDARY; no; 05.11.1974; 10; 10
+Tetrick Road, 77; 25.52; 2; 245.22; SECONDARY; yes; 02.10.1957; 7; 5
+Half and Half Drive, 35; 15.37; 2; 197.46; PRIMARY; no
+Simons Hollow Road, 44; 194.81; 9; 121.9; SECONDARY; yes; 26.06.1900; 40; 9
+Snowbird Lane, 50; 224.4; 9; 262.38; PRIMARY; yes
+Poplar Chase Lane, 7; 148.21; 10; 282.52; PRIMARY; no
+Snowbird Lane, 11; 49.52; 4; 220.69; PRIMARY; yes
+Gladwell Street, 12; 17.69; 1; 259.53; SECONDARY; yes; 07.04.1990; 13; 3
+Michael Street, 9; 34.46; 2; 177.58; PRIMARY; no
+Michael Street, 33; 248.26; 10; 295.4; PRIMARY; no
+Snowbird Lane, 76; 16.78; 1; 202.69; SECONDARY; yes; 03.10.2003; 37; 2
+Michael Street, 58; 223.56; 10; 166.57; SECONDARY; yes; 18.01.1936; 22; 9
+Modoc Alley, 63; 180.1; 8; 142.0; PRIMARY; yes
+Hilltop Street, 76; 43.85; 7; 251.95; PRIMARY; no
+Simons Hollow Road, 20; 25.2; 3; 211.87; SECONDARY; yes; 12.04.1923; 33; 4
+Park Boulevard, 69; 67.29; 5; 213.57; SECONDARY; no; 27.07.1909; 40; 4
+Hilltop Street, 20; 26.75; 5; 203.48; PRIMARY; yes
+Dovetail Drive, 6; 56.8; 6; 248.05; SECONDARY; yes; 03.04.2003; 11; 4
+Poplar Chase Lane, 59; 142.27; 10; 255.4; SECONDARY; yes; 21.08.1938; 1; 8
+Hilltop Street, 5; 45.71; 7; 168.71; PRIMARY; no
+Dovetail Drive, 6; 114.54; 10; 152.45; PRIMARY; yes
+Tetrick Road, 77; 188.62; 9; 112.97; PRIMARY; no
+Tetrick Road, 22; 44.05; 2; 210.94; SECONDARY; yes; 17.05.1984; 13; 9
+Dovetail Drive, 52; 46.65; 2; 248.77; SECONDARY; no; 22.01.1928; 15; 10
+Simons Hollow Road, 74; 130.48; 8; 248.81; SECONDARY; no; 31.10.1909; 10; 4
+Dovetail Drive, 37; 15.62; 2; 241.59; SECONDARY; yes; 11.09.1909; 31; 4
+Simons Hollow Road, 21; 42.39; 5; 238.28; PRIMARY; yes
+Simons Hollow Road, 16; 55.47; 4; 239.66; SECONDARY; no; 02.11.1959; 19; 8
+Tetrick Road, 10; 23.45; 1; 204.45; SECONDARY; yes; 24.08.2003; 4; 9
+Michael Street, 26; 59.21; 7; 101.12; SECONDARY; no; 03.01.1920; 33; 8
+Michael Street, 52; 35.69; 2; 133.07; SECONDARY; yes; 01.08.2007; 5; 3
+Oliverio Drive, 30; 14.86; 1; 158.76; PRIMARY; yes
+Half and Half Drive, 80; 191.87; 10; 279.1; SECONDARY; yes; 30.10.1975; 30; 10
+Oliverio Drive, 42; 40.5; 2; 237.18; PRIMARY; yes
+Oliverio Drive, 5; 53.15; 7; 278.04; PRIMARY; no
+Modoc Alley, 6; 68.59; 3; 132.98; PRIMARY; no
+Simons Hollow Road, 64; 25.34; 3; 194.37; PRIMARY; yes
+Gladwell Street, 24; 27.87; 3; 160.01; PRIMARY; yes
+Dovetail Drive, 6; 114.97; 5; 274.9; SECONDARY; no; 10.12.1972; 21; 3
+Gladwell Street, 58; 119.56; 8; 116.47; SECONDARY; no; 07.09.1904; 2; 10
+Park Boulevard, 61; 62.75; 8; 157.28; SECONDARY; yes; 03.09.1904; 39; 7
+Oliverio Drive, 72; 79.14; 9; 256.38; SECONDARY; yes; 12.04.2016; 6; 10
+Snowbird Lane, 20; 121.49; 7; 286.7; SECONDARY; no; 30.08.1901; 24; 8
+Half and Half Drive, 27; 13.94; 1; 134.19; SECONDARY; no; 25.01.1916; 4; 9
+Simons Hollow Road, 71; 70.52; 7; 137.79; PRIMARY; no
+Park Boulevard, 61; 29.42; 3; 257.81; PRIMARY; yes
+Michael Street, 77; 80.39; 6; 184.51; PRIMARY; no
+Poplar Chase Lane, 69; 92.45; 10; 269.16; PRIMARY; yes
+Poplar Chase Lane, 3; 128.59; 10; 168.22; PRIMARY; no
+Modoc Alley, 59; 95.46; 4; 217.25; PRIMARY; yes
+Tetrick Road, 77; 193.07; 9; 129.69; SECONDARY; no; 09.01.1994; 35; 10
+Michael Street, 65; 51.96; 6; 236.02; SECONDARY; no; 28.12.1948; 22; 8
+Hilltop Street, 7; 193.22; 8; 190.51; PRIMARY; no
+Modoc Alley, 46; 119.7; 9; 194.9; SECONDARY; no; 06.07.1957; 22; 9
+Tetrick Road, 47; 58.99; 4; 126.99; PRIMARY; no
+Oliverio Drive, 36; 16.14; 3; 191.83; SECONDARY; no; 19.03.1981; 17; 2
+Simons Hollow Road, 68; 33.95; 5; 103.22; PRIMARY; no
+Dovetail Drive, 57; 94.01; 4; 130.82; SECONDARY; yes; 19.08.2000; 10; 7
+Oliverio Drive, 35; 99.2; 7; 241.8; SECONDARY; no; 29.09.1951; 28; 5
+Half and Half Drive, 66; 19.73; 1; 211.06; PRIMARY; no
+Park Boulevard, 45; 151.81; 8; 266.97; PRIMARY; no
+Hilltop Street, 69; 159.02; 9; 197.37; SECONDARY; no; 13.06.1937; 11; 7
+Gladwell Street, 8; 71.53; 6; 158.55; SECONDARY; no; 12.07.1924; 20; 10
+Hilltop Street, 80; 200.83; 9; 289.84; PRIMARY; yes
+Oliverio Drive, 28; 7.91; 1; 214.9; SECONDARY; no; 07.09.1926; 38; 5
+Michael Street, 5; 12.14; 2; 275.57; SECONDARY; yes; 01.06.1944; 33; 10
+Simons Hollow Road, 77; 93.08; 5; 258.18; SECONDARY; yes; 10.04.1995; 35; 7
+Dovetail Drive, 26; 244.83; 10; 182.03; SECONDARY; no; 23.12.1969; 40; 5
+Poplar Chase Lane, 66; 55.53; 4; 228.16; SECONDARY; no; 10.11.1988; 15; 4
+Simons Hollow Road, 29; 150.47; 9; 241.59; PRIMARY; no
+Gladwell Street, 37; 9.32; 1; 258.82; PRIMARY; no
+Half and Half Drive, 25; 13.31; 1; 199.18; PRIMARY; yes
+Michael Street, 72; 31.81; 4; 249.84; PRIMARY; no
+Michael Street, 24; 63.53; 10; 285.02; SECONDARY; no; 04.04.2016; 19; 4
+Snowbird Lane, 67; 9.99; 1; 123.34; SECONDARY; no; 26.01.1961; 4; 1
+Oliverio Drive, 63; 71.45; 5; 113.5; SECONDARY; yes; 10.04.1951; 14; 2
+Half and Half Drive, 45; 52.53; 6; 296.34; SECONDARY; no; 31.06.1903; 2; 4
+Modoc Alley, 54; 92.17; 7; 269.93; SECONDARY; no; 10.10.1935; 31; 1
+Tetrick Road, 43; 54.31; 3; 222.8; PRIMARY; yes
+Dovetail Drive, 74; 173.58; 7; 130.41; SECONDARY; yes; 20.01.1985; 40; 3
+Park Boulevard, 41; 223.93; 10; 146.32; SECONDARY; yes; 29.03.1962; 23; 4
+Gladwell Street, 44; 59.67; 4; 147.1; SECONDARY; no; 01.06.1902; 9; 9
+Michael Street, 13; 135.29; 8; 146.38; SECONDARY; no; 28.03.1936; 12; 8
+Simons Hollow Road, 11; 94.6; 8; 161.53; PRIMARY; no
+Simons Hollow Road, 30; 31.66; 2; 285.46; SECONDARY; no; 29.10.1930; 39; 1
+Tetrick Road, 60; 86.75; 10; 168.04; PRIMARY; yes
+Modoc Alley, 11; 83.84; 5; 107.17; PRIMARY; yes
+Tetrick Road, 49; 35.79; 2; 111.51; PRIMARY; no
+Dovetail Drive, 17; 58.8; 4; 134.26; SECONDARY; yes; 21.06.1970; 8; 5
+Simons Hollow Road, 77; 138.12; 7; 259.85; SECONDARY; yes; 09.06.1914; 27; 8
+Simons Hollow Road, 28; 30.21; 2; 148.84; SECONDARY; no; 17.08.1963; 13; 7
+Hilltop Street, 13; 66.88; 6; 246.39; SECONDARY; no; 27.05.1974; 32; 10
+Park Boulevard, 2; 117.0; 6; 154.64; PRIMARY; yes
+Michael Street, 21; 7.46; 1; 203.66; SECONDARY; yes; 31.09.1937; 33; 10
+Half and Half Drive, 14; 193.42; 9; 157.59; SECONDARY; yes; 25.07.1905; 16; 2
+Tetrick Road, 66; 108.44; 7; 142.01; PRIMARY; no
+Hilltop Street, 57; 44.58; 6; 125.07; SECONDARY; no; 25.01.1929; 24; 5
+Dovetail Drive, 11; 78.34; 10; 266.87; SECONDARY; yes; 21.05.1954; 39; 3
+Tetrick Road, 35; 40.07; 4; 125.29; SECONDARY; yes; 16.10.1911; 1; 7
+Snowbird Lane, 36; 112.92; 10; 237.63; SECONDARY; no; 02.09.1979; 5; 7
+Gladwell Street, 7; 89.58; 4; 160.47; SECONDARY; no; 08.10.1975; 12; 4
+Snowbird Lane, 41; 57.14; 9; 249.45; PRIMARY; yes
+Michael Street, 65; 50.61; 3; 163.79; PRIMARY; yes
+Poplar Chase Lane, 36; 19.81; 1; 202.69; PRIMARY; no
+Poplar Chase Lane, 72; 44.37; 4; 222.04; SECONDARY; yes; 20.11.1934; 12; 4
+Tetrick Road, 57; 187.56; 8; 274.25; PRIMARY; yes
+Poplar Chase Lane, 32; 206.42; 9; 223.85; SECONDARY; no; 07.10.1933; 9; 1
+Modoc Alley, 6; 58.15; 5; 215.97; SECONDARY; yes; 29.06.1975; 20; 9
+Snowbird Lane, 11; 35.98; 4; 279.32; SECONDARY; no; 14.07.1911; 32; 8
+Half and Half Drive, 71; 134.19; 8; 109.53; PRIMARY; yes
+Oliverio Drive, 53; 14.8; 1; 134.13; SECONDARY; yes; 26.06.2006; 10; 3
+Tetrick Road, 27; 33.67; 2; 222.16; PRIMARY; yes
+Dovetail Drive, 70; 67.11; 3; 202.16; PRIMARY; no
+Poplar Chase Lane, 67; 177.45; 9; 168.11; SECONDARY; no; 31.07.1946; 6; 10
+Poplar Chase Lane, 49; 114.89; 6; 270.51; SECONDARY; yes; 28.10.2017; 33; 6
+Michael Street, 5; 33.0; 2; 105.18; SECONDARY; no; 10.12.1923; 23; 8
+Poplar Chase Lane, 61; 68.52; 4; 147.68; PRIMARY; yes
+Dovetail Drive, 57; 29.73; 3; 106.61; PRIMARY; yes
+Michael Street, 68; 25.67; 2; 124.53; SECONDARY; no; 09.12.1975; 39; 3
+Tetrick Road, 28; 43.65; 2; 258.93; SECONDARY; no; 12.12.1985; 1; 6
+Dovetail Drive, 9; 13.72; 1; 264.16; SECONDARY; yes; 09.09.1928; 12; 4
+Michael Street, 58; 39.96; 4; 173.4; SECONDARY; yes; 19.09.1967; 11; 4
+Park Boulevard, 7; 73.62; 10; 156.06; SECONDARY; yes; 30.02.1903; 39; 2
+Modoc Alley, 35; 87.52; 10; 266.97; PRIMARY; yes
+Simons Hollow Road, 31; 121.49; 9; 120.49; SECONDARY; no; 26.07.1976; 3; 4
+Park Boulevard, 29; 65.32; 5; 214.1; SECONDARY; no; 11.02.1931; 1; 8
+Oliverio Drive, 26; 45.14; 2; 152.19; SECONDARY; no; 12.04.2010; 38; 2
+Snowbird Lane, 63; 68.42; 5; 246.68; PRIMARY; yes
+Michael Street, 5; 45.26; 2; 117.51; SECONDARY; no; 06.09.1976; 8; 10
+Oliverio Drive, 24; 39.79; 6; 127.94; SECONDARY; no; 05.04.1946; 25; 3
+Michael Street, 47; 5.15; 1; 259.07; SECONDARY; no; 24.03.1904; 1; 8
+Simons Hollow Road, 61; 13.36; 1; 292.94; PRIMARY; no
+Hilltop Street, 72; 169.1; 8; 181.82; SECONDARY; no; 06.11.1985; 11; 7
+Tetrick Road, 26; 128.07; 9; 221.53; SECONDARY; no; 12.03.1983; 17; 9
+Snowbird Lane, 38; 19.47; 2; 252.9; SECONDARY; yes; 29.07.1996; 9; 3
+Poplar Chase Lane, 4; 92.54; 6; 171.57; SECONDARY; yes; 05.01.1905; 11; 2
+Hilltop Street, 27; 59.62; 9; 251.48; SECONDARY; no; 23.12.1936; 1; 1
+Michael Street, 30; 105.49; 5; 232.96; PRIMARY; yes
+Michael Street, 7; 25.48; 2; 211.82; PRIMARY; yes
+Half and Half Drive, 67; 202.88; 9; 133.37; SECONDARY; yes; 22.09.1983; 33; 1
+Half and Half Drive, 29; 25.43; 3; 201.1; SECONDARY; yes; 19.07.2000; 23; 6
+Snowbird Lane, 70; 45.39; 2; 114.03; SECONDARY; no; 08.08.1906; 22; 8
+Modoc Alley, 35; 89.81; 4; 198.54; PRIMARY; yes
+Hilltop Street, 53; 40.35; 4; 142.74; PRIMARY; yes
+Snowbird Lane, 22; 154.14; 9; 160.12; SECONDARY; no; 18.07.2015; 16; 5
+Park Boulevard, 38; 33.68; 5; 120.31; SECONDARY; yes; 22.04.2002; 19; 10
+Tetrick Road, 36; 167.43; 9; 270.03; PRIMARY; yes
+Modoc Alley, 34; 169.45; 8; 293.37; PRIMARY; no
+Half and Half Drive, 59; 13.38; 1; 281.37; PRIMARY; yes
+Hilltop Street, 42; 32.28; 4; 172.99; SECONDARY; yes; 07.04.2003; 28; 5
+Michael Street, 38; 55.6; 10; 206.16; PRIMARY; no
+Modoc Alley, 10; 112.43; 6; 100.52; SECONDARY; yes; 23.09.1910; 18; 10
+Hilltop Street, 18; 104.63; 10; 236.43; SECONDARY; no; 03.09.1938; 33; 4
+Simons Hollow Road, 45; 12.65; 2; 223.87; SECONDARY; yes; 05.01.1975; 15; 4
+Poplar Chase Lane, 64; 95.63; 8; 182.5; SECONDARY; yes; 12.04.1920; 12; 10
+Park Boulevard, 35; 16.76; 1; 119.69; SECONDARY; no; 23.02.1929; 20; 10
+Snowbird Lane, 78; 48.18; 2; 277.85; SECONDARY; no; 09.03.2019; 10; 2
+Snowbird Lane, 38; 233.42; 10; 283.69; PRIMARY; yes
+Dovetail Drive, 43; 97.66; 6; 106.73; SECONDARY; yes; 21.05.1903; 29; 3
+Dovetail Drive, 44; 159.28; 10; 162.71; PRIMARY; yes
+Gladwell Street, 15; 172.14; 9; 114.5; PRIMARY; yes
+Tetrick Road, 6; 41.05; 3; 212.56; PRIMARY; yes
+Hilltop Street, 21; 49.36; 9; 114.39; PRIMARY; yes
+Poplar Chase Lane, 53; 53.01; 4; 180.79; SECONDARY; no; 09.10.1975; 24; 3
+Snowbird Lane, 30; 15.77; 2; 292.43; SECONDARY; no; 08.04.2006; 12; 1
+Dovetail Drive, 36; 160.24; 7; 171.53; PRIMARY; no
+Michael Street, 35; 231.21; 10; 148.92; SECONDARY; no; 12.09.1958; 11; 6
+Gladwell Street, 38; 52.59; 6; 112.7; PRIMARY; yes
+Oliverio Drive, 4; 58.27; 4; 226.07; SECONDARY; no; 13.03.1945; 7; 4
+Park Boulevard, 31; 234.67; 10; 218.7; SECONDARY; no; 11.12.2015; 17; 5
+Oliverio Drive, 29; 17.6; 3; 264.57; SECONDARY; yes; 21.08.1996; 8; 8
+Oliverio Drive, 34; 36.26; 4; 142.15; SECONDARY; yes; 02.11.1986; 32; 1
+Michael Street, 17; 23.05; 1; 298.14; PRIMARY; yes
+Gladwell Street, 2; 20.57; 2; 209.77; PRIMARY; yes
+Gladwell Street, 49; 239.34; 10; 271.12; SECONDARY; no; 29.11.1923; 28; 10
+Simons Hollow Road, 58; 80.7; 10; 272.76; SECONDARY; no; 18.03.2015; 9; 1
+Dovetail Drive, 66; 64.17; 3; 282.92; SECONDARY; yes; 08.04.1942; 35; 7
+Half and Half Drive, 46; 80.17; 6; 118.26; SECONDARY; yes; 23.11.1958; 4; 3
+Simons Hollow Road, 36; 89.77; 6; 264.83; PRIMARY; yes
+Park Boulevard, 29; 118.91; 5; 190.74; SECONDARY; yes; 07.08.1965; 3; 1
+Modoc Alley, 24; 170.8; 8; 132.32; PRIMARY; no
+Poplar Chase Lane, 71; 17.52; 1; 197.2; PRIMARY; yes
+Hilltop Street, 61; 37.74; 4; 123.03; SECONDARY; yes; 12.12.1946; 20; 9
+Michael Street, 29; 32.63; 2; 256.4; SECONDARY; yes; 30.10.1979; 22; 9
+Park Boulevard, 78; 12.97; 2; 101.97; SECONDARY; yes; 13.07.1936; 4; 3
+Gladwell Street, 75; 14.33; 2; 265.03; SECONDARY; no; 14.11.1990; 21; 3
+Dovetail Drive, 26; 37.0; 5; 114.97; SECONDARY; no; 09.06.1983; 32; 3
+Oliverio Drive, 64; 24.74; 4; 198.93; SECONDARY; no; 27.08.1996; 15; 1
+Michael Street, 42; 236.88; 10; 276.43; PRIMARY; no
+Dovetail Drive, 8; 87.98; 5; 238.2; SECONDARY; yes; 31.08.2008; 7; 1
+Park Boulevard, 2; 141.92; 10; 147.58; PRIMARY; yes
+Dovetail Drive, 34; 166.75; 8; 232.42; SECONDARY; yes; 07.09.1907; 28; 10
+Michael Street, 26; 58.92; 5; 104.56; PRIMARY; no
+Modoc Alley, 34; 33.87; 3; 250.24; PRIMARY; yes
+Oliverio Drive, 52; 241.89; 10; 215.68; SECONDARY; yes; 02.11.2019; 36; 1
+Simons Hollow Road, 15; 94.77; 7; 288.54; SECONDARY; no; 16.09.1984; 16; 2
+Simons Hollow Road, 73; 82.18; 5; 255.36; SECONDARY; yes; 28.07.1961; 14; 7
+Park Boulevard, 38; 151.94; 9; 186.25; SECONDARY; no; 04.07.1982; 39; 5
+Hilltop Street, 77; 42.25; 4; 136.59; SECONDARY; no; 08.04.2014; 18; 9
+Gladwell Street, 19; 42.9; 2; 218.87; SECONDARY; no; 26.08.1942; 3; 1
+Half and Half Drive, 6; 62.22; 4; 268.9; SECONDARY; yes; 01.10.1944; 40; 6
+Poplar Chase Lane, 74; 15.34; 1; 221.36; PRIMARY; no
+Tetrick Road, 65; 112.1; 6; 243.74; PRIMARY; no
+Poplar Chase Lane, 32; 42.21; 8; 193.84; SECONDARY; yes; 14.12.2007; 20; 7
+Modoc Alley, 80; 72.36; 8; 178.77; SECONDARY; no; 19.10.1949; 7; 5
+Modoc Alley, 55; 65.03; 6; 141.54; PRIMARY; no
+Tetrick Road, 40; 81.09; 7; 191.73; PRIMARY; no
+Gladwell Street, 67; 145.52; 10; 195.29; PRIMARY; no
+Gladwell Street, 67; 48.5; 6; 179.61; SECONDARY; yes; 12.02.1901; 13; 1
+Simons Hollow Road, 9; 42.8; 2; 205.91; PRIMARY; no
+Michael Street, 12; 223.7; 9; 239.3; PRIMARY; yes
+Dovetail Drive, 33; 159.95; 9; 165.81; SECONDARY; yes; 01.10.1909; 33; 6
+Tetrick Road, 8; 77.44; 8; 272.51; PRIMARY; no
+Tetrick Road, 53; 62.06; 6; 165.97; SECONDARY; no; 04.01.1930; 4; 3
+Modoc Alley, 62; 54.97; 7; 155.57; SECONDARY; no; 19.07.2011; 32; 9
+Half and Half Drive, 78; 138.5; 9; 269.18; SECONDARY; yes; 20.03.1914; 7; 3
+Snowbird Lane, 53; 100.68; 6; 163.7; SECONDARY; no; 04.06.1979; 11; 5
+Simons Hollow Road, 19; 67.45; 5; 260.51; PRIMARY; yes
+Oliverio Drive, 28; 44.21; 5; 140.88; PRIMARY; no
+Gladwell Street, 45; 94.91; 9; 109.06; PRIMARY; no
+Oliverio Drive, 8; 114.06; 6; 290.38; PRIMARY; no
+Poplar Chase Lane, 29; 25.34; 2; 246.25; PRIMARY; yes
+Snowbird Lane, 57; 21.54; 2; 208.29; PRIMARY; yes
+Half and Half Drive, 79; 131.08; 6; 239.15; PRIMARY; no
+Michael Street, 4; 51.93; 7; 294.88; PRIMARY; no
+Dovetail Drive, 21; 90.52; 5; 104.99; PRIMARY; yes
+Gladwell Street, 65; 66.1; 3; 193.18; SECONDARY; no; 16.07.1956; 35; 10
+Dovetail Drive, 10; 56.01; 8; 115.75; PRIMARY; yes
+Modoc Alley, 70; 104.96; 5; 124.37; PRIMARY; yes
+Modoc Alley, 75; 104.1; 6; 245.1; PRIMARY; no
+Michael Street, 18; 25.22; 4; 179.92; PRIMARY; yes
+Gladwell Street, 19; 44.74; 7; 265.63; SECONDARY; no; 03.08.2018; 22; 2
+Dovetail Drive, 71; 36.48; 4; 228.76; PRIMARY; no
+Gladwell Street, 25; 67.43; 5; 152.02; SECONDARY; no; 30.03.1946; 16; 9
+Hilltop Street, 44; 35.19; 3; 291.81; PRIMARY; no
+Tetrick Road, 15; 75.37; 7; 261.33; PRIMARY; yes
+Park Boulevard, 74; 87.31; 4; 147.1; SECONDARY; yes; 23.04.1909; 4; 10
+Snowbird Lane, 10; 64.16; 4; 192.25; PRIMARY; yes
+Gladwell Street, 17; 111.6; 5; 272.96; SECONDARY; yes; 31.09.1963; 38; 10
+Michael Street, 65; 154.76; 7; 194.88; PRIMARY; yes
+Modoc Alley, 22; 23.79; 1; 222.03; PRIMARY; yes
+Michael Street, 59; 69.53; 4; 206.93; SECONDARY; yes; 21.06.1954; 30; 3
+Dovetail Drive, 19; 20.51; 2; 187.76; SECONDARY; yes; 26.10.1996; 23; 6
+Poplar Chase Lane, 12; 18.15; 1; 135.94; SECONDARY; yes; 16.11.1924; 36; 3
+Michael Street, 23; 30.44; 2; 187.11; SECONDARY; no; 30.08.1983; 40; 4
+Hilltop Street, 77; 157.92; 10; 281.38; PRIMARY; no
+Dovetail Drive, 36; 50.73; 6; 193.98; SECONDARY; no; 05.04.1945; 15; 3
+Half and Half Drive, 12; 210.83; 9; 183.53; SECONDARY; yes; 22.11.1994; 38; 5
+Snowbird Lane, 6; 197.97; 8; 177.5; PRIMARY; yes
+Half and Half Drive, 16; 24.25; 1; 194.38; SECONDARY; yes; 20.06.1942; 13; 8
+Modoc Alley, 75; 69.8; 9; 155.74; SECONDARY; no; 31.01.2014; 17; 9
+Snowbird Lane, 2; 205.46; 9; 159.8; PRIMARY; yes
+Hilltop Street, 57; 149.94; 6; 144.26; SECONDARY; no; 23.10.1928; 39; 4
+Tetrick Road, 17; 199.73; 9; 160.92; SECONDARY; no; 05.02.1906; 40; 2
+Half and Half Drive, 55; 67.48; 3; 179.1; PRIMARY; no
+Modoc Alley, 61; 172.79; 8; 178.76; SECONDARY; yes; 18.08.1954; 9; 5
+Oliverio Drive, 23; 7.62; 1; 255.47; PRIMARY; yes
+Park Boulevard, 24; 76.37; 8; 104.02; PRIMARY; no
+Park Boulevard, 77; 47.14; 2; 248.85; PRIMARY; yes
+Michael Street, 66; 22.11; 2; 147.68; SECONDARY; yes; 02.06.1952; 10; 6
+Modoc Alley, 42; 142.53; 10; 139.57; SECONDARY; yes; 26.01.1942; 33; 3
+Michael Street, 56; 222.43; 9; 245.02; SECONDARY; yes; 14.06.1970; 30; 6
+Poplar Chase Lane, 37; 35.98; 3; 128.87; SECONDARY; no; 22.07.1901; 26; 10
+Snowbird Lane, 55; 49.37; 6; 166.0; PRIMARY; yes
+Snowbird Lane, 7; 15.61; 1; 186.76; PRIMARY; no
+Half and Half Drive, 58; 69.23; 9; 240.12; PRIMARY; no
+Snowbird Lane, 57; 68.59; 4; 277.65; SECONDARY; yes; 28.07.1940; 5; 8
+Modoc Alley, 52; 204.93; 9; 178.56; PRIMARY; yes
+Park Boulevard, 74; 247.39; 10; 259.55; PRIMARY; no
+Hilltop Street, 62; 109.71; 5; 180.75; SECONDARY; yes; 15.09.1994; 11; 1
+Oliverio Drive, 20; 152.27; 10; 139.31; SECONDARY; yes; 27.11.1995; 32; 7
+Dovetail Drive, 56; 107.87; 9; 131.84; PRIMARY; no
+Half and Half Drive, 34; 71.86; 10; 259.63; PRIMARY; yes
+Modoc Alley, 9; 5.31; 1; 287.18; SECONDARY; no; 04.09.1981; 24; 7
+Oliverio Drive, 10; 13.91; 1; 190.26; PRIMARY; no
+Simons Hollow Road, 39; 23.94; 1; 287.67; SECONDARY; yes; 30.01.1901; 31; 9
+Simons Hollow Road, 42; 121.95; 6; 149.54; PRIMARY; no
+Modoc Alley, 77; 117.7; 7; 107.97; PRIMARY; yes
+Snowbird Lane, 52; 15.42; 3; 249.33; SECONDARY; no; 17.04.1947; 23; 8
+Dovetail Drive, 46; 86.01; 7; 254.41; PRIMARY; no
+Hilltop Street, 28; 10.56; 1; 156.55; PRIMARY; no
+Oliverio Drive, 42; 197.84; 9; 259.19; PRIMARY; yes
+Hilltop Street, 12; 72.94; 5; 272.4; PRIMARY; yes
+Dovetail Drive, 33; 63.64; 8; 239.94; PRIMARY; no
+Simons Hollow Road, 66; 57.25; 6; 271.66; SECONDARY; yes; 22.05.2005; 1; 1
+Oliverio Drive, 7; 66.45; 3; 229.72; SECONDARY; yes; 10.10.1963; 34; 3
+Dovetail Drive, 41; 31.98; 2; 113.59; PRIMARY; no
+Oliverio Drive, 23; 31.5; 2; 194.73; SECONDARY; no; 12.02.1964; 27; 1
+Michael Street, 7; 54.01; 8; 142.19; SECONDARY; no; 25.01.1942; 37; 1
+Poplar Chase Lane, 67; 193.14; 9; 114.34; SECONDARY; no; 17.06.1944; 12; 5
+Poplar Chase Lane, 21; 209.48; 9; 283.24; PRIMARY; no
+Modoc Alley, 64; 59.73; 6; 216.12; SECONDARY; yes; 06.01.1979; 17; 2
+Park Boulevard, 75; 38.24; 5; 181.1; PRIMARY; no
+Tetrick Road, 22; 164.78; 8; 247.51; PRIMARY; no
+Michael Street, 37; 18.85; 3; 257.01; SECONDARY; no; 15.12.2005; 1; 10
+Modoc Alley, 50; 26.81; 4; 242.68; PRIMARY; no
+Oliverio Drive, 73; 142.02; 9; 215.26; PRIMARY; no
+Half and Half Drive, 44; 42.78; 3; 143.03; PRIMARY; no
+Half and Half Drive, 74; 11.11; 1; 178.44; SECONDARY; no; 26.04.1959; 19; 9
+Simons Hollow Road, 19; 48.84; 2; 216.7; SECONDARY; no; 10.07.2009; 26; 8
+Hilltop Street, 8; 145.28; 9; 276.57; PRIMARY; no
+Poplar Chase Lane, 44; 179.84; 10; 183.58; SECONDARY; no; 30.07.2019; 35; 2
+Half and Half Drive, 51; 62.3; 4; 191.59; SECONDARY; no; 15.09.1931; 28; 1
+Gladwell Street, 45; 75.35; 4; 161.46; SECONDARY; no; 18.04.1954; 29; 3
+Half and Half Drive, 29; 84.47; 5; 271.97; PRIMARY; no
+Tetrick Road, 69; 124.3; 6; 234.2; SECONDARY; yes; 10.12.1948; 33; 3
+Gladwell Street, 63; 66.35; 6; 283.55; PRIMARY; no
+Tetrick Road, 13; 9.92; 1; 240.73; SECONDARY; yes; 05.09.1976; 2; 3
+Dovetail Drive, 57; 9.62; 1; 215.36; SECONDARY; no; 15.12.1933; 13; 5
+Oliverio Drive, 32; 45.03; 4; 275.42; PRIMARY; no
+Simons Hollow Road, 18; 117.97; 5; 226.41; PRIMARY; no
+Tetrick Road, 27; 18.86; 2; 214.7; PRIMARY; no
+Poplar Chase Lane, 12; 82.66; 9; 256.07; PRIMARY; no
+Half and Half Drive, 78; 147.48; 6; 144.11; SECONDARY; no; 21.10.1903; 11; 7
+Snowbird Lane, 25; 8.39; 1; 221.89; SECONDARY; no; 21.11.1934; 24; 9
+Oliverio Drive, 55; 69.84; 9; 186.81; SECONDARY; no; 05.05.1987; 4; 4
+Tetrick Road, 56; 22.66; 3; 240.38; SECONDARY; no; 17.03.1954; 38; 10
+Oliverio Drive, 24; 22.11; 3; 243.99; PRIMARY; no
+Half and Half Drive, 79; 202.82; 10; 245.32; SECONDARY; no; 06.02.2016; 32; 6
+Gladwell Street, 31; 121.08; 5; 176.48; SECONDARY; no; 18.12.2000; 34; 3
+Poplar Chase Lane, 34; 99.88; 7; 156.48; PRIMARY; yes
+Tetrick Road, 58; 18.87; 3; 230.55; SECONDARY; no; 29.10.2001; 25; 8
+Simons Hollow Road, 40; 43.59; 4; 178.59; SECONDARY; no; 27.05.1961; 10; 8
+Michael Street, 4; 182.25; 9; 299.86; PRIMARY; no
+Poplar Chase Lane, 10; 44.6; 4; 158.06; PRIMARY; no
+Oliverio Drive, 77; 48.86; 4; 195.67; SECONDARY; no; 23.06.1940; 20; 7
+Michael Street, 46; 132.68; 8; 199.51; PRIMARY; yes
+Hilltop Street, 59; 63.48; 3; 130.4; SECONDARY; no; 26.11.1945; 6; 9
+Oliverio Drive, 66; 25.18; 3; 110.48; PRIMARY; yes
+Michael Street, 56; 139.1; 9; 156.49; SECONDARY; no; 04.01.1986; 30; 4
+Snowbird Lane, 76; 114.79; 5; 124.63; SECONDARY; yes; 26.05.2009; 21; 7
+Michael Street, 76; 168.4; 10; 297.37; PRIMARY; no
+Dovetail Drive, 4; 164.69; 8; 191.32; SECONDARY; no; 15.04.1904; 18; 9
+Gladwell Street, 23; 57.76; 6; 159.43; SECONDARY; no; 24.05.1932; 8; 6
+Park Boulevard, 59; 163.92; 8; 101.35; SECONDARY; yes; 12.12.1908; 34; 4
+Poplar Chase Lane, 36; 27.42; 5; 230.42; SECONDARY; no; 31.05.1947; 17; 6
+Hilltop Street, 11; 31.17; 2; 232.3; PRIMARY; no
+Park Boulevard, 63; 136.9; 6; 251.74; SECONDARY; no; 23.06.2008; 29; 2
+Gladwell Street, 75; 18.55; 3; 290.38; PRIMARY; no
+Simons Hollow Road, 77; 13.31; 1; 145.64; PRIMARY; yes
+Half and Half Drive, 75; 120.03; 10; 167.1; SECONDARY; yes; 09.09.1979; 1; 1
+Simons Hollow Road, 7; 108.51; 9; 251.78; PRIMARY; no
+Modoc Alley, 44; 36.21; 2; 297.36; PRIMARY; no
+Dovetail Drive, 61; 40.1; 2; 114.83; PRIMARY; yes
+Park Boulevard, 13; 135.5; 9; 284.5; SECONDARY; yes; 27.12.1983; 23; 7
+Simons Hollow Road, 66; 79.89; 6; 278.89; PRIMARY; yes
+Half and Half Drive, 76; 11.13; 1; 197.39; PRIMARY; no
+Simons Hollow Road, 67; 95.32; 9; 145.1; SECONDARY; yes; 01.04.1925; 4; 4
+Dovetail Drive, 69; 45.22; 6; 226.2; PRIMARY; yes
+Snowbird Lane, 73; 38.33; 6; 103.62; PRIMARY; yes
+Park Boulevard, 74; 109.0; 7; 289.13; SECONDARY; no; 18.12.1988; 20; 7
+Hilltop Street, 72; 51.1; 3; 278.97; PRIMARY; yes
+Tetrick Road, 31; 109.46; 5; 215.89; PRIMARY; no
+Hilltop Street, 39; 50.13; 6; 268.38; PRIMARY; yes
+Park Boulevard, 69; 46.34; 3; 159.99; PRIMARY; no
+Simons Hollow Road, 74; 137.98; 8; 218.56; PRIMARY; no
+Modoc Alley, 40; 21.79; 1; 273.72; SECONDARY; yes; 21.10.1981; 5; 5
+Poplar Chase Lane, 54; 21.96; 4; 245.64; SECONDARY; no; 07.07.1983; 25; 4
+Simons Hollow Road, 38; 64.8; 3; 293.61; PRIMARY; no
+Dovetail Drive, 46; 60.84; 8; 212.82; PRIMARY; no
+Oliverio Drive, 29; 113.18; 9; 222.77; PRIMARY; no
+Michael Street, 52; 39.0; 3; 299.37; PRIMARY; no
+Tetrick Road, 33; 174.04; 9; 287.18; SECONDARY; no; 21.10.1964; 38; 4
+Oliverio Drive, 62; 32.38; 4; 134.98; PRIMARY; yes
+Dovetail Drive, 68; 113.9; 7; 140.95; SECONDARY; yes; 24.07.1945; 28; 4
+Hilltop Street, 41; 6.57; 1; 116.45; SECONDARY; no; 02.02.1914; 34; 10
+Simons Hollow Road, 59; 78.94; 10; 277.23; SECONDARY; no; 23.02.2006; 17; 9
+Oliverio Drive, 36; 185.72; 9; 138.27; SECONDARY; yes; 18.07.1951; 15; 6
+Snowbird Lane, 40; 38.02; 5; 299.12; PRIMARY; no
+Gladwell Street, 63; 31.95; 4; 101.8; PRIMARY; no
+Oliverio Drive, 28; 60.83; 6; 124.37; PRIMARY; no
+Gladwell Street, 72; 71.95; 7; 237.68; PRIMARY; no
+Michael Street, 31; 99.61; 8; 165.88; SECONDARY; yes; 10.12.2015; 5; 3
+Michael Street, 64; 16.9; 2; 238.44; PRIMARY; yes
+Park Boulevard, 42; 59.61; 5; 278.63; PRIMARY; yes
+Simons Hollow Road, 41; 167.57; 7; 230.6; SECONDARY; no; 11.01.1965; 15; 10
+Park Boulevard, 79; 80.93; 4; 208.59; SECONDARY; yes; 24.11.1992; 8; 4
+Simons Hollow Road, 63; 52.55; 10; 219.5; SECONDARY; yes; 21.07.1920; 4; 2
+Snowbird Lane, 41; 49.41; 4; 248.61; SECONDARY; yes; 21.02.1939; 33; 8
+Dovetail Drive, 34; 113.11; 5; 166.59; SECONDARY; no; 10.09.2006; 30; 9
+Snowbird Lane, 80; 97.39; 6; 169.31; PRIMARY; yes
+Snowbird Lane, 14; 164.0; 10; 112.62; SECONDARY; yes; 02.11.1982; 20; 8
+Dovetail Drive, 15; 55.56; 8; 226.27; PRIMARY; yes
+Michael Street, 74; 42.3; 2; 138.55; PRIMARY; yes
+Poplar Chase Lane, 53; 10.85; 2; 261.54; SECONDARY; yes; 06.02.2002; 7; 10
+Half and Half Drive, 61; 143.98; 7; 150.24; PRIMARY; no
+Oliverio Drive, 68; 58.63; 6; 177.78; PRIMARY; yes
+Oliverio Drive, 41; 10.96; 2; 245.03; SECONDARY; yes; 05.09.1932; 29; 4
+Modoc Alley, 72; 76.59; 5; 205.05; SECONDARY; yes; 07.10.2003; 21; 7
+Snowbird Lane, 67; 103.47; 5; 154.51; SECONDARY; no; 21.08.1911; 28; 2
+Half and Half Drive, 72; 82.13; 7; 169.12; PRIMARY; no
+Oliverio Drive, 27; 8.7; 1; 253.8; SECONDARY; no; 12.01.1969; 3; 7
+Gladwell Street, 78; 249.58; 10; 256.93; PRIMARY; no
+Tetrick Road, 10; 184.23; 10; 207.45; SECONDARY; yes; 03.10.1965; 11; 4
+Michael Street, 33; 217.94; 10; 186.51; PRIMARY; no
+Oliverio Drive, 40; 71.4; 9; 289.98; PRIMARY; yes
+Tetrick Road, 33; 98.84; 7; 100.34; PRIMARY; no
+Oliverio Drive, 76; 127.93; 9; 293.81; PRIMARY; yes
+Park Boulevard, 34; 37.1; 5; 267.75; SECONDARY; yes; 20.05.1970; 2; 7
+Tetrick Road, 57; 64.57; 7; 202.94; PRIMARY; yes
+Simons Hollow Road, 7; 138.14; 9; 292.13; PRIMARY; yes
+Hilltop Street, 72; 8.0; 1; 130.73; SECONDARY; yes; 12.09.2018; 33; 5
+Michael Street, 10; 202.04; 9; 265.71; PRIMARY; yes
+Park Boulevard, 58; 5.47; 1; 100.15; PRIMARY; yes
+Snowbird Lane, 2; 99.7; 8; 213.78; SECONDARY; no; 07.10.1908; 18; 7
+Hilltop Street, 13; 48.45; 7; 175.61; PRIMARY; yes
+Michael Street, 14; 19.04; 1; 281.68; PRIMARY; no
+Modoc Alley, 38; 164.33; 7; 177.42; SECONDARY; yes; 09.04.1949; 2; 3
+Dovetail Drive, 61; 18.17; 3; 134.13; PRIMARY; no
+Half and Half Drive, 22; 89.32; 5; 219.3; SECONDARY; no; 05.03.2020; 32; 8
+Poplar Chase Lane, 28; 158.5; 7; 135.8; PRIMARY; yes
+Dovetail Drive, 72; 39.93; 4; 277.34; SECONDARY; yes; 09.04.1983; 11; 5
+Dovetail Drive, 32; 30.55; 3; 267.92; SECONDARY; no; 01.04.1937; 7; 10
+Half and Half Drive, 42; 52.9; 4; 196.99; PRIMARY; yes
+Snowbird Lane, 63; 11.04; 1; 186.99; SECONDARY; yes; 29.09.2016; 28; 10
+Snowbird Lane, 29; 42.48; 6; 190.14; SECONDARY; yes; 25.03.1919; 17; 1
+Poplar Chase Lane, 61; 192.25; 10; 190.53; SECONDARY; yes; 11.05.1960; 18; 8
+Dovetail Drive, 30; 162.21; 10; 132.82; PRIMARY; no
+Dovetail Drive, 55; 36.65; 7; 203.26; SECONDARY; no; 28.09.1964; 29; 4
+Tetrick Road, 29; 25.87; 3; 283.69; SECONDARY; yes; 24.12.1901; 36; 7
+Poplar Chase Lane, 15; 88.1; 6; 217.51; PRIMARY; yes
+Hilltop Street, 18; 146.97; 10; 146.77; SECONDARY; no; 22.03.1908; 27; 7
+Park Boulevard, 56; 138.8; 6; 286.94; SECONDARY; no; 19.03.1983; 39; 5
+Simons Hollow Road, 70; 5.04; 1; 260.11; PRIMARY; yes
+Oliverio Drive, 14; 239.24; 10; 120.32; SECONDARY; no; 30.09.1902; 13; 8
+Oliverio Drive, 60; 75.16; 7; 262.02; PRIMARY; yes
+Gladwell Street, 11; 95.91; 6; 217.26; PRIMARY; yes
+Gladwell Street, 14; 35.63; 4; 191.76; SECONDARY; no; 08.08.1985; 22; 6
+Michael Street, 73; 110.37; 6; 248.71; PRIMARY; yes
+Simons Hollow Road, 37; 143.11; 7; 280.31; SECONDARY; no; 13.05.1982; 27; 8
+Oliverio Drive, 54; 70.5; 3; 233.0; PRIMARY; no
+Half and Half Drive, 68; 197.9; 8; 299.17; PRIMARY; yes
+Hilltop Street, 64; 70.15; 3; 134.2; PRIMARY; no
+Dovetail Drive, 59; 194.02; 9; 131.25; PRIMARY; yes
+Tetrick Road, 36; 39.81; 2; 200.71; SECONDARY; yes; 18.12.1977; 2; 1
+Modoc Alley, 10; 32.02; 4; 223.43; PRIMARY; no
+Poplar Chase Lane, 42; 113.01; 10; 282.99; PRIMARY; yes
+Dovetail Drive, 9; 56.51; 6; 132.16; PRIMARY; yes
+Half and Half Drive, 17; 12.35; 1; 281.97; PRIMARY; no
+Hilltop Street, 54; 34.28; 6; 122.29; PRIMARY; yes
+Tetrick Road, 20; 40.26; 4; 118.72; SECONDARY; no; 09.08.1991; 9; 5
+Snowbird Lane, 75; 167.43; 8; 103.6; PRIMARY; no
+Poplar Chase Lane, 66; 90.36; 5; 113.8; PRIMARY; yes
+Michael Street, 8; 130.86; 7; 145.29; SECONDARY; yes; 19.03.1930; 5; 9
+Poplar Chase Lane, 69; 94.69; 6; 133.22; SECONDARY; yes; 07.11.2013; 12; 1
+Michael Street, 26; 96.96; 5; 190.72; SECONDARY; no; 11.07.1964; 6; 2
+Gladwell Street, 31; 45.7; 4; 225.55; SECONDARY; no; 14.08.2014; 14; 2
+Poplar Chase Lane, 45; 65.94; 10; 294.8; SECONDARY; yes; 15.11.1974; 22; 8
+Snowbird Lane, 46; 90.54; 8; 208.06; SECONDARY; yes; 06.08.2019; 16; 2
+Simons Hollow Road, 20; 110.86; 8; 254.98; SECONDARY; yes; 23.11.1987; 33; 4
+Poplar Chase Lane, 79; 222.8; 9; 241.33; PRIMARY; no
+Hilltop Street, 22; 171.52; 7; 253.35; SECONDARY; yes; 05.03.1982; 18; 7
+Michael Street, 32; 31.16; 2; 287.25; SECONDARY; no; 02.09.2007; 37; 10
+Poplar Chase Lane, 17; 113.2; 8; 178.05; SECONDARY; no; 11.04.1909; 22; 9
+Park Boulevard, 55; 154.68; 9; 116.58; SECONDARY; yes; 15.04.1989; 5; 2
+Park Boulevard, 26; 61.81; 4; 140.92; PRIMARY; no
+Tetrick Road, 4; 123.11; 8; 201.14; SECONDARY; no; 12.09.1912; 32; 7
+Dovetail Drive, 47; 135.13; 9; 169.35; PRIMARY; no
+Hilltop Street, 17; 45.4; 3; 283.49; SECONDARY; yes; 26.06.1963; 39; 9
+Gladwell Street, 66; 109.43; 7; 253.61; PRIMARY; no
+Modoc Alley, 50; 31.2; 2; 279.55; PRIMARY; no
+Oliverio Drive, 4; 45.3; 2; 233.06; SECONDARY; yes; 30.06.1947; 22; 10
+Dovetail Drive, 43; 41.04; 5; 235.92; SECONDARY; no; 04.12.1926; 10; 7
+Tetrick Road, 69; 38.7; 7; 140.96; SECONDARY; no; 13.04.2018; 8; 2
+Half and Half Drive, 50; 117.78; 9; 249.21; SECONDARY; no; 22.06.1936; 13; 6
+Gladwell Street, 43; 30.75; 4; 140.41; SECONDARY; no; 18.12.1912; 9; 10
+Dovetail Drive, 38; 93.1; 6; 108.35; PRIMARY; no
+Park Boulevard, 15; 167.33; 8; 100.06; SECONDARY; yes; 06.03.1930; 18; 2
+Dovetail Drive, 72; 92.77; 9; 235.87; SECONDARY; no; 20.04.2019; 8; 5
+Hilltop Street, 48; 148.1; 7; 248.37; PRIMARY; no
+Gladwell Street, 44; 99.16; 4; 189.8; PRIMARY; no
+Dovetail Drive, 79; 52.42; 9; 273.12; PRIMARY; yes
+Oliverio Drive, 31; 62.49; 5; 204.11; SECONDARY; no; 24.01.1974; 38; 5
+Michael Street, 32; 41.73; 4; 147.46; PRIMARY; no
+Tetrick Road, 8; 50.47; 3; 222.62; SECONDARY; no; 17.12.1950; 33; 3
+Modoc Alley, 53; 66.05; 3; 267.0; PRIMARY; yes
+Modoc Alley, 33; 186.15; 8; 256.58; PRIMARY; yes
+Simons Hollow Road, 5; 10.87; 2; 154.77; SECONDARY; yes; 15.05.1991; 12; 6
+Simons Hollow Road, 44; 82.3; 6; 247.45; SECONDARY; no; 30.03.1988; 2; 8
+Gladwell Street, 55; 40.01; 2; 170.67; PRIMARY; no
+Hilltop Street, 45; 21.21; 1; 165.53; PRIMARY; yes
+Snowbird Lane, 12; 77.21; 7; 283.72; SECONDARY; yes; 15.12.1946; 16; 8
+Simons Hollow Road, 45; 130.86; 7; 234.38; SECONDARY; no; 30.12.1916; 8; 3
+Michael Street, 76; 189.64; 8; 290.63; SECONDARY; yes; 17.09.1920; 30; 2
+Snowbird Lane, 23; 90.97; 5; 206.19; SECONDARY; no; 28.09.1978; 10; 4
+Snowbird Lane, 30; 63.83; 3; 254.14; SECONDARY; no; 19.09.1992; 2; 1
+Oliverio Drive, 63; 142.76; 7; 196.28; SECONDARY; no; 23.06.2020; 1; 4
+Dovetail Drive, 24; 163.1; 7; 193.11; SECONDARY; no; 09.03.1999; 40; 2
+Half and Half Drive, 12; 81.91; 6; 249.04; PRIMARY; no
+Gladwell Street, 8; 29.68; 2; 182.39; SECONDARY; no; 26.07.1964; 26; 1
+Park Boulevard, 75; 112.86; 8; 246.71; SECONDARY; yes; 07.07.1933; 12; 9
+Poplar Chase Lane, 45; 43.08; 5; 124.22; SECONDARY; yes; 28.04.1905; 17; 10
+Poplar Chase Lane, 12; 15.5; 1; 133.35; SECONDARY; yes; 25.09.1979; 40; 4
+Poplar Chase Lane, 21; 13.57; 1; 265.01; SECONDARY; no; 03.04.1948; 11; 3
+Modoc Alley, 18; 6.09; 1; 288.35; PRIMARY; no
+Oliverio Drive, 45; 96.0; 7; 257.62; PRIMARY; no
+Modoc Alley, 63; 69.01; 7; 288.47; SECONDARY; no; 13.11.1985; 22; 4
+Modoc Alley, 32; 63.57; 4; 150.51; SECONDARY; yes; 08.12.1921; 35; 2
+Snowbird Lane, 28; 98.58; 9; 255.82; PRIMARY; no
+Michael Street, 29; 144.82; 9; 167.12; SECONDARY; yes; 30.09.1993; 27; 1
+Tetrick Road, 48; 56.59; 5; 137.7; PRIMARY; yes
+Simons Hollow Road, 5; 143.74; 6; 254.59; SECONDARY; yes; 06.02.1947; 20; 5
+Half and Half Drive, 19; 105.1; 8; 133.07; SECONDARY; yes; 26.09.1957; 21; 4
+Oliverio Drive, 73; 68.13; 6; 105.49; SECONDARY; no; 13.08.2009; 15; 7
+Simons Hollow Road, 79; 46.77; 2; 277.49; SECONDARY; yes; 25.10.2007; 3; 3
+Dovetail Drive, 66; 12.75; 2; 213.11; SECONDARY; yes; 22.08.1944; 16; 3
+Dovetail Drive, 61; 124.16; 5; 258.84; SECONDARY; no; 19.04.2006; 32; 7
+Half and Half Drive, 27; 14.54; 2; 263.05; SECONDARY; yes; 19.04.1960; 19; 5
+Michael Street, 36; 67.36; 8; 182.12; PRIMARY; no
+Modoc Alley, 13; 108.35; 5; 112.82; SECONDARY; yes; 16.12.1969; 3; 10
+Michael Street, 18; 85.43; 9; 132.47; PRIMARY; yes
+Michael Street, 55; 95.57; 4; 192.94; PRIMARY; yes
+Half and Half Drive, 45; 165.47; 10; 267.74; SECONDARY; yes; 23.02.2019; 7; 8
+Oliverio Drive, 70; 22.27; 2; 179.46; PRIMARY; yes
+Half and Half Drive, 65; 53.94; 3; 173.72; PRIMARY; no
+Gladwell Street, 69; 61.82; 4; 262.83; PRIMARY; yes
+Hilltop Street, 31; 73.55; 10; 231.24; SECONDARY; yes; 23.07.1966; 11; 6
+Oliverio Drive, 39; 38.37; 7; 299.99; SECONDARY; yes; 25.05.1994; 7; 10
+Oliverio Drive, 41; 59.01; 9; 271.12; PRIMARY; yes
+Michael Street, 71; 78.02; 4; 219.01; PRIMARY; yes
+Park Boulevard, 50; 132.82; 6; 165.68; PRIMARY; no
+Snowbird Lane, 38; 6.14; 1; 226.08; SECONDARY; yes; 24.11.1956; 28; 7
+Snowbird Lane, 59; 92.99; 4; 148.52; SECONDARY; yes; 05.08.2003; 34; 6
+Modoc Alley, 34; 65.11; 4; 179.27; PRIMARY; yes
+Simons Hollow Road, 75; 44.8; 3; 277.55; SECONDARY; yes; 31.02.1955; 14; 7
+Half and Half Drive, 52; 59.95; 8; 149.84; SECONDARY; yes; 03.07.1944; 3; 8
+Oliverio Drive, 60; 159.12; 8; 282.13; SECONDARY; yes; 26.01.1941; 15; 6
+Snowbird Lane, 54; 48.8; 8; 114.1; PRIMARY; yes
+Simons Hollow Road, 61; 42.81; 2; 148.49; SECONDARY; yes; 08.12.1981; 14; 1
+Modoc Alley, 77; 33.99; 3; 147.69; SECONDARY; yes; 12.11.1909; 31; 9
+Simons Hollow Road, 19; 24.16; 1; 119.48; PRIMARY; no
+Simons Hollow Road, 72; 78.65; 4; 297.67; PRIMARY; no
+Dovetail Drive, 19; 38.65; 7; 270.09; SECONDARY; yes; 05.09.1962; 28; 10
+Half and Half Drive, 76; 183.92; 10; 108.82; SECONDARY; no; 05.10.1977; 40; 9
+Hilltop Street, 48; 10.84; 1; 120.59; SECONDARY; yes; 16.02.2011; 21; 7
+Gladwell Street, 80; 56.13; 5; 213.74; SECONDARY; no; 04.04.1976; 27; 5
+Oliverio Drive, 3; 208.82; 10; 164.93; SECONDARY; no; 11.07.1937; 28; 7
+Snowbird Lane, 7; 24.14; 3; 295.99; PRIMARY; yes
+Half and Half Drive, 26; 20.15; 1; 194.52; SECONDARY; no; 20.09.1980; 17; 8
+Simons Hollow Road, 47; 28.1; 3; 154.69; PRIMARY; yes
+Hilltop Street, 61; 62.64; 3; 110.86; PRIMARY; yes
+Hilltop Street, 56; 15.67; 3; 291.63; PRIMARY; no
+Poplar Chase Lane, 76; 83.31; 7; 214.8; PRIMARY; yes
+Oliverio Drive, 33; 79.21; 4; 248.15; PRIMARY; yes
+Oliverio Drive, 16; 162.02; 8; 298.55; PRIMARY; no
+Modoc Alley, 11; 47.29; 5; 295.98; SECONDARY; yes; 17.04.1962; 3; 8
+Gladwell Street, 49; 168.13; 7; 184.68; PRIMARY; no
+Oliverio Drive, 72; 17.01; 1; 218.3; SECONDARY; yes; 23.01.1971; 17; 7
+Park Boulevard, 63; 119.1; 5; 191.12; SECONDARY; yes; 02.08.1924; 32; 9
+Tetrick Road, 19; 163.49; 8; 128.77; SECONDARY; no; 04.04.1947; 11; 1
+Poplar Chase Lane, 43; 124.11; 7; 263.93; PRIMARY; yes
+Dovetail Drive, 66; 163.99; 8; 251.26; PRIMARY; yes
+Tetrick Road, 74; 170.27; 10; 197.72; SECONDARY; no; 13.08.1947; 17; 6
+Half and Half Drive, 35; 55.73; 4; 215.36; SECONDARY; no; 29.11.2009; 40; 6
+Hilltop Street, 6; 66.6; 8; 202.82; SECONDARY; no; 06.03.1975; 21; 5
+Tetrick Road, 64; 46.46; 6; 191.92; SECONDARY; no; 07.02.1967; 4; 3
+Hilltop Street, 70; 81.82; 6; 191.83; PRIMARY; no
+Poplar Chase Lane, 29; 9.98; 1; 249.52; PRIMARY; yes
+Tetrick Road, 68; 99.39; 4; 209.35; SECONDARY; yes; 26.09.1927; 9; 5
+Snowbird Lane, 63; 20.07; 1; 154.26; PRIMARY; yes
+Half and Half Drive, 13; 5.08; 1; 193.32; PRIMARY; yes
+Gladwell Street, 26; 112.61; 10; 165.91; PRIMARY; yes
+Snowbird Lane, 58; 176.23; 10; 156.23; SECONDARY; no; 20.12.2000; 24; 9
+Hilltop Street, 19; 39.88; 6; 146.8; PRIMARY; no
+Modoc Alley, 16; 81.38; 7; 283.01; SECONDARY; no; 01.05.1934; 25; 1
+Half and Half Drive, 73; 85.78; 6; 186.11; PRIMARY; yes
+Michael Street, 46; 168.58; 9; 252.35; PRIMARY; no
+Dovetail Drive, 21; 89.75; 10; 101.02; PRIMARY; yes
+Gladwell Street, 70; 80.0; 10; 150.48; SECONDARY; yes; 23.09.1969; 4; 7
+Poplar Chase Lane, 28; 204.79; 9; 180.27; SECONDARY; no; 19.04.1968; 9; 7
+Tetrick Road, 63; 20.36; 3; 201.86; SECONDARY; no; 03.03.2013; 5; 10
+Michael Street, 49; 22.94; 2; 122.07; PRIMARY; no
+Michael Street, 37; 93.47; 4; 156.8; SECONDARY; no; 24.11.1981; 14; 1
+Gladwell Street, 63; 89.0; 10; 246.91; SECONDARY; yes; 21.04.2000; 37; 4
+Poplar Chase Lane, 35; 63.18; 10; 160.48; SECONDARY; yes; 22.05.2004; 6; 8
+Modoc Alley, 13; 153.53; 10; 200.11; SECONDARY; yes; 21.11.1966; 3; 7
+Gladwell Street, 21; 245.1; 10; 180.65; PRIMARY; yes
+Simons Hollow Road, 70; 102.93; 6; 214.67; PRIMARY; yes
+Park Boulevard, 67; 5.08; 1; 233.38; SECONDARY; no; 06.01.1933; 33; 4
+Michael Street, 67; 161.99; 10; 130.65; PRIMARY; no
+Dovetail Drive, 76; 102.52; 5; 189.32; SECONDARY; yes; 04.01.1934; 22; 1
+Snowbird Lane, 61; 46.93; 2; 142.74; PRIMARY; yes
+Gladwell Street, 37; 147.6; 8; 106.04; SECONDARY; no; 19.06.1900; 38; 3
+Gladwell Street, 60; 32.91; 6; 189.2; PRIMARY; no
+Gladwell Street, 78; 85.23; 5; 258.38; SECONDARY; yes; 28.09.1945; 26; 5
+Snowbird Lane, 28; 117.12; 5; 127.7; SECONDARY; no; 24.08.1955; 29; 2
+Park Boulevard, 63; 123.99; 6; 224.92; SECONDARY; yes; 01.09.1905; 22; 4
+Snowbird Lane, 57; 182.5; 8; 139.29; SECONDARY; yes; 07.12.2017; 30; 10
+Simons Hollow Road, 68; 34.4; 5; 157.7; SECONDARY; no; 12.01.2009; 40; 10
+Snowbird Lane, 44; 58.06; 4; 187.24; PRIMARY; yes
+Snowbird Lane, 51; 220.52; 9; 207.26; SECONDARY; yes; 12.02.1949; 8; 1
+Half and Half Drive, 38; 69.35; 6; 103.07; SECONDARY; yes; 27.10.2007; 4; 7
+Michael Street, 52; 35.79; 3; 266.55; PRIMARY; no
+Snowbird Lane, 38; 66.69; 3; 264.49; PRIMARY; yes
+Poplar Chase Lane, 71; 94.63; 4; 185.37; PRIMARY; yes
+Modoc Alley, 24; 10.67; 1; 228.48; SECONDARY; no; 05.08.1946; 27; 7
+Dovetail Drive, 27; 77.67; 4; 124.16; SECONDARY; yes; 13.06.1968; 8; 2
+Gladwell Street, 57; 30.79; 3; 285.32; SECONDARY; no; 25.09.1963; 5; 5
+Tetrick Road, 56; 69.27; 5; 248.7; PRIMARY; no
+Dovetail Drive, 33; 96.14; 6; 216.63; PRIMARY; yes
+Hilltop Street, 52; 39.72; 5; 188.74; SECONDARY; yes; 03.07.1983; 11; 4
+Gladwell Street, 28; 178.37; 8; 158.54; SECONDARY; yes; 20.10.1958; 26; 5
+Modoc Alley, 53; 123.65; 5; 216.83; PRIMARY; yes
+Poplar Chase Lane, 39; 143.78; 6; 208.57; SECONDARY; no; 29.07.1993; 37; 3
+Modoc Alley, 77; 19.79; 1; 104.29; PRIMARY; yes
+Simons Hollow Road, 70; 88.41; 8; 296.38; SECONDARY; yes; 18.04.1912; 2; 8
+Poplar Chase Lane, 34; 186.32; 9; 197.26; PRIMARY; yes
+Simons Hollow Road, 37; 11.69; 2; 152.35; SECONDARY; no; 19.02.1978; 5; 3
+Modoc Alley, 7; 77.43; 4; 110.8; SECONDARY; yes; 13.08.1976; 39; 8
+Snowbird Lane, 64; 18.75; 2; 179.12; PRIMARY; no
+Park Boulevard, 28; 103.55; 7; 267.72; SECONDARY; no; 06.05.1904; 5; 2
+Simons Hollow Road, 52; 19.37; 1; 158.88; PRIMARY; yes
+Hilltop Street, 47; 59.07; 7; 116.26; PRIMARY; no
+Simons Hollow Road, 61; 102.04; 5; 279.37; PRIMARY; yes
+Snowbird Lane, 7; 8.1; 1; 184.21; SECONDARY; no; 28.06.2012; 21; 9
+Oliverio Drive, 3; 189.77; 9; 130.12; PRIMARY; no
+Modoc Alley, 37; 94.9; 6; 133.1; PRIMARY; no
+Tetrick Road, 66; 47.73; 2; 176.49; PRIMARY; yes
+Simons Hollow Road, 29; 20.61; 1; 132.13; PRIMARY; yes
+Tetrick Road, 70; 27.2; 4; 105.37; PRIMARY; yes
+Snowbird Lane, 80; 46.67; 4; 188.65; PRIMARY; no
+Tetrick Road, 44; 123.89; 8; 231.63; SECONDARY; no; 20.09.1925; 28; 5
+Hilltop Street, 9; 174.41; 10; 240.62; SECONDARY; yes; 10.10.1966; 11; 6
+Simons Hollow Road, 18; 83.94; 4; 279.37; SECONDARY; no; 19.12.1972; 13; 6
+Michael Street, 5; 161.93; 9; 271.28; SECONDARY; yes; 04.01.1960; 17; 10
+Dovetail Drive, 12; 88.43; 4; 154.71; PRIMARY; no
+Park Boulevard, 58; 90.35; 9; 273.79; PRIMARY; no
+Simons Hollow Road, 42; 222.05; 10; 122.36; SECONDARY; no; 01.12.1980; 27; 8
+Modoc Alley, 68; 182.6; 8; 127.93; SECONDARY; no; 09.05.1909; 4; 4
+Hilltop Street, 18; 22.28; 1; 157.36; SECONDARY; yes; 06.11.1987; 14; 4
+Dovetail Drive, 9; 28.88; 2; 143.52; PRIMARY; no
+Poplar Chase Lane, 49; 44.07; 6; 184.73; SECONDARY; yes; 19.05.1923; 11; 10
+Oliverio Drive, 55; 58.01; 3; 250.16; PRIMARY; yes
+Michael Street, 65; 28.09; 3; 170.46; PRIMARY; no
+Gladwell Street, 17; 128.76; 8; 118.04; SECONDARY; yes; 26.02.1976; 39; 3
+Half and Half Drive, 37; 19.42; 1; 286.39; SECONDARY; no; 19.12.2017; 37; 3
+Tetrick Road, 35; 76.46; 9; 163.25; PRIMARY; no
+Snowbird Lane, 34; 71.49; 7; 256.39; PRIMARY; no
+Michael Street, 38; 77.88; 10; 274.28; PRIMARY; no
+Poplar Chase Lane, 14; 73.35; 4; 201.37; SECONDARY; no; 07.02.2020; 23; 1
+Half and Half Drive, 70; 120.32; 7; 231.26; PRIMARY; no
+Michael Street, 16; 110.36; 5; 150.56; PRIMARY; no
+Oliverio Drive, 68; 44.59; 4; 146.71; PRIMARY; no
+Dovetail Drive, 48; 82.18; 5; 226.42; SECONDARY; yes; 02.03.1906; 40; 2
+Snowbird Lane, 66; 5.99; 1; 235.62; SECONDARY; no; 28.08.1977; 6; 3
+Simons Hollow Road, 42; 56.94; 8; 126.04; PRIMARY; yes
+Simons Hollow Road, 4; 31.56; 2; 104.73; SECONDARY; no; 01.07.1941; 25; 9
+Poplar Chase Lane, 73; 102.79; 5; 258.6; SECONDARY; yes; 27.10.1963; 33; 6
+Tetrick Road, 8; 145.19; 7; 252.09; SECONDARY; yes; 14.10.1919; 32; 5
+Gladwell Street, 56; 56.88; 9; 216.5; PRIMARY; yes
+Hilltop Street, 13; 70.93; 4; 175.1; PRIMARY; no
+Poplar Chase Lane, 25; 122.34; 5; 106.41; SECONDARY; no; 30.05.1932; 15; 6
+Half and Half Drive, 63; 66.97; 4; 280.06; SECONDARY; no; 02.11.2007; 7; 1
+Tetrick Road, 50; 21.32; 4; 286.64; PRIMARY; no
+Michael Street, 13; 23.27; 4; 121.9; SECONDARY; yes; 02.10.1947; 28; 9
+Gladwell Street, 61; 12.59; 1; 280.07; SECONDARY; no; 13.10.1973; 38; 10
+Half and Half Drive, 29; 164.71; 8; 219.54; PRIMARY; yes
+Half and Half Drive, 17; 21.5; 1; 206.24; SECONDARY; no; 03.02.1943; 25; 10
+Poplar Chase Lane, 36; 107.0; 6; 235.55; SECONDARY; no; 13.06.1940; 21; 6
+Modoc Alley, 7; 18.22; 1; 120.45; SECONDARY; no; 05.06.1925; 10; 9
+Gladwell Street, 19; 9.08; 1; 258.56; PRIMARY; no
+Half and Half Drive, 33; 214.87; 10; 155.14; SECONDARY; yes; 15.01.1909; 39; 4
+Tetrick Road, 10; 8.41; 1; 143.26; SECONDARY; no; 23.09.2019; 8; 8
+Half and Half Drive, 54; 40.83; 8; 116.55; PRIMARY; yes
+Simons Hollow Road, 73; 135.41; 8; 241.79; PRIMARY; yes
+Simons Hollow Road, 39; 16.73; 2; 275.29; PRIMARY; yes
+Hilltop Street, 70; 53.06; 3; 274.25; SECONDARY; no; 08.08.1918; 38; 3
+Park Boulevard, 77; 65.67; 7; 131.63; PRIMARY; yes
+Half and Half Drive, 79; 149.26; 6; 297.88; PRIMARY; yes
+Poplar Chase Lane, 75; 62.51; 10; 201.04; SECONDARY; yes; 27.10.1926; 26; 6
+Half and Half Drive, 10; 54.62; 9; 165.7; PRIMARY; yes
+Michael Street, 21; 109.19; 6; 297.52; PRIMARY; no
+Gladwell Street, 74; 36.68; 3; 244.6; PRIMARY; no
+Poplar Chase Lane, 29; 30.57; 5; 251.93; PRIMARY; yes
+Tetrick Road, 31; 30.93; 4; 232.99; PRIMARY; yes
+Oliverio Drive, 22; 120.54; 10; 187.23; PRIMARY; yes
+Modoc Alley, 65; 85.14; 5; 213.97; PRIMARY; yes
+Half and Half Drive, 23; 169.59; 7; 242.76; PRIMARY; no
+Simons Hollow Road, 51; 22.8; 2; 169.24; PRIMARY; no
+Gladwell Street, 64; 57.89; 6; 298.93; PRIMARY; yes
+Modoc Alley, 77; 107.53; 6; 226.63; PRIMARY; yes
+Poplar Chase Lane, 69; 221.91; 9; 277.24; PRIMARY; no
+Hilltop Street, 76; 38.8; 5; 204.76; PRIMARY; yes
+Poplar Chase Lane, 65; 191.65; 10; 219.24; PRIMARY; no
+Park Boulevard, 24; 96.91; 4; 153.61; SECONDARY; yes; 03.05.1980; 18; 10
+Michael Street, 58; 65.36; 7; 292.86; SECONDARY; no; 20.08.1901; 13; 4
+Hilltop Street, 37; 48.4; 2; 157.15; SECONDARY; no; 27.10.1923; 26; 9
+Poplar Chase Lane, 1; 70.33; 3; 236.28; SECONDARY; yes; 18.11.1995; 1; 7
+Park Boulevard, 11; 153.6; 9; 192.69; SECONDARY; yes; 23.12.1985; 32; 9
+Modoc Alley, 2; 150.75; 7; 169.2; SECONDARY; yes; 05.09.1963; 10; 1
+Michael Street, 55; 59.73; 8; 255.8; SECONDARY; no; 01.10.1941; 38; 10
+Poplar Chase Lane, 10; 144.85; 6; 179.97; SECONDARY; yes; 22.08.1997; 4; 6
+Modoc Alley, 23; 63.36; 7; 189.13; PRIMARY; yes
+Modoc Alley, 14; 56.49; 4; 198.4; SECONDARY; no; 11.05.1906; 17; 7
+Snowbird Lane, 47; 89.81; 8; 216.4; SECONDARY; no; 03.12.2010; 7; 8
+Park Boulevard, 77; 233.25; 10; 262.36; PRIMARY; yes
+Michael Street, 40; 14.79; 1; 106.66; PRIMARY; yes
+Snowbird Lane, 76; 189.17; 8; 130.99; PRIMARY; no
+Poplar Chase Lane, 20; 67.22; 4; 132.64; SECONDARY; yes; 04.01.2015; 36; 5
+Half and Half Drive, 8; 63.64; 4; 119.45; SECONDARY; no; 09.02.1983; 38; 6
+Dovetail Drive, 32; 12.29; 2; 121.6; PRIMARY; no
+Tetrick Road, 40; 48.48; 3; 209.53; PRIMARY; yes
+Hilltop Street, 52; 21.12; 3; 255.46; PRIMARY; yes
+Gladwell Street, 60; 127.08; 6; 246.41; PRIMARY; yes
+Snowbird Lane, 73; 8.59; 1; 230.16; SECONDARY; no; 25.08.1925; 5; 8
+Simons Hollow Road, 54; 86.04; 8; 197.0; SECONDARY; no; 31.12.1955; 16; 7
+Oliverio Drive, 22; 70.12; 5; 158.58; PRIMARY; no
+Snowbird Lane, 41; 98.01; 9; 158.77; PRIMARY; yes
+Half and Half Drive, 15; 144.21; 9; 148.73; SECONDARY; yes; 13.01.1921; 12; 2
+Gladwell Street, 13; 65.07; 3; 219.77; SECONDARY; no; 10.11.1986; 10; 5
+Poplar Chase Lane, 67; 92.35; 7; 145.72; PRIMARY; no
+Oliverio Drive, 15; 177.7; 8; 251.59; PRIMARY; yes
+Simons Hollow Road, 61; 7.72; 1; 150.02; SECONDARY; yes; 05.11.1946; 8; 2
+Dovetail Drive, 2; 23.23; 1; 264.8; SECONDARY; no; 26.07.1903; 29; 7
+Tetrick Road, 73; 70.35; 4; 211.18; SECONDARY; no; 28.12.1971; 33; 8
+Snowbird Lane, 71; 23.45; 2; 239.09; PRIMARY; yes
+Half and Half Drive, 15; 73.61; 3; 239.4; SECONDARY; yes; 24.01.1961; 37; 4
+Snowbird Lane, 28; 13.11; 1; 101.21; PRIMARY; no
+Gladwell Street, 65; 35.36; 7; 282.7; SECONDARY; yes; 22.10.2007; 38; 3
+Hilltop Street, 42; 11.63; 2; 192.87; PRIMARY; no
+Snowbird Lane, 12; 213.26; 10; 200.51; SECONDARY; no; 26.06.1985; 10; 6
+Poplar Chase Lane, 24; 104.8; 5; 205.44; PRIMARY; no
+Hilltop Street, 11; 137.33; 9; 202.09; SECONDARY; yes; 13.04.1947; 6; 7
+Gladwell Street, 55; 63.63; 5; 281.1; SECONDARY; no; 24.04.1965; 11; 7
+Simons Hollow Road, 59; 149.46; 9; 244.07; SECONDARY; no; 01.02.1928; 37; 4
+Simons Hollow Road, 71; 22.23; 2; 278.02; SECONDARY; yes; 10.06.1977; 28; 6
+Poplar Chase Lane, 49; 49.76; 9; 262.1; PRIMARY; yes
+Michael Street, 24; 8.99; 1; 102.76; SECONDARY; yes; 23.12.1933; 20; 10
+Park Boulevard, 76; 194.87; 10; 248.56; PRIMARY; no
+Gladwell Street, 70; 224.9; 9; 282.77; SECONDARY; no; 29.07.1980; 15; 5
+Half and Half Drive, 26; 85.68; 9; 181.14; PRIMARY; yes
+Dovetail Drive, 32; 216.31; 9; 243.09; SECONDARY; yes; 26.02.1945; 7; 3
+Hilltop Street, 40; 211.99; 9; 210.8; PRIMARY; no
+Oliverio Drive, 52; 211.81; 10; 181.01; SECONDARY; yes; 09.10.2017; 12; 3
+Modoc Alley, 43; 104.77; 6; 201.67; PRIMARY; no
+Modoc Alley, 19; 68.73; 6; 131.99; PRIMARY; yes
+Hilltop Street, 10; 111.21; 9; 167.85; SECONDARY; no; 26.01.1922; 19; 9
+Park Boulevard, 6; 121.09; 5; 287.98; SECONDARY; no; 20.06.1936; 38; 1
+Snowbird Lane, 21; 28.34; 2; 128.68; PRIMARY; no
+Gladwell Street, 50; 182.73; 9; 238.09; SECONDARY; yes; 17.11.1910; 5; 4
+Park Boulevard, 16; 22.39; 1; 280.89; SECONDARY; yes; 21.11.1956; 7; 7
+Gladwell Street, 72; 120.97; 6; 243.98; PRIMARY; no
+Hilltop Street, 17; 54.36; 4; 174.73; SECONDARY; yes; 26.07.1954; 17; 10
+Hilltop Street, 3; 15.79; 1; 101.1; PRIMARY; no
+Poplar Chase Lane, 51; 58.2; 7; 256.73; PRIMARY; no
+Park Boulevard, 63; 72.09; 6; 137.48; PRIMARY; yes
+Hilltop Street, 22; 47.8; 3; 132.88; PRIMARY; no
+Poplar Chase Lane, 63; 36.37; 7; 180.65; PRIMARY; yes
+Park Boulevard, 79; 147.05; 7; 115.82; SECONDARY; yes; 11.07.1971; 3; 5
+Tetrick Road, 65; 79.64; 8; 206.87; PRIMARY; no
+Half and Half Drive, 12; 190.33; 8; 232.49; PRIMARY; no
+Tetrick Road, 57; 103.15; 8; 285.5; PRIMARY; no
+Michael Street, 38; 140.04; 8; 182.84; PRIMARY; no
+Hilltop Street, 17; 118.51; 9; 215.1; SECONDARY; yes; 13.05.1918; 20; 6
+Oliverio Drive, 33; 137.54; 10; 195.83; PRIMARY; yes
+Michael Street, 36; 101.89; 5; 249.44; PRIMARY; yes
+Modoc Alley, 72; 62.21; 7; 202.3; SECONDARY; yes; 03.02.1977; 35; 3
+Modoc Alley, 49; 83.32; 8; 257.63; PRIMARY; yes
+Poplar Chase Lane, 18; 166.7; 9; 263.58; PRIMARY; yes
+Hilltop Street, 7; 83.96; 9; 113.13; SECONDARY; yes; 29.03.2014; 5; 1
+Simons Hollow Road, 12; 20.93; 1; 170.77; SECONDARY; no; 19.01.1956; 35; 4
+Park Boulevard, 32; 70.99; 6; 276.09; SECONDARY; no; 02.06.1902; 22; 8
+Half and Half Drive, 76; 44.54; 4; 178.49; SECONDARY; no; 08.07.2005; 40; 4
+Poplar Chase Lane, 13; 109.05; 9; 209.61; PRIMARY; yes
+Oliverio Drive, 8; 93.17; 4; 145.71; PRIMARY; yes
+Gladwell Street, 77; 24.98; 1; 230.29; SECONDARY; yes; 20.02.1978; 11; 6
+Dovetail Drive, 2; 35.51; 2; 157.16; SECONDARY; no; 09.05.1946; 16; 8
+Oliverio Drive, 49; 188.29; 10; 172.85; SECONDARY; yes; 12.09.1974; 9; 3
+Snowbird Lane, 27; 30.12; 2; 122.06; SECONDARY; no; 11.01.1978; 1; 3
+Hilltop Street, 26; 72.26; 5; 116.13; SECONDARY; yes; 29.03.2017; 21; 1
+Tetrick Road, 25; 90.76; 4; 150.52; PRIMARY; no
+Snowbird Lane, 45; 166.42; 8; 299.9; PRIMARY; no
+Oliverio Drive, 46; 63.09; 3; 253.24; SECONDARY; yes; 02.01.2006; 33; 3
+Poplar Chase Lane, 2; 15.94; 2; 209.9; PRIMARY; yes
+Tetrick Road, 63; 61.97; 8; 232.52; PRIMARY; yes
+Modoc Alley, 16; 130.41; 6; 177.19; PRIMARY; no
+Dovetail Drive, 29; 5.29; 1; 202.17; PRIMARY; no
+Oliverio Drive, 35; 44.91; 5; 206.78; PRIMARY; yes
+Gladwell Street, 76; 12.14; 1; 294.54; PRIMARY; no
+Oliverio Drive, 45; 60.27; 5; 194.68; SECONDARY; yes; 26.04.2002; 10; 8
+Modoc Alley, 52; 76.56; 10; 114.07; PRIMARY; no
+Oliverio Drive, 23; 90.48; 4; 129.04; SECONDARY; no; 23.08.1902; 17; 1
+Simons Hollow Road, 17; 47.24; 2; 156.5; PRIMARY; no
+Tetrick Road, 3; 22.56; 1; 151.86; PRIMARY; no
+Simons Hollow Road, 76; 182.15; 9; 166.04; SECONDARY; no; 14.02.2007; 9; 2
+Tetrick Road, 36; 126.9; 7; 177.02; PRIMARY; yes
+Tetrick Road, 59; 19.93; 3; 195.43; SECONDARY; yes; 24.06.1953; 30; 8
+Oliverio Drive, 74; 6.58; 1; 232.46; PRIMARY; no
+Michael Street, 8; 7.63; 1; 185.45; SECONDARY; no; 21.01.1986; 28; 8
+Tetrick Road, 63; 23.79; 3; 269.4; SECONDARY; no; 11.11.1929; 6; 2
+Snowbird Lane, 76; 76.97; 4; 176.7; SECONDARY; yes; 08.09.1990; 28; 7
+Oliverio Drive, 36; 107.79; 5; 293.21; PRIMARY; no
+Poplar Chase Lane, 76; 92.62; 5; 277.21; SECONDARY; yes; 10.01.1999; 6; 8
+Snowbird Lane, 8; 19.03; 1; 297.83; SECONDARY; no; 15.06.1908; 18; 5
+Oliverio Drive, 17; 60.16; 6; 120.12; PRIMARY; yes
+Gladwell Street, 25; 20.33; 3; 247.66; PRIMARY; yes
+Snowbird Lane, 80; 222.26; 10; 217.43; SECONDARY; yes; 21.09.1953; 38; 4
+Dovetail Drive, 39; 104.14; 5; 192.79; PRIMARY; yes
+Tetrick Road, 13; 58.04; 5; 139.64; SECONDARY; no; 30.09.2002; 21; 10
+Simons Hollow Road, 35; 167.25; 7; 292.09; SECONDARY; no; 31.07.1970; 22; 3
+Gladwell Street, 25; 55.01; 5; 298.44; SECONDARY; no; 01.03.1910; 1; 10
+Snowbird Lane, 14; 47.43; 3; 179.57; PRIMARY; no
+Modoc Alley, 59; 31.13; 4; 161.42; SECONDARY; yes; 13.02.1964; 37; 5
+Michael Street, 36; 20.16; 1; 226.92; SECONDARY; yes; 11.10.1999; 39; 1
+Snowbird Lane, 13; 13.76; 1; 121.44; SECONDARY; yes; 05.02.1938; 25; 9
+Michael Street, 49; 12.18; 2; 204.61; PRIMARY; yes
+Oliverio Drive, 13; 79.18; 5; 270.69; SECONDARY; no; 25.02.1979; 37; 8
+Half and Half Drive, 31; 87.31; 6; 173.52; PRIMARY; no
+Oliverio Drive, 40; 20.77; 1; 137.93; PRIMARY; yes
+Poplar Chase Lane, 15; 171.84; 7; 123.5; PRIMARY; no
+Oliverio Drive, 2; 45.06; 8; 219.65; PRIMARY; yes
+Gladwell Street, 40; 19.17; 1; 195.45; PRIMARY; no
+Tetrick Road, 74; 122.53; 6; 213.07; SECONDARY; no; 29.09.1911; 21; 6
+Half and Half Drive, 24; 90.8; 5; 134.97; PRIMARY; no
+Tetrick Road, 3; 194.21; 9; 113.19; SECONDARY; no; 15.10.1942; 9; 6
+Poplar Chase Lane, 65; 23.39; 2; 166.74; PRIMARY; no
+Half and Half Drive, 53; 15.47; 1; 296.4; PRIMARY; yes
+Modoc Alley, 71; 13.81; 2; 115.38; PRIMARY; yes
+Hilltop Street, 1; 110.83; 10; 116.82; SECONDARY; yes; 25.11.1918; 19; 9
+Dovetail Drive, 13; 123.53; 6; 239.49; SECONDARY; no; 18.08.2009; 20; 6
+Hilltop Street, 73; 120.17; 10; 194.51; PRIMARY; yes
+Snowbird Lane, 45; 69.18; 6; 188.37; PRIMARY; yes
+Poplar Chase Lane, 22; 60.85; 10; 196.66; SECONDARY; no; 06.06.1914; 21; 7
+Modoc Alley, 49; 77.27; 7; 226.59; SECONDARY; no; 16.02.1949; 29; 3
+Hilltop Street, 42; 51.74; 10; 296.41; PRIMARY; no
+Park Boulevard, 53; 140.47; 8; 215.92; PRIMARY; yes
+Gladwell Street, 45; 18.07; 1; 236.72; SECONDARY; yes; 31.09.1920; 34; 7
+Tetrick Road, 14; 127.75; 8; 276.61; SECONDARY; yes; 12.07.1997; 31; 2
+Poplar Chase Lane, 45; 57.22; 5; 114.98; SECONDARY; yes; 23.12.1970; 32; 3
+Snowbird Lane, 41; 37.68; 2; 132.28; SECONDARY; no; 29.08.1991; 37; 8
+Dovetail Drive, 20; 46.94; 3; 204.92; PRIMARY; no
+Tetrick Road, 54; 49.14; 2; 135.13; PRIMARY; yes
+Simons Hollow Road, 38; 168.51; 7; 226.32; SECONDARY; yes; 12.02.1968; 22; 9
+Half and Half Drive, 21; 150.57; 7; 284.47; SECONDARY; no; 04.07.1901; 14; 1
+Gladwell Street, 56; 10.44; 1; 256.74; SECONDARY; yes; 23.01.1976; 7; 8
+Hilltop Street, 5; 54.66; 3; 227.17; PRIMARY; no
+Park Boulevard, 58; 11.93; 1; 156.08; SECONDARY; yes; 01.02.1951; 7; 6
+Modoc Alley, 49; 62.0; 4; 131.3; PRIMARY; no
+Tetrick Road, 40; 17.25; 2; 227.24; PRIMARY; no
+Michael Street, 21; 50.69; 4; 111.12; PRIMARY; no
+Dovetail Drive, 10; 58.36; 3; 255.87; SECONDARY; yes; 31.07.1931; 24; 6
+Tetrick Road, 60; 114.57; 6; 222.01; PRIMARY; no
+Snowbird Lane, 12; 116.9; 7; 172.6; PRIMARY; yes
+Gladwell Street, 70; 20.4; 2; 165.83; PRIMARY; yes
+Michael Street, 36; 37.57; 3; 287.9; SECONDARY; no; 25.03.1936; 19; 2
+Park Boulevard, 69; 45.28; 3; 277.82; SECONDARY; no; 24.02.1962; 34; 6
+Tetrick Road, 64; 186.11; 9; 273.71; PRIMARY; no
+Poplar Chase Lane, 56; 215.87; 10; 226.18; PRIMARY; no
+Modoc Alley, 79; 103.19; 5; 213.48; PRIMARY; yes
+Park Boulevard, 1; 25.1; 2; 176.32; SECONDARY; no; 01.07.2012; 8; 8
+Snowbird Lane, 12; 11.49; 2; 153.78; PRIMARY; no
+Tetrick Road, 31; 58.12; 8; 140.06; SECONDARY; yes; 06.03.1912; 5; 2
+Gladwell Street, 9; 51.02; 6; 292.63; PRIMARY; no
+Gladwell Street, 34; 20.09; 2; 142.35; PRIMARY; yes
+Poplar Chase Lane, 4; 65.7; 5; 156.72; PRIMARY; yes
+Michael Street, 48; 104.49; 6; 268.83; PRIMARY; yes
+Half and Half Drive, 49; 21.41; 3; 111.36; SECONDARY; yes; 17.12.1976; 29; 7
+Poplar Chase Lane, 68; 32.17; 3; 179.99; PRIMARY; no
+Oliverio Drive, 41; 149.43; 9; 183.66; SECONDARY; yes; 14.07.2005; 9; 8
+Park Boulevard, 20; 6.18; 1; 279.88; SECONDARY; yes; 03.10.1971; 39; 1
+Half and Half Drive, 70; 22.53; 2; 127.68; PRIMARY; no
+Poplar Chase Lane, 8; 133.82; 9; 179.92; PRIMARY; yes
+Michael Street, 79; 102.15; 5; 150.28; SECONDARY; no; 07.07.1924; 6; 9
+Michael Street, 46; 123.44; 6; 104.85; PRIMARY; yes
+Hilltop Street, 78; 116.17; 9; 107.78; PRIMARY; no
+Dovetail Drive, 39; 156.42; 10; 144.31; PRIMARY; yes
+Half and Half Drive, 30; 114.22; 5; 261.83; PRIMARY; no
+Modoc Alley, 12; 195.8; 8; 219.99; PRIMARY; yes
+Gladwell Street, 24; 65.06; 4; 173.01; SECONDARY; yes; 14.02.1924; 34; 6
+Poplar Chase Lane, 32; 184.72; 8; 281.74; PRIMARY; yes
+Poplar Chase Lane, 29; 10.85; 1; 131.58; SECONDARY; no; 14.05.1951; 31; 10
+Hilltop Street, 71; 187.27; 8; 115.23; SECONDARY; yes; 31.04.1948; 1; 6
+Simons Hollow Road, 42; 5.34; 1; 246.17; PRIMARY; no
+Poplar Chase Lane, 60; 33.86; 6; 203.32; SECONDARY; no; 21.05.1916; 33; 1
+Dovetail Drive, 38; 78.24; 6; 179.76; SECONDARY; yes; 31.06.1912; 36; 8
+Modoc Alley, 58; 30.14; 2; 266.45; SECONDARY; yes; 29.02.2000; 11; 6
+Hilltop Street, 62; 12.07; 2; 242.98; SECONDARY; no; 11.05.1990; 12; 4
+Oliverio Drive, 51; 119.8; 6; 201.39; PRIMARY; no
+Simons Hollow Road, 75; 137.62; 6; 173.43; SECONDARY; no; 01.03.1978; 3; 6
+Snowbird Lane, 72; 164.01; 9; 255.65; SECONDARY; no; 17.05.1991; 19; 5
+Michael Street, 24; 124.69; 6; 180.48; SECONDARY; no; 22.05.2005; 13; 1
+Poplar Chase Lane, 25; 88.41; 8; 182.36; PRIMARY; no
+Poplar Chase Lane, 33; 133.13; 10; 291.93; SECONDARY; yes; 02.02.1904; 3; 2
+Michael Street, 44; 21.32; 2; 230.42; SECONDARY; no; 25.04.2008; 4; 6
+Modoc Alley, 7; 229.17; 10; 244.19; SECONDARY; yes; 23.12.1939; 32; 6
+Half and Half Drive, 45; 69.93; 6; 168.12; PRIMARY; no
+Tetrick Road, 73; 159.17; 8; 174.68; PRIMARY; yes
+Gladwell Street, 54; 162.35; 8; 188.51; SECONDARY; no; 26.06.1986; 20; 8
+Dovetail Drive, 21; 42.51; 4; 246.16; SECONDARY; no; 24.10.1911; 35; 5
+Half and Half Drive, 49; 89.92; 5; 175.76; SECONDARY; no; 14.04.1902; 8; 3
+Oliverio Drive, 36; 61.75; 8; 257.64; SECONDARY; no; 25.11.2003; 1; 9
+Michael Street, 76; 214.31; 10; 175.36; SECONDARY; no; 04.04.1910; 18; 8
+Oliverio Drive, 30; 97.69; 7; 216.0; SECONDARY; no; 14.02.1937; 35; 1
+Michael Street, 1; 18.16; 3; 185.9; SECONDARY; no; 26.07.1942; 14; 8
+Tetrick Road, 67; 69.6; 4; 257.59; SECONDARY; yes; 08.12.1900; 35; 8
+Park Boulevard, 15; 103.8; 8; 219.45; PRIMARY; yes
+Park Boulevard, 9; 102.59; 7; 240.87; PRIMARY; no
+Gladwell Street, 33; 74.07; 3; 116.2; SECONDARY; yes; 29.03.1950; 39; 2
+Simons Hollow Road, 79; 147.64; 6; 209.14; SECONDARY; no; 11.07.1922; 17; 8
+Modoc Alley, 69; 43.11; 7; 145.19; PRIMARY; no
+Park Boulevard, 62; 56.75; 5; 260.75; PRIMARY; no
+Half and Half Drive, 25; 28.97; 5; 173.21; PRIMARY; no
+Modoc Alley, 78; 135.14; 6; 137.02; SECONDARY; no; 13.12.1932; 36; 8
+Hilltop Street, 69; 155.12; 7; 166.61; SECONDARY; no; 22.12.1980; 6; 2
+Modoc Alley, 68; 33.83; 4; 245.85; SECONDARY; no; 13.09.2005; 18; 9
+Half and Half Drive, 49; 18.33; 3; 110.89; PRIMARY; no
+Modoc Alley, 27; 124.58; 6; 234.62; SECONDARY; no; 12.11.1987; 6; 3
+Snowbird Lane, 54; 41.37; 3; 260.03; SECONDARY; no; 07.05.1959; 12; 5
+Modoc Alley, 33; 134.98; 10; 152.27; SECONDARY; yes; 04.01.1960; 36; 10
+Tetrick Road, 58; 12.95; 2; 176.85; SECONDARY; yes; 06.02.1983; 3; 9
+Simons Hollow Road, 9; 96.12; 4; 253.89; PRIMARY; no
+Poplar Chase Lane, 11; 105.41; 5; 145.63; PRIMARY; yes
+Hilltop Street, 18; 18.39; 1; 291.75; SECONDARY; no; 10.03.1970; 39; 1
+Dovetail Drive, 33; 13.56; 2; 200.42; SECONDARY; no; 07.07.1924; 18; 7
+Dovetail Drive, 40; 118.94; 5; 213.96; PRIMARY; no
+Park Boulevard, 27; 35.06; 3; 113.07; SECONDARY; no; 19.01.2006; 38; 8
+Oliverio Drive, 59; 18.04; 3; 259.25; PRIMARY; no
+Snowbird Lane, 29; 118.13; 5; 146.64; SECONDARY; yes; 02.03.1944; 39; 2
+Snowbird Lane, 73; 44.57; 6; 188.42; PRIMARY; yes
+Simons Hollow Road, 1; 31.68; 3; 156.16; PRIMARY; yes
+Snowbird Lane, 24; 96.72; 6; 275.34; SECONDARY; no; 02.06.2006; 23; 9
+Park Boulevard, 75; 72.75; 10; 262.68; SECONDARY; no; 18.11.1997; 26; 5
+Simons Hollow Road, 10; 169.06; 10; 204.99; SECONDARY; no; 26.12.1970; 2; 10
+Tetrick Road, 31; 63.43; 6; 157.32; SECONDARY; yes; 01.03.1931; 27; 8
+Modoc Alley, 17; 61.16; 4; 283.49; SECONDARY; yes; 20.06.1902; 9; 7
+Poplar Chase Lane, 73; 98.11; 9; 221.38; PRIMARY; yes
+Tetrick Road, 26; 218.45; 9; 125.26; PRIMARY; yes
+Park Boulevard, 3; 7.83; 1; 145.25; SECONDARY; yes; 18.01.2006; 14; 2
+Half and Half Drive, 32; 15.67; 2; 286.64; PRIMARY; yes
+Park Boulevard, 22; 68.78; 9; 122.55; SECONDARY; yes; 14.09.1946; 18; 9
+Tetrick Road, 60; 36.69; 4; 271.02; SECONDARY; no; 19.04.1952; 27; 7
+Poplar Chase Lane, 55; 175.83; 9; 199.26; PRIMARY; yes
+Dovetail Drive, 45; 30.91; 3; 177.32; SECONDARY; yes; 04.10.1989; 38; 9
+Oliverio Drive, 32; 93.22; 9; 129.79; PRIMARY; yes
+Oliverio Drive, 48; 35.34; 6; 184.96; PRIMARY; no
+Simons Hollow Road, 40; 51.38; 5; 171.75; SECONDARY; no; 21.04.1991; 18; 7
+Hilltop Street, 78; 62.32; 8; 220.46; PRIMARY; yes
+Poplar Chase Lane, 28; 84.49; 4; 202.11; SECONDARY; yes; 21.06.2015; 29; 4
+Dovetail Drive, 5; 83.43; 5; 191.67; SECONDARY; no; 27.12.1905; 2; 6
+Dovetail Drive, 68; 54.83; 3; 161.8; PRIMARY; no
+Michael Street, 54; 16.95; 2; 264.15; PRIMARY; no
+Hilltop Street, 29; 47.68; 2; 125.01; PRIMARY; no
+Simons Hollow Road, 54; 95.67; 6; 284.64; SECONDARY; yes; 15.10.1963; 8; 3
+Dovetail Drive, 33; 163.46; 7; 259.66; SECONDARY; yes; 01.01.2003; 12; 6
+Dovetail Drive, 14; 37.1; 4; 160.95; PRIMARY; no
+Simons Hollow Road, 62; 29.17; 5; 271.53; PRIMARY; no
+Michael Street, 54; 78.38; 6; 232.31; SECONDARY; yes; 03.06.1903; 14; 4
+Oliverio Drive, 74; 43.16; 6; 243.97; PRIMARY; no
+Oliverio Drive, 17; 162.81; 10; 180.25; PRIMARY; yes
+Hilltop Street, 41; 47.56; 3; 290.39; PRIMARY; yes
+Simons Hollow Road, 63; 179.93; 10; 222.48; SECONDARY; no; 23.10.2016; 21; 7
+Half and Half Drive, 18; 38.19; 7; 141.54; PRIMARY; yes
+Half and Half Drive, 30; 10.42; 1; 101.54; SECONDARY; no; 02.04.1927; 40; 1
+Gladwell Street, 56; 120.95; 8; 286.84; PRIMARY; no
+Dovetail Drive, 11; 84.42; 5; 290.96; SECONDARY; yes; 26.10.1919; 2; 2
+Dovetail Drive, 66; 80.46; 7; 255.88; PRIMARY; no
+Snowbird Lane, 64; 33.6; 2; 131.33; SECONDARY; no; 09.09.1920; 14; 10
+Dovetail Drive, 63; 46.32; 3; 262.99; PRIMARY; yes
+Dovetail Drive, 72; 85.76; 7; 147.54; PRIMARY; no
+Park Boulevard, 8; 67.81; 10; 108.16; PRIMARY; yes
+Dovetail Drive, 21; 101.7; 10; 147.09; PRIMARY; yes
+Michael Street, 37; 39.45; 3; 261.32; SECONDARY; yes; 21.03.2013; 29; 5
+Oliverio Drive, 1; 193.56; 8; 171.39; PRIMARY; no
+Oliverio Drive, 14; 123.3; 6; 177.04; SECONDARY; no; 05.06.1949; 35; 1
+Park Boulevard, 43; 154.87; 10; 136.32; PRIMARY; yes
+Oliverio Drive, 12; 123.14; 5; 154.25; PRIMARY; yes
+Gladwell Street, 78; 91.73; 6; 215.94; SECONDARY; yes; 10.07.1957; 12; 9
+Hilltop Street, 24; 122.13; 5; 274.36; SECONDARY; yes; 02.06.1996; 33; 5
+Park Boulevard, 51; 92.32; 8; 174.07; SECONDARY; yes; 27.04.1942; 33; 1
+Poplar Chase Lane, 45; 64.6; 3; 175.51; SECONDARY; no; 09.02.1967; 5; 10
+Dovetail Drive, 68; 93.93; 5; 223.26; SECONDARY; yes; 20.07.1969; 36; 5
+Modoc Alley, 60; 83.97; 4; 214.18; SECONDARY; no; 14.11.2001; 22; 1
+Tetrick Road, 65; 107.67; 7; 282.72; PRIMARY; no
+Hilltop Street, 61; 82.68; 6; 122.7; SECONDARY; yes; 13.06.1962; 8; 4
+Poplar Chase Lane, 36; 58.5; 4; 112.78; SECONDARY; yes; 03.08.1921; 27; 2
+Park Boulevard, 75; 131.97; 7; 234.8; SECONDARY; yes; 02.12.1914; 6; 7
+Modoc Alley, 51; 99.27; 10; 129.22; SECONDARY; no; 17.08.1967; 22; 8
+Modoc Alley, 21; 230.2; 10; 194.31; PRIMARY; yes
+Hilltop Street, 6; 23.68; 1; 282.68; PRIMARY; yes
+Michael Street, 36; 207.2; 10; 140.03; SECONDARY; no; 19.11.1980; 10; 4
+Hilltop Street, 12; 120.93; 7; 245.25; PRIMARY; yes
+Hilltop Street, 24; 89.42; 7; 280.34; PRIMARY; no
+Modoc Alley, 38; 29.75; 3; 150.25; SECONDARY; yes; 27.05.1917; 31; 10
+Oliverio Drive, 33; 131.67; 10; 246.07; PRIMARY; no
+Modoc Alley, 8; 197.28; 9; 272.64; SECONDARY; yes; 11.01.1906; 8; 8
+Tetrick Road, 8; 83.5; 5; 222.38; PRIMARY; no
+Tetrick Road, 49; 104.46; 10; 101.19; PRIMARY; yes
+Simons Hollow Road, 46; 145.07; 10; 171.73; PRIMARY; yes
+Park Boulevard, 46; 57.47; 4; 277.61; SECONDARY; no; 19.09.2012; 29; 9
+Modoc Alley, 2; 15.23; 1; 187.52; SECONDARY; no; 29.12.1912; 31; 5
+Dovetail Drive, 52; 195.51; 9; 265.67; SECONDARY; no; 18.08.2015; 35; 4
+Park Boulevard, 14; 24.54; 1; 289.34; PRIMARY; yes
+Hilltop Street, 21; 53.0; 7; 245.58; PRIMARY; no
+Park Boulevard, 6; 173.61; 7; 248.24; SECONDARY; yes; 13.12.1940; 10; 7
+Tetrick Road, 15; 168.62; 7; 217.38; PRIMARY; yes
+Modoc Alley, 68; 38.33; 2; 288.69; SECONDARY; no; 10.03.1920; 7; 9
+Tetrick Road, 38; 28.08; 3; 283.33; PRIMARY; no
+Half and Half Drive, 12; 69.95; 3; 134.7; PRIMARY; no
+Dovetail Drive, 23; 67.47; 4; 256.94; PRIMARY; no
+Snowbird Lane, 73; 29.94; 2; 274.27; PRIMARY; yes
+Oliverio Drive, 72; 127.15; 9; 259.6; PRIMARY; yes
+Oliverio Drive, 24; 6.21; 1; 229.58; SECONDARY; no; 28.12.2008; 18; 9
+Modoc Alley, 5; 217.54; 9; 153.19; PRIMARY; yes
+Oliverio Drive, 29; 68.61; 3; 136.99; PRIMARY; yes
+Oliverio Drive, 51; 38.96; 4; 116.69; PRIMARY; no
+Hilltop Street, 31; 28.9; 4; 181.6; PRIMARY; no
+Half and Half Drive, 69; 201.57; 9; 139.36; PRIMARY; no
+Half and Half Drive, 45; 72.11; 5; 294.54; SECONDARY; no; 31.03.2007; 20; 8
+Park Boulevard, 29; 91.16; 5; 105.3; PRIMARY; no
+Dovetail Drive, 70; 74.73; 3; 272.99; SECONDARY; no; 27.07.1928; 31; 6
+Dovetail Drive, 55; 131.84; 8; 106.4; SECONDARY; yes; 29.08.1913; 28; 10
+Tetrick Road, 26; 21.02; 3; 122.51; SECONDARY; yes; 05.07.2018; 24; 7
+Dovetail Drive, 18; 178.24; 10; 257.85; SECONDARY; no; 30.08.2002; 38; 9
+Oliverio Drive, 12; 84.46; 9; 130.86; PRIMARY; no
+Hilltop Street, 32; 50.11; 5; 177.93; SECONDARY; no; 25.04.1903; 8; 4
+Half and Half Drive, 35; 98.52; 4; 164.61; SECONDARY; no; 09.01.1940; 20; 6
+Snowbird Lane, 1; 77.12; 5; 279.56; PRIMARY; yes
+Tetrick Road, 21; 135.29; 8; 228.88; PRIMARY; yes
+Simons Hollow Road, 8; 16.56; 1; 169.99; PRIMARY; no
+Park Boulevard, 39; 193.42; 9; 152.18; PRIMARY; yes
+Park Boulevard, 74; 84.24; 5; 208.37; SECONDARY; yes; 02.01.1991; 7; 3
+Tetrick Road, 35; 22.44; 4; 254.48; SECONDARY; no; 02.06.1915; 28; 5
+Gladwell Street, 67; 78.59; 6; 193.15; PRIMARY; yes
+Poplar Chase Lane, 19; 31.83; 2; 123.51; PRIMARY; no
+Half and Half Drive, 9; 51.55; 6; 235.28; SECONDARY; no; 07.04.2008; 33; 8
+Poplar Chase Lane, 58; 24.32; 2; 155.99; PRIMARY; yes
+Snowbird Lane, 18; 142.09; 6; 186.25; SECONDARY; yes; 04.11.1910; 38; 9
+Snowbird Lane, 32; 60.44; 4; 288.24; PRIMARY; yes
+Park Boulevard, 29; 137.87; 8; 239.27; PRIMARY; no
+Dovetail Drive, 7; 16.35; 1; 163.1; SECONDARY; yes; 17.06.1996; 16; 6
+Gladwell Street, 29; 36.59; 2; 270.26; PRIMARY; no
+Michael Street, 15; 115.27; 8; 263.93; PRIMARY; no
+Hilltop Street, 2; 193.06; 10; 278.34; SECONDARY; no; 12.09.1994; 28; 3
+Oliverio Drive, 68; 92.87; 9; 142.5; PRIMARY; no
+Simons Hollow Road, 64; 98.47; 6; 197.59; PRIMARY; no
+Poplar Chase Lane, 77; 55.48; 5; 157.02; PRIMARY; yes
+Oliverio Drive, 35; 39.67; 5; 160.9; SECONDARY; yes; 08.07.2015; 6; 7
+Dovetail Drive, 76; 149.62; 7; 104.34; SECONDARY; yes; 09.11.1942; 29; 1
+Tetrick Road, 42; 5.39; 1; 128.08; PRIMARY; no
+Tetrick Road, 38; 22.92; 4; 139.61; SECONDARY; yes; 28.05.2012; 8; 5
+Park Boulevard, 52; 221.41; 9; 145.31; PRIMARY; yes
+Poplar Chase Lane, 25; 71.94; 3; 204.86; PRIMARY; no
+Oliverio Drive, 21; 58.82; 6; 167.58; SECONDARY; yes; 23.11.1974; 21; 5
+Dovetail Drive, 21; 73.06; 5; 233.62; PRIMARY; yes
+Simons Hollow Road, 48; 162.51; 8; 224.07; SECONDARY; no; 15.06.1916; 1; 6
+Gladwell Street, 75; 47.87; 4; 289.84; PRIMARY; no
+Gladwell Street, 77; 211.88; 9; 170.82; SECONDARY; no; 22.01.1973; 26; 5
+Snowbird Lane, 25; 72.68; 3; 152.47; PRIMARY; no
+Snowbird Lane, 27; 18.64; 1; 172.21; SECONDARY; no; 14.05.1939; 7; 6
+Hilltop Street, 43; 93.96; 9; 245.0; SECONDARY; no; 03.04.2015; 34; 1
+Poplar Chase Lane, 26; 141.9; 10; 217.82; PRIMARY; yes
+Poplar Chase Lane, 22; 56.35; 9; 269.17; SECONDARY; yes; 19.03.2005; 27; 4
+Dovetail Drive, 75; 7.62; 1; 240.85; SECONDARY; no; 29.08.1959; 4; 5
+Park Boulevard, 79; 57.49; 9; 147.03; SECONDARY; yes; 17.11.1903; 24; 1
+Poplar Chase Lane, 41; 64.64; 3; 214.14; PRIMARY; yes
+Tetrick Road, 7; 23.15; 2; 133.01; SECONDARY; yes; 17.03.1981; 20; 4
+Snowbird Lane, 70; 20.7; 1; 189.53; PRIMARY; no
+Half and Half Drive, 29; 76.27; 7; 183.46; SECONDARY; yes; 14.02.1953; 14; 9
+Snowbird Lane, 35; 24.65; 4; 119.04; PRIMARY; yes
+Poplar Chase Lane, 80; 78.11; 4; 103.81; PRIMARY; no
+Tetrick Road, 38; 95.63; 10; 267.77; SECONDARY; no; 13.08.1954; 5; 2
+Michael Street, 61; 30.25; 5; 114.54; PRIMARY; yes
+Gladwell Street, 61; 126.04; 7; 211.62; PRIMARY; no
+Tetrick Road, 67; 19.54; 2; 283.83; PRIMARY; no
+Snowbird Lane, 47; 217.13; 10; 247.84; SECONDARY; yes; 30.02.1940; 3; 7
+Half and Half Drive, 23; 54.8; 3; 265.56; PRIMARY; yes
+Michael Street, 6; 155.01; 8; 229.83; SECONDARY; no; 21.10.1997; 25; 1
+Oliverio Drive, 21; 22.47; 3; 288.27; PRIMARY; no
+Oliverio Drive, 44; 22.12; 1; 258.39; PRIMARY; no
+Oliverio Drive, 48; 125.39; 6; 133.65; PRIMARY; no
+Oliverio Drive, 10; 36.29; 6; 114.49; PRIMARY; no
+Gladwell Street, 54; 97.38; 10; 149.39; SECONDARY; no; 15.02.1904; 33; 2
+Hilltop Street, 79; 67.5; 3; 146.7; SECONDARY; no; 24.05.1988; 7; 6
+Michael Street, 2; 59.01; 5; 119.58; PRIMARY; yes
+Poplar Chase Lane, 42; 64.53; 3; 215.05; SECONDARY; yes; 22.11.1977; 30; 4
+Gladwell Street, 31; 26.99; 2; 134.83; PRIMARY; yes
+Tetrick Road, 80; 6.73; 1; 275.77; SECONDARY; yes; 21.03.1965; 7; 1
+Michael Street, 41; 135.89; 8; 185.81; SECONDARY; yes; 20.12.1909; 39; 4
+Modoc Alley, 63; 16.25; 2; 138.05; SECONDARY; no; 22.02.1921; 26; 7
+Poplar Chase Lane, 65; 29.87; 5; 206.97; PRIMARY; no
+Simons Hollow Road, 18; 116.25; 10; 207.61; SECONDARY; yes; 28.09.2000; 4; 10
+Half and Half Drive, 46; 107.72; 5; 216.72; PRIMARY; no
+Oliverio Drive, 79; 14.4; 2; 189.86; PRIMARY; no
+Snowbird Lane, 73; 35.74; 4; 131.57; SECONDARY; yes; 26.12.1938; 26; 9
+Oliverio Drive, 54; 43.65; 2; 120.42; PRIMARY; no
+Dovetail Drive, 42; 14.66; 1; 205.0; SECONDARY; no; 09.09.1943; 1; 2
+Poplar Chase Lane, 19; 185.34; 10; 221.77; SECONDARY; yes; 15.09.1969; 31; 5
+Park Boulevard, 3; 205.07; 10; 169.27; SECONDARY; yes; 25.02.1961; 10; 8
+Half and Half Drive, 49; 27.91; 2; 252.3; SECONDARY; no; 17.10.1915; 2; 1
+Simons Hollow Road, 22; 84.41; 9; 251.66; PRIMARY; no
+Hilltop Street, 1; 125.62; 6; 277.95; PRIMARY; no
+Oliverio Drive, 38; 60.42; 5; 247.39; PRIMARY; yes
+Modoc Alley, 78; 64.8; 6; 248.94; PRIMARY; no
+Half and Half Drive, 42; 105.65; 5; 163.82; PRIMARY; yes
+Modoc Alley, 75; 110.32; 8; 276.22; SECONDARY; yes; 02.09.1988; 32; 7
+Oliverio Drive, 71; 82.24; 5; 122.25; PRIMARY; yes
+Dovetail Drive, 50; 35.33; 3; 289.69; PRIMARY; yes
+Snowbird Lane, 13; 146.71; 8; 274.64; PRIMARY; no
+Hilltop Street, 27; 175.08; 9; 127.18; SECONDARY; yes; 29.10.1957; 35; 7
+Simons Hollow Road, 20; 26.86; 5; 186.41; SECONDARY; yes; 22.02.1999; 36; 8
+Gladwell Street, 32; 47.03; 4; 266.02; PRIMARY; yes
+Gladwell Street, 37; 13.09; 2; 288.3; PRIMARY; yes
+Half and Half Drive, 45; 41.86; 2; 208.89; PRIMARY; no
+Park Boulevard, 41; 23.92; 1; 122.49; PRIMARY; yes
+Modoc Alley, 21; 8.19; 1; 194.41; PRIMARY; no
+Dovetail Drive, 5; 23.3; 2; 174.1; PRIMARY; no
+Michael Street, 76; 116.89; 6; 288.9; SECONDARY; no; 15.08.1989; 23; 5
+Hilltop Street, 21; 133.72; 8; 184.97; SECONDARY; yes; 28.12.1988; 36; 3
+Tetrick Road, 60; 68.8; 3; 108.27; PRIMARY; no
+Modoc Alley, 4; 139.42; 9; 210.0; SECONDARY; yes; 03.11.1944; 35; 9
+Oliverio Drive, 43; 41.28; 4; 245.03; PRIMARY; yes
+Michael Street, 41; 25.35; 5; 126.97; PRIMARY; no
+Dovetail Drive, 28; 75.38; 10; 216.76; PRIMARY; yes
+Simons Hollow Road, 6; 68.05; 7; 104.7; SECONDARY; no; 26.01.1941; 5; 9
+Dovetail Drive, 67; 112.41; 7; 123.93; PRIMARY; yes
+Snowbird Lane, 17; 55.08; 3; 259.59; SECONDARY; yes; 26.03.2013; 14; 9
+Park Boulevard, 34; 88.88; 4; 231.56; SECONDARY; yes; 10.12.1905; 18; 9
+Michael Street, 9; 34.61; 5; 237.69; SECONDARY; yes; 03.02.1990; 13; 4
+Modoc Alley, 24; 153.48; 7; 220.43; PRIMARY; yes
+Oliverio Drive, 52; 48.18; 2; 275.81; SECONDARY; yes; 12.09.1999; 37; 5
+Modoc Alley, 52; 194.34; 8; 233.13; SECONDARY; yes; 23.03.1943; 37; 1
+Dovetail Drive, 4; 62.42; 3; 252.2; PRIMARY; no
+Michael Street, 69; 91.94; 4; 250.42; PRIMARY; no
+Gladwell Street, 23; 48.57; 2; 127.62; PRIMARY; no
+Tetrick Road, 60; 79.72; 10; 125.5; PRIMARY; yes
+Park Boulevard, 64; 25.67; 2; 253.81; SECONDARY; no; 16.10.1975; 27; 4
+Gladwell Street, 55; 25.45; 4; 136.63; SECONDARY; no; 27.04.2003; 39; 6
+Hilltop Street, 67; 20.3; 1; 243.25; SECONDARY; no; 14.08.2005; 12; 1
+Half and Half Drive, 40; 30.87; 2; 275.96; PRIMARY; no
+Oliverio Drive, 50; 64.99; 7; 292.91; PRIMARY; yes
+Snowbird Lane, 11; 21.53; 1; 268.7; PRIMARY; yes
+Michael Street, 33; 133.98; 6; 276.86; SECONDARY; yes; 02.07.1955; 36; 7
+Park Boulevard, 32; 36.64; 5; 150.75; SECONDARY; yes; 01.11.1960; 27; 3
+Simons Hollow Road, 33; 64.56; 6; 233.54; SECONDARY; yes; 07.01.1960; 40; 7
+Simons Hollow Road, 5; 159.64; 8; 227.42; PRIMARY; yes
+Modoc Alley, 24; 5.38; 1; 170.87; SECONDARY; no; 14.05.1985; 17; 5
+Oliverio Drive, 59; 73.21; 5; 230.19; SECONDARY; no; 07.04.1970; 16; 1
+Oliverio Drive, 75; 10.88; 1; 286.44; PRIMARY; yes
+Michael Street, 55; 128.4; 7; 123.24; SECONDARY; no; 04.10.1952; 21; 6
+Dovetail Drive, 6; 44.97; 2; 292.36; SECONDARY; no; 11.07.1968; 23; 10
+Half and Half Drive, 74; 186.87; 8; 107.58; PRIMARY; no
+Gladwell Street, 21; 97.23; 4; 231.6; SECONDARY; no; 06.01.2008; 16; 3
+Oliverio Drive, 25; 63.36; 3; 297.27; SECONDARY; yes; 19.01.1926; 1; 2
+Hilltop Street, 26; 49.56; 3; 176.91; PRIMARY; yes
+Tetrick Road, 30; 41.94; 2; 285.53; SECONDARY; no; 17.04.1923; 31; 8
+Hilltop Street, 65; 6.11; 1; 150.35; SECONDARY; no; 17.05.1962; 20; 7
+Park Boulevard, 53; 77.11; 4; 118.9; PRIMARY; yes
+Hilltop Street, 47; 66.77; 3; 264.35; PRIMARY; yes
+Dovetail Drive, 26; 40.44; 4; 236.85; PRIMARY; yes
+Tetrick Road, 66; 85.21; 7; 109.99; SECONDARY; yes; 31.01.1930; 8; 6
+Poplar Chase Lane, 77; 133.21; 6; 274.15; PRIMARY; yes
+Dovetail Drive, 4; 60.85; 8; 102.46; SECONDARY; yes; 12.04.1938; 37; 2
+Gladwell Street, 22; 185.58; 9; 236.24; PRIMARY; yes
+Modoc Alley, 66; 55.86; 4; 220.65; PRIMARY; yes
+Michael Street, 48; 70.03; 4; 198.34; SECONDARY; yes; 01.06.1954; 30; 3
+Park Boulevard, 65; 99.21; 7; 184.22; SECONDARY; yes; 17.10.1983; 16; 3
+Poplar Chase Lane, 77; 185.05; 8; 146.01; SECONDARY; no; 26.07.2015; 20; 8
+Oliverio Drive, 50; 28.27; 2; 165.68; PRIMARY; no
+Tetrick Road, 74; 94.94; 9; 227.98; PRIMARY; yes
+Park Boulevard, 3; 12.88; 2; 200.65; PRIMARY; no
+Gladwell Street, 70; 197.71; 8; 223.14; SECONDARY; yes; 06.08.1997; 14; 5
+Half and Half Drive, 4; 33.47; 5; 124.95; SECONDARY; yes; 13.01.1973; 19; 4
+Park Boulevard, 30; 30.87; 4; 299.39; PRIMARY; yes
+Dovetail Drive, 19; 130.16; 8; 232.71; SECONDARY; no; 31.02.1942; 6; 6
+Simons Hollow Road, 38; 40.08; 4; 213.49; PRIMARY; yes
+Modoc Alley, 34; 5.97; 1; 151.26; SECONDARY; yes; 24.09.1909; 4; 10
+Park Boulevard, 47; 12.8; 1; 151.43; PRIMARY; yes
+Michael Street, 70; 29.85; 2; 229.9; PRIMARY; yes
+Half and Half Drive, 12; 188.1; 8; 255.89; SECONDARY; yes; 28.04.1913; 17; 3
+Oliverio Drive, 29; 160.06; 8; 150.54; SECONDARY; yes; 01.11.1912; 9; 4
+Hilltop Street, 61; 155.15; 10; 180.42; PRIMARY; no
+Snowbird Lane, 78; 23.25; 1; 230.29; PRIMARY; yes
+Poplar Chase Lane, 68; 36.41; 6; 254.74; SECONDARY; yes; 22.08.1934; 32; 10
+Tetrick Road, 52; 75.3; 4; 216.45; SECONDARY; yes; 17.02.2007; 2; 6
+Simons Hollow Road, 75; 75.58; 10; 144.52; PRIMARY; yes
+Michael Street, 65; 119.09; 5; 173.41; PRIMARY; yes
+Modoc Alley, 32; 63.41; 10; 278.43; PRIMARY; no
+Snowbird Lane, 22; 108.79; 7; 112.45; PRIMARY; yes
+Snowbird Lane, 61; 57.46; 3; 228.82; PRIMARY; no
+Simons Hollow Road, 36; 27.85; 3; 145.02; SECONDARY; no; 06.11.1903; 7; 10
+Poplar Chase Lane, 64; 76.21; 7; 163.77; SECONDARY; yes; 31.02.1920; 40; 5
+Tetrick Road, 31; 45.32; 4; 109.47; PRIMARY; no
+Gladwell Street, 79; 134.12; 6; 235.44; PRIMARY; no
+Simons Hollow Road, 26; 81.59; 7; 157.87; SECONDARY; no; 11.02.1980; 37; 8
+Modoc Alley, 26; 99.13; 6; 138.79; SECONDARY; no; 07.01.1925; 13; 1
+Michael Street, 24; 73.89; 3; 297.03; PRIMARY; yes
+Oliverio Drive, 26; 60.87; 4; 253.02; PRIMARY; no
+Gladwell Street, 69; 28.07; 2; 257.34; SECONDARY; yes; 23.12.1961; 23; 4
+Half and Half Drive, 49; 27.74; 4; 134.39; SECONDARY; yes; 24.07.1995; 31; 6
+Half and Half Drive, 39; 67.0; 5; 120.23; SECONDARY; yes; 07.09.1920; 13; 8
+Oliverio Drive, 52; 112.66; 9; 253.58; PRIMARY; yes
+Snowbird Lane, 52; 108.68; 5; 181.61; SECONDARY; yes; 30.08.2005; 14; 8
+Oliverio Drive, 68; 128.58; 6; 191.16; SECONDARY; yes; 08.04.1940; 1; 5
+Dovetail Drive, 64; 130.87; 7; 269.93; SECONDARY; no; 13.07.1967; 33; 6
+Dovetail Drive, 77; 40.45; 6; 243.3; PRIMARY; yes
+Michael Street, 73; 162.92; 8; 279.88; PRIMARY; yes
+Dovetail Drive, 36; 6.59; 1; 150.57; PRIMARY; yes
+Modoc Alley, 18; 39.76; 6; 150.69; SECONDARY; no; 14.03.1952; 24; 6
+Oliverio Drive, 67; 17.98; 1; 159.28; SECONDARY; no; 20.08.1905; 11; 6
+Hilltop Street, 37; 101.13; 5; 228.52; PRIMARY; yes
+Tetrick Road, 41; 74.19; 3; 191.39; SECONDARY; no; 30.06.1961; 40; 5
+Simons Hollow Road, 58; 139.38; 9; 172.86; PRIMARY; yes
+Snowbird Lane, 68; 21.07; 4; 111.42; SECONDARY; no; 04.08.1932; 4; 1
+Gladwell Street, 59; 30.8; 3; 186.85; SECONDARY; no; 11.11.1979; 38; 6
+Tetrick Road, 64; 50.62; 9; 214.48; SECONDARY; yes; 23.06.1979; 24; 4
+Simons Hollow Road, 49; 66.73; 4; 180.36; PRIMARY; yes
+Dovetail Drive, 78; 214.26; 9; 250.34; PRIMARY; no
+Snowbird Lane, 78; 42.89; 8; 205.78; PRIMARY; yes
+Park Boulevard, 76; 53.91; 3; 166.34; SECONDARY; yes; 05.04.2003; 7; 2
+Half and Half Drive, 49; 162.06; 7; 276.35; PRIMARY; yes
+Michael Street, 41; 36.37; 7; 258.04; PRIMARY; yes
+Oliverio Drive, 58; 82.81; 6; 172.85; SECONDARY; no; 06.01.2020; 37; 6
+Simons Hollow Road, 2; 116.51; 6; 114.83; PRIMARY; yes
+Half and Half Drive, 7; 117.62; 10; 261.52; PRIMARY; yes
+Dovetail Drive, 57; 49.55; 3; 102.46; SECONDARY; no; 18.09.1934; 29; 2
+Dovetail Drive, 15; 19.53; 1; 298.26; PRIMARY; yes
+Simons Hollow Road, 7; 5.09; 1; 196.15; PRIMARY; no
+Dovetail Drive, 8; 104.36; 7; 239.84; SECONDARY; no; 11.04.1903; 29; 2
+Half and Half Drive, 12; 34.99; 3; 211.25; PRIMARY; yes
+Poplar Chase Lane, 74; 70.08; 3; 235.6; SECONDARY; yes; 25.10.1973; 24; 2
+Dovetail Drive, 24; 75.09; 6; 155.49; PRIMARY; yes
+Hilltop Street, 65; 169.51; 8; 203.59; PRIMARY; no
+Park Boulevard, 36; 53.48; 10; 197.38; SECONDARY; no; 11.01.1940; 20; 5
+Michael Street, 22; 73.0; 6; 259.86; SECONDARY; no; 05.10.1947; 12; 10
+Modoc Alley, 74; 69.96; 4; 261.46; PRIMARY; yes
+Simons Hollow Road, 25; 124.86; 9; 133.04; PRIMARY; yes
+Gladwell Street, 7; 161.86; 8; 246.97; SECONDARY; no; 22.04.1948; 38; 6
+Tetrick Road, 53; 73.04; 5; 181.29; SECONDARY; no; 19.05.1955; 40; 9
+Michael Street, 62; 148.18; 6; 118.17; SECONDARY; no; 07.11.2015; 18; 7
+Modoc Alley, 60; 62.57; 6; 266.02; PRIMARY; yes
+Tetrick Road, 63; 124.64; 5; 285.83; SECONDARY; yes; 02.01.2004; 3; 10
+Oliverio Drive, 29; 49.51; 4; 232.34; PRIMARY; yes
+Oliverio Drive, 32; 34.54; 3; 163.04; SECONDARY; no; 29.11.1932; 28; 1
+Modoc Alley, 53; 108.92; 10; 273.32; PRIMARY; no
+Snowbird Lane, 4; 45.85; 3; 287.15; SECONDARY; no; 20.09.1913; 1; 8
+Dovetail Drive, 26; 25.65; 4; 238.68; PRIMARY; yes
+Dovetail Drive, 79; 17.56; 1; 217.23; PRIMARY; yes
+Hilltop Street, 50; 64.86; 7; 108.45; PRIMARY; yes
+Modoc Alley, 18; 163.94; 8; 108.45; SECONDARY; yes; 10.11.1926; 40; 3
+Snowbird Lane, 70; 36.08; 2; 245.77; SECONDARY; no; 30.07.1995; 4; 1
+Simons Hollow Road, 55; 18.78; 1; 136.94; PRIMARY; no
+Hilltop Street, 56; 23.23; 1; 239.97; PRIMARY; yes
+Tetrick Road, 58; 49.9; 7; 163.17; PRIMARY; no
+Gladwell Street, 45; 59.28; 3; 133.24; PRIMARY; no
+Modoc Alley, 29; 36.79; 2; 196.13; SECONDARY; no; 29.02.1945; 2; 3
+Simons Hollow Road, 58; 19.69; 1; 202.43; PRIMARY; yes
+Dovetail Drive, 15; 86.35; 9; 215.54; PRIMARY; yes
+Hilltop Street, 27; 75.39; 7; 212.23; PRIMARY; yes
+Modoc Alley, 25; 195.9; 9; 115.32; SECONDARY; no; 01.04.1940; 22; 9
+Gladwell Street, 31; 155.05; 7; 145.33; PRIMARY; no
+Dovetail Drive, 29; 7.65; 1; 162.82; SECONDARY; no; 14.06.1969; 10; 9
+Half and Half Drive, 10; 130.63; 9; 176.47; SECONDARY; yes; 25.11.2004; 25; 9
+Park Boulevard, 51; 21.89; 1; 167.64; PRIMARY; no
+Oliverio Drive, 30; 63.41; 4; 129.34; SECONDARY; yes; 27.11.1986; 37; 4
+Michael Street, 69; 45.85; 3; 132.49; PRIMARY; yes
+Snowbird Lane, 72; 122.57; 6; 212.68; PRIMARY; no
+Simons Hollow Road, 23; 23.49; 3; 165.01; SECONDARY; no; 22.05.1935; 30; 6
+Hilltop Street, 56; 42.19; 4; 252.44; SECONDARY; no; 08.08.1955; 14; 4
+Michael Street, 24; 181.67; 9; 267.15; SECONDARY; no; 23.05.2018; 28; 9
+Dovetail Drive, 6; 18.38; 1; 191.36; PRIMARY; yes
+Modoc Alley, 43; 50.63; 6; 144.03; SECONDARY; yes; 19.03.2004; 22; 1
+Half and Half Drive, 1; 77.21; 4; 263.88; SECONDARY; no; 30.09.1962; 29; 5
+Gladwell Street, 40; 47.11; 2; 280.44; PRIMARY; no
+Gladwell Street, 6; 19.44; 1; 154.59; PRIMARY; yes
+Park Boulevard, 20; 86.63; 6; 254.32; PRIMARY; no
+Snowbird Lane, 55; 150.28; 9; 205.83; PRIMARY; yes
+Oliverio Drive, 33; 118.66; 8; 109.08; PRIMARY; yes
+Half and Half Drive, 41; 120.45; 8; 130.79; SECONDARY; no; 24.09.2006; 22; 7
+Half and Half Drive, 26; 217.82; 10; 125.3; PRIMARY; no
+Half and Half Drive, 71; 16.0; 1; 204.41; SECONDARY; yes; 21.01.1982; 38; 2
+Hilltop Street, 43; 98.33; 4; 280.52; PRIMARY; no
+Oliverio Drive, 55; 41.0; 3; 264.85; PRIMARY; no
+Michael Street, 32; 105.86; 7; 230.32; PRIMARY; no
+Snowbird Lane, 42; 57.86; 7; 213.7; SECONDARY; yes; 01.07.2016; 9; 10
+Hilltop Street, 67; 31.74; 4; 112.31; PRIMARY; no
+Modoc Alley, 62; 34.2; 2; 153.79; SECONDARY; yes; 20.10.1976; 33; 5
+Snowbird Lane, 11; 170.41; 8; 217.44; SECONDARY; no; 04.06.1978; 23; 8
+Half and Half Drive, 72; 117.7; 7; 189.1; PRIMARY; no
+Poplar Chase Lane, 45; 58.35; 7; 146.73; SECONDARY; no; 20.09.1975; 5; 5
+Tetrick Road, 20; 44.3; 5; 264.41; SECONDARY; no; 08.03.1965; 37; 3
+Poplar Chase Lane, 78; 11.24; 1; 242.37; PRIMARY; yes
+Dovetail Drive, 38; 31.76; 2; 285.17; SECONDARY; no; 14.04.1966; 35; 9
+Half and Half Drive, 7; 30.23; 2; 163.72; SECONDARY; no; 03.01.1970; 3; 9
+Michael Street, 50; 165.19; 10; 227.84; PRIMARY; no
+Gladwell Street, 75; 11.79; 1; 136.02; SECONDARY; no; 11.08.1979; 34; 1
+Oliverio Drive, 68; 63.95; 7; 243.99; SECONDARY; no; 25.11.1955; 15; 2
+Michael Street, 71; 23.49; 1; 288.73; SECONDARY; yes; 18.02.2005; 18; 1
+Snowbird Lane, 39; 102.1; 7; 176.44; SECONDARY; no; 07.08.1989; 37; 10
+Michael Street, 69; 35.21; 5; 274.15; SECONDARY; yes; 21.01.1981; 38; 7
+Poplar Chase Lane, 18; 39.25; 7; 146.5; SECONDARY; yes; 24.05.1913; 19; 3
+Modoc Alley, 67; 101.66; 5; 124.24; SECONDARY; yes; 11.05.1917; 30; 8
+Modoc Alley, 66; 51.97; 5; 120.81; SECONDARY; yes; 24.03.1968; 32; 2
+Half and Half Drive, 62; 205.9; 9; 159.93; SECONDARY; no; 10.09.2004; 27; 10
+Tetrick Road, 75; 23.91; 1; 256.24; PRIMARY; yes
+Simons Hollow Road, 29; 87.61; 7; 215.74; PRIMARY; no
+Dovetail Drive, 40; 29.79; 2; 168.82; PRIMARY; yes
+Poplar Chase Lane, 46; 23.92; 1; 159.78; PRIMARY; yes
+Tetrick Road, 29; 65.41; 8; 183.68; PRIMARY; no
+Gladwell Street, 67; 135.01; 6; 140.46; PRIMARY; no
+Hilltop Street, 73; 62.99; 9; 231.23; PRIMARY; yes
+Oliverio Drive, 6; 29.41; 4; 128.62; PRIMARY; no
+Michael Street, 26; 41.55; 5; 173.8; SECONDARY; yes; 04.05.1926; 10; 7
+Tetrick Road, 48; 105.44; 5; 175.76; PRIMARY; yes
+Park Boulevard, 65; 13.27; 1; 252.24; SECONDARY; yes; 27.01.1934; 6; 5
+Hilltop Street, 8; 80.49; 5; 136.12; PRIMARY; no
+Michael Street, 26; 127.96; 8; 195.16; PRIMARY; yes
+Poplar Chase Lane, 13; 54.9; 6; 164.66; PRIMARY; no
+Oliverio Drive, 19; 151.03; 10; 151.26; PRIMARY; no
+Gladwell Street, 33; 156.03; 7; 261.13; SECONDARY; no; 25.10.1980; 10; 9
+Michael Street, 31; 15.16; 2; 211.64; PRIMARY; no
+Poplar Chase Lane, 77; 75.32; 5; 170.1; SECONDARY; yes; 12.03.1986; 38; 5
+Gladwell Street, 69; 127.71; 8; 159.35; PRIMARY; yes
+Poplar Chase Lane, 10; 64.52; 4; 269.32; SECONDARY; yes; 22.06.1952; 30; 6
+Simons Hollow Road, 2; 163.24; 8; 292.21; SECONDARY; yes; 10.08.1959; 40; 5
+Half and Half Drive, 59; 45.63; 3; 215.93; SECONDARY; no; 26.01.1937; 37; 3
+Hilltop Street, 51; 72.07; 5; 261.47; PRIMARY; no
+Michael Street, 44; 71.09; 7; 156.87; PRIMARY; no
+Snowbird Lane, 38; 138.96; 9; 170.62; PRIMARY; yes
+Half and Half Drive, 53; 144.81; 7; 153.09; PRIMARY; yes
+Hilltop Street, 5; 89.38; 7; 104.58; SECONDARY; no; 03.02.1935; 11; 9
+Tetrick Road, 14; 237.53; 10; 167.45; SECONDARY; yes; 22.04.1989; 7; 8
+Tetrick Road, 71; 83.65; 9; 264.53; PRIMARY; no
+Half and Half Drive, 18; 40.59; 2; 111.06; SECONDARY; no; 03.10.1972; 31; 10
+Hilltop Street, 2; 214.13; 9; 188.96; SECONDARY; yes; 11.02.1943; 40; 7
+Simons Hollow Road, 29; 38.95; 2; 218.13; SECONDARY; yes; 23.10.2003; 36; 5
+Snowbird Lane, 19; 68.16; 7; 272.03; SECONDARY; no; 10.06.1969; 26; 1
+Simons Hollow Road, 37; 20.98; 1; 187.11; PRIMARY; no
+Tetrick Road, 23; 7.59; 1; 253.11; PRIMARY; yes
+Tetrick Road, 3; 54.04; 4; 283.59; PRIMARY; yes
+Dovetail Drive, 67; 120.74; 5; 224.44; SECONDARY; yes; 17.10.1984; 1; 6
+Hilltop Street, 1; 51.55; 3; 120.98; SECONDARY; no; 23.03.1985; 28; 7
+Gladwell Street, 70; 82.36; 5; 204.3; SECONDARY; no; 20.02.1956; 27; 3
+Modoc Alley, 16; 63.47; 4; 262.16; SECONDARY; yes; 28.06.1993; 1; 6
+Dovetail Drive, 79; 26.33; 2; 119.26; PRIMARY; no
+Simons Hollow Road, 15; 34.76; 4; 243.38; PRIMARY; no
+Gladwell Street, 21; 7.2; 1; 231.9; SECONDARY; no; 15.04.2015; 21; 1
+Snowbird Lane, 32; 55.95; 5; 157.95; PRIMARY; no
+Dovetail Drive, 35; 106.68; 6; 274.41; PRIMARY; yes
+Snowbird Lane, 75; 134.22; 9; 160.31; PRIMARY; no
+Park Boulevard, 78; 89.12; 6; 263.27; PRIMARY; yes
+Hilltop Street, 72; 127.89; 6; 135.73; PRIMARY; yes
+Modoc Alley, 15; 43.47; 6; 119.49; SECONDARY; yes; 22.05.1995; 34; 1
+Michael Street, 25; 132.15; 7; 256.4; SECONDARY; yes; 27.04.1933; 32; 9
+Michael Street, 23; 48.68; 3; 116.31; PRIMARY; yes
+Simons Hollow Road, 42; 182.58; 10; 253.34; SECONDARY; no; 25.05.1966; 28; 1
+Hilltop Street, 17; 60.45; 9; 184.6; PRIMARY; no
+Michael Street, 20; 173.48; 9; 106.12; PRIMARY; no
+Gladwell Street, 7; 88.97; 7; 249.55; PRIMARY; no
+Oliverio Drive, 23; 55.83; 3; 203.84; PRIMARY; yes
+Michael Street, 62; 23.86; 1; 229.63; SECONDARY; no; 29.11.1942; 27; 3
+Michael Street, 70; 84.05; 4; 204.45; SECONDARY; yes; 04.12.1933; 11; 8
+Half and Half Drive, 40; 169.45; 10; 110.85; SECONDARY; no; 21.09.1901; 15; 9
+Half and Half Drive, 17; 99.95; 9; 188.31; PRIMARY; yes
+Hilltop Street, 18; 45.3; 3; 249.15; SECONDARY; yes; 18.08.1922; 10; 5
+Park Boulevard, 41; 236.15; 10; 100.55; PRIMARY; no
+Modoc Alley, 35; 65.72; 7; 116.76; PRIMARY; no
+Park Boulevard, 37; 116.79; 8; 287.83; PRIMARY; yes
+Michael Street, 34; 69.21; 9; 102.79; SECONDARY; yes; 08.10.1919; 16; 3
+Michael Street, 16; 23.13; 4; 118.76; SECONDARY; no; 06.04.1925; 38; 5
+Simons Hollow Road, 20; 78.12; 5; 123.79; PRIMARY; no
+Gladwell Street, 23; 192.63; 9; 112.35; PRIMARY; yes
+Dovetail Drive, 60; 81.24; 6; 142.22; PRIMARY; no
+Michael Street, 17; 55.74; 8; 157.65; PRIMARY; yes
+Dovetail Drive, 12; 125.9; 6; 151.32; SECONDARY; yes; 18.11.1924; 32; 5
+Michael Street, 21; 49.83; 6; 174.56; SECONDARY; yes; 25.02.1988; 4; 6
+Modoc Alley, 9; 202.97; 10; 189.33; SECONDARY; no; 05.10.1977; 18; 3
+Hilltop Street, 46; 57.92; 6; 238.78; PRIMARY; yes
+Tetrick Road, 47; 37.3; 7; 112.56; PRIMARY; no
+Snowbird Lane, 68; 46.24; 5; 255.93; SECONDARY; yes; 10.09.1919; 5; 1
+Oliverio Drive, 60; 50.16; 3; 280.3; SECONDARY; yes; 16.10.1931; 10; 6
+Michael Street, 5; 167.28; 7; 266.06; PRIMARY; yes
+Modoc Alley, 73; 188.14; 8; 108.63; PRIMARY; yes
+Oliverio Drive, 70; 76.9; 4; 231.75; PRIMARY; yes
+Dovetail Drive, 74; 23.24; 4; 254.14; SECONDARY; yes; 17.03.1952; 5; 10
+Snowbird Lane, 73; 64.24; 9; 149.91; SECONDARY; no; 19.04.2004; 17; 5
+Michael Street, 22; 94.52; 9; 141.06; SECONDARY; no; 22.06.1923; 3; 4
+Dovetail Drive, 40; 44.72; 2; 114.74; PRIMARY; yes
+Snowbird Lane, 47; 24.24; 2; 142.06; PRIMARY; no
+Simons Hollow Road, 66; 105.9; 5; 291.87; SECONDARY; no; 23.07.1903; 15; 2
+Michael Street, 77; 89.54; 6; 145.66; PRIMARY; yes
+Simons Hollow Road, 79; 122.15; 6; 239.79; PRIMARY; yes
+Hilltop Street, 33; 152.89; 10; 142.29; PRIMARY; yes
+Dovetail Drive, 74; 175.44; 8; 195.66; SECONDARY; no; 05.03.1902; 36; 7
+Poplar Chase Lane, 63; 65.64; 3; 184.36; SECONDARY; no; 12.11.1943; 40; 5
+Tetrick Road, 37; 72.73; 8; 147.53; PRIMARY; no
+Modoc Alley, 9; 100.28; 9; 187.3; SECONDARY; no; 07.06.1972; 1; 10
+Half and Half Drive, 23; 27.77; 2; 109.42; PRIMARY; yes
+Michael Street, 68; 161.31; 7; 246.15; PRIMARY; no
+Dovetail Drive, 75; 72.17; 6; 249.73; PRIMARY; yes
+Gladwell Street, 53; 177.58; 9; 295.15; PRIMARY; yes
+Snowbird Lane, 34; 32.12; 4; 115.38; PRIMARY; no
+Tetrick Road, 23; 34.88; 3; 210.64; PRIMARY; no
+Oliverio Drive, 60; 73.88; 3; 254.79; SECONDARY; no; 06.05.1990; 16; 10
+Dovetail Drive, 42; 141.9; 6; 238.99; PRIMARY; no
+Michael Street, 34; 5.59; 1; 182.02; PRIMARY; yes
+Gladwell Street, 11; 161.17; 10; 207.64; PRIMARY; yes
+Modoc Alley, 23; 47.16; 2; 284.6; SECONDARY; yes; 09.02.2000; 19; 6
+Michael Street, 3; 232.4; 10; 181.88; SECONDARY; yes; 20.04.1985; 26; 2
+Michael Street, 3; 88.92; 4; 109.01; SECONDARY; yes; 18.03.2008; 2; 5
+Oliverio Drive, 27; 61.29; 9; 219.78; SECONDARY; yes; 05.01.1910; 5; 4
+Modoc Alley, 59; 65.07; 3; 286.67; SECONDARY; yes; 19.03.1994; 39; 3
+Tetrick Road, 53; 28.41; 5; 231.51; SECONDARY; no; 24.04.1978; 18; 10
+Modoc Alley, 26; 19.22; 2; 236.9; PRIMARY; yes
+Park Boulevard, 52; 109.73; 8; 104.61; SECONDARY; no; 14.05.1902; 2; 1
+Hilltop Street, 71; 206.19; 10; 162.99; PRIMARY; no
+Dovetail Drive, 62; 77.58; 10; 191.45; SECONDARY; no; 22.07.2013; 34; 7
+Tetrick Road, 35; 89.71; 4; 290.52; PRIMARY; no
+Gladwell Street, 50; 88.36; 9; 152.58; SECONDARY; no; 04.03.1984; 18; 1
+Hilltop Street, 28; 135.52; 7; 245.69; PRIMARY; yes
+Poplar Chase Lane, 44; 48.33; 4; 133.34; PRIMARY; no
+Michael Street, 13; 75.68; 5; 129.78; PRIMARY; yes
+Simons Hollow Road, 7; 108.57; 8; 279.17; SECONDARY; no; 19.04.1970; 38; 10
+Hilltop Street, 38; 5.83; 1; 208.6; SECONDARY; yes; 05.07.1959; 40; 7
+Oliverio Drive, 30; 76.46; 4; 221.03; SECONDARY; yes; 14.12.1928; 9; 7
+Poplar Chase Lane, 70; 94.43; 10; 142.18; SECONDARY; yes; 04.11.1971; 28; 8
+Oliverio Drive, 62; 6.3; 1; 164.23; PRIMARY; no
+Poplar Chase Lane, 61; 115.1; 9; 124.27; SECONDARY; yes; 12.01.1915; 2; 3
+Oliverio Drive, 15; 147.87; 9; 227.62; PRIMARY; no
+Oliverio Drive, 47; 60.96; 6; 137.3; SECONDARY; yes; 22.09.1982; 36; 9
+Park Boulevard, 18; 140.63; 9; 183.23; SECONDARY; yes; 08.04.1967; 24; 10
+Half and Half Drive, 4; 180.76; 8; 278.07; PRIMARY; yes
+Hilltop Street, 62; 65.66; 5; 189.86; PRIMARY; no
+Park Boulevard, 27; 51.36; 3; 251.71; PRIMARY; yes
+Oliverio Drive, 22; 104.83; 6; 196.93; SECONDARY; yes; 02.10.1924; 21; 2
+Simons Hollow Road, 58; 54.06; 4; 110.3; PRIMARY; no
+Michael Street, 7; 99.23; 6; 131.5; PRIMARY; yes
+Snowbird Lane, 73; 58.14; 3; 154.8; PRIMARY; yes
+Michael Street, 66; 45.51; 2; 203.84; PRIMARY; yes
+Tetrick Road, 44; 65.52; 5; 157.31; SECONDARY; no; 17.04.1900; 4; 8
+Hilltop Street, 23; 87.87; 8; 218.89; PRIMARY; no
+Snowbird Lane, 43; 110.41; 7; 194.62; SECONDARY; yes; 23.02.1969; 14; 4
+Modoc Alley, 16; 114.24; 10; 161.82; PRIMARY; yes
+Simons Hollow Road, 4; 128.28; 7; 220.14; PRIMARY; no
+Hilltop Street, 71; 74.95; 10; 254.84; PRIMARY; no
+Michael Street, 55; 12.68; 1; 279.56; SECONDARY; no; 01.07.1971; 40; 7
+Tetrick Road, 11; 69.6; 4; 210.67; PRIMARY; yes
+Poplar Chase Lane, 34; 60.14; 10; 287.47; SECONDARY; no; 27.12.1956; 30; 10
+Gladwell Street, 15; 27.61; 2; 230.08; SECONDARY; no; 08.06.1961; 30; 9
+Michael Street, 59; 11.63; 1; 158.97; SECONDARY; no; 15.09.1913; 2; 6
+Simons Hollow Road, 53; 152.22; 8; 274.93; SECONDARY; yes; 24.01.1957; 22; 2
+Poplar Chase Lane, 15; 54.41; 4; 214.39; SECONDARY; no; 20.03.1953; 25; 4
+Michael Street, 19; 169.86; 7; 173.65; SECONDARY; yes; 02.02.1955; 9; 8
+Dovetail Drive, 78; 18.86; 2; 156.34; SECONDARY; no; 10.03.1964; 2; 4
+Half and Half Drive, 44; 49.65; 2; 123.32; SECONDARY; yes; 02.07.2000; 12; 9
+Half and Half Drive, 58; 15.98; 2; 235.72; SECONDARY; no; 17.11.1917; 40; 6
+Dovetail Drive, 13; 20.54; 3; 112.51; PRIMARY; yes
+Half and Half Drive, 6; 25.41; 2; 151.74; PRIMARY; yes
+Modoc Alley, 1; 166.76; 10; 234.56; PRIMARY; yes
+Half and Half Drive, 23; 35.84; 6; 128.7; PRIMARY; yes
+Simons Hollow Road, 8; 16.06; 1; 280.83; PRIMARY; yes
+Poplar Chase Lane, 15; 35.24; 7; 214.55; SECONDARY; no; 05.01.1923; 7; 1
+Gladwell Street, 27; 33.98; 2; 189.03; PRIMARY; no
+Dovetail Drive, 27; 134.03; 10; 121.42; PRIMARY; yes
+Oliverio Drive, 65; 25.06; 2; 118.82; SECONDARY; no; 03.06.2006; 6; 7
+Modoc Alley, 8; 68.9; 8; 234.92; SECONDARY; yes; 11.03.1944; 26; 4
+Oliverio Drive, 40; 36.88; 2; 103.85; SECONDARY; no; 20.09.1996; 33; 6
+Simons Hollow Road, 31; 91.18; 4; 151.37; PRIMARY; no
+Dovetail Drive, 30; 28.55; 2; 245.23; PRIMARY; yes
+Oliverio Drive, 15; 203.76; 9; 280.92; PRIMARY; yes
+Half and Half Drive, 29; 222.72; 9; 143.56; SECONDARY; yes; 31.07.1952; 24; 3
+Michael Street, 14; 67.17; 8; 189.77; PRIMARY; yes
+Park Boulevard, 50; 182.01; 10; 277.34; SECONDARY; yes; 29.02.1934; 11; 10
+Half and Half Drive, 31; 51.8; 4; 255.56; SECONDARY; yes; 12.12.1920; 11; 4
+Poplar Chase Lane, 49; 24.65; 1; 248.87; SECONDARY; yes; 21.10.1948; 8; 1
+Modoc Alley, 19; 83.24; 9; 260.12; PRIMARY; yes
+Hilltop Street, 49; 60.93; 5; 282.56; PRIMARY; no
+Dovetail Drive, 44; 39.9; 6; 136.88; SECONDARY; no; 18.04.1985; 26; 10
+Tetrick Road, 31; 71.89; 6; 134.49; SECONDARY; yes; 06.07.1929; 28; 1
+Simons Hollow Road, 71; 117.93; 5; 142.41; PRIMARY; yes
+Gladwell Street, 3; 114.99; 6; 194.59; SECONDARY; no; 13.03.1985; 11; 10
+Tetrick Road, 41; 189.1; 10; 156.67; SECONDARY; yes; 06.08.1975; 10; 10
+Tetrick Road, 28; 69.89; 6; 129.14; SECONDARY; no; 11.01.2003; 28; 1
+Park Boulevard, 46; 116.92; 7; 200.04; PRIMARY; no
+Hilltop Street, 45; 244.54; 10; 272.58; PRIMARY; yes
+Gladwell Street, 48; 15.18; 1; 222.32; SECONDARY; no; 14.11.1970; 2; 4
+Snowbird Lane, 44; 67.17; 3; 150.39; SECONDARY; no; 21.07.1976; 37; 5
+Michael Street, 58; 108.4; 7; 175.08; PRIMARY; yes
+Hilltop Street, 26; 12.53; 1; 194.63; SECONDARY; yes; 22.11.1978; 10; 7
+Poplar Chase Lane, 63; 22.07; 1; 126.86; SECONDARY; no; 09.04.1967; 15; 7
+Oliverio Drive, 13; 173.58; 9; 162.13; PRIMARY; yes
+Oliverio Drive, 74; 73.5; 3; 223.38; SECONDARY; yes; 12.08.1996; 37; 5
+Half and Half Drive, 37; 93.6; 8; 149.93; PRIMARY; no
+Modoc Alley, 61; 34.83; 6; 167.71; PRIMARY; yes
+Park Boulevard, 20; 138.18; 8; 117.72; SECONDARY; yes; 01.05.1904; 12; 2
+Hilltop Street, 72; 22.57; 4; 273.73; SECONDARY; no; 31.08.1925; 2; 2
+Dovetail Drive, 1; 77.86; 6; 258.31; SECONDARY; yes; 02.03.1946; 12; 4
+Dovetail Drive, 33; 140.93; 9; 147.95; SECONDARY; yes; 29.10.1973; 40; 5
+Michael Street, 19; 49.47; 5; 276.25; PRIMARY; no
+Hilltop Street, 75; 15.51; 1; 114.88; PRIMARY; yes
+Park Boulevard, 41; 189.12; 9; 250.35; PRIMARY; no
+Simons Hollow Road, 21; 173.01; 8; 220.28; SECONDARY; no; 18.02.1918; 10; 3
+Poplar Chase Lane, 76; 29.28; 2; 226.96; SECONDARY; no; 01.12.2004; 39; 2
+Michael Street, 71; 57.82; 3; 144.31; PRIMARY; no
+Hilltop Street, 16; 34.51; 3; 210.68; PRIMARY; no
+Modoc Alley, 70; 50.32; 5; 232.57; SECONDARY; no; 14.06.1984; 33; 9
+Simons Hollow Road, 40; 104.8; 6; 163.46; SECONDARY; no; 24.06.2010; 29; 2
+Half and Half Drive, 32; 132.94; 6; 217.32; PRIMARY; no
+Poplar Chase Lane, 47; 36.62; 7; 218.51; SECONDARY; no; 24.01.2014; 36; 10
+Tetrick Road, 29; 102.24; 9; 291.5; PRIMARY; yes
+Tetrick Road, 49; 214.86; 9; 244.89; PRIMARY; yes
+Hilltop Street, 5; 137.64; 8; 190.12; SECONDARY; no; 05.11.1902; 40; 1
+Snowbird Lane, 68; 59.25; 3; 150.67; SECONDARY; no; 20.09.2020; 29; 5
+Half and Half Drive, 15; 152.15; 7; 257.16; SECONDARY; no; 25.05.1937; 13; 9
+Gladwell Street, 71; 34.84; 5; 282.37; PRIMARY; no
+Simons Hollow Road, 49; 20.68; 3; 273.13; PRIMARY; no
+Simons Hollow Road, 23; 44.68; 5; 266.37; PRIMARY; yes
+Hilltop Street, 72; 10.13; 1; 213.18; SECONDARY; no; 10.06.1903; 1; 4
+Simons Hollow Road, 28; 137.2; 9; 174.46; SECONDARY; no; 02.05.1997; 19; 7
+Tetrick Road, 38; 236.07; 10; 160.6; SECONDARY; yes; 02.04.1989; 37; 1
+Half and Half Drive, 8; 76.11; 9; 259.46; PRIMARY; yes
+Half and Half Drive, 22; 52.39; 8; 233.32; SECONDARY; no; 07.05.2008; 19; 4
+Tetrick Road, 26; 95.06; 9; 242.32; PRIMARY; no
+Half and Half Drive, 26; 140.15; 6; 181.45; PRIMARY; no
+Poplar Chase Lane, 34; 148.14; 8; 108.47; SECONDARY; no; 23.04.1967; 6; 9
+Tetrick Road, 53; 105.84; 7; 276.38; SECONDARY; no; 29.01.2004; 18; 3
+Dovetail Drive, 4; 85.72; 7; 124.0; PRIMARY; no
+Dovetail Drive, 37; 36.41; 4; 134.37; SECONDARY; yes; 02.03.1984; 7; 3
+Simons Hollow Road, 15; 17.8; 3; 235.89; PRIMARY; yes
+Simons Hollow Road, 38; 78.34; 9; 285.31; PRIMARY; yes
+Poplar Chase Lane, 13; 75.58; 4; 177.01; SECONDARY; no; 12.02.1983; 40; 1
+Modoc Alley, 37; 22.21; 1; 209.53; SECONDARY; no; 03.11.2019; 5; 5
+Poplar Chase Lane, 9; 33.13; 2; 234.86; PRIMARY; no
+Park Boulevard, 57; 17.96; 1; 263.4; SECONDARY; yes; 11.04.1985; 6; 3
+Tetrick Road, 52; 58.59; 3; 248.12; SECONDARY; no; 04.01.2008; 37; 3
+Poplar Chase Lane, 41; 57.43; 7; 112.05; PRIMARY; yes
+Dovetail Drive, 48; 86.12; 8; 275.62; SECONDARY; yes; 18.06.2015; 6; 3
+Michael Street, 21; 29.96; 2; 233.55; PRIMARY; yes
+Oliverio Drive, 43; 195.64; 10; 191.29; PRIMARY; yes
+Tetrick Road, 58; 92.52; 9; 227.16; SECONDARY; yes; 28.04.1918; 27; 2
+Park Boulevard, 15; 82.55; 5; 221.88; SECONDARY; yes; 27.05.1977; 40; 6
+Oliverio Drive, 68; 60.61; 6; 147.14; SECONDARY; no; 23.02.1959; 38; 6
+Hilltop Street, 39; 152.96; 8; 296.7; SECONDARY; yes; 14.11.1938; 10; 3
+Modoc Alley, 79; 98.16; 7; 212.77; SECONDARY; yes; 07.09.1986; 14; 9
+Simons Hollow Road, 57; 155.12; 10; 123.21; SECONDARY; no; 05.03.2016; 11; 5
+Gladwell Street, 19; 72.17; 4; 118.89; SECONDARY; no; 27.02.1926; 24; 5
+Park Boulevard, 41; 39.42; 2; 226.08; SECONDARY; yes; 12.01.1931; 27; 7
+Gladwell Street, 23; 64.5; 6; 120.33; SECONDARY; yes; 23.08.1985; 27; 5
+Simons Hollow Road, 58; 37.66; 4; 235.0; PRIMARY; no
+Hilltop Street, 23; 143.68; 8; 265.23; PRIMARY; yes
+Hilltop Street, 8; 20.08; 1; 137.26; PRIMARY; yes
+Simons Hollow Road, 72; 84.94; 8; 268.87; PRIMARY; yes
+Tetrick Road, 68; 141.5; 10; 287.13; PRIMARY; yes
+Hilltop Street, 10; 83.19; 8; 112.19; PRIMARY; yes
+Modoc Alley, 48; 66.51; 8; 166.25; SECONDARY; no; 17.04.1926; 11; 4
+Dovetail Drive, 58; 35.72; 2; 123.92; PRIMARY; no
+Simons Hollow Road, 78; 156.49; 9; 234.81; PRIMARY; no
+Oliverio Drive, 62; 69.04; 10; 202.39; PRIMARY; yes
+Oliverio Drive, 36; 6.98; 1; 248.01; SECONDARY; no; 16.09.1995; 7; 6
+Simons Hollow Road, 15; 47.97; 7; 249.89; PRIMARY; no
+Oliverio Drive, 19; 80.2; 7; 203.78; SECONDARY; no; 18.05.1906; 1; 9
+Poplar Chase Lane, 6; 165.58; 8; 173.25; PRIMARY; no
+Gladwell Street, 58; 79.2; 5; 119.88; PRIMARY; yes
+Poplar Chase Lane, 17; 48.39; 2; 220.71; PRIMARY; no
+Tetrick Road, 76; 123.87; 7; 145.92; SECONDARY; no; 16.11.1906; 17; 4
+Gladwell Street, 37; 41.51; 8; 283.29; PRIMARY; no
+Dovetail Drive, 36; 145.06; 9; 146.43; PRIMARY; no
+Gladwell Street, 68; 203.1; 10; 219.18; SECONDARY; no; 11.07.1941; 1; 7
+Dovetail Drive, 58; 183.23; 10; 198.52; SECONDARY; no; 10.02.1980; 32; 2
+Half and Half Drive, 62; 70.43; 3; 263.8; PRIMARY; no
+Tetrick Road, 78; 33.36; 5; 147.97; PRIMARY; yes
+Park Boulevard, 9; 71.89; 8; 131.35; SECONDARY; no; 24.07.1971; 26; 5
+Simons Hollow Road, 7; 108.84; 5; 291.68; PRIMARY; no
+Gladwell Street, 51; 98.69; 5; 298.55; PRIMARY; no
+Dovetail Drive, 10; 85.55; 8; 227.24; SECONDARY; no; 10.10.1937; 26; 9
+Simons Hollow Road, 34; 143.62; 9; 258.33; SECONDARY; yes; 09.10.1997; 39; 7
+Gladwell Street, 65; 44.47; 4; 237.36; PRIMARY; yes
+Modoc Alley, 32; 197.74; 8; 132.23; PRIMARY; no
+Simons Hollow Road, 47; 33.18; 6; 240.6; PRIMARY; no
+Gladwell Street, 7; 5.18; 1; 255.57; SECONDARY; no; 04.08.1925; 23; 10
+Half and Half Drive, 36; 7.45; 1; 241.06; SECONDARY; yes; 06.06.1952; 33; 3
+Tetrick Road, 55; 44.09; 3; 222.7; PRIMARY; no
+Gladwell Street, 43; 49.09; 4; 160.56; SECONDARY; no; 02.05.2004; 28; 4
+Half and Half Drive, 24; 8.34; 1; 113.42; PRIMARY; yes
+Park Boulevard, 5; 64.19; 5; 195.01; PRIMARY; no
+Hilltop Street, 13; 43.19; 4; 182.51; PRIMARY; no
+Snowbird Lane, 51; 23.3; 1; 103.33; PRIMARY; no
+Michael Street, 28; 25.72; 3; 272.91; PRIMARY; no
+Oliverio Drive, 24; 94.48; 8; 144.84; PRIMARY; yes
+Poplar Chase Lane, 74; 38.47; 7; 149.0; PRIMARY; yes
+Half and Half Drive, 73; 73.4; 4; 275.34; PRIMARY; yes
+Snowbird Lane, 30; 79.56; 8; 107.93; PRIMARY; no
+Gladwell Street, 25; 197.01; 8; 178.66; SECONDARY; yes; 08.11.1993; 22; 3
+Hilltop Street, 45; 20.43; 1; 205.04; PRIMARY; no
+Gladwell Street, 76; 27.75; 3; 243.45; PRIMARY; yes
+Hilltop Street, 80; 16.75; 1; 174.88; PRIMARY; yes
+Dovetail Drive, 60; 111.09; 5; 168.66; SECONDARY; yes; 23.04.1903; 23; 3
+Park Boulevard, 27; 16.09; 3; 217.67; PRIMARY; no
+Gladwell Street, 8; 72.15; 9; 106.85; PRIMARY; yes
+Michael Street, 5; 56.36; 9; 199.73; PRIMARY; no
+Tetrick Road, 21; 30.87; 5; 194.72; SECONDARY; yes; 26.04.2004; 28; 3
+Michael Street, 35; 197.76; 8; 229.49; SECONDARY; no; 21.10.1976; 17; 8
+Michael Street, 66; 41.04; 2; 181.33; PRIMARY; yes
+Simons Hollow Road, 60; 21.93; 1; 258.97; SECONDARY; no; 14.08.1995; 15; 2
+Simons Hollow Road, 10; 125.27; 8; 209.77; PRIMARY; yes
+Simons Hollow Road, 71; 160.19; 9; 155.2; PRIMARY; yes
+Dovetail Drive, 67; 182.8; 9; 213.39; SECONDARY; yes; 01.12.1979; 9; 10
+Gladwell Street, 5; 59.83; 7; 113.41; PRIMARY; no
+Tetrick Road, 12; 32.63; 3; 112.4; SECONDARY; yes; 20.10.1963; 21; 8
+Half and Half Drive, 43; 96.69; 8; 293.02; SECONDARY; no; 22.11.1973; 21; 1
+Hilltop Street, 53; 75.17; 10; 193.1; PRIMARY; no
+Modoc Alley, 41; 32.95; 4; 279.61; PRIMARY; no
+Poplar Chase Lane, 64; 72.99; 4; 107.06; PRIMARY; no
+Michael Street, 48; 91.64; 8; 293.69; PRIMARY; no
+Tetrick Road, 30; 120.14; 9; 202.62; SECONDARY; yes; 01.12.1937; 39; 4
+Hilltop Street, 13; 87.36; 5; 164.59; SECONDARY; yes; 23.12.2008; 6; 8
+Hilltop Street, 15; 54.27; 8; 207.78; PRIMARY; no
+Simons Hollow Road, 24; 128.26; 6; 212.68; SECONDARY; yes; 28.07.1945; 14; 5
+Tetrick Road, 26; 76.51; 5; 161.86; PRIMARY; yes
+Simons Hollow Road, 14; 217.64; 9; 204.04; PRIMARY; yes
+Tetrick Road, 77; 46.95; 2; 210.67; SECONDARY; no; 19.01.2015; 19; 5
+Gladwell Street, 75; 149.4; 7; 167.61; PRIMARY; no
+Oliverio Drive, 36; 69.12; 10; 156.85; PRIMARY; yes
+Dovetail Drive, 4; 138.29; 6; 269.27; PRIMARY; no
+Poplar Chase Lane, 79; 97.09; 4; 255.1; PRIMARY; yes
+Dovetail Drive, 56; 105.13; 9; 282.39; SECONDARY; no; 02.11.1988; 15; 6
+Hilltop Street, 51; 53.03; 10; 119.35; SECONDARY; yes; 23.01.1978; 32; 5
+Dovetail Drive, 53; 18.78; 1; 264.42; SECONDARY; no; 01.12.1950; 5; 8
+Gladwell Street, 8; 10.51; 2; 212.8; PRIMARY; no
+Modoc Alley, 22; 65.98; 4; 180.76; PRIMARY; yes
+Half and Half Drive, 29; 67.59; 9; 296.07; PRIMARY; no
+Half and Half Drive, 62; 226.01; 10; 198.83; SECONDARY; yes; 17.01.1908; 30; 5
+Oliverio Drive, 17; 32.17; 2; 142.93; SECONDARY; yes; 27.09.1971; 21; 4
+Gladwell Street, 78; 16.99; 1; 274.42; SECONDARY; yes; 02.06.1936; 17; 2
+Tetrick Road, 44; 122.32; 5; 121.48; PRIMARY; no
+Gladwell Street, 40; 158.88; 9; 290.08; SECONDARY; no; 11.11.2017; 9; 2
+Modoc Alley, 18; 195.27; 10; 171.36; SECONDARY; no; 08.05.1924; 9; 10
+Simons Hollow Road, 69; 102.47; 6; 128.27; SECONDARY; yes; 12.02.1930; 17; 6
+Gladwell Street, 59; 95.96; 6; 297.58; PRIMARY; yes
+Park Boulevard, 22; 15.89; 2; 117.26; SECONDARY; yes; 03.02.1984; 28; 7
+Park Boulevard, 50; 38.37; 2; 137.08; PRIMARY; no
+Michael Street, 21; 124.62; 9; 229.97; PRIMARY; yes
+Poplar Chase Lane, 34; 41.94; 8; 151.48; SECONDARY; yes; 19.02.1956; 1; 9
+Poplar Chase Lane, 15; 95.26; 4; 237.42; SECONDARY; yes; 20.05.1966; 1; 5
+Half and Half Drive, 49; 58.64; 5; 201.08; PRIMARY; no
+Oliverio Drive, 78; 39.0; 3; 295.49; SECONDARY; yes; 17.10.2001; 30; 6
+Park Boulevard, 9; 6.08; 1; 253.71; SECONDARY; yes; 19.11.1925; 27; 3
+Dovetail Drive, 4; 58.16; 3; 204.09; SECONDARY; no; 29.11.1984; 1; 7
+Poplar Chase Lane, 57; 58.6; 5; 130.75; SECONDARY; no; 07.08.1923; 7; 8
+Hilltop Street, 60; 111.08; 10; 156.94; PRIMARY; yes
+Michael Street, 21; 173.86; 7; 100.32; PRIMARY; yes
+Dovetail Drive, 10; 142.0; 7; 245.43; SECONDARY; no; 19.04.1995; 31; 9
+Modoc Alley, 53; 94.58; 7; 221.14; SECONDARY; yes; 15.07.1994; 20; 5
+Modoc Alley, 36; 90.05; 8; 181.26; PRIMARY; yes
+Park Boulevard, 16; 23.81; 1; 234.97; SECONDARY; no; 07.06.1950; 26; 10
+Oliverio Drive, 60; 63.61; 3; 158.92; PRIMARY; no
+Modoc Alley, 35; 46.65; 8; 233.82; PRIMARY; no
+Gladwell Street, 23; 9.23; 1; 237.31; PRIMARY; no
+Simons Hollow Road, 17; 5.25; 1; 202.13; PRIMARY; no
+Modoc Alley, 52; 15.05; 1; 107.14; PRIMARY; yes
+Tetrick Road, 75; 31.86; 6; 101.0; SECONDARY; no; 04.02.1980; 18; 5
+Gladwell Street, 5; 38.02; 2; 136.66; PRIMARY; no
+Snowbird Lane, 58; 51.25; 7; 292.69; SECONDARY; yes; 29.02.1959; 30; 9
+Poplar Chase Lane, 79; 178.44; 9; 217.82; SECONDARY; yes; 11.04.1945; 19; 7
+Oliverio Drive, 22; 31.71; 2; 165.11; PRIMARY; yes
+Simons Hollow Road, 67; 168.56; 8; 227.36; PRIMARY; yes
+Half and Half Drive, 39; 16.72; 1; 123.46; SECONDARY; yes; 01.09.1939; 7; 10
+Michael Street, 32; 98.01; 5; 177.96; SECONDARY; no; 31.02.1986; 9; 9
+Half and Half Drive, 78; 12.0; 2; 283.13; PRIMARY; yes
+Simons Hollow Road, 65; 14.74; 1; 178.14; SECONDARY; no; 24.06.1944; 17; 8
+Half and Half Drive, 80; 21.71; 1; 131.12; SECONDARY; no; 31.10.1942; 36; 6
+Modoc Alley, 52; 74.36; 4; 164.69; SECONDARY; no; 12.10.1915; 1; 6
+Gladwell Street, 31; 29.28; 2; 142.79; PRIMARY; no
+Tetrick Road, 47; 158.39; 8; 212.39; SECONDARY; yes; 17.08.1985; 11; 2
+Gladwell Street, 8; 73.14; 5; 274.04; PRIMARY; no
+Oliverio Drive, 5; 23.57; 1; 226.29; PRIMARY; no
+Michael Street, 25; 29.06; 3; 273.16; PRIMARY; yes
+Gladwell Street, 80; 84.57; 5; 252.56; PRIMARY; no
+Hilltop Street, 52; 71.33; 3; 240.04; PRIMARY; yes
+Modoc Alley, 61; 128.29; 8; 256.55; SECONDARY; yes; 02.12.1953; 20; 7
+Half and Half Drive, 73; 88.96; 8; 240.67; PRIMARY; no
+Park Boulevard, 72; 85.24; 7; 299.24; SECONDARY; yes; 07.12.2013; 24; 7
+Modoc Alley, 25; 242.0; 10; 149.94; SECONDARY; yes; 31.11.2007; 17; 8
+Poplar Chase Lane, 3; 20.36; 1; 262.31; SECONDARY; no; 27.03.2004; 33; 4
+Half and Half Drive, 69; 186.43; 10; 111.34; PRIMARY; no
+Hilltop Street, 6; 11.47; 1; 137.05; SECONDARY; no; 15.02.1992; 17; 3
+Michael Street, 62; 68.62; 10; 206.14; SECONDARY; yes; 11.06.1907; 9; 5
+Michael Street, 79; 16.2; 1; 200.56; PRIMARY; no
+Snowbird Lane, 8; 35.44; 7; 276.79; SECONDARY; yes; 29.10.1918; 8; 6
+Park Boulevard, 34; 119.87; 7; 244.52; PRIMARY; yes
+Oliverio Drive, 50; 108.87; 8; 139.81; PRIMARY; yes
+Dovetail Drive, 74; 43.87; 3; 244.03; PRIMARY; no
+Modoc Alley, 35; 22.14; 1; 141.96; SECONDARY; yes; 07.10.1926; 40; 6
+Dovetail Drive, 2; 172.84; 7; 196.02; SECONDARY; no; 21.03.1986; 39; 9
+Tetrick Road, 64; 129.91; 8; 254.77; SECONDARY; no; 05.07.1989; 4; 2
+Park Boulevard, 61; 22.44; 1; 290.64; SECONDARY; no; 20.06.1979; 29; 1
+Dovetail Drive, 80; 25.11; 2; 226.71; SECONDARY; yes; 03.03.1988; 31; 8
+Oliverio Drive, 72; 39.82; 2; 145.62; PRIMARY; yes
+Tetrick Road, 72; 23.26; 2; 190.43; PRIMARY; yes
+Modoc Alley, 49; 127.53; 9; 193.27; SECONDARY; no; 11.05.1945; 19; 1
+Half and Half Drive, 77; 26.7; 4; 259.21; PRIMARY; yes
+Tetrick Road, 76; 132.49; 6; 131.46; SECONDARY; yes; 23.11.2010; 5; 6
+Oliverio Drive, 24; 179.16; 10; 208.52; SECONDARY; no; 11.06.1977; 20; 1
+Park Boulevard, 27; 64.41; 5; 292.91; PRIMARY; no
+Oliverio Drive, 47; 153.21; 7; 148.4; PRIMARY; yes
+Snowbird Lane, 47; 36.09; 3; 237.11; PRIMARY; no
+Modoc Alley, 39; 98.01; 8; 282.12; SECONDARY; no; 11.12.2019; 26; 5
+Dovetail Drive, 42; 43.06; 7; 197.07; PRIMARY; no
+Michael Street, 46; 56.11; 9; 283.63; PRIMARY; no
+Tetrick Road, 61; 35.23; 7; 294.16; PRIMARY; yes
+Hilltop Street, 59; 33.89; 5; 268.21; SECONDARY; yes; 23.01.1929; 16; 6
+Half and Half Drive, 45; 88.86; 5; 168.57; SECONDARY; yes; 03.01.2008; 12; 6
+Dovetail Drive, 25; 77.86; 5; 147.38; PRIMARY; yes
+Half and Half Drive, 31; 143.64; 8; 251.07; SECONDARY; yes; 08.03.1925; 20; 9
+Gladwell Street, 1; 14.37; 1; 262.15; PRIMARY; yes
+Michael Street, 5; 87.76; 4; 173.6; SECONDARY; no; 29.05.1973; 36; 6
+Park Boulevard, 15; 46.57; 3; 224.52; PRIMARY; no
+Hilltop Street, 36; 98.69; 6; 190.74; SECONDARY; yes; 21.02.1962; 19; 4
+Half and Half Drive, 42; 41.72; 7; 107.07; SECONDARY; yes; 21.12.2019; 8; 1
+Hilltop Street, 69; 20.0; 2; 146.12; SECONDARY; yes; 01.10.1950; 21; 2
+Gladwell Street, 64; 16.7; 2; 138.73; SECONDARY; no; 01.03.1945; 16; 7
+Snowbird Lane, 55; 28.29; 2; 207.04; PRIMARY; yes
+Poplar Chase Lane, 63; 63.17; 5; 104.45; PRIMARY; no
+Oliverio Drive, 27; 21.64; 1; 160.34; SECONDARY; no; 17.09.2009; 26; 10
+Snowbird Lane, 9; 21.6; 1; 130.3; SECONDARY; no; 13.08.2017; 24; 7
+Park Boulevard, 62; 105.56; 6; 130.49; SECONDARY; yes; 28.12.1938; 33; 3
+Simons Hollow Road, 13; 110.95; 6; 179.15; PRIMARY; yes
+Michael Street, 21; 57.3; 4; 131.6; SECONDARY; yes; 15.01.1963; 9; 6
+Half and Half Drive, 9; 48.29; 7; 115.69; PRIMARY; no
+Simons Hollow Road, 4; 13.95; 1; 209.78; SECONDARY; no; 26.04.1922; 35; 3
+Modoc Alley, 62; 7.4; 1; 218.96; SECONDARY; yes; 20.09.1911; 4; 8
+Hilltop Street, 44; 207.17; 9; 179.81; PRIMARY; yes
+Oliverio Drive, 33; 17.3; 2; 156.88; PRIMARY; no
+Michael Street, 21; 77.79; 10; 195.03; PRIMARY; yes
+Michael Street, 21; 99.81; 4; 192.59; SECONDARY; no; 02.04.1958; 8; 9
+Hilltop Street, 29; 110.81; 9; 180.89; SECONDARY; no; 06.03.1916; 22; 10
+Modoc Alley, 32; 66.83; 5; 285.29; SECONDARY; no; 06.04.1995; 29; 2
+Oliverio Drive, 4; 112.21; 8; 256.14; PRIMARY; yes
+Michael Street, 26; 57.61; 5; 180.5; PRIMARY; no
+Simons Hollow Road, 19; 122.89; 9; 114.84; SECONDARY; no; 07.08.1989; 21; 3
+Gladwell Street, 16; 21.25; 2; 116.57; PRIMARY; yes
+Dovetail Drive, 35; 44.33; 2; 136.59; SECONDARY; yes; 05.05.2002; 14; 7
+Snowbird Lane, 38; 58.26; 7; 100.48; SECONDARY; no; 05.03.2006; 20; 5
+Park Boulevard, 39; 170.65; 9; 102.04; PRIMARY; yes
+Simons Hollow Road, 47; 14.47; 1; 209.71; PRIMARY; yes
+Oliverio Drive, 23; 74.23; 3; 298.74; SECONDARY; no; 31.05.1918; 20; 3
+Michael Street, 36; 55.4; 3; 118.2; PRIMARY; no
+Michael Street, 46; 31.8; 2; 255.38; PRIMARY; yes
+Modoc Alley, 64; 123.87; 7; 189.5; PRIMARY; no
+Snowbird Lane, 45; 66.63; 5; 238.02; SECONDARY; yes; 12.11.1967; 3; 6
+Modoc Alley, 18; 94.58; 5; 145.77; SECONDARY; yes; 06.11.1936; 26; 5
+Half and Half Drive, 51; 215.85; 10; 141.38; SECONDARY; yes; 12.04.1901; 32; 8
+Snowbird Lane, 1; 72.17; 6; 214.61; SECONDARY; yes; 10.10.2017; 3; 10
+Gladwell Street, 61; 128.65; 7; 181.48; PRIMARY; no
+Park Boulevard, 3; 5.94; 1; 125.2; SECONDARY; yes; 17.01.1956; 30; 2
+Half and Half Drive, 77; 159.21; 7; 265.19; PRIMARY; no
+Michael Street, 46; 97.87; 4; 241.24; PRIMARY; no
+Park Boulevard, 12; 42.21; 3; 271.29; PRIMARY; yes
+Half and Half Drive, 32; 75.52; 6; 274.36; PRIMARY; no
+Snowbird Lane, 44; 106.87; 5; 182.37; SECONDARY; yes; 11.02.1912; 25; 9
+Hilltop Street, 34; 17.66; 1; 145.56; SECONDARY; yes; 29.05.1932; 18; 2
+Park Boulevard, 36; 120.45; 7; 167.64; PRIMARY; yes
+Modoc Alley, 66; 185.3; 9; 124.54; SECONDARY; no; 15.05.1907; 19; 10
+Park Boulevard, 14; 165.66; 8; 138.56; PRIMARY; no
+Michael Street, 26; 58.35; 3; 257.97; PRIMARY; no
+Gladwell Street, 39; 81.13; 7; 285.89; PRIMARY; yes
+Snowbird Lane, 45; 25.1; 2; 160.34; PRIMARY; yes
+Michael Street, 7; 67.48; 5; 107.16; PRIMARY; no
+Half and Half Drive, 31; 109.16; 7; 232.59; PRIMARY; yes
+Dovetail Drive, 35; 119.98; 6; 169.69; SECONDARY; no; 03.02.1976; 19; 2
+Snowbird Lane, 4; 85.89; 4; 298.73; SECONDARY; no; 22.05.2016; 10; 10
+Michael Street, 41; 101.97; 7; 149.61; SECONDARY; yes; 17.05.1903; 18; 3
+Dovetail Drive, 74; 46.73; 2; 272.77; PRIMARY; yes
+Modoc Alley, 53; 32.19; 5; 115.54; SECONDARY; no; 12.10.1916; 39; 3
+Dovetail Drive, 53; 238.85; 10; 141.72; PRIMARY; yes
+Park Boulevard, 12; 63.04; 8; 274.87; PRIMARY; no
+Poplar Chase Lane, 72; 73.94; 10; 229.02; SECONDARY; yes; 30.07.1961; 20; 2
+Hilltop Street, 16; 17.34; 1; 139.11; SECONDARY; yes; 27.03.1902; 26; 10
+Dovetail Drive, 10; 9.88; 1; 171.24; PRIMARY; no
+Modoc Alley, 49; 150.5; 7; 263.7; SECONDARY; yes; 28.05.1910; 39; 2
+Modoc Alley, 56; 214.61; 9; 130.38; SECONDARY; no; 25.01.1982; 4; 5
+Park Boulevard, 53; 48.19; 3; 212.52; SECONDARY; no; 15.05.1922; 28; 7
+Modoc Alley, 51; 31.39; 2; 253.34; SECONDARY; yes; 13.04.1959; 18; 2
+Gladwell Street, 64; 171.15; 9; 152.16; SECONDARY; yes; 20.11.1947; 22; 3
+Michael Street, 71; 112.0; 5; 282.05; PRIMARY; yes
+Half and Half Drive, 22; 17.64; 2; 210.98; SECONDARY; yes; 29.09.1914; 35; 4
+Hilltop Street, 10; 43.31; 2; 232.24; SECONDARY; yes; 07.02.1992; 22; 6
+Half and Half Drive, 31; 139.85; 6; 175.59; PRIMARY; no
+Poplar Chase Lane, 63; 192.49; 8; 122.05; SECONDARY; no; 12.07.1944; 12; 10
+Michael Street, 25; 52.56; 6; 294.69; SECONDARY; yes; 11.06.1979; 13; 9
+Modoc Alley, 36; 30.71; 2; 189.09; SECONDARY; yes; 02.05.2001; 31; 5
+Michael Street, 21; 27.09; 2; 286.66; PRIMARY; yes
+Park Boulevard, 23; 6.16; 1; 109.47; SECONDARY; yes; 30.10.1920; 10; 3
+Half and Half Drive, 56; 13.17; 2; 271.76; SECONDARY; yes; 13.10.1927; 23; 1
+Hilltop Street, 6; 46.71; 2; 252.48; SECONDARY; yes; 15.03.1900; 25; 2
+Simons Hollow Road, 63; 70.97; 3; 200.84; SECONDARY; no; 05.12.1960; 40; 4
+Hilltop Street, 26; 43.14; 6; 197.89; PRIMARY; no
+Half and Half Drive, 47; 122.79; 6; 264.34; PRIMARY; yes
+Simons Hollow Road, 47; 178.47; 9; 171.57; SECONDARY; yes; 28.01.1934; 13; 1
+Michael Street, 24; 74.89; 3; 132.18; SECONDARY; yes; 28.09.1936; 22; 6
+Gladwell Street, 53; 65.97; 3; 242.13; SECONDARY; yes; 02.10.1921; 18; 1
+Hilltop Street, 67; 182.49; 8; 251.45; SECONDARY; yes; 12.05.1979; 15; 6
+Snowbird Lane, 59; 53.94; 3; 241.48; PRIMARY; yes
+Oliverio Drive, 13; 66.06; 4; 213.82; SECONDARY; yes; 01.05.2001; 25; 9
+Poplar Chase Lane, 70; 124.98; 5; 209.89; SECONDARY; yes; 07.03.1913; 15; 2
+Poplar Chase Lane, 34; 122.86; 10; 168.99; PRIMARY; yes
+Snowbird Lane, 15; 17.23; 1; 190.39; SECONDARY; no; 11.05.1985; 7; 6
+Tetrick Road, 6; 77.31; 5; 217.85; SECONDARY; yes; 21.04.1971; 5; 10
+Poplar Chase Lane, 62; 76.31; 5; 214.19; SECONDARY; no; 06.10.1950; 11; 1
+Oliverio Drive, 26; 38.71; 3; 200.5; PRIMARY; no
+Simons Hollow Road, 22; 140.26; 6; 199.67; SECONDARY; no; 25.12.1991; 10; 10
+Poplar Chase Lane, 11; 66.55; 8; 232.19; SECONDARY; no; 21.02.1926; 26; 1
+Gladwell Street, 25; 94.81; 10; 264.13; PRIMARY; no
+Simons Hollow Road, 34; 33.01; 3; 151.2; PRIMARY; yes
+Gladwell Street, 74; 129.05; 9; 100.62; PRIMARY; yes
+Gladwell Street, 44; 116.6; 9; 205.31; PRIMARY; no
+Modoc Alley, 41; 23.21; 2; 214.31; SECONDARY; yes; 17.06.1908; 33; 5
+Snowbird Lane, 60; 118.93; 5; 147.16; PRIMARY; no
+Gladwell Street, 38; 56.43; 8; 245.9; PRIMARY; yes
+Dovetail Drive, 17; 115.93; 5; 137.97; SECONDARY; yes; 05.06.1992; 26; 6
+Snowbird Lane, 9; 60.85; 4; 231.26; PRIMARY; yes
+Park Boulevard, 20; 126.53; 10; 244.89; PRIMARY; no
+Modoc Alley, 3; 226.93; 10; 148.66; PRIMARY; no
+Modoc Alley, 43; 56.69; 6; 254.67; PRIMARY; yes
+Michael Street, 25; 51.21; 4; 114.32; SECONDARY; yes; 25.07.1978; 27; 2

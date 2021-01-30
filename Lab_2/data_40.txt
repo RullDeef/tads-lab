@@ -1,0 +1,40 @@
+Tetrick Road, 58; 36.6; 5; 141.44; SECONDARY; yes; 26.04.1991; 17; 10
+Park Boulevard, 29; 84.39; 5; 235.02; SECONDARY; yes; 03.07.1905; 35; 6
+Michael Street, 35; 85.46; 9; 168.13; PRIMARY; no
+Poplar Chase Lane, 60; 80.08; 6; 244.19; PRIMARY; no
+Hilltop Street, 77; 157.1; 8; 175.57; PRIMARY; no
+Tetrick Road, 53; 69.7; 3; 269.59; PRIMARY; yes
+Simons Hollow Road, 26; 154.83; 8; 100.2; PRIMARY; yes
+Gladwell Street, 14; 110.12; 8; 153.29; SECONDARY; yes; 08.04.1912; 11; 6
+Tetrick Road, 62; 40.08; 2; 270.15; PRIMARY; yes
+Snowbird Lane, 77; 139.37; 7; 243.94; SECONDARY; yes; 01.02.1957; 4; 6
+Simons Hollow Road, 7; 43.15; 5; 284.5; SECONDARY; yes; 28.12.1999; 10; 10
+Hilltop Street, 79; 99.7; 4; 160.61; SECONDARY; yes; 27.02.2007; 36; 5
+Snowbird Lane, 56; 105.93; 5; 146.41; PRIMARY; yes
+Poplar Chase Lane, 21; 45.69; 3; 195.14; PRIMARY; no
+Tetrick Road, 58; 182.89; 8; 207.71; SECONDARY; no; 24.04.1982; 7; 10
+Modoc Alley, 31; 82.08; 7; 193.42; PRIMARY; yes
+Michael Street, 63; 60.35; 3; 229.27; SECONDARY; no; 17.01.2012; 37; 10
+Michael Street, 56; 124.09; 5; 115.87; SECONDARY; no; 22.02.1911; 20; 7
+Gladwell Street, 49; 40.91; 3; 119.58; PRIMARY; yes
+Michael Street, 39; 153.51; 9; 144.02; SECONDARY; no; 20.05.1991; 21; 10
+Poplar Chase Lane, 13; 102.66; 8; 135.14; PRIMARY; yes
+Simons Hollow Road, 2; 23.29; 1; 143.68; PRIMARY; no
+Snowbird Lane, 10; 15.21; 1; 198.61; SECONDARY; yes; 26.12.2002; 27; 6
+Modoc Alley, 8; 19.65; 2; 128.56; SECONDARY; no; 12.12.1991; 33; 10
+Park Boulevard, 64; 123.42; 8; 218.76; PRIMARY; no
+Park Boulevard, 9; 196.51; 8; 283.92; PRIMARY; yes
+Half and Half Drive, 68; 67.85; 3; 245.26; PRIMARY; yes
+Park Boulevard, 16; 48.04; 3; 147.09; PRIMARY; no
+Oliverio Drive, 66; 20.3; 4; 177.65; PRIMARY; yes
+Simons Hollow Road, 49; 73.41; 5; 227.57; SECONDARY; no; 03.11.2017; 11; 10
+Simons Hollow Road, 74; 106.83; 5; 215.41; PRIMARY; yes
+Park Boulevard, 25; 31.8; 6; 156.87; SECONDARY; yes; 20.08.1904; 31; 2
+Park Boulevard, 58; 107.74; 7; 177.73; PRIMARY; yes
+Simons Hollow Road, 55; 61.18; 4; 228.74; PRIMARY; no
+Simons Hollow Road, 21; 206.58; 10; 284.83; PRIMARY; no
+Gladwell Street, 7; 50.89; 8; 267.75; SECONDARY; yes; 27.04.1949; 8; 7
+Tetrick Road, 65; 35.87; 2; 131.57; SECONDARY; yes; 11.01.1992; 2; 4
+Oliverio Drive, 49; 160.49; 7; 104.17; SECONDARY; yes; 01.05.1937; 10; 8
+Dovetail Drive, 46; 159.38; 8; 281.36; SECONDARY; no; 31.03.2000; 22; 7
+Simons Hollow Road, 71; 58.56; 6; 134.25; SECONDARY; no; 15.04.1971; 37; 1

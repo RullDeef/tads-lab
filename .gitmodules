@@ -4,3 +4,6 @@
 [submodule "lab_6/vendor/callocs"]
 	path = lab_6/vendor/callocs
 	url = https://github.com/RullDeef/c-allocators
+[submodule "lab_7/vendor/callocs"]
+	path = lab_7/vendor/callocs
+	url = https://github.com/RullDeef/c-allocators.git

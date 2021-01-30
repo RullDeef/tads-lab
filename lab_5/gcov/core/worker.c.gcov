@@ -1,0 +1,237 @@
+        -:    0:Source:src/core/worker.c
+        -:    0:Graph:./obj//core/worker.gcno
+        -:    0:Data:./obj//core/worker.gcda
+        -:    0:Runs:3
+        -:    1:#include <memory.h>
+        -:    2:#include <math.h>
+        -:    3:#include "utils/timing.h"
+        -:    4:#include "worker.h"
+        -:    5:
+       19:    6:static float get_random_time(time_interval_t tv)
+        -:    7:{
+       19:    8:    float t = (rand() % 1001) / 1000.0f;
+       19:    9:    return tv.begin + (tv.end - tv.begin) * t;
+        -:   10:}
+        -:   11:
+        4:   12:static queue_stats_t qu_start_stats(void)
+        -:   13:{
+        -:   14:    queue_stats_t stats;
+        4:   15:    memset(&stats, 0, sizeof(queue_stats_t));
+        4:   16:    return stats;
+        -:   17:}
+        -:   18:
+        2:   19:static worker_stats_t wk_start_stats(void)
+        -:   20:{
+        -:   21:    worker_stats_t stats;
+        -:   22:
+        2:   23:    stats.time = 0.0f;
+        2:   24:    stats.work_time = 0.0f;
+        2:   25:    stats.request_index = 0U;
+        2:   26:    stats.requests_1 = 0U;
+        2:   27:    stats.requests_2 = 0U;
+        2:   28:    stats.request_dismissed = 0U;
+        2:   29:    stats.qu1 = qu_start_stats();
+        2:   30:    stats.qu2 = qu_start_stats();
+        -:   31:
+        2:   32:    return stats;
+        -:   33:}
+        -:   34:
+        2:   35:struct worker wk_create(queue_imp_t imp_qu1, queue_imp_t imp_qu2, uint32_t qu_capacity)
+        -:   36:{
+        -:   37:    struct worker wk;
+        -:   38:
+        2:   39:    wk.qu1 = qu_create(imp_qu1, qu_capacity);
+        2:   40:    wk.qu2 = qu_create(imp_qu2, qu_capacity);
+        2:   41:    wk.params = wk_default_params();
+        2:   42:    wk.stats = wk_start_stats();
+        -:   43:
+        2:   44:    return wk;
+        -:   45:}
+        -:   46:
+        2:   47:void wk_destroy(struct worker *wk)
+        -:   48:{
+        2:   49:    qu_destroy(&wk->qu1);
+        2:   50:    qu_destroy(&wk->qu2);
+        2:   51:}
+        -:   52:
+        7:   53:worker_params_t wk_default_params(void)
+        -:   54:{
+        -:   55:    worker_params_t params;
+        -:   56:
+        7:   57:    params.t_in1.begin = 1.0f;
+        7:   58:    params.t_in1.end = 5.0f;
+        -:   59:
+        7:   60:    params.t_in2.begin = 0.0f;
+        7:   61:    params.t_in2.end = 3.0f;
+        -:   62:
+        7:   63:    params.t_out1.begin = 0.0f;
+        7:   64:    params.t_out1.end = 4.0f;
+        -:   65:
+        7:   66:    params.t_out2.begin = 0.0f;
+        7:   67:    params.t_out2.end = 1.0f;
+        -:   68:
+        7:   69:    return params;
+        -:   70:}
+        -:   71:
+        4:   72:static int model_req1_arrive(struct worker *wk)
+        -:   73:{
+        -:   74:    int status;
+        -:   75:
+        4:   76:    BEGIN_TIMER;
+        4:   77:    status = qu_push_back(&wk->qu1, wk->stats.request_index);
+        4:   78:    END_TIMER;
+        -:   79:
+        4:   80:    wk->stats.qu1.total_push_amount++;
+        4:   81:    wk->stats.qu1.total_push_us += TIMER_MICROSECONDS;
+        4:   82:    wk->stats.qu1.curr_size = qu_get_size(&wk->qu1);
+        4:   83:    if (wk->stats.qu1.max_size < wk->stats.qu1.curr_size)
+        2:   84:        wk->stats.qu1.max_size = wk->stats.qu1.curr_size;
+        4:   85:    wk->stats.request_index++;
+        4:   86:    wk->stats.requests_1++;
+        -:   87:
+        4:   88:    return status;
+        -:   89:}
+        -:   90:
+        5:   91:static int model_req2_arrive(struct worker *wk)
+        -:   92:{
+        -:   93:    int status;
+        -:   94:    
+        5:   95:    BEGIN_TIMER;
+        5:   96:    status = qu_push_back(&wk->qu2, wk->stats.request_index);
+        5:   97:    END_TIMER;
+        -:   98:
+        5:   99:    wk->stats.qu2.total_push_amount++;
+        5:  100:    wk->stats.qu2.total_push_us += TIMER_MICROSECONDS;
+        5:  101:    wk->stats.qu2.curr_size = qu_get_size(&wk->qu2);
+        5:  102:    if (wk->stats.qu2.max_size < wk->stats.qu2.curr_size)
+        3:  103:        wk->stats.qu2.max_size = wk->stats.qu2.curr_size;
+        5:  104:    wk->stats.request_index++;
+        5:  105:    wk->stats.requests_2++;
+        -:  106:
+        5:  107:    return status;
+        -:  108:}
+        -:  109:
+        9:  110:static int model_proc_next_req(struct worker *wk, qdata_t *value)
+        -:  111:{
+        9:  112:    int status = EXIT_SUCCESS;
+        -:  113:
+        9:  114:    if (qu_get_size(&wk->qu1) > 0U)
+        -:  115:    {
+        4:  116:        BEGIN_TIMER;
+        4:  117:        status = qu_pop_front(&wk->qu1, value);
+        4:  118:        END_TIMER;
+        4:  119:        wk->stats.qu1.total_pop_amount++;
+        4:  120:        wk->stats.qu1.total_pop_us += TIMER_MICROSECONDS;
+        4:  121:        *value = 1U;
+        -:  122:    }
+        5:  123:    else if (qu_get_size(&wk->qu2) > 0U)
+        -:  124:    {
+        2:  125:        BEGIN_TIMER;
+        2:  126:        status = qu_pop_front(&wk->qu2, value);
+        2:  127:        END_TIMER;
+        2:  128:        wk->stats.qu2.total_pop_amount++;
+        2:  129:        wk->stats.qu2.total_pop_us += TIMER_MICROSECONDS;
+        2:  130:        *value = 2U;
+        -:  131:    }
+        -:  132:    else
+        3:  133:        *value = 0U;
+        -:  134:
+        9:  135:    return status;
+        -:  136:}
+        -:  137:
+        4:  138:static queue_stats_t update_qu_stats(struct queue *qu, queue_stats_t stats)
+        -:  139:{
+        4:  140:    if (stats.total_push_amount != 0U)
+        4:  141:        stats.avg_push_time = stats.total_push_time / stats.total_push_amount;
+        4:  142:    if (stats.total_pop_amount != 0U)
+        3:  143:        stats.avg_pop_time = stats.total_pop_time / stats.total_pop_amount;
+        -:  144:
+        4:  145:    if (stats.total_push_amount != 0U)
+        4:  146:        stats.avg_push_ns = 1000U * stats.total_push_us / stats.total_push_amount;
+        4:  147:    if (stats.total_pop_amount != 0U)
+        3:  148:        stats.avg_pop_ns = 1000U * stats.total_pop_us / stats.total_pop_amount;
+        -:  149:
+        4:  150:    if (stats.total_push_amount != 0U) 
+        4:  151:        stats.avg_wait_time = stats.total_wait_time / stats.total_push_amount;
+        -:  152:
+        4:  153:    stats.curr_size = qu_get_size(qu);
+        4:  154:    return stats;
+        -:  155:}
+        -:  156:
+        -:  157:// Моделирует ОА до времени полной обработки requests_amount заявок первого типа.
+        2:  158:int wk_model_run(struct worker *wk, uint32_t requests_amount)
+        -:  159:{
+        2:  160:    int status = EXIT_SUCCESS;
+        -:  161:
+        2:  162:    float next_req1_time = get_random_time(wk->params.t_in1);
+        2:  163:    float next_req2_time = get_random_time(wk->params.t_in2);
+        -:  164:
+        -:  165:    // время на обработку текущего элемента из непустой очереди
+        -:  166:    // элемент в данный момент уже находится в ОА, поэтому удалять
+        -:  167:    // из очереди ничего не нужно.
+        2:  168:    float curr_proc_time = 0.0f;
+        2:  169:    qdata_t curr_request = 0U; // 1 - из первой очереди, 2 - из второй
+        -:  170:
+       11:  171:    while (status == EXIT_SUCCESS && requests_amount > 0U)
+        -:  172:    {
+        -:  173:        // определиться с текущим событиями и обработать их
+        9:  174:        if (next_req1_time < 1.0e-3)
+        -:  175:        {
+        4:  176:            status = model_req1_arrive(wk);
+        4:  177:            next_req1_time = get_random_time(wk->params.t_in1);
+        4:  178:            wk->stats.qu1.total_push_time += next_req1_time;
+        -:  179:
+        4:  180:            if (curr_request == 2U)
+        -:  181:            {
+        2:  182:                curr_proc_time = 0U;
+        2:  183:                wk->stats.request_dismissed++;
+        -:  184:            }
+        -:  185:        }
+        9:  186:        if (next_req2_time < 1.0e-3)
+        -:  187:        {
+        5:  188:            status = model_req2_arrive(wk);
+        5:  189:            next_req2_time = get_random_time(wk->params.t_in2);
+        5:  190:            wk->stats.qu2.total_push_time += next_req2_time;
+        -:  191:        }
+        9:  192:        if (curr_proc_time < 1.0e-3)
+        -:  193:        {
+        9:  194:            status = model_proc_next_req(wk, &curr_request);
+        9:  195:            if (curr_request == 1U)
+        -:  196:            {
+        4:  197:                curr_proc_time = get_random_time(wk->params.t_out1);
+        4:  198:                wk->stats.qu1.total_pop_time += curr_proc_time;
+        4:  199:                requests_amount--;
+        -:  200:            }
+        5:  201:            else if (curr_request == 2U)
+        -:  202:            {
+        2:  203:                curr_proc_time = get_random_time(wk->params.t_out2);
+        2:  204:                wk->stats.qu2.total_pop_time += curr_proc_time;
+        -:  205:            }
+        9:  206:            wk->stats.work_time += curr_proc_time;
+        -:  207:        }
+        -:  208:
+        -:  209:        // рассчитать смещение во времени до следующего ближайшего события
+        9:  210:        float delta = fmin(next_req1_time, next_req2_time);
+        9:  211:        if (curr_proc_time > 1.0e-3)
+        6:  212:            delta =  fmin(delta, curr_proc_time);
+        -:  213:
+        9:  214:        next_req1_time -= delta;
+        9:  215:        next_req2_time -= delta;
+        9:  216:        curr_proc_time -= delta;
+        -:  217:
+        9:  218:        wk->stats.qu1.total_wait_time += wk->stats.qu1.curr_size * delta;
+        9:  219:        wk->stats.qu2.total_wait_time += wk->stats.qu2.curr_size * delta;
+        -:  220:
+        9:  221:        wk->stats.time += delta;
+        -:  222:    }
+        -:  223:
+        2:  224:    wk->stats.work_time -= curr_proc_time;
+        2:  225:    if (curr_request == 1U)
+        2:  226:        wk->stats.time += curr_proc_time;
+        -:  227:
+        -:  228:    // обновить средние статистические показатели
+        2:  229:    wk->stats.qu1 = update_qu_stats(&wk->qu1, wk->stats.qu1);
+        2:  230:    wk->stats.qu2 = update_qu_stats(&wk->qu2, wk->stats.qu2);
+        -:  231:
+        2:  232:    return status;
+        -:  233:}

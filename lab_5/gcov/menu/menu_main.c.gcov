@@ -1,0 +1,43 @@
+        -:    0:Source:src/menu/menu_main.c
+        -:    0:Graph:./obj//menu/menu_main.gcno
+        -:    0:Data:./obj//menu/menu_main.gcda
+        -:    0:Runs:3
+        -:    1:#include "utils/colors.h"
+        -:    2:#include "menu/menu.h"
+        -:    3:
+        -:    4:#define PROG_INTRO      "    " CLR_BR_GREEN_U "Лабораторная работа №5 по типам и структурам данных." CLR_RESET "\n" \
+        -:    5:                        "\n" \
+        -:    6:                        "Список доступных комманд:\n" \
+        -:    7:                        "    config     Настроить временные параметры обслуживающего аппарата.\n" \
+        -:    8:                        "    run        Запустить моделирование обслуживающего аппарата\n" \
+        -:    9:                        "    exit       выход из программы\n\n" \
+        -:   10:                        "Более подробно можно узнать о команде, набрав " CLR_EMPH "'help <название команды>'" CLR_RESET "."
+        -:   11:
+        -:   12:#define CMD_CONFIG_HELP "Настроить временные параметры обслуживающего аппарата."
+        -:   13:
+        -:   14:#define CMD_RUN_HELP    "Запустить моделирование обслуживающего аппарата."
+        -:   15:
+        -:   16:worker_params_t wk_params;
+        -:   17:
+        3:   18:static int __menu_exit(cmdf_arglist *arglist)
+        -:   19:{
+        3:   20:    printf("Выход из программы.\n");
+        3:   21:    cmdf__default_do_exit(arglist);
+        3:   22:    return EXIT_SUCCESS;
+        -:   23:}
+        -:   24:
+        3:   25:int menu_main(void)
+        -:   26:{
+        3:   27:    cmdf_init(CLR_BR_CYAN_U "main>" CLR_RESET " ", PROG_INTRO, DOC_HEADER, UNDOC_HEADER, '~', 0);
+        -:   28:
+        -:   29:    /* Register our custom commands */
+        3:   30:    cmdf_register_command(__menu_exit, "exit", CMD_EXIT_HELP);
+        3:   31:    cmdf_register_command(menu_config, "config", CMD_CONFIG_HELP);
+        3:   32:    cmdf_register_command(menu_run, "run", CMD_RUN_HELP);
+        -:   33:
+        -:   34:    /* init global state */
+        3:   35:    wk_params = wk_default_params();
+        -:   36:
+        3:   37:    cmdf_commandloop();
+        3:   38:    return EXIT_SUCCESS;
+        -:   39:}

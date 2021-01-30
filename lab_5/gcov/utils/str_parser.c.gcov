@@ -1,0 +1,66 @@
+        -:    0:Source:src/utils/str_parser.c
+        -:    0:Graph:./obj//utils/str_parser.gcno
+        -:    0:Data:./obj//utils/str_parser.gcda
+        -:    0:Runs:3
+        -:    1:#include <stdlib.h>
+        -:    2:#include <string.h>
+        -:    3:#include "status_codes.h"
+        -:    4:#include "str_parser.h"
+        -:    5:
+        -:    6:#include <ctype.h>
+        -:    7:
+    #####:    8:int parse_int32(const char *str, int32_t *value)
+        -:    9:{
+    #####:   10:    while (*str != '\0' && isspace((int)*str))
+    #####:   11:        str++;
+        -:   12:
+    #####:   13:    if (*str == '\0')
+    #####:   14:        return EXIT_FAILURE;
+        -:   15:
+    #####:   16:    char *end = NULL;
+    #####:   17:    *value = strtol(str, &end, 10);
+        -:   18:
+    #####:   19:    if (end == NULL)
+    #####:   20:        return EXIT_FAILURE;
+        -:   21:
+    #####:   22:    while (*end != '\0' && isspace((int)*end))
+    #####:   23:        end++;
+        -:   24:    
+    #####:   25:    if (*end == '\0')
+    #####:   26:        return EXIT_SUCCESS;
+    #####:   27:    return EXIT_FAILURE;
+        -:   28:}
+        -:   29:
+    #####:   30:bool parse_all_int32(char **str_arr, uint32_t len)
+        -:   31:{
+        -:   32:    int32_t value;
+        -:   33:
+    #####:   34:    for (uint32_t i = 0; i < len; i++)
+    #####:   35:        if (parse_int32(str_arr[i], &value) == EXIT_FAILURE)
+    #####:   36:            return false;
+        -:   37:
+    #####:   38:    return true;
+        -:   39:}
+        -:   40:
+       20:   41:int parse_float(const char *str, float *value)
+        -:   42:{
+        -:   43:
+       20:   44:    while (*str != '\0' && isspace((int)*str))
+    #####:   45:        str++;
+        -:   46:
+       20:   47:    if (*str == '\0')
+    #####:   48:        return EXIT_FAILURE;
+        -:   49:
+       20:   50:    char *end = NULL;
+       20:   51:    *value = strtof(str, &end);
+        -:   52:
+       20:   53:    if (end == NULL)
+    #####:   54:        return EXIT_FAILURE;
+        -:   55:
+      20*:   56:    while (*end != '\0' && isspace((int)*end))
+    #####:   57:        end++;
+        -:   58:
+       20:   59:    if (*end == '\0')
+       20:   60:        return EXIT_SUCCESS;
+    #####:   61:    return EXIT_FAILURE;
+        -:   62:}

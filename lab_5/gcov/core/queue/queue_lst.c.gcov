@@ -1,0 +1,72 @@
+        -:    0:Source:src/core/queue/queue_lst.c
+        -:    0:Graph:./obj//core/queue/queue_lst.gcno
+        -:    0:Data:./obj//core/queue/queue_lst.gcda
+        -:    0:Runs:3
+        -:    1:#include <stdlib.h>
+        -:    2:#include <assert.h>
+        -:    3:#include "queue_lst.h"
+        -:    4:
+        1:    5:struct queue_lst qul_create(void)
+        -:    6:{
+        1:    7:    struct queue_lst qul = { .size = 0U, .first = NULL, .last = NULL };
+        1:    8:    return qul;
+        -:    9:}
+        -:   10:
+        1:   11:void qul_destroy(struct queue_lst *qul)
+        -:   12:{
+        3:   13:    while (qul->size > 0U)
+        -:   14:    {
+        -:   15:        qdata_t value;
+        2:   16:        qul_pop_front(qul, &value);
+        -:   17:    }
+        1:   18:}
+        -:   19:
+        4:   20:int qul_push_back(struct queue_lst *qul, qdata_t value)
+        -:   21:{
+        4:   22:    int status = EXIT_FAILURE;
+        -:   23:
+        4:   24:    if (qul->size == 0U)
+        -:   25:    {
+        2:   26:        status = EXIT_SUCCESS;
+        2:   27:        qul->first = malloc(sizeof(struct __qu_lst_node));
+       2*:   28:        assert(qul->first != NULL);
+        2:   29:        qul->first->next = NULL;
+        2:   30:        qul->first->data = value;
+        2:   31:        qul->last = &(qul->first->next);
+        2:   32:        qul->size++;
+        -:   33:    }
+        -:   34:    else
+        -:   35:    {
+        2:   36:        status = EXIT_SUCCESS;
+        2:   37:        *(qul->last) = malloc(sizeof(struct __qu_lst_node));
+       2*:   38:        assert(*(qul->last) != NULL);
+        2:   39:        (*(qul->last))->data = value;
+        2:   40:        (*(qul->last))->next = NULL;
+        2:   41:        qul->last = &((*qul->last)->next);
+        2:   42:        qul->size++;
+        -:   43:    }
+        -:   44:
+        4:   45:    return status;
+        -:   46:}
+        -:   47:
+        4:   48:int qul_pop_front(struct queue_lst *qul, qdata_t *value)
+        -:   49:{
+        4:   50:    int status = EXIT_FAILURE;
+        -:   51:
+        4:   52:    if (qul->size != 0)
+        -:   53:    {
+        4:   54:        status = EXIT_SUCCESS;
+        -:   55:
+        4:   56:        struct __qu_lst_node *next = qul->first->next;
+        4:   57:        *value = qul->first->data;
+        4:   58:        free(qul->first);
+        4:   59:        qul->first = next;
+        -:   60:
+        4:   61:        qul->size--;
+        -:   62:
+        4:   63:        if (qul->size == 0U)
+        2:   64:            qul->last = NULL;
+        -:   65:    }
+        -:   66:
+        4:   67:    return status;
+        -:   68:}

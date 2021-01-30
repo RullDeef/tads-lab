@@ -1,0 +1,15 @@
+config
+set a 2 2
+set b 4 4
+set c 1 1
+set d 1 1
+show
+back
+run a a
+exit
+
+// интересные наборы параметров
+set a 4 4
+set b 2 2
+set c 1 1
+set d 2 2 // некорректное начальное время при втором тестировании

@@ -1,0 +1,72 @@
+        -:    0:Source:src/core/queue/queue_arr.c
+        -:    0:Graph:./obj//core/queue/queue_arr.gcno
+        -:    0:Data:./obj//core/queue/queue_arr.gcda
+        -:    0:Runs:3
+        -:    1:#include <stdlib.h>
+        -:    2:#include <memory.h>
+        -:    3:#include <assert.h>
+        -:    4:#include "queue_arr.h"
+        -:    5:
+        3:    6:struct queue_arr qua_create(uint32_t capacity)
+        -:    7:{
+       3*:    8:    assert(capacity > 0U);
+        -:    9:
+        3:   10:    struct queue_arr qua = { .capacity = capacity, .size = 0U };
+        3:   11:    qua.begin = malloc(capacity * sizeof(qdata_t));
+        3:   12:    qua.end = qua.begin + capacity;
+       3*:   13:    assert(qua.begin != NULL);
+        -:   14:
+        3:   15:    qua.first = qua.begin;
+        3:   16:    qua.last = qua.begin;
+        -:   17:
+        3:   18:    return qua;
+        -:   19:}
+        -:   20:
+        3:   21:void qua_destroy(struct queue_arr *qua)
+        -:   22:{
+        3:   23:    if (qua->begin != NULL)
+        -:   24:    {
+        3:   25:        free(qua->begin);
+        3:   26:        memset(qua, 0, sizeof(struct queue_arr));
+        -:   27:    }
+        3:   28:}
+        -:   29:
+        5:   30:int qua_push_back(struct queue_arr *qua, qdata_t value)
+        -:   31:{
+        5:   32:    int status = EXIT_FAILURE;
+        -:   33:
+        5:   34:    if (qua->size < qua->capacity)
+        -:   35:    {
+        5:   36:        status = EXIT_SUCCESS;
+        -:   37:
+        5:   38:        *(qua->last) = value;
+        5:   39:        qua->last++;
+        -:   40:
+        5:   41:        if (qua->last == qua->end)
+        2:   42:            qua->last = qua->begin;
+        -:   43:
+        5:   44:        qua->size++;
+        -:   45:    }
+        -:   46:
+        5:   47:    return status;
+        -:   48:}
+        -:   49:
+        4:   50:int qua_pop_front(struct queue_arr *qua, qdata_t *value)
+        -:   51:{
+        4:   52:    int status = EXIT_FAILURE;
+        -:   53:
+        4:   54:    if (qua->size > 0U)
+        -:   55:    {
+        4:   56:        status = EXIT_SUCCESS;
+        -:   57:
+        4:   58:        *value = *(qua->first);
+        4:   59:        qua->first++;
+        -:   60:
+        4:   61:        if (qua->first == qua->end)
+        2:   62:            qua->first = qua->begin;
+        -:   63:
+        4:   64:        qua->size--;
+        -:   65:    }
+        -:   66:
+        4:   67:    return status;
+        -:   68:}
